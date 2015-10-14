@@ -1,0 +1,12 @@
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
+<!--
+ @version $Rev: 38127 $
+ @ConQAT.Rating GREEN Hash: 32204064FE5D2B354010EF2DD179BB78
+-->
+<bundle xmlns="http://conqat.cs.tum.edu/ns/bundle">
+	<name>Bundle Name</name>
+	<provider>Bundle Provider</provider>
+	<description>Bundle Description</description>
+	<version major="1" minor="0"/>
+	<requiresCore major="2011" minor="11"/>
+</bundle>

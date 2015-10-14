@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+	$Id: block.cqb 41751 2012-09-18 11:55:06Z kinnen $
+	$Rev: 41751 $
+	@ConQAT.Rating RED Hash: abc
+-->
+<conqat xmlns="http://conqat.cs.tum.edu/ns/config">
+   <block-spec name="StaticCodeAnalysisProject.NestedDepth">
+      <processor class="org.conqat.engine.sourcecode.analysis.NestingDepthAnalyzer" name="nesting-depth-analyzer">
+         <input ref="@src.attr"/>
+         <delimiters close="RBRACE" open="LBRACE"/>
+      </processor>
+      <processor class="org.conqat.engine.commons.assessment.DoubleAssessor" name="double-assessor">
+         <input ref="@nesting-depth-analyzer"/>
+         <write key="NestingDepthAssessor"/>
+         <read key="NestingDepth"/>
+         <range color="GREEN" lower="0" upper="2"/>
+         <range color="YELLOW" lower="2" upper="4"/>
+         <range color="RED" lower="4" upper="100"/>
+      </processor>
+      <processor class="org.conqat.engine.commons.assessment.AssessmentAggregator" name="assessment-aggregator">
+         <read key="NestingDepthAssessor"/>
+         <input ref="@double-assessor"/>
+      </processor>
+      <processor class="org.conqat.engine.html_presentation.layouters.TableLayouter" name="loc-table2">
+         <input ref="@assessment-aggregator"/>
+         <info description="Nested Depth Table" groupId="Nested Depth" name="Nested Depth Table"/>
+      </processor>
+      <param name="src">
+         <attr name="attr"/>
+      </param>
+      <out name="table" ref="@loc-table2"/>
+   </block-spec>
+   <meta type="cq.edit">
+      <entries namespace="nesting-depth-analyzer">
+         <entry key="pos" value="72,96"/>
+      </entries>
+      <entries namespace="double-assessor">
+         <entry key="pos" value="72,168"/>
+      </entries>
+      <entries namespace="assessment-aggregator">
+         <entry key="pos" value="72,240"/>
+      </entries>
+      <entries namespace="loc-table2">
+         <entry key="pos" value="72,312"/>
+      </entries>
+      <entries namespace="src">
+         <entry key="pos" value="103,28"/>
+      </entries>
+      <entries namespace="table">
+         <entry key="pos" value="120,384"/>
+      </entries>
+   </meta>
+</conqat>

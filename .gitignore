@@ -1,0 +1,10 @@
+
+# static code analysis files
+QualityAssurance/staticCodeAnalysis/output/
+.classpath
+.project
+.settings/
+.metadata
+
+# Mac files
+.DS_Store

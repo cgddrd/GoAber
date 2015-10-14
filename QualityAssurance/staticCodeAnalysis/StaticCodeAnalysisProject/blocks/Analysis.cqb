@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+	$Id: block.cqb 41751 2012-09-18 11:55:06Z kinnen $
+	$Rev: 41751 $
+	@ConQAT.Rating RED Hash: abc
+-->
+<conqat xmlns="http://conqat.cs.tum.edu/ns/config">
+   <block-spec name="StaticCodeAnalysisProject.Analysis">
+      <block name="statement-clone-chain" spec="org.conqat.engine.code_clones.detection.StatementCloneChain">
+         <clone minlength="4"/>
+         <info groupId="clones"/>
+         <input scope="@input.attr"/>
+         <output dir="@outputDir.attr" reportname="clonedCode"/>
+         <repetition min-length="1"/>
+      </block>
+      <block name="nested-depth" spec="StaticCodeAnalysisProject.NestedDepth">
+         <src attr="@input.attr"/>
+      </block>
+      <processor class="org.conqat.engine.html_presentation.HTMLPresentation" name="presentation">
+         <result ref="@comments.outputTable"/>
+         <result ref="@comments.outputTreeMap"/>
+         <result ref="@function-length.outputTable"/>
+         <result ref="@function-length.outputTreeMap"/>
+         <result ref="@nested-depth.table"/>
+         <output dir="@outputDir.attr"/>
+         <project title="Group Project"/>
+         <result ref="@statement-clone-chain.html-clones-volume"/>
+         <result ref="@statement-clone-chain.html-coverage"/>
+      </processor>
+      <block name="comments" spec="StaticCodeAnalysisProject.Comments">
+         <output dir="@outputDir.attr"/>
+         <input dir="@input.attr"/>
+      </block>
+      <block name="function-length" spec="StaticCodeAnalysisProject.FunctionLength">
+         <output dir="@outputDir.attr"/>
+         <input dir="@input.attr"/>
+      </block>
+      <param name="input">
+         <attr name="attr"/>
+      </param>
+      <param name="outputDir">
+         <attr name="attr"/>
+      </param>
+   </block-spec>
+   <meta type="cq.edit">
+      <entries namespace="statement-clone-chain">
+         <entry key="pos" value="627,303"/>
+      </entries>
+      <entries namespace="nested-depth">
+         <entry key="pos" value="447,303"/>
+      </entries>
+      <entries namespace="presentation">
+         <entry key="pos" value="360,468"/>
+      </entries>
+      <entries namespace="comments">
+         <entry key="pos" value="48,300"/>
+      </entries>
+      <entries namespace="function-length">
+         <entry key="pos" value="252,300"/>
+      </entries>
+      <entries namespace="input">
+         <entry key="pos" value="312,180"/>
+      </entries>
+      <entries namespace="outputDir">
+         <entry key="pos" value="444,180"/>
+      </entries>
+   </meta>
+</conqat>

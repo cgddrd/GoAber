@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+	$Id: block.cqb 41751 2012-09-18 11:55:06Z kinnen $
+	$Rev: 41751 $
+	@ConQAT.Rating RED Hash: abc
+-->
+<conqat xmlns="http://conqat.cs.tum.edu/ns/config">
+   <block-spec name="StaticCodeAnalysisProject.FunctionLength">
+      <processor class="org.conqat.engine.sourcecode.analysis.findings.BlockLengthAnalyzer" name="block-length-analyzer">
+         <input ref="@input.dir"/>
+         <category name="Block Length"/>
+         <block-type name="member function"/>
+         <block depth="1"/>
+         <open-block token="LBRACE"/>
+         <close-block token="RBRACE"/>
+         <threshold red="60" yellow="40"/>
+         <key name="largest"/>
+      </processor>
+      <processor class="org.conqat.engine.commons.assessment.DoubleAssessor" name="double-assessor2">
+         <input ref="@block-length-analyzer"/>
+         <write key="largestAssessor"/>
+         <read key="largest"/>
+         <range color="GREEN" lower="0" upper="40"/>
+         <range color="YELLOW" lower="40" upper="60"/>
+         <range color="RED" lower="60" upper="500"/>
+      </processor>
+      <processor class="org.conqat.engine.commons.assessment.AssessmentAggregator" name="assessment-aggregator2">
+         <read key="largestAssessor"/>
+         <input ref="@double-assessor2"/>
+      </processor>
+      <processor class="org.conqat.engine.html_presentation.color.AssessmentColorizer" name="assessment-colorizer">
+         <read key="largestAssessor"/>
+         <input ref="@assessment-aggregator2"/>
+      </processor>
+      <processor class="org.conqat.engine.html_presentation.layouters.TableLayouter" name="loc-table3">
+         <input ref="@assessment-aggregator2"/>
+         <info description="Block Length Table" groupId="Block Length" name="Block Length Table"/>
+      </processor>
+      <block name="tree-map-layouter" spec="org.conqat.engine.html_presentation.TreeMapLayouter">
+         <info description="Overview of the highest block lengths" groupId="Block Length" name="Block Length Overview"/>
+         <input ref="@assessment-colorizer"/>
+         <output dir="@output.dir"/>
+         <cushion enable="true"/>
+         <size key="largest"/>
+      </block>
+      <param name="input">
+         <attr name="dir"/>
+      </param>
+      <out name="outputTreeMap" ref="@tree-map-layouter.html-image"/>
+      <out name="outputTable" ref="@loc-table3"/>
+      <param name="output">
+         <attr name="dir"/>
+      </param>
+   </block-spec>
+   <meta type="cq.edit">
+      <entries namespace="block-length-analyzer">
+         <entry key="pos" value="156,60"/>
+      </entries>
+      <entries namespace="double-assessor2">
+         <entry key="pos" value="156,132"/>
+      </entries>
+      <entries namespace="assessment-aggregator2">
+         <entry key="pos" value="156,204"/>
+      </entries>
+      <entries namespace="assessment-colorizer">
+         <entry key="pos" value="84,276"/>
+      </entries>
+      <entries namespace="loc-table3">
+         <entry key="pos" value="252,348"/>
+      </entries>
+      <entries namespace="tree-map-layouter">
+         <entry key="pos" value="72,348"/>
+      </entries>
+      <entries namespace="input">
+         <entry key="pos" value="96,12"/>
+      </entries>
+      <entries namespace="outputTreeMap">
+         <entry key="pos" value="120,432"/>
+      </entries>
+      <entries namespace="outputTable">
+         <entry key="pos" value="300,420"/>
+      </entries>
+      <entries namespace="output">
+         <entry key="pos" value="0,192"/>
+      </entries>
+   </meta>
+</conqat>

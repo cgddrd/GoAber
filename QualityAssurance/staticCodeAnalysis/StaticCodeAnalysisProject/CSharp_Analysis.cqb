@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+	$Id: block.cqb 41751 2012-09-18 11:55:06Z kinnen $
+	$Rev: 41751 $
+	@ConQAT.Rating RED Hash: abc
+-->
+<conqat xmlns="http://conqat.cs.tum.edu/ns/config">
+   <block-spec name="CSharp_Analysis">
+      <block name="src" spec="org.conqat.engine.sourcecode.resource.TokenFileScope">
+         <include pattern="**/*.cs"/>
+         <language name="CS"/>
+         <root dir="@input.dir"/>
+         <project name="AIS_TrackingAndDetecting"/>
+      </block>
+      <param name="input">
+         <attr name="dir"/>
+      </param>
+      <block name="analysis" spec="StaticCodeAnalysisProject.Analysis">
+         <input attr="@src.result"/>
+         <outputDir attr="@outputDir.dir"/>
+      </block>
+      <param name="outputDir">
+         <attr name="dir"/>
+      </param>
+   </block-spec>
+   <meta type="cq.edit">
+      <entries namespace="src">
+         <entry key="pos" value="312,108"/>
+      </entries>
+      <entries namespace="input">
+         <entry key="pos" value="400,36"/>
+      </entries>
+      <entries namespace="analysis">
+         <entry key="pos" value="324,228"/>
+      </entries>
+      <entries namespace="outputDir">
+         <entry key="pos" value="516,132"/>
+      </entries>
+   </meta>
+</conqat>

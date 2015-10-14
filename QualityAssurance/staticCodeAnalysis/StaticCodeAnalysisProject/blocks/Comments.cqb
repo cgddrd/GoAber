@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+	$Id: block.cqb 41751 2012-09-18 11:55:06Z kinnen $
+	$Rev: 41751 $
+	@ConQAT.Rating RED Hash: abc
+-->
+<conqat xmlns="http://conqat.cs.tum.edu/ns/config">
+   <block-spec name="StaticCodeAnalysisProject.Comments">
+      <processor class="org.conqat.engine.resource.analysis.LOCAnalyzer" name="loc-analyzer">
+         <input ref="@input.dir"/>
+      </processor>
+      <processor class="org.conqat.engine.commons.aggregation.SumAggregator" name="loc-aggregator">
+         <read key="LoC"/>
+         <input ref="@loc-analyzer"/>
+      </processor>
+      <processor class="org.conqat.engine.sourcecode.analysis.CommentRatioAnalyzer" name="cr-analyzer">
+         <input ref="@loc-aggregator"/>
+      </processor>
+      <processor class="org.conqat.engine.commons.assessment.DoubleAssessor" name="cr-assessor">
+         <range color="RED" lower="0" upper="0.2"/>
+         <range color="YELLOW" lower="0.2" upper="0.4"/>
+         <range color="GREEN" lower="0.4" upper="1"/>
+         <read key="CR"/>
+         <write key="CR-Assessment"/>
+         <input ref="@cr-analyzer"/>
+      </processor>
+      <processor class="org.conqat.engine.commons.assessment.AssessmentAggregator" name="cr-aggregator">
+         <read key="CR-Assessment"/>
+         <input ref="@cr-assessor"/>
+      </processor>
+      <processor class="org.conqat.engine.html_presentation.color.AssessmentColorizer" name="cr-colorizer">
+         <read key="CR-Assessment"/>
+         <input ref="@cr-aggregator"/>
+      </processor>
+      <processor class="org.conqat.engine.html_presentation.layouters.TableLayouter" name="loc-table">
+         <input ref="@cr-aggregator"/>
+         <info description="Lines of Code" groupId="Lines of Code vs Comments" name="LOC Table"/>
+      </processor>
+      <block name="cr-treemap" spec="org.conqat.engine.html_presentation.TreeMapLayouter">
+         <input ref="@cr-colorizer"/>
+         <cushion enable="true"/>
+         <size key="LoC"/>
+         <dimensions height="600" width="800"/>
+         <frames color="#FFFFFF"/>
+         <output dir="@output.dir"/>
+         <info description="Lines of Code" groupId="Lines of Code vs Comments" name="LOC Overview"/>
+      </block>
+      <param name="input">
+         <attr name="dir"/>
+      </param>
+      <out name="outputTreeMap" ref="@cr-treemap.html-image"/>
+      <out name="outputTable" ref="@loc-table"/>
+      <param name="output">
+         <attr name="dir"/>
+      </param>
+   </block-spec>
+   <meta type="cq.edit">
+      <entries namespace="loc-analyzer">
+         <entry key="pos" value="-42,90"/>
+      </entries>
+      <entries namespace="loc-aggregator">
+         <entry key="pos" value="-42,150"/>
+      </entries>
+      <entries namespace="cr-analyzer">
+         <entry key="pos" value="-42,210"/>
+      </entries>
+      <entries namespace="cr-assessor">
+         <entry key="pos" value="-42,270"/>
+      </entries>
+      <entries namespace="cr-aggregator">
+         <entry key="pos" value="-42,342"/>
+      </entries>
+      <entries namespace="cr-colorizer">
+         <entry key="pos" value="63,399"/>
+      </entries>
+      <entries namespace="loc-table">
+         <entry key="pos" value="-117,471"/>
+      </entries>
+      <entries namespace="cr-treemap">
+         <entry key="pos" value="63,471"/>
+      </entries>
+      <entries namespace="input">
+         <entry key="pos" value="0,36"/>
+      </entries>
+      <entries namespace="outputTreeMap">
+         <entry key="pos" value="108,552"/>
+      </entries>
+      <entries namespace="outputTable">
+         <entry key="pos" value="-72,552"/>
+      </entries>
+      <entries namespace="output">
+         <entry key="pos" value="204,300"/>
+      </entries>
+   </meta>
+</conqat>
