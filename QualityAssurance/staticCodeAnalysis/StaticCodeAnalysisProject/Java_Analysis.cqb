@@ -9,7 +9,7 @@
          <include pattern="**/*.java"/>
          <language name="JAVA"/>
          <root dir="@input.dir"/>
-         <project name="AIS_TrackingAndDetecting"/>
+         <project name="Group Project"/>
       </block>
       <block name="analysis" spec="StaticCodeAnalysisProject.Analysis">
          <input attr="@src.result"/>

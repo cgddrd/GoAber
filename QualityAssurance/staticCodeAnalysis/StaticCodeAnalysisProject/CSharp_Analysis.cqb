@@ -9,7 +9,7 @@
          <include pattern="**/*.cs"/>
          <language name="CS"/>
          <root dir="@input.dir"/>
-         <project name="AIS_TrackingAndDetecting"/>
+         <project name="Group Project"/>
       </block>
       <param name="input">
          <attr name="dir"/>
