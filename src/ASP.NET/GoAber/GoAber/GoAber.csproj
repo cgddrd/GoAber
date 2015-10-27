@@ -187,25 +187,25 @@
     <Compile Include="activitydata.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="activitydatasController.cs" />
+    <Compile Include="Controllers\activitydatasController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="categoriesController.cs" />
+    <Compile Include="Controllers\categoriesController.cs" />
     <Compile Include="category.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
     <Compile Include="categoryunit.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="categoryunitsController.cs" />
+    <Compile Include="Controllers\categoryunitsController.cs" />
     <Compile Include="challenge.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="challengesController.cs" />
-    <Compile Include="communitiesController.cs" />
+    <Compile Include="Controllers\challengesController.cs" />
+    <Compile Include="Controllers\communitiesController.cs" />
     <Compile Include="community.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
@@ -215,11 +215,11 @@
     <Compile Include="device.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="devicesController.cs" />
+    <Compile Include="Controllers\devicesController.cs" />
     <Compile Include="devicetype.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="devicetypesController.cs" />
+    <Compile Include="Controllers\devicetypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,8 +229,8 @@
     <Compile Include="groupchallenge.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="groupchallengesController.cs" />
-    <Compile Include="groupsController.cs" />
+    <Compile Include="Controllers\groupchallengesController.cs" />
+    <Compile Include="Controllers\groupsController.cs" />
     <Compile Include="ModelGoAber.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -254,23 +254,23 @@
     <Compile Include="unit.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="unitsController.cs" />
+    <Compile Include="Controllers\unitsController.cs" />
     <Compile Include="user.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
     <Compile Include="userchallenge.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="userchallengesController.cs" />
+    <Compile Include="Controllers\userchallengesController.cs" />
     <Compile Include="usercredential.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="usercredentialsController.cs" />
+    <Compile Include="Controllers\usercredentialsController.cs" />
     <Compile Include="userrole.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
-    <Compile Include="userrolesController.cs" />
-    <Compile Include="usersController.cs" />
+    <Compile Include="Controllers\userrolesController.cs" />
+    <Compile Include="Controllers\usersController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -417,6 +417,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
