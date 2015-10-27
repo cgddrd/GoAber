@@ -1,0 +1,788 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="goaberModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="activitydata">
+          <Key>
+            <PropertyRef Name="idActivityData" />
+          </Key>
+          <Property Name="idActivityData" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryUnitId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="value" Type="int" />
+          <Property Name="lastUpdated" Type="datetime" Precision="0" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="idCategory" />
+          </Key>
+          <Property Name="idCategory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categoryunit">
+          <Key>
+            <PropertyRef Name="idCategoryUnit" />
+          </Key>
+          <Property Name="idCategoryUnit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryId" Type="int" Nullable="false" />
+          <Property Name="unitId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="challenge">
+          <Key>
+            <PropertyRef Name="idChallenge" />
+          </Key>
+          <Property Name="idChallenge" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryUnit" Type="int" Nullable="false" />
+          <Property Name="startTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="endTime" Type="datetime" Precision="0" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="community">
+          <Key>
+            <PropertyRef Name="idCommunity" />
+          </Key>
+          <Property Name="idCommunity" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="device">
+          <Key>
+            <PropertyRef Name="idDevice" />
+          </Key>
+          <Property Name="idDevice" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="deviceTypeId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="accessToken" Type="varchar" MaxLength="45" />
+          <Property Name="refreshToken" Type="varchar" MaxLength="45" />
+          <Property Name="tokenExpiration" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="devicetype">
+          <Key>
+            <PropertyRef Name="idDeviceType" />
+          </Key>
+          <Property Name="idDeviceType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" />
+          <Property Name="tokenEndpoint" Type="varchar" MaxLength="250" />
+          <Property Name="consumerKey" Type="varchar" MaxLength="45" />
+          <Property Name="consumerSecret" Type="varchar" MaxLength="45" />
+          <Property Name="clientId" Type="varchar" MaxLength="45" />
+          <Property Name="authorizationEndpoint" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="idGroup" />
+          </Key>
+          <Property Name="idGroup" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="communityId" Type="int" />
+        </EntityType>
+        <EntityType Name="groupchallenge">
+          <Key>
+            <PropertyRef Name="idGroupChallenge" />
+          </Key>
+          <Property Name="idGroupChallenge" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="groupId" Type="int" Nullable="false" />
+          <Property Name="challengeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="unit">
+          <Key>
+            <PropertyRef Name="idUnit" />
+          </Key>
+          <Property Name="idUnit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="nickname" Type="varchar" MaxLength="45" />
+          <Property Name="userRoleId" Type="int" Nullable="false" />
+          <Property Name="userCredentialsId" Type="int" />
+          <Property Name="groupId" Type="int" />
+        </EntityType>
+        <EntityType Name="userchallenge">
+          <Key>
+            <PropertyRef Name="idUserChallenge" />
+          </Key>
+          <Property Name="idUserChallenge" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="challengeId" Type="int" Nullable="false" />
+          <Property Name="userId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usercredentials">
+          <Key>
+            <PropertyRef Name="idUserCredentials" />
+          </Key>
+          <Property Name="idUserCredentials" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="userrole">
+          <Key>
+            <PropertyRef Name="idUserRole" />
+          </Key>
+          <Property Name="idUserRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <Association Name="categoryId">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="categoryunit" Type="Self.categoryunit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="idCategory" />
+            </Principal>
+            <Dependent Role="categoryunit">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="catergoryUnit">
+          <End Role="categoryunit" Type="Self.categoryunit" Multiplicity="1" />
+          <End Role="activitydata" Type="Self.activitydata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoryunit">
+              <PropertyRef Name="idCategoryUnit" />
+            </Principal>
+            <Dependent Role="activitydata">
+              <PropertyRef Name="categoryUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="challenge_userChallenge">
+          <End Role="challenge" Type="Self.challenge" Multiplicity="1" />
+          <End Role="userchallenge" Type="Self.userchallenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="challenge">
+              <PropertyRef Name="idChallenge" />
+            </Principal>
+            <Dependent Role="userchallenge">
+              <PropertyRef Name="challengeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="community1">
+          <End Role="community" Type="Self.community" Multiplicity="0..1" />
+          <End Role="group" Type="Self.group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="community">
+              <PropertyRef Name="idCommunity" />
+            </Principal>
+            <Dependent Role="group">
+              <PropertyRef Name="communityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="group1">
+          <End Role="group" Type="Self.group" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="idGroup" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="groupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="unitId">
+          <End Role="unit" Type="Self.unit" Multiplicity="1" />
+          <End Role="categoryunit" Type="Self.categoryunit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unit">
+              <PropertyRef Name="idUnit" />
+            </Principal>
+            <Dependent Role="categoryunit">
+              <PropertyRef Name="unitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="activitydata" Type="Self.activitydata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="activitydata">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_userChallenge">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="userchallenge" Type="Self.userchallenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="userchallenge">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userCredentials1">
+          <End Role="usercredentials" Type="Self.usercredentials" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usercredentials">
+              <PropertyRef Name="idUserCredentials" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="userCredentialsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userRole1">
+          <End Role="userrole" Type="Self.userrole" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userrole">
+              <PropertyRef Name="idUserRole" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="userRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="goaberModelStoreContainer">
+          <EntitySet Name="activitydata" EntityType="Self.activitydata" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="categoryunit" EntityType="Self.categoryunit" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="challenge" EntityType="Self.challenge" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="community" EntityType="Self.community" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="device" EntityType="Self.device" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="devicetype" EntityType="Self.devicetype" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="group" EntityType="Self.group" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="groupchallenge" EntityType="Self.groupchallenge" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="unit" EntityType="Self.unit" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="userchallenge" EntityType="Self.userchallenge" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="usercredentials" EntityType="Self.usercredentials" Schema="goaber" store:Type="Tables" />
+          <EntitySet Name="userrole" EntityType="Self.userrole" Schema="goaber" store:Type="Tables" />
+          <AssociationSet Name="categoryId" Association="Self.categoryId">
+            <End Role="category" EntitySet="category" />
+            <End Role="categoryunit" EntitySet="categoryunit" />
+          </AssociationSet>
+          <AssociationSet Name="catergoryUnit" Association="Self.catergoryUnit">
+            <End Role="categoryunit" EntitySet="categoryunit" />
+            <End Role="activitydata" EntitySet="activitydata" />
+          </AssociationSet>
+          <AssociationSet Name="challenge_userChallenge" Association="Self.challenge_userChallenge">
+            <End Role="challenge" EntitySet="challenge" />
+            <End Role="userchallenge" EntitySet="userchallenge" />
+          </AssociationSet>
+          <AssociationSet Name="community1" Association="Self.community1">
+            <End Role="community" EntitySet="community" />
+            <End Role="group" EntitySet="group" />
+          </AssociationSet>
+          <AssociationSet Name="group1" Association="Self.group1">
+            <End Role="group" EntitySet="group" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="unitId" Association="Self.unitId">
+            <End Role="unit" EntitySet="unit" />
+            <End Role="categoryunit" EntitySet="categoryunit" />
+          </AssociationSet>
+          <AssociationSet Name="user1" Association="Self.user1">
+            <End Role="user" EntitySet="user" />
+            <End Role="activitydata" EntitySet="activitydata" />
+          </AssociationSet>
+          <AssociationSet Name="user_userChallenge" Association="Self.user_userChallenge">
+            <End Role="user" EntitySet="user" />
+            <End Role="userchallenge" EntitySet="userchallenge" />
+          </AssociationSet>
+          <AssociationSet Name="userCredentials1" Association="Self.userCredentials1">
+            <End Role="usercredentials" EntitySet="usercredentials" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="userRole1" Association="Self.userRole1">
+            <End Role="userrole" EntitySet="userrole" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="goaberModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="activitydata">
+          <Key>
+            <PropertyRef Name="idActivityData" />
+          </Key>
+          <Property Name="idActivityData" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryUnitId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="value" Type="Int32" />
+          <Property Name="lastUpdated" Type="DateTime" />
+          <Property Name="date" Type="DateTime" />
+          <NavigationProperty Name="categoryunit" Relationship="Self.catergoryUnit" FromRole="activitydata" ToRole="categoryunit" />
+          <NavigationProperty Name="user" Relationship="Self.user1" FromRole="activitydata" ToRole="user" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="idCategory" />
+          </Key>
+          <Property Name="idCategory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="categoryunits" Relationship="Self.categoryId" FromRole="category" ToRole="categoryunit" />
+        </EntityType>
+        <EntityType Name="categoryunit">
+          <Key>
+            <PropertyRef Name="idCategoryUnit" />
+          </Key>
+          <Property Name="idCategoryUnit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryId" Type="Int32" Nullable="false" />
+          <Property Name="unitId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="activitydatas" Relationship="Self.catergoryUnit" FromRole="categoryunit" ToRole="activitydata" />
+          <NavigationProperty Name="category" Relationship="Self.categoryId" FromRole="categoryunit" ToRole="category" />
+          <NavigationProperty Name="unit" Relationship="Self.unitId" FromRole="categoryunit" ToRole="unit" />
+        </EntityType>
+        <EntityType Name="challenge">
+          <Key>
+            <PropertyRef Name="idChallenge" />
+          </Key>
+          <Property Name="idChallenge" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryUnit" Type="Int32" Nullable="false" />
+          <Property Name="startTime" Type="DateTime" Nullable="false" />
+          <Property Name="endTime" Type="DateTime" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="userchallenges" Relationship="Self.challenge_userChallenge" FromRole="challenge" ToRole="userchallenge" />
+        </EntityType>
+        <EntityType Name="community">
+          <Key>
+            <PropertyRef Name="idCommunity" />
+          </Key>
+          <Property Name="idCommunity" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="groups" Relationship="Self.community1" FromRole="community" ToRole="group" />
+        </EntityType>
+        <EntityType Name="device">
+          <Key>
+            <PropertyRef Name="idDevice" />
+          </Key>
+          <Property Name="idDevice" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="deviceTypeId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <Property Name="accessToken" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="refreshToken" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="tokenExpiration" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="devicetype">
+          <Key>
+            <PropertyRef Name="idDeviceType" />
+          </Key>
+          <Property Name="idDeviceType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="tokenEndpoint" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="consumerKey" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="consumerSecret" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="clientId" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="authorizationEndpoint" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="idGroup" />
+          </Key>
+          <Property Name="idGroup" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="communityId" Type="Int32" />
+          <NavigationProperty Name="community" Relationship="Self.community1" FromRole="group" ToRole="community" />
+          <NavigationProperty Name="users" Relationship="Self.group1" FromRole="group" ToRole="user" />
+        </EntityType>
+        <EntityType Name="groupchallenge">
+          <Key>
+            <PropertyRef Name="idGroupChallenge" />
+          </Key>
+          <Property Name="idGroupChallenge" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="groupId" Type="Int32" Nullable="false" />
+          <Property Name="challengeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="unit">
+          <Key>
+            <PropertyRef Name="idUnit" />
+          </Key>
+          <Property Name="idUnit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="categoryunits" Relationship="Self.unitId" FromRole="unit" ToRole="categoryunit" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nickname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="userRoleId" Type="Int32" Nullable="false" />
+          <Property Name="userCredentialsId" Type="Int32" />
+          <Property Name="groupId" Type="Int32" />
+          <NavigationProperty Name="activitydatas" Relationship="Self.user1" FromRole="user" ToRole="activitydata" />
+          <NavigationProperty Name="group" Relationship="Self.group1" FromRole="user" ToRole="group" />
+          <NavigationProperty Name="userchallenges" Relationship="Self.user_userChallenge" FromRole="user" ToRole="userchallenge" />
+          <NavigationProperty Name="usercredential" Relationship="Self.userCredentials1" FromRole="user" ToRole="usercredentials" />
+          <NavigationProperty Name="userrole" Relationship="Self.userRole1" FromRole="user" ToRole="userrole" />
+        </EntityType>
+        <EntityType Name="userchallenge">
+          <Key>
+            <PropertyRef Name="idUserChallenge" />
+          </Key>
+          <Property Name="idUserChallenge" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="challengeId" Type="Int32" Nullable="false" />
+          <Property Name="userId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="challenge" Relationship="Self.challenge_userChallenge" FromRole="userchallenge" ToRole="challenge" />
+          <NavigationProperty Name="user" Relationship="Self.user_userChallenge" FromRole="userchallenge" ToRole="user" />
+        </EntityType>
+        <EntityType Name="usercredential">
+          <Key>
+            <PropertyRef Name="idUserCredentials" />
+          </Key>
+          <Property Name="idUserCredentials" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="users" Relationship="Self.userCredentials1" FromRole="usercredentials" ToRole="user" />
+        </EntityType>
+        <EntityType Name="userrole">
+          <Key>
+            <PropertyRef Name="idUserRole" />
+          </Key>
+          <Property Name="idUserRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.userRole1" FromRole="userrole" ToRole="user" />
+        </EntityType>
+        <Association Name="catergoryUnit">
+          <End Role="categoryunit" Type="Self.categoryunit" Multiplicity="1" />
+          <End Role="activitydata" Type="Self.activitydata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoryunit">
+              <PropertyRef Name="idCategoryUnit" />
+            </Principal>
+            <Dependent Role="activitydata">
+              <PropertyRef Name="categoryUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="activitydata" Type="Self.activitydata" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="activitydata">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="categoryId">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="categoryunit" Type="Self.categoryunit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="idCategory" />
+            </Principal>
+            <Dependent Role="categoryunit">
+              <PropertyRef Name="categoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="unitId">
+          <End Role="unit" Type="Self.unit" Multiplicity="1" />
+          <End Role="categoryunit" Type="Self.categoryunit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="unit">
+              <PropertyRef Name="idUnit" />
+            </Principal>
+            <Dependent Role="categoryunit">
+              <PropertyRef Name="unitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="challenge_userChallenge">
+          <End Role="challenge" Type="Self.challenge" Multiplicity="1" />
+          <End Role="userchallenge" Type="Self.userchallenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="challenge">
+              <PropertyRef Name="idChallenge" />
+            </Principal>
+            <Dependent Role="userchallenge">
+              <PropertyRef Name="challengeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="community1">
+          <End Role="community" Type="Self.community" Multiplicity="0..1" />
+          <End Role="group" Type="Self.group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="community">
+              <PropertyRef Name="idCommunity" />
+            </Principal>
+            <Dependent Role="group">
+              <PropertyRef Name="communityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="group1">
+          <End Role="group" Type="Self.group" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="idGroup" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="groupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_userChallenge">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="userchallenge" Type="Self.userchallenge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="userchallenge">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userCredentials1">
+          <End Role="usercredentials" Type="Self.usercredential" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usercredentials">
+              <PropertyRef Name="idUserCredentials" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="userCredentialsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userRole1">
+          <End Role="userrole" Type="Self.userrole" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userrole">
+              <PropertyRef Name="idUserRole" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="userRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="goaberEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="activitydatas" EntityType="Self.activitydata" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="categoryunits" EntityType="Self.categoryunit" />
+          <EntitySet Name="challenges" EntityType="Self.challenge" />
+          <EntitySet Name="communities" EntityType="Self.community" />
+          <EntitySet Name="devices" EntityType="Self.device" />
+          <EntitySet Name="devicetypes" EntityType="Self.devicetype" />
+          <EntitySet Name="groups" EntityType="Self.group" />
+          <EntitySet Name="groupchallenges" EntityType="Self.groupchallenge" />
+          <EntitySet Name="units" EntityType="Self.unit" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="userchallenges" EntityType="Self.userchallenge" />
+          <EntitySet Name="usercredentials" EntityType="Self.usercredential" />
+          <EntitySet Name="userroles" EntityType="Self.userrole" />
+          <AssociationSet Name="catergoryUnit" Association="Self.catergoryUnit">
+            <End Role="categoryunit" EntitySet="categoryunits" />
+            <End Role="activitydata" EntitySet="activitydatas" />
+          </AssociationSet>
+          <AssociationSet Name="user1" Association="Self.user1">
+            <End Role="user" EntitySet="users" />
+            <End Role="activitydata" EntitySet="activitydatas" />
+          </AssociationSet>
+          <AssociationSet Name="categoryId" Association="Self.categoryId">
+            <End Role="category" EntitySet="categories" />
+            <End Role="categoryunit" EntitySet="categoryunits" />
+          </AssociationSet>
+          <AssociationSet Name="unitId" Association="Self.unitId">
+            <End Role="unit" EntitySet="units" />
+            <End Role="categoryunit" EntitySet="categoryunits" />
+          </AssociationSet>
+          <AssociationSet Name="challenge_userChallenge" Association="Self.challenge_userChallenge">
+            <End Role="challenge" EntitySet="challenges" />
+            <End Role="userchallenge" EntitySet="userchallenges" />
+          </AssociationSet>
+          <AssociationSet Name="community1" Association="Self.community1">
+            <End Role="community" EntitySet="communities" />
+            <End Role="group" EntitySet="groups" />
+          </AssociationSet>
+          <AssociationSet Name="group1" Association="Self.group1">
+            <End Role="group" EntitySet="groups" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="user_userChallenge" Association="Self.user_userChallenge">
+            <End Role="user" EntitySet="users" />
+            <End Role="userchallenge" EntitySet="userchallenges" />
+          </AssociationSet>
+          <AssociationSet Name="userCredentials1" Association="Self.userCredentials1">
+            <End Role="usercredentials" EntitySet="usercredentials" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="userRole1" Association="Self.userRole1">
+            <End Role="userrole" EntitySet="userroles" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="goaberModelStoreContainer" CdmEntityContainer="goaberEntities">
+          <EntitySetMapping Name="activitydatas">
+            <EntityTypeMapping TypeName="goaberModel.activitydata">
+              <MappingFragment StoreEntitySet="activitydata">
+                <ScalarProperty Name="idActivityData" ColumnName="idActivityData" />
+                <ScalarProperty Name="categoryUnitId" ColumnName="categoryUnitId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="lastUpdated" ColumnName="lastUpdated" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="goaberModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="idCategory" ColumnName="idCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categoryunits">
+            <EntityTypeMapping TypeName="goaberModel.categoryunit">
+              <MappingFragment StoreEntitySet="categoryunit">
+                <ScalarProperty Name="idCategoryUnit" ColumnName="idCategoryUnit" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="unitId" ColumnName="unitId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="challenges">
+            <EntityTypeMapping TypeName="goaberModel.challenge">
+              <MappingFragment StoreEntitySet="challenge">
+                <ScalarProperty Name="idChallenge" ColumnName="idChallenge" />
+                <ScalarProperty Name="categoryUnit" ColumnName="categoryUnit" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="communities">
+            <EntityTypeMapping TypeName="goaberModel.community">
+              <MappingFragment StoreEntitySet="community">
+                <ScalarProperty Name="idCommunity" ColumnName="idCommunity" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devices">
+            <EntityTypeMapping TypeName="goaberModel.device">
+              <MappingFragment StoreEntitySet="device">
+                <ScalarProperty Name="idDevice" ColumnName="idDevice" />
+                <ScalarProperty Name="deviceTypeId" ColumnName="deviceTypeId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="accessToken" ColumnName="accessToken" />
+                <ScalarProperty Name="refreshToken" ColumnName="refreshToken" />
+                <ScalarProperty Name="tokenExpiration" ColumnName="tokenExpiration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devicetypes">
+            <EntityTypeMapping TypeName="goaberModel.devicetype">
+              <MappingFragment StoreEntitySet="devicetype">
+                <ScalarProperty Name="idDeviceType" ColumnName="idDeviceType" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="tokenEndpoint" ColumnName="tokenEndpoint" />
+                <ScalarProperty Name="consumerKey" ColumnName="consumerKey" />
+                <ScalarProperty Name="consumerSecret" ColumnName="consumerSecret" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
+                <ScalarProperty Name="authorizationEndpoint" ColumnName="authorizationEndpoint" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="groups">
+            <EntityTypeMapping TypeName="goaberModel.group">
+              <MappingFragment StoreEntitySet="group">
+                <ScalarProperty Name="idGroup" ColumnName="idGroup" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="communityId" ColumnName="communityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="groupchallenges">
+            <EntityTypeMapping TypeName="goaberModel.groupchallenge">
+              <MappingFragment StoreEntitySet="groupchallenge">
+                <ScalarProperty Name="idGroupChallenge" ColumnName="idGroupChallenge" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+                <ScalarProperty Name="challengeId" ColumnName="challengeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="units">
+            <EntityTypeMapping TypeName="goaberModel.unit">
+              <MappingFragment StoreEntitySet="unit">
+                <ScalarProperty Name="idUnit" ColumnName="idUnit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="goaberModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nickname" ColumnName="nickname" />
+                <ScalarProperty Name="userRoleId" ColumnName="userRoleId" />
+                <ScalarProperty Name="userCredentialsId" ColumnName="userCredentialsId" />
+                <ScalarProperty Name="groupId" ColumnName="groupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userchallenges">
+            <EntityTypeMapping TypeName="goaberModel.userchallenge">
+              <MappingFragment StoreEntitySet="userchallenge">
+                <ScalarProperty Name="idUserChallenge" ColumnName="idUserChallenge" />
+                <ScalarProperty Name="challengeId" ColumnName="challengeId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usercredentials">
+            <EntityTypeMapping TypeName="goaberModel.usercredential">
+              <MappingFragment StoreEntitySet="usercredentials">
+                <ScalarProperty Name="idUserCredentials" ColumnName="idUserCredentials" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userroles">
+            <EntityTypeMapping TypeName="goaberModel.userrole">
+              <MappingFragment StoreEntitySet="userrole">
+                <ScalarProperty Name="idUserRole" ColumnName="idUserRole" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

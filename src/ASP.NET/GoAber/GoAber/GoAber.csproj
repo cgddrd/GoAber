@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C2B03CE7-96A6-45A1-8BD2-7C6B90A58D71}</ProjectGuid>
+    <ProjectGuid>{C4FD555D-AABB-46FA-8EEA-06754907A441}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -49,9 +49,31 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySQL.NET.6.6.4\lib\net40\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySQL.NET.6.6.4\lib\net40\MySql.Data.Entity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.8\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Fabric.Plugin, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Fabric.6.9.8\lib\net45\MySql.Fabric.Plugin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySQL.NET.6.6.4\lib\net40\MySql.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -162,22 +184,93 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="activitydata.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="activitydatasController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="categoriesController.cs" />
+    <Compile Include="category.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="categoryunit.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="categoryunitsController.cs" />
+    <Compile Include="challenge.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="challengesController.cs" />
+    <Compile Include="communitiesController.cs" />
+    <Compile Include="community.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="device.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="devicesController.cs" />
+    <Compile Include="devicetype.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="devicetypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="group.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="groupchallenge.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="groupchallengesController.cs" />
+    <Compile Include="groupsController.cs" />
+    <Compile Include="ModelGoAber.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelGoAber.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelGoAber.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelGoAber.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelGoAber.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="unit.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="unitsController.cs" />
+    <Compile Include="user.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="userchallenge.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="userchallengesController.cs" />
+    <Compile Include="usercredential.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usercredentialsController.cs" />
+    <Compile Include="userrole.cs">
+      <DependentUpon>ModelGoAber.tt</DependentUpon>
+    </Compile>
+    <Compile Include="userrolesController.cs" />
+    <Compile Include="usersController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -186,8 +279,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ModelGoAber.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelGoAber.edmx</DependentUpon>
+      <LastGenOutput>ModelGoAber.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ModelGoAber.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelGoAber.edmx</DependentUpon>
+      <LastGenOutput>ModelGoAber.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="ModelGoAber.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelGoAber.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ModelGoAber.edmx.diagram">
+      <DependentUpon>ModelGoAber.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -234,6 +344,76 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\activitydatas\Create.cshtml" />
+    <Content Include="Views\activitydatas\Delete.cshtml" />
+    <Content Include="Views\activitydatas\Details.cshtml" />
+    <Content Include="Views\activitydatas\Edit.cshtml" />
+    <Content Include="Views\activitydatas\Index.cshtml" />
+    <Content Include="Views\categories\Create.cshtml" />
+    <Content Include="Views\categories\Delete.cshtml" />
+    <Content Include="Views\categories\Details.cshtml" />
+    <Content Include="Views\categories\Edit.cshtml" />
+    <Content Include="Views\categories\Index.cshtml" />
+    <Content Include="Views\categoryunits\Create.cshtml" />
+    <Content Include="Views\categoryunits\Delete.cshtml" />
+    <Content Include="Views\categoryunits\Details.cshtml" />
+    <Content Include="Views\categoryunits\Edit.cshtml" />
+    <Content Include="Views\categoryunits\Index.cshtml" />
+    <Content Include="Views\challenges\Create.cshtml" />
+    <Content Include="Views\challenges\Delete.cshtml" />
+    <Content Include="Views\challenges\Details.cshtml" />
+    <Content Include="Views\challenges\Edit.cshtml" />
+    <Content Include="Views\challenges\Index.cshtml" />
+    <Content Include="Views\communities\Create.cshtml" />
+    <Content Include="Views\communities\Delete.cshtml" />
+    <Content Include="Views\communities\Details.cshtml" />
+    <Content Include="Views\communities\Edit.cshtml" />
+    <Content Include="Views\communities\Index.cshtml" />
+    <Content Include="Views\devices\Create.cshtml" />
+    <Content Include="Views\devices\Delete.cshtml" />
+    <Content Include="Views\devices\Details.cshtml" />
+    <Content Include="Views\devices\Edit.cshtml" />
+    <Content Include="Views\devices\Index.cshtml" />
+    <Content Include="Views\devicetypes\Create.cshtml" />
+    <Content Include="Views\devicetypes\Delete.cshtml" />
+    <Content Include="Views\devicetypes\Details.cshtml" />
+    <Content Include="Views\devicetypes\Edit.cshtml" />
+    <Content Include="Views\devicetypes\Index.cshtml" />
+    <Content Include="Views\groups\Create.cshtml" />
+    <Content Include="Views\groups\Delete.cshtml" />
+    <Content Include="Views\groups\Details.cshtml" />
+    <Content Include="Views\groups\Edit.cshtml" />
+    <Content Include="Views\groups\Index.cshtml" />
+    <Content Include="Views\groupchallenges\Create.cshtml" />
+    <Content Include="Views\groupchallenges\Delete.cshtml" />
+    <Content Include="Views\groupchallenges\Details.cshtml" />
+    <Content Include="Views\groupchallenges\Edit.cshtml" />
+    <Content Include="Views\groupchallenges\Index.cshtml" />
+    <Content Include="Views\units\Create.cshtml" />
+    <Content Include="Views\units\Delete.cshtml" />
+    <Content Include="Views\units\Details.cshtml" />
+    <Content Include="Views\units\Edit.cshtml" />
+    <Content Include="Views\units\Index.cshtml" />
+    <Content Include="Views\users\Create.cshtml" />
+    <Content Include="Views\users\Delete.cshtml" />
+    <Content Include="Views\users\Details.cshtml" />
+    <Content Include="Views\users\Edit.cshtml" />
+    <Content Include="Views\users\Index.cshtml" />
+    <Content Include="Views\userchallenges\Create.cshtml" />
+    <Content Include="Views\userchallenges\Delete.cshtml" />
+    <Content Include="Views\userchallenges\Details.cshtml" />
+    <Content Include="Views\userchallenges\Edit.cshtml" />
+    <Content Include="Views\userchallenges\Index.cshtml" />
+    <Content Include="Views\usercredentials\Create.cshtml" />
+    <Content Include="Views\usercredentials\Delete.cshtml" />
+    <Content Include="Views\usercredentials\Details.cshtml" />
+    <Content Include="Views\usercredentials\Edit.cshtml" />
+    <Content Include="Views\usercredentials\Index.cshtml" />
+    <Content Include="Views\userroles\Create.cshtml" />
+    <Content Include="Views\userroles\Delete.cshtml" />
+    <Content Include="Views\userroles\Details.cshtml" />
+    <Content Include="Views\userroles\Edit.cshtml" />
+    <Content Include="Views\userroles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +425,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -262,9 +445,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>49497</DevelopmentServerPort>
+          <DevelopmentServerPort>52004</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49497/</IISUrl>
+          <IISUrl>http://localhost:52004/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
