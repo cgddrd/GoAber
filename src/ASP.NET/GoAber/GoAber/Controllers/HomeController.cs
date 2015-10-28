@@ -26,5 +26,12 @@ namespace GoAber.Controllers
 
             return View();
         }
+
+        public ActionResult OAuth()
+        {
+            ViewBag.Message = "Oath.";
+
+            return View();
+        }
     }
 }
