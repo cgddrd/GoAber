@@ -8,3 +8,9 @@ QualityAssurance/staticCodeAnalysis/output/
 
 # Mac files
 .DS_Store
+/src/JavaEE/GoAber/nbproject/private/
+/src/JavaEE/GoAber/GoAber-war/nbproject/private/
+/src/JavaEE/GoAber/GoAber-ejb/nbproject/private/
+
+#VP
+*.vpp~*
