@@ -8,7 +8,7 @@ using GoAber.Controllers;
 
 namespace GoAber.Controllers
 {
-    public class OAuthController : Controller, OAuthConnectivity 
+    public class FitBitController : Controller, OAuthConnectivity 
     {
         private string AccessToken
         { 
@@ -30,7 +30,7 @@ namespace GoAber.Controllers
         {
             fitbit.RequestUserAuthorization(
                 new[] { FitbitClient.Scopes.Activity, FitbitClient.Scopes.Heartrate, FitbitClient.Scopes.Sleep }, 
-                new Uri(Url.Action("Callback", "OAuth", null, Request.Url.Scheme))); 
+                new Uri(Url.Action("Callback", "FitBit", null, Request.Url.Scheme))); 
             return View(); 
         }
 
