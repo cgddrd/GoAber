@@ -8,9 +8,25 @@ QualityAssurance/staticCodeAnalysis/output/
 
 # Mac files
 .DS_Store
+
+# NetBeans specific #
 /src/JavaEE/GoAber/nbproject/private/
-/src/JavaEE/GoAber/GoAber-war/nbproject/private/
-/src/JavaEE/GoAber/GoAber-ejb/nbproject/private/
+/src/JavaEE/GoAber/build/
+/src/JavaEE/GoAber/nbbuild/
+/src/JavaEE/GoAber/dist/
+/src/JavaEE/GoAber/nbdist/
+/src/JavaEE/GoAber/nbactions.xml
+/src/JavaEE/GoAber/nb-configuration.xml
+/src/JavaEE/GoAber/GoAber-ejb/nbproject/
+/src/JavaEE/GoAber/GoAber-war/nbproject/
+
+# Class Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
 
 #VP
 *.vpp~*
