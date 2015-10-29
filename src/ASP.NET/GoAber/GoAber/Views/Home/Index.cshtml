@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
 }
 
 <div class="jumbotron">
@@ -7,6 +8,50 @@
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
+
+@helper selected(string c, string culture)
+{
+if (c == culture)
+{
+        @:checked="checked"
+    }
+}
+
+@using (Html.BeginForm("SetCulture", "Home"))
+{
+    <fieldset>
+        <legend>@Resources.ChooseYourLanguage</legend>
+        <div class="control-group">
+            <div class="controls">
+                <label for="en">
+                    <input name="culture" id="en" value="en" type="radio" @selected("en", culture) /> English
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label for="cy">
+                    <input name="culture" id="cy" value="cy" type="radio" @selected("cy", culture) /> Welsh
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label for="es">
+                    <input name="culture" id="es" value="es" type="radio" @selected("es", culture) /> Spanish
+                </label>
+            </div>
+        </div>
+
+    </fieldset>
+
+
+
+}
+
+<p>@Resources.Test1</p>
+<p>@Resources.Test2</p>
+
 
 <div class="row">
     <div class="col-md-4">
@@ -29,3 +74,15 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        (function ($) {
+            $("input[type = 'radio']").click(function () {
+                $(this).parents("form").submit(); // post form
+            });
+
+        })(jQuery);
+    </script>
+}
