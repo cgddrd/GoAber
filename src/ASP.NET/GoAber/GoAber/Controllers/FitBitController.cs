@@ -5,6 +5,8 @@ using System.Net;
 using System;
 using System.Net.Http;
 using GoAber.Controllers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace GoAber.Controllers
 {
@@ -73,25 +75,55 @@ namespace GoAber.Controllers
         public ActionResult ShowDay()
         {
             
-            ViewBag.Result = "Starting <br />";
             string result = String.Empty;
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", (String)Session["InitialAccessToken"]);
-                ViewBag.RequestingUrl = String.Format("https://api.fitbit.com/1/user/-/activities/date/{0}-{1}-{2}.json", 2015, 05, 01);
+                int day = DateTime.Now.Day;
+                int month = DateTime.Now.Month;
+                int year = DateTime.Now.Year;
+                ViewBag.RequestingUrl = String.Format("https://api.fitbit.com/1/user/-/activities/date/{0}-{1}-{2}.json", year, month, day);
                 var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result; 
                 if(apiResponse.IsSuccessStatusCode)
                 {
                     result = apiResponse.Content.ReadAsStringAsync().Result;
-                    ViewBag.Result += result; 
+                    ViewBag.Result = result; 
                 }
                 else
                 {
                     ViewBag.Result = apiResponse.StatusCode; 
                 }
             }
-            return View(); 
+            return View();
         }
+
+        public ActionResult ShowHeartDay()
+        {
+            string result = String.Empty;
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", (String)Session["InitialAccessToken"]);
+                int day = DateTime.Now.Day;
+                int month = DateTime.Now.Month;
+                int year = DateTime.Now.Year;
+                ViewBag.RequestingUrl = String.Format("https://api.fitbit.com/1/user/-/activities/heart/date/{0}/{1}.json", "today","1d");
+                var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
+                if (apiResponse.IsSuccessStatusCode)
+                {
+                    result = apiResponse.Content.ReadAsStringAsync().Result;
+                    ViewBag.Result = result;
+                }
+                else
+                {
+                    ViewBag.Result = apiResponse.StatusCode;
+                }
+            }
+            return View();
+        }
+
+        
+
+
 
     }
 }

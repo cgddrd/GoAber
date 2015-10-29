@@ -333,6 +333,7 @@
     <Content Include="Views\FitBit\Index.cshtml" />
     <Content Include="Views\FitBit\ShowDay.cshtml" />
     <Content Include="Views\FitBit\StartOAuth.cshtml" />
+    <Content Include="Views\FitBit\ShowHeartDay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
