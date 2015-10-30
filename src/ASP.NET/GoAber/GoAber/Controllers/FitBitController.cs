@@ -10,13 +10,13 @@ using Newtonsoft.Json.Linq;
 
 namespace GoAber.Controllers
 {
-    public class FitBitController : Controller, OAuthConnectivity 
+    public class FitBitController : Controller, OAuthConnectivity
     {
         private string AccessToken
-        { 
- 			get { return (string)Session["FitbitAccessToken"]; } 
- 			set { Session["FitbitAccessToken"] = value; } 
- 		}
+        {
+            get { return (string)Session["FitbitAccessToken"]; }
+            set { Session["FitbitAccessToken"] = value; }
+        }
 
         private WebServerClient fitbit = new WebServerClient(
                 FitbitClient.ServiceDescription,
@@ -25,15 +25,15 @@ namespace GoAber.Controllers
 
         public ActionResult Index()
         {
-            return View(); 
+            return View();
         }
 
         public ActionResult StartOAuth()
         {
             fitbit.RequestUserAuthorization(
-                new[] { FitbitClient.Scopes.Activity, FitbitClient.Scopes.Heartrate, FitbitClient.Scopes.Sleep }, 
-                new Uri(Url.Action("Callback", "FitBit", null, Request.Url.Scheme))); 
-            return View(); 
+                new[] { FitbitClient.Scopes.Activity, FitbitClient.Scopes.Heartrate, FitbitClient.Scopes.Sleep },
+                new Uri(Url.Action("Callback", "FitBit", null, Request.Url.Scheme)));
+            return View();
         }
 
         public ActionResult Callback(string code)
@@ -64,35 +64,32 @@ namespace GoAber.Controllers
                     ViewBag.Message += "finished the callback.";
                 }
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
-                ViewBag.Message += "Exception accessing the code. " + e.Message; 
+                ViewBag.Message += "Exception accessing the code. " + e.Message;
             }
-            
+
             return View();
         }
 
         public ActionResult ShowDay()
-        {
-            
+        { 
             string result = String.Empty;
-            using (HttpClient client = new HttpClient())
+            HttpClient client = getAuthorisedClient();
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", (String)Session["InitialAccessToken"]);
+            int day = DateTime.Now.Day;
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
+            ViewBag.RequestingUrl = String.Format("https://api.fitbit.com/1/user/-/activities/date/{0}-{1}-{2}.json", year, month, day);
+            var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
+            if (apiResponse.IsSuccessStatusCode)
             {
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", (String)Session["InitialAccessToken"]);
-                int day = DateTime.Now.Day;
-                int month = DateTime.Now.Month;
-                int year = DateTime.Now.Year;
-                ViewBag.RequestingUrl = String.Format("https://api.fitbit.com/1/user/-/activities/date/{0}-{1}-{2}.json", year, month, day);
-                var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result; 
-                if(apiResponse.IsSuccessStatusCode)
-                {
-                    result = apiResponse.Content.ReadAsStringAsync().Result;
-                    ViewBag.Result = result; 
-                }
-                else
-                {
-                    ViewBag.Result = apiResponse.StatusCode; 
-                }
+                result = apiResponse.Content.ReadAsStringAsync().Result;
+                ViewBag.Result = result;
+            }
+            else
+            {
+                ViewBag.Result = apiResponse.StatusCode;
             }
             return View();
         }
@@ -100,30 +97,29 @@ namespace GoAber.Controllers
         public ActionResult ShowHeartDay()
         {
             string result = String.Empty;
-            using (HttpClient client = new HttpClient())
+            HttpClient client = getAuthorisedClient();
+            int day = DateTime.Now.Day;
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
+            ViewBag.RequestingUrl = String.Format("https://api.fitbit.com/1/user/-/activities/heart/date/{0}/{1}.json", "today", "1d");
+            var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
+            if (apiResponse.IsSuccessStatusCode)
             {
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", (String)Session["InitialAccessToken"]);
-                int day = DateTime.Now.Day;
-                int month = DateTime.Now.Month;
-                int year = DateTime.Now.Year;
-                ViewBag.RequestingUrl = String.Format("https://api.fitbit.com/1/user/-/activities/heart/date/{0}/{1}.json", "today","1d");
-                var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
-                if (apiResponse.IsSuccessStatusCode)
-                {
-                    result = apiResponse.Content.ReadAsStringAsync().Result;
-                    ViewBag.Result = result;
-                }
-                else
-                {
-                    ViewBag.Result = apiResponse.StatusCode;
-                }
+                result = apiResponse.Content.ReadAsStringAsync().Result;
+                ViewBag.Result = result;
+            }
+            else
+            {
+                ViewBag.Result = apiResponse.StatusCode;
             }
             return View();
         }
 
-        
-
-
-
+        private HttpClient getAuthorisedClient()
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", (String)Session["InitialAccessToken"]);
+            return client;
+        }
     }
 }
