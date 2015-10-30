@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListGroupTableTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListGroupTableEmpty}" rendered="#{groupTableController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{groupTableController.items.rowCount > 0}">
+                    <h:outputText value="#{groupTableController.pagination.pageFirstItem + 1}..#{groupTableController.pagination.pageLastItem + 1}/#{groupTableController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{groupTableController.previous}" value="#{bundle.Previous} #{groupTableController.pagination.pageSize}" rendered="#{groupTableController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{groupTableController.next}" value="#{bundle.Next} #{groupTableController.pagination.pageSize}" rendered="#{groupTableController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{groupTableController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGroupTableTitle_idGroup}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idGroup}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGroupTableTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGroupTableTitle_communityId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.communityId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{groupTableController.prepareView}" value="#{bundle.ListGroupTableViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{groupTableController.prepareEdit}" value="#{bundle.ListGroupTableEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{groupTableController.destroy}" value="#{bundle.ListGroupTableDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{groupTableController.prepareCreate}" value="#{bundle.ListGroupTableCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListGroupTableIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

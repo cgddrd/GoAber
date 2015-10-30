@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditGroupTableTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditGroupTableLabel_idGroup}" for="idGroup" />
+                    <h:inputText id="idGroup" value="#{groupTableController.selected.idGroup}" title="#{bundle.EditGroupTableTitle_idGroup}" required="true" requiredMessage="#{bundle.EditGroupTableRequiredMessage_idGroup}"/>
+                    <h:outputLabel value="#{bundle.EditGroupTableLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{groupTableController.selected.name}" title="#{bundle.EditGroupTableTitle_name}" required="true" requiredMessage="#{bundle.EditGroupTableRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.EditGroupTableLabel_communityId}" for="communityId" />
+                    <h:selectOneMenu id="communityId" value="#{groupTableController.selected.communityId}" title="#{bundle.EditGroupTableTitle_communityId}" >
+                        <f:selectItems value="#{communityController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{groupTableController.update}" value="#{bundle.EditGroupTableSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditGroupTableViewLink}"/>
+                <br />
+                <h:commandLink action="#{groupTableController.prepareList}" value="#{bundle.EditGroupTableShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditGroupTableIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
