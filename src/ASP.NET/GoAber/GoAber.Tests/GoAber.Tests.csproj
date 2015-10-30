@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FF967E8A-A3F9-43E3-9B7B-2B4267EF244E}</ProjectGuid>
+    <ProjectGuid>{7B0456FE-0EF1-485B-AFED-13B04D2AC9B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GoAber.Tests</RootNamespace>
@@ -123,6 +123,14 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Fabric.Plugin, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Fabric.6.9.8\lib\net45\MySql.Fabric.Plugin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -187,7 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoAber\GoAber.csproj">
-      <Project>{C2B03CE7-96A6-45A1-8BD2-7C6B90A58D71}</Project>
+      <Project>{C4FD555D-AABB-46FA-8EEA-06754907A441}</Project>
       <Name>GoAber</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<GoAber.groupchallenge>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.groupId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.challengeId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.groupId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.challengeId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idGroupChallenge }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idGroupChallenge }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idGroupChallenge })
+        </td>
+    </tr>
+}
+
+</table>
