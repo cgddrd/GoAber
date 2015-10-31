@@ -59,7 +59,7 @@ public class User implements Serializable {
     private Collection<ActivityData> activityDataCollection;
     @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
     @ManyToOne
-    private GroupTable groupId;
+    private Team groupId;
     @JoinColumn(name = "userCredentialsId", referencedColumnName = "idUserCredentials")
     @ManyToOne
     private UserCredentials userCredentialsId;
@@ -121,11 +121,11 @@ public class User implements Serializable {
         this.activityDataCollection = activityDataCollection;
     }
 
-    public GroupTable getGroupId() {
+    public Team getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(GroupTable groupId) {
+    public void setGroupId(Team groupId) {
         this.groupId = groupId;
     }
 

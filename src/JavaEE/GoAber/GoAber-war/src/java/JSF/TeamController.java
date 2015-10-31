@@ -1,9 +1,9 @@
 package JSF;
 
-import GoAberDatabase.GroupTable;
+import GoAberDatabase.Team;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
-import SessionBean.GroupTableFacade;
+import SessionBean.TeamFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,29 +18,29 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "groupTableController")
+@ManagedBean(name = "teamController")
 @SessionScoped
-public class GroupTableController implements Serializable {
+public class TeamController implements Serializable {
 
-    private GroupTable current;
+    private Team current;
     private DataModel items = null;
     @EJB
-    private SessionBean.GroupTableFacade ejbFacade;
+    private SessionBean.TeamFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public GroupTableController() {
+    public TeamController() {
     }
 
-    public GroupTable getSelected() {
+    public Team getSelected() {
         if (current == null) {
-            current = new GroupTable();
+            current = new Team();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private GroupTableFacade getFacade() {
+    private TeamFacade getFacade() {
         return ejbFacade;
     }
 
@@ -68,13 +68,13 @@ public class GroupTableController implements Serializable {
     }
 
     public String prepareView() {
-        current = (GroupTable) getItems().getRowData();
+        current = (Team) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new GroupTable();
+        current = new Team();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -82,7 +82,7 @@ public class GroupTableController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("GroupTableCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeamCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -91,7 +91,7 @@ public class GroupTableController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (GroupTable) getItems().getRowData();
+        current = (Team) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -99,7 +99,7 @@ public class GroupTableController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("GroupTableUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeamUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -108,7 +108,7 @@ public class GroupTableController implements Serializable {
     }
 
     public String destroy() {
-        current = (GroupTable) getItems().getRowData();
+        current = (Team) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -132,7 +132,7 @@ public class GroupTableController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("GroupTableDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeamDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -188,16 +188,16 @@ public class GroupTableController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = GroupTable.class)
-    public static class GroupTableControllerConverter implements Converter {
+    @FacesConverter(forClass = Team.class)
+    public static class TeamControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            GroupTableController controller = (GroupTableController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "groupTableController");
+            TeamController controller = (TeamController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "teamController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -218,11 +218,11 @@ public class GroupTableController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof GroupTable) {
-                GroupTable o = (GroupTable) object;
+            if (object instanceof Team) {
+                Team o = (Team) object;
                 return getStringKey(o.getIdGroup());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + GroupTable.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Team.class.getName());
             }
         }
 

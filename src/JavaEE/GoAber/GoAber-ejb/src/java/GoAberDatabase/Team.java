@@ -6,7 +6,6 @@
 package GoAberDatabase;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,25 +16,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author helen
  */
 @Entity
-@Table(name = "group")
+@Table(name = "team")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "GroupTable.findAll", query = "SELECT g FROM GroupTable g"),
-    @NamedQuery(name = "GroupTable.findByIdGroup", query = "SELECT g FROM GroupTable g WHERE g.idGroup = :idGroup"),
-    @NamedQuery(name = "GroupTable.findByName", query = "SELECT g FROM GroupTable g WHERE g.name = :name")})
-public class GroupTable implements Serializable {
+    @NamedQuery(name = "Team.findAll", query = "SELECT t FROM Team t"),
+    @NamedQuery(name = "Team.findByIdGroup", query = "SELECT t FROM Team t WHERE t.idGroup = :idGroup"),
+    @NamedQuery(name = "Team.findByName", query = "SELECT t FROM Team t WHERE t.name = :name")})
+public class Team implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,20 +44,18 @@ public class GroupTable implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "groupId")
-    private Collection<User> userCollection;
     @JoinColumn(name = "communityId", referencedColumnName = "idCommunity")
     @ManyToOne
     private Community communityId;
 
-    public GroupTable() {
+    public Team() {
     }
 
-    public GroupTable(Integer idGroup) {
+    public Team(Integer idGroup) {
         this.idGroup = idGroup;
     }
 
-    public GroupTable(Integer idGroup, String name) {
+    public Team(Integer idGroup, String name) {
         this.idGroup = idGroup;
         this.name = name;
     }
@@ -81,15 +76,6 @@ public class GroupTable implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
-    }
-
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
-    }
-
     public Community getCommunityId() {
         return communityId;
     }
@@ -108,10 +94,10 @@ public class GroupTable implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof GroupTable)) {
+        if (!(object instanceof Team)) {
             return false;
         }
-        GroupTable other = (GroupTable) object;
+        Team other = (Team) object;
         if ((this.idGroup == null && other.idGroup != null) || (this.idGroup != null && !this.idGroup.equals(other.idGroup))) {
             return false;
         }
@@ -120,7 +106,7 @@ public class GroupTable implements Serializable {
 
     @Override
     public String toString() {
-        return "GoAberDatabase.GroupTable[ idGroup=" + idGroup + " ]";
+        return "GoAberDatabase.Team[ idGroup=" + idGroup + " ]";
     }
     
 }

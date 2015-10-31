@@ -5,7 +5,7 @@
  */
 package SessionBean;
 
-import GoAberDatabase.GroupTable;
+import GoAberDatabase.Team;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author helen
  */
 @Stateless
-public class GroupTableFacade extends AbstractFacade<GroupTable> {
+public class TeamFacade extends AbstractFacade<Team> {
     @PersistenceContext(unitName = "GoAber-warPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class GroupTableFacade extends AbstractFacade<GroupTable> {
         return em;
     }
 
-    public GroupTableFacade() {
-        super(GroupTable.class);
+    public TeamFacade() {
+        super(Team.class);
     }
     
 }

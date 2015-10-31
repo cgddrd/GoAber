@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Community.findByIdCommunity", query = "SELECT c FROM Community c WHERE c.idCommunity = :idCommunity"),
     @NamedQuery(name = "Community.findByName", query = "SELECT c FROM Community c WHERE c.name = :name")})
 public class Community implements Serializable {
+    @OneToMany(mappedBy = "communityId")
+    private Collection<Team> teamCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +47,8 @@ public class Community implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "communityId")
-    private Collection<GroupTable> groupTableCollection;
+  //  @OneToMany(mappedBy = "communityId")
+   // private Collection<GroupTable> groupTableCollection;
 
     public Community() {
     }
@@ -76,14 +78,14 @@ public class Community implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
+  /*  @XmlTransient
     public Collection<GroupTable> getGroupTableCollection() {
         return groupTableCollection;
     }
 
     public void setGroupTableCollection(Collection<GroupTable> groupTableCollection) {
         this.groupTableCollection = groupTableCollection;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -108,6 +110,15 @@ public class Community implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.Community[ idCommunity=" + idCommunity + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Team> getTeamCollection() {
+        return teamCollection;
+    }
+
+    public void setTeamCollection(Collection<Team> teamCollection) {
+        this.teamCollection = teamCollection;
     }
     
 }
