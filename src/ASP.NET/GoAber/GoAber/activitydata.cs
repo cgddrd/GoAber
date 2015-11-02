@@ -12,7 +12,7 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class activitydata
+    public partial class ActivityData
     {
         public int idActivityData { get; set; }
         public int categoryUnitId { get; set; }
@@ -21,7 +21,7 @@ namespace GoAber
         public Nullable<System.DateTime> lastUpdated { get; set; }
         public Nullable<System.DateTime> date { get; set; }
     
-        public virtual categoryunit categoryunit { get; set; }
-        public virtual user user { get; set; }
+        public virtual CategoryUnit categoryunit { get; set; }
+        public virtual User user { get; set; }
     }
 }

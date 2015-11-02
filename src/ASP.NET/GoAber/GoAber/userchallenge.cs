@@ -12,13 +12,13 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class userchallenge
+    public partial class UserChallenge
     {
         public int idUserChallenge { get; set; }
         public int challengeId { get; set; }
         public int userId { get; set; }
     
-        public virtual challenge challenge { get; set; }
-        public virtual user user { get; set; }
+        public virtual Challenge challenge { get; set; }
+        public virtual User user { get; set; }
     }
 }
