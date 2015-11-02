@@ -12,13 +12,13 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class user
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public user()
+        public User()
         {
-            this.activitydatas = new HashSet<activitydata>();
-            this.userchallenges = new HashSet<userchallenge>();
+            this.activitydatas = new HashSet<ActivityData>();
+            this.userchallenges = new HashSet<UserChallenge>();
         }
     
         public int idUser { get; set; }
@@ -29,11 +29,11 @@ namespace GoAber
         public Nullable<int> groupId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<activitydata> activitydatas { get; set; }
-        public virtual group group { get; set; }
+        public virtual ICollection<ActivityData> activitydatas { get; set; }
+        public virtual Group group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userchallenge> userchallenges { get; set; }
-        public virtual usercredential usercredential { get; set; }
-        public virtual userrole userrole { get; set; }
+        public virtual ICollection<UserChallenge> userchallenges { get; set; }
+        public virtual UserCredential usercredential { get; set; }
+        public virtual UserRole userrole { get; set; }
     }
 }

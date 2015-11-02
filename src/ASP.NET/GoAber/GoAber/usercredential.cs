@@ -12,18 +12,18 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class usercredential
+    public partial class UserCredential
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public usercredential()
+        public UserCredential()
         {
-            this.users = new HashSet<user>();
+            this.users = new HashSet<User>();
         }
     
         public int idUserCredentials { get; set; }
         public string password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user> users { get; set; }
+        public virtual ICollection<User> users { get; set; }
     }
 }
