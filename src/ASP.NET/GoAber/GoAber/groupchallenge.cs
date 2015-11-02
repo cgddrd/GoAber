@@ -17,5 +17,8 @@ namespace GoAber
         public int idGroupChallenge { get; set; }
         public int groupId { get; set; }
         public int challengeId { get; set; }
+    
+        public virtual Challenge challenge { get; set; }
+        public virtual Team team { get; set; }
     }
 }

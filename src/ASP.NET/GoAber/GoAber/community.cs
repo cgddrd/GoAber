@@ -17,13 +17,13 @@ namespace GoAber
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Community()
         {
-            this.groups = new HashSet<Group>();
+            this.teams = new HashSet<Team>();
         }
     
         public int idCommunity { get; set; }
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Group> groups { get; set; }
+        public virtual ICollection<Team> teams { get; set; }
     }
 }

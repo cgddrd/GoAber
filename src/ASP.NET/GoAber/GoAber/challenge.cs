@@ -18,6 +18,7 @@ namespace GoAber
         public Challenge()
         {
             this.userchallenges = new HashSet<UserChallenge>();
+            this.groupchallenges = new HashSet<GroupChallenge>();
         }
     
         public int idChallenge { get; set; }
@@ -28,5 +29,7 @@ namespace GoAber
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChallenge> userchallenges { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GroupChallenge> groupchallenges { get; set; }
     }
 }

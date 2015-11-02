@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="GoAberModel.Community" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="GoAberModel.Device" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GoAberModel.Devicetype" Width="1.5" PointX="9.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GoAberModel.Group" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GoAberModel.GroupChallenge" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GoAberModel.Unit" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="GoAberModel.User" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
@@ -24,11 +23,16 @@
         <AssociationConnector Association="GoAberModel.categoryId" ManuallyRouted="false" />
         <AssociationConnector Association="GoAberModel.unitId" ManuallyRouted="false" />
         <AssociationConnector Association="GoAberModel.challenge_userChallenge" ManuallyRouted="false" />
-        <AssociationConnector Association="GoAberModel.community1" ManuallyRouted="false" />
-        <AssociationConnector Association="GoAberModel.group1" ManuallyRouted="false" />
         <AssociationConnector Association="GoAberModel.user_userChallenge" ManuallyRouted="false" />
         <AssociationConnector Association="GoAberModel.userCredentials1" ManuallyRouted="false" />
         <AssociationConnector Association="GoAberModel.userRole1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GoAberModel.Team" Width="1.5" PointX="3" PointY="15.75" />
+        <AssociationConnector Association="GoAberModel.challenge_groupChallenge" />
+        <AssociationConnector Association="GoAberModel.community_team" />
+        <AssociationConnector Association="GoAberModel.deviceType_Device" />
+        <AssociationConnector Association="GoAberModel.user_Device" />
+        <AssociationConnector Association="GoAberModel.group_groupChallenge" />
+        <AssociationConnector Association="GoAberModel.group_user" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

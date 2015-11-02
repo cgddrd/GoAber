@@ -20,5 +20,8 @@ namespace GoAber
         public string accessToken { get; set; }
         public string refreshToken { get; set; }
         public Nullable<System.DateTime> tokenExpiration { get; set; }
+    
+        public virtual Devicetype devicetype { get; set; }
+        public virtual User user { get; set; }
     }
 }

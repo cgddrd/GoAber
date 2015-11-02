@@ -21,6 +21,7 @@ namespace GoAber
         }
     
         public int idUnit { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CategoryUnit> categoryunits { get; set; }

@@ -233,9 +233,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GoAberDataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Group.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="GroupChallenge.cs">
       <DependentUpon>GoAberDataModel.tt</DependentUpon>
     </Compile>
@@ -247,6 +244,9 @@
     <Compile Include="MySqlInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Team.cs">
+      <DependentUpon>GoAberDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Unit.cs">
       <DependentUpon>GoAberDataModel.tt</DependentUpon>
     </Compile>

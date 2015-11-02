@@ -25,19 +25,19 @@ namespace GoAber
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ActivityData> ActivityDatas1 { get; set; }
-        public virtual DbSet<Category> Categories1 { get; set; }
-        public virtual DbSet<CategoryUnit> CategoryUnits1 { get; set; }
-        public virtual DbSet<Challenge> Challenges1 { get; set; }
-        public virtual DbSet<Community> Communities1 { get; set; }
-        public virtual DbSet<Device> Devices1 { get; set; }
-        public virtual DbSet<Devicetype> Devicetypes1 { get; set; }
-        public virtual DbSet<Group> Groups1 { get; set; }
-        public virtual DbSet<GroupChallenge> GroupChallenges1 { get; set; }
-        public virtual DbSet<Unit> Units1 { get; set; }
-        public virtual DbSet<User> Users1 { get; set; }
+        public virtual DbSet<ActivityData> ActivityDatas { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<CategoryUnit> CategoryUnits { get; set; }
+        public virtual DbSet<Challenge> Challenges { get; set; }
+        public virtual DbSet<Community> Communities { get; set; }
+        public virtual DbSet<Device> Devices { get; set; }
+        public virtual DbSet<Devicetype> Devicetypes { get; set; }
+        public virtual DbSet<GroupChallenge> GroupChallenges { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserChallenge> UserChallenges { get; set; }
-        public virtual DbSet<UserCredential> UserCredentials2 { get; set; }
-        public virtual DbSet<UserRole> UserRoles1 { get; set; }
+        public virtual DbSet<UserCredential> UserCredentials { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
     }
 }

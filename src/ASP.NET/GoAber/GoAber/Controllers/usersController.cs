@@ -17,7 +17,7 @@ namespace GoAber.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var users1 = db.Users1.Include(u => u.group).Include(u => u.usercredential).Include(u => u.userrole);
+            var users1 = db.Users.Include(u => u.team).Include(u => u.usercredential).Include(u => u.userrole);
             return View(users1.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace GoAber.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users1.Find(id);
+            User user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -39,9 +39,9 @@ namespace GoAber.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.groupId = new SelectList(db.Groups1, "idGroup", "name");
-            ViewBag.userCredentialsId = new SelectList(db.UserCredentials2, "idUserCredentials", "password");
-            ViewBag.userRoleId = new SelectList(db.UserRoles1, "idUserRole", "type");
+            ViewBag.groupId = new SelectList(db.Teams, "idGroup", "name");
+            ViewBag.userCredentialsId = new SelectList(db.UserCredentials, "idUserCredentials", "password");
+            ViewBag.userRoleId = new SelectList(db.UserRoles, "idUserRole", "type");
             return View();
         }
 
@@ -54,14 +54,14 @@ namespace GoAber.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users1.Add(user);
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.groupId = new SelectList(db.Groups1, "idGroup", "name", user.groupId);
-            ViewBag.userCredentialsId = new SelectList(db.UserCredentials2, "idUserCredentials", "password", user.userCredentialsId);
-            ViewBag.userRoleId = new SelectList(db.UserRoles1, "idUserRole", "type", user.userRoleId);
+            ViewBag.groupId = new SelectList(db.Teams, "idGroup", "name", user.groupId);
+            ViewBag.userCredentialsId = new SelectList(db.UserCredentials, "idUserCredentials", "password", user.userCredentialsId);
+            ViewBag.userRoleId = new SelectList(db.UserRoles, "idUserRole", "type", user.userRoleId);
             return View(user);
         }
 
@@ -72,14 +72,14 @@ namespace GoAber.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users1.Find(id);
+            User user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.groupId = new SelectList(db.Groups1, "idGroup", "name", user.groupId);
-            ViewBag.userCredentialsId = new SelectList(db.UserCredentials2, "idUserCredentials", "password", user.userCredentialsId);
-            ViewBag.userRoleId = new SelectList(db.UserRoles1, "idUserRole", "type", user.userRoleId);
+            ViewBag.groupId = new SelectList(db.Teams, "idGroup", "name", user.groupId);
+            ViewBag.userCredentialsId = new SelectList(db.UserCredentials, "idUserCredentials", "password", user.userCredentialsId);
+            ViewBag.userRoleId = new SelectList(db.UserRoles, "idUserRole", "type", user.userRoleId);
             return View(user);
         }
 
@@ -96,9 +96,9 @@ namespace GoAber.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.groupId = new SelectList(db.Groups1, "idGroup", "name", user.groupId);
-            ViewBag.userCredentialsId = new SelectList(db.UserCredentials2, "idUserCredentials", "password", user.userCredentialsId);
-            ViewBag.userRoleId = new SelectList(db.UserRoles1, "idUserRole", "type", user.userRoleId);
+            ViewBag.groupId = new SelectList(db.Teams, "idGroup", "name", user.groupId);
+            ViewBag.userCredentialsId = new SelectList(db.UserCredentials, "idUserCredentials", "password", user.userCredentialsId);
+            ViewBag.userRoleId = new SelectList(db.UserRoles, "idUserRole", "type", user.userRoleId);
             return View(user);
         }
 
@@ -109,7 +109,7 @@ namespace GoAber.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users1.Find(id);
+            User user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -122,8 +122,8 @@ namespace GoAber.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users1.Find(id);
-            db.Users1.Remove(user);
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

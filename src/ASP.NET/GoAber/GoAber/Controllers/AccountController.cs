@@ -160,7 +160,7 @@ namespace GoAber.Controllers
                 test.nickname = model.Email;
                 test.userRoleId = 3;
 
-                db.Users1.Add(test);
+                db.Users.Add(test);
                 db.SaveChanges();
 
                 if (result.Succeeded)
