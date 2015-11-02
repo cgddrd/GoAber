@@ -18,10 +18,17 @@ namespace GoAber.Controllers
             set { Session["FitbitAccessToken"] = value; }
         }
 
+        private static AuthorizationServerDescription description = new AuthorizationServerDescription
+        {
+            TokenEndpoint = new Uri("https://api.fitbit.com/oauth2/token"),
+            AuthorizationEndpoint = new Uri("https://www.fitbit.com/oauth2/authorize")
+        };
+
         private WebServerClient fitbit = new WebServerClient(
-                FitbitClient.ServiceDescription,
+                description,
                 ConfigurationManager.AppSettings["FitbitClientId"],
-                ConfigurationManager.AppSettings["FitbitConsumerSecret"]);
+                ConfigurationManager.AppSettings["FitbitConsumerSecret"]
+        );
 
         public ActionResult Index()
         {
@@ -31,7 +38,7 @@ namespace GoAber.Controllers
         public ActionResult StartOAuth()
         {
             fitbit.RequestUserAuthorization(
-                new[] { FitbitClient.Scopes.Activity, FitbitClient.Scopes.Heartrate, FitbitClient.Scopes.Sleep },
+                new[] { "activity", "heartrate", "sleep" },
                 new Uri(Url.Action("Callback", "FitBit", null, Request.Url.Scheme)));
             return View();
         }

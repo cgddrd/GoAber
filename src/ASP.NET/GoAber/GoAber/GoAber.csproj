@@ -160,6 +160,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -294,8 +296,10 @@
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FitBitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OAuthConnectivity.cs" />
     <Compile Include="device.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
@@ -304,6 +308,7 @@
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\devicetypesController.cs" />
+    <Compile Include="FitbitClient.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -333,6 +338,9 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="unit.cs">
@@ -357,6 +365,83 @@
     <Compile Include="Controllers\usersController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\DotNetOpenAuth.Core.dll" />
+    <Content Include="bin\DotNetOpenAuth.Core.UI.dll" />
+    <Content Include="bin\DotNetOpenAuth.Core.UI.xml" />
+    <Content Include="bin\DotNetOpenAuth.Core.xml" />
+    <Content Include="bin\DotNetOpenAuth.InfoCard.dll" />
+    <Content Include="bin\DotNetOpenAuth.InfoCard.UI.dll" />
+    <Content Include="bin\DotNetOpenAuth.InfoCard.UI.xml" />
+    <Content Include="bin\DotNetOpenAuth.InfoCard.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.Common.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.Common.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.ServiceProvider.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.ServiceProvider.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.AuthorizationServer.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.AuthorizationServer.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.Client.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.Client.UI.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.Client.UI.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.Client.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.ClientAuthorization.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.ClientAuthorization.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.ResourceServer.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.ResourceServer.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth2.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.Provider.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.Provider.UI.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.Provider.UI.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.Provider.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.UI.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.UI.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.UI.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.UI.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenIdInfoCard.UI.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenIdInfoCard.UI.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenIdOAuth.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenIdOAuth.xml" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\GoAber.dll" />
+    <Content Include="bin\GoAber.pdb" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Core.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.EntityFramework.xml" />
+    <Content Include="bin\Microsoft.AspNet.Identity.Owin.xml" />
+    <Content Include="bin\Microsoft.Owin.Host.SystemWeb.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Cookies.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Facebook.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Google.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.MicrosoftAccount.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.OAuth.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.Twitter.xml" />
+    <Content Include="bin\Microsoft.Owin.Security.xml" />
+    <Content Include="bin\Microsoft.Owin.xml" />
+    <Content Include="bin\Mono.Math.dll" />
+    <Content Include="bin\Mono.Math.xml" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\Org.Mentalis.Security.Cryptography.dll" />
+    <Content Include="bin\Org.Mentalis.Security.Cryptography.xml" />
+    <Content Include="bin\System.Net.Http.dll" />
+    <Content Include="bin\System.Net.Http.WebRequest.dll" />
+    <Content Include="bin\System.Net.Http.WebRequest.xml" />
+    <Content Include="bin\System.Net.Http.xml" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -382,6 +467,7 @@
     <Content Include="ModelGoAber.edmx.diagram">
       <DependentUpon>ModelGoAber.edmx</DependentUpon>
     </Content>
+    <Content Include="bin\GoAber.dll.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -394,7 +480,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -498,9 +586,16 @@
     <Content Include="Views\userroles\Details.cshtml" />
     <Content Include="Views\userroles\Edit.cshtml" />
     <Content Include="Views\userroles\Index.cshtml" />
+    <Content Include="Views\FitBit\Callback.cshtml" />
+    <Content Include="Views\FitBit\Index.cshtml" />
+    <Content Include="Views\FitBit\ShowDay.cshtml" />
+    <Content Include="Views\FitBit\ShowHeartDay.cshtml" />
+    <Content Include="Views\FitBit\StartOAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\roslyn\" />
+    <Folder Include="Controllers\DeviceAPIs\" />
     <Folder Include="Controllers\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
@@ -532,7 +627,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52004</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52004/</IISUrl>
+          <IISUrl>http://localhost:50120</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

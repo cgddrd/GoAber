@@ -38,6 +38,8 @@ C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\GoAber.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\MySql.Data.dll
+C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\MySql.Fabric.Plugin.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Net.Http.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Net.Http.WebRequest.dll
@@ -54,8 +56,8 @@ C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Security.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Owin.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.dll
-C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\EntityFramework.dll
+C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Org.Mentalis.Security.Cryptography.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Mono.Math.dll
@@ -97,8 +99,8 @@ C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Security.xml
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
-C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\EntityFramework.xml
+C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Org.Mentalis.Security.Cryptography.xml
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Mono.Math.xml
