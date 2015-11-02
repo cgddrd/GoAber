@@ -12,12 +12,12 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class challenge
+    public partial class Challenge
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public challenge()
+        public Challenge()
         {
-            this.userchallenges = new HashSet<userchallenge>();
+            this.userchallenges = new HashSet<UserChallenge>();
         }
     
         public int idChallenge { get; set; }
@@ -27,6 +27,6 @@ namespace GoAber
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<userchallenge> userchallenges { get; set; }
+        public virtual ICollection<UserChallenge> userchallenges { get; set; }
     }
 }

@@ -12,20 +12,20 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class group
+    public partial class Group
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public group()
+        public Group()
         {
-            this.users = new HashSet<user>();
+            this.users = new HashSet<User>();
         }
     
         public int idGroup { get; set; }
         public string name { get; set; }
         public Nullable<int> communityId { get; set; }
     
-        public virtual community community { get; set; }
+        public virtual Community community { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user> users { get; set; }
+        public virtual ICollection<User> users { get; set; }
     }
 }

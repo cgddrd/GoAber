@@ -6,28 +6,29 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GoAber;
 
-namespace GoAber
+namespace GoAber.Controllers
 {
-    public class usersController : Controller
+    public class UsersController : Controller
     {
-        private goaberEntities db = new goaberEntities();
+        private GoAberEntities db = new GoAberEntities();
 
-        // GET: users
+        // GET: Users
         public ActionResult Index()
         {
-            var users = db.users.Include(u => u.group).Include(u => u.usercredential).Include(u => u.userrole);
-            return View(users.ToList());
+            var users1 = db.Users1.Include(u => u.group).Include(u => u.usercredential).Include(u => u.userrole);
+            return View(users1.ToList());
         }
 
-        // GET: users/Details/5
+        // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
+            User user = db.Users1.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -35,59 +36,59 @@ namespace GoAber
             return View(user);
         }
 
-        // GET: users/Create
+        // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.groupId = new SelectList(db.groups, "idGroup", "name");
-            ViewBag.userCredentialsId = new SelectList(db.usercredentials, "idUserCredentials", "password");
-            ViewBag.userRoleId = new SelectList(db.userroles, "idUserRole", "type");
+            ViewBag.groupId = new SelectList(db.Groups1, "idGroup", "name");
+            ViewBag.userCredentialsId = new SelectList(db.UserCredentials2, "idUserCredentials", "password");
+            ViewBag.userRoleId = new SelectList(db.UserRoles1, "idUserRole", "type");
             return View();
         }
 
-        // POST: users/Create
+        // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idUser,email,nickname,userRoleId,userCredentialsId,groupId")] user user)
+        public ActionResult Create([Bind(Include = "idUser,email,nickname,userRoleId,userCredentialsId,groupId")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.users.Add(user);
+                db.Users1.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.groupId = new SelectList(db.groups, "idGroup", "name", user.groupId);
-            ViewBag.userCredentialsId = new SelectList(db.usercredentials, "idUserCredentials", "password", user.userCredentialsId);
-            ViewBag.userRoleId = new SelectList(db.userroles, "idUserRole", "type", user.userRoleId);
+            ViewBag.groupId = new SelectList(db.Groups1, "idGroup", "name", user.groupId);
+            ViewBag.userCredentialsId = new SelectList(db.UserCredentials2, "idUserCredentials", "password", user.userCredentialsId);
+            ViewBag.userRoleId = new SelectList(db.UserRoles1, "idUserRole", "type", user.userRoleId);
             return View(user);
         }
 
-        // GET: users/Edit/5
+        // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
+            User user = db.Users1.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.groupId = new SelectList(db.groups, "idGroup", "name", user.groupId);
-            ViewBag.userCredentialsId = new SelectList(db.usercredentials, "idUserCredentials", "password", user.userCredentialsId);
-            ViewBag.userRoleId = new SelectList(db.userroles, "idUserRole", "type", user.userRoleId);
+            ViewBag.groupId = new SelectList(db.Groups1, "idGroup", "name", user.groupId);
+            ViewBag.userCredentialsId = new SelectList(db.UserCredentials2, "idUserCredentials", "password", user.userCredentialsId);
+            ViewBag.userRoleId = new SelectList(db.UserRoles1, "idUserRole", "type", user.userRoleId);
             return View(user);
         }
 
-        // POST: users/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idUser,email,nickname,userRoleId,userCredentialsId,groupId")] user user)
+        public ActionResult Edit([Bind(Include = "idUser,email,nickname,userRoleId,userCredentialsId,groupId")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -95,20 +96,20 @@ namespace GoAber
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.groupId = new SelectList(db.groups, "idGroup", "name", user.groupId);
-            ViewBag.userCredentialsId = new SelectList(db.usercredentials, "idUserCredentials", "password", user.userCredentialsId);
-            ViewBag.userRoleId = new SelectList(db.userroles, "idUserRole", "type", user.userRoleId);
+            ViewBag.groupId = new SelectList(db.Groups1, "idGroup", "name", user.groupId);
+            ViewBag.userCredentialsId = new SelectList(db.UserCredentials2, "idUserCredentials", "password", user.userCredentialsId);
+            ViewBag.userRoleId = new SelectList(db.UserRoles1, "idUserRole", "type", user.userRoleId);
             return View(user);
         }
 
-        // GET: users/Delete/5
+        // GET: Users/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            user user = db.users.Find(id);
+            User user = db.Users1.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -116,13 +117,13 @@ namespace GoAber
             return View(user);
         }
 
-        // POST: users/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            user user = db.users.Find(id);
-            db.users.Remove(user);
+            User user = db.Users1.Find(id);
+            db.Users1.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

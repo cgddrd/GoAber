@@ -12,17 +12,17 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class unit
+    public partial class Unit
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public unit()
+        public Unit()
         {
-            this.categoryunits = new HashSet<categoryunit>();
+            this.categoryunits = new HashSet<CategoryUnit>();
         }
     
         public int idUnit { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<categoryunit> categoryunits { get; set; }
+        public virtual ICollection<CategoryUnit> categoryunits { get; set; }
     }
 }
