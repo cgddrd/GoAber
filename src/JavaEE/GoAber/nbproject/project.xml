@@ -9,7 +9,7 @@
             <web-module-additional-libraries>
                 <library>
                     <file>${reference.GoAber-war.dist-ear}</file>
-                    <path-in-war>/</path-in-war>
+                    <path-in-war>/GoAber-war</path-in-war>
                 </library>
                 <library>
                     <file>${reference.GoAber-ejb.dist-ear}</file>
