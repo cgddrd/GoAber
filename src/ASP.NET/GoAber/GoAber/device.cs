@@ -12,7 +12,7 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class device
+    public partial class Device
     {
         public int idDevice { get; set; }
         public int deviceTypeId { get; set; }

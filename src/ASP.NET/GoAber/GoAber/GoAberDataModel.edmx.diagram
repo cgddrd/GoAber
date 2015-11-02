@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ccd3118da35449ef93822f1cc048aedb" Name="Diagram1">
+        <EntityTypeShape EntityType="GoAberModel.ActivityData" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.Category" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.CategoryUnit" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.Challenge" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.Community" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.Device" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.Devicetype" Width="1.5" PointX="9.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.Group" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.GroupChallenge" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.Unit" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.User" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.UserChallenge" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.UserCredential" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GoAberModel.UserRole" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="GoAberModel.catergoryUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="GoAberModel.user1" ManuallyRouted="false" />
+        <AssociationConnector Association="GoAberModel.categoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="GoAberModel.unitId" ManuallyRouted="false" />
+        <AssociationConnector Association="GoAberModel.challenge_userChallenge" ManuallyRouted="false" />
+        <AssociationConnector Association="GoAberModel.community1" ManuallyRouted="false" />
+        <AssociationConnector Association="GoAberModel.group1" ManuallyRouted="false" />
+        <AssociationConnector Association="GoAberModel.user_userChallenge" ManuallyRouted="false" />
+        <AssociationConnector Association="GoAberModel.userCredentials1" ManuallyRouted="false" />
+        <AssociationConnector Association="GoAberModel.userRole1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

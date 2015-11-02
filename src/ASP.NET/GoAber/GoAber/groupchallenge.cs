@@ -12,7 +12,7 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class groupchallenge
+    public partial class GroupChallenge
     {
         public int idGroupChallenge { get; set; }
         public int groupId { get; set; }
