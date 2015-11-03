@@ -6,13 +6,27 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using GoAber.Models;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace GoAber.Controllers
 {
     public class RolesController : Controller
     {
+        ApplicationDbContext context;
+        private ApplicationUserManager _userManager;
 
-        ApplicationDbContext context = new ApplicationDbContext();
+        public RolesController()
+        {
+            context = new ApplicationDbContext();
+        }
+
+        // CG - We need to create our UserManager instance (copied from AccountController). 
+        // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
+        public ApplicationUserManager UserManager
+        {
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
+        }
 
         // GET: Roles
         public ActionResult Index()
@@ -27,6 +41,7 @@ namespace GoAber.Controllers
             return View();
         }
 
+        
         // POST: /Roles/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -55,7 +70,6 @@ namespace GoAber.Controllers
             return RedirectToAction("Index");
         }
 
-        //
         // GET: /Roles/Edit/5
         public ActionResult Edit(string roleName)
         {
@@ -64,7 +78,6 @@ namespace GoAber.Controllers
             return View(thisRole);
         }
 
-        //
         // POST: /Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -85,7 +98,10 @@ namespace GoAber.Controllers
 
         public ActionResult ManageUserRoles()
         {
-            var list = context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+            // prepopulat roles for the view dropdown
+            var list = context.Roles.OrderBy(r => r.Name).ToList().Select(rr =>
+
+new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             ViewBag.Roles = list;
             return View();
         }
@@ -95,8 +111,8 @@ namespace GoAber.Controllers
         public ActionResult RoleAddToUser(string UserName, string RoleName)
         {
             ApplicationUser user = context.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-            var account = new AccountController();
-            account.UserManager.AddToRole(user.Id, RoleName);
+            //var account = new AccountController();
+            this.UserManager.AddToRole(user.Id, RoleName);
 
             ViewBag.ResultMessage = "Role created successfully !";
 
@@ -114,9 +130,9 @@ namespace GoAber.Controllers
             if (!string.IsNullOrWhiteSpace(UserName))
             {
                 ApplicationUser user = context.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
-                var account = new AccountController();
+                //var account = new AccountController();
 
-                ViewBag.RolesForThisUser = account.UserManager.GetRoles(user.Id);
+                ViewBag.RolesForThisUser = this.UserManager.GetRoles(user.Id);
 
                 // prepopulat roles for the view dropdown
                 var list = context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
@@ -130,12 +146,12 @@ namespace GoAber.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteRoleForUser(string UserName, string RoleName)
         {
-            var account = new AccountController();
+           // var account = new AccountController();
             ApplicationUser user = context.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
 
-            if (account.UserManager.IsInRole(user.Id, RoleName))
+            if (this.UserManager.IsInRole(user.Id, RoleName))
             {
-                account.UserManager.RemoveFromRole(user.Id, RoleName);
+                this.UserManager.RemoveFromRole(user.Id, RoleName);
                 ViewBag.ResultMessage = "Role removed from this user successfully !";
             }
             else
