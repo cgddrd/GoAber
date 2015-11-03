@@ -308,7 +308,6 @@
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\devicetypesController.cs" />
-    <Compile Include="FitbitClient.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

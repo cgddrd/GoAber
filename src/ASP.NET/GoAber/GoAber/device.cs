@@ -11,13 +11,16 @@ namespace GoAber
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class device
     {
         public int idDevice { get; set; }
         public int deviceTypeId { get; set; }
         public int userId { get; set; }
+        [MaxLength(450)]
         public string accessToken { get; set; }
+        [MaxLength(450)]
         public string refreshToken { get; set; }
         public Nullable<System.DateTime> tokenExpiration { get; set; }
     }
