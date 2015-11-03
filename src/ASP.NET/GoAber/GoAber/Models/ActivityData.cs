@@ -11,17 +11,23 @@ namespace GoAber
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Device
+    using System.Data.Entity;
+
+    public class ActivityData
     {
-        public int idDevice { get; set; }
-        public int deviceTypeId { get; set; }
+        public int Id { get; set; }
+        public int categoryUnitId { get; set; }
         public int userId { get; set; }
-        public string accessToken { get; set; }
-        public string refreshToken { get; set; }
-        public Nullable<System.DateTime> tokenExpiration { get; set; }
+        public Nullable<int> value { get; set; }
+        public Nullable<System.DateTime> lastUpdated { get; set; }
+        public Nullable<System.DateTime> date { get; set; }
     
-        public virtual Devicetype devicetype { get; set; }
+        public virtual CategoryUnit categoryunit { get; set; }
         public virtual User user { get; set; }
+
+        public class MovieDBContext : DbContext
+        {
+            public DbSet<ActivityData> ActivityData { get; set; }
+        }
     }
 }

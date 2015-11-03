@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GoAber.User>
+﻿@model IEnumerable<GoAber.ActivityData>
 
 @{
     ViewBag.Title = "Index";
@@ -12,19 +12,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.userrole.type)
+            @Html.DisplayNameFor(model => model.categoryunit.Id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.email)
+            @Html.DisplayNameFor(model => model.user.email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nickname)
+            @Html.DisplayNameFor(model => model.value)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.userCredentialsId)
+            @Html.DisplayNameFor(model => model.lastUpdated)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.groupId)
+            @Html.DisplayNameFor(model => model.date)
         </th>
         <th></th>
     </tr>
@@ -32,19 +32,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.userrole.type)
+            @Html.DisplayFor(modelItem => item.categoryunit.Id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.email)
+            @Html.DisplayFor(modelItem => item.user.email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.nickname)
+            @Html.DisplayFor(modelItem => item.value)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.userCredentialsId)
+            @Html.DisplayFor(modelItem => item.lastUpdated)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.groupId)
+            @Html.DisplayFor(modelItem => item.date)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

@@ -19,10 +19,9 @@ namespace GoAber
         {
             this.activitydatas = new HashSet<ActivityData>();
             this.userchallenges = new HashSet<UserChallenge>();
-            this.devices = new HashSet<Device>();
         }
     
-        public int idUser { get; set; }
+        public int Id { get; set; }
         public string email { get; set; }
         public string nickname { get; set; }
         public int userRoleId { get; set; }
@@ -31,12 +30,10 @@ namespace GoAber
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActivityData> activitydatas { get; set; }
+        public virtual Team group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChallenge> userchallenges { get; set; }
         public virtual UserCredential usercredential { get; set; }
         public virtual UserRole userrole { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> devices { get; set; }
-        public virtual Team team { get; set; }
     }
 }

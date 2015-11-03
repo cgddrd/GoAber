@@ -12,18 +12,18 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRole
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserRole()
+        public Category()
         {
-            this.users = new HashSet<User>();
+            this.categoryunits = new HashSet<CategoryUnit>();
         }
     
-        public int idUserRole { get; set; }
-        public string type { get; set; }
+        public int Id { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> users { get; set; }
+        public virtual ICollection<CategoryUnit> categoryunits { get; set; }
     }
 }

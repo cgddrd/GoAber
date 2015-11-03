@@ -11,6 +11,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.userrole.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userrole.type)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.email)
         </dt>
 
@@ -27,32 +35,24 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.group.name)
+            @Html.DisplayNameFor(model => model.userCredentialsId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.group.name)
+            @Html.DisplayFor(model => model.userCredentialsId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.usercredential.password)
+            @Html.DisplayNameFor(model => model.groupId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.usercredential.password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.userrole.type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.userrole.type)
+            @Html.DisplayFor(model => model.groupId)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.idUser }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

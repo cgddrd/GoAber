@@ -7,17 +7,18 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GoAber;
+using GoAber.Models;
 
 namespace GoAber.Controllers
 {
     public class UsersController : Controller
     {
-        private GoAberEntities db = new GoAberEntities();
-
+        //private GoAberEntities db = new GoAberEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Users
         public ActionResult Index()
         {
-            var users1 = db.Users.Include(u => u.team).Include(u => u.usercredential).Include(u => u.userrole);
+            var users1 = db.Users.Include(u => u.group).Include(u => u.usercredential).Include(u => u.userrole);
             return View(users1.ToList());
         }
 

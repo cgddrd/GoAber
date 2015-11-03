@@ -12,23 +12,20 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class Devicetype
+    public partial class Team
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Devicetype()
+        public Team()
         {
-            this.devices = new HashSet<Device>();
+            this.users = new HashSet<User>();
         }
     
-        public int idDeviceType { get; set; }
+        public int Id { get; set; }
         public string name { get; set; }
-        public string tokenEndpoint { get; set; }
-        public string consumerKey { get; set; }
-        public string consumerSecret { get; set; }
-        public string clientId { get; set; }
-        public string authorizationEndpoint { get; set; }
+        public Nullable<int> communityId { get; set; }
     
+        public virtual Community community { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> devices { get; set; }
+        public virtual ICollection<User> users { get; set; }
     }
 }

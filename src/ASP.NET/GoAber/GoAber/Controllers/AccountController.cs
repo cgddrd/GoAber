@@ -17,8 +17,8 @@ namespace GoAber.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private GoAberEntities db = new GoAberEntities();
-
+        //private GoAberEntities db = new GoAberEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }

@@ -21,9 +21,9 @@ namespace GoAber.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
-        static ApplicationDbContext() {
+        /*static ApplicationDbContext() {
             Database.SetInitializer(new MySqlInitializer());
-        }
+        }*/
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -34,5 +34,31 @@ namespace GoAber.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<GoAber.ActivityData> ActivityDatas { get; set; }
+
+        public System.Data.Entity.DbSet<GoAber.CategoryUnit> CategoryUnits { get; set; }
+
+        public System.Data.Entity.DbSet<GoAber.UserRole> UserRoles { get; set; }
+
+        public GoAber.Team Group { get; set; }
+
+        public System.Data.Entity.DbSet<GoAber.User> Users1 { get; set; }
+
+        /*
+        public DbSet<ActivityData> ActivityDatas { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryUnit> CategoryUnits { get; set; }
+        public DbSet<Challenge> Challenges { get; set; }
+        public DbSet<Community> Communities { get; set; }
+        public DbSet<Device> Devices { get; set; }
+        public DbSet<DeviceType> DeviceTypes { get; set; }
+        public DbSet<Team> Groups { get; set; }
+        public DbSet<GroupChallenge> GroupChallenges { get; set; }
+        public DbSet<Unit> Units { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserChallenge> UserChallenges { get; set; }
+        public DbSet<UserCredential> UserCredentials { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }*/
     }
 }
