@@ -19,6 +19,8 @@
                     <h:inputText id="idCommunity" value="#{communityController.selected.idCommunity}" title="#{bundle.CreateCommunityTitle_idCommunity}" required="true" requiredMessage="#{bundle.CreateCommunityRequiredMessage_idCommunity}"/>
                     <h:outputLabel value="#{bundle.CreateCommunityLabel_name}" for="name" />
                     <h:inputText id="name" value="#{communityController.selected.name}" title="#{bundle.CreateCommunityTitle_name}" required="true" requiredMessage="#{bundle.CreateCommunityRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateCommunityLabel_endpointUrl}" for="endpointUrl" />
+                    <h:inputText id="endpointUrl" value="#{communityController.selected.endpointUrl}" title="#{bundle.CreateCommunityTitle_endpointUrl}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{communityController.create}" value="#{bundle.CreateCommunitySaveLink}" />

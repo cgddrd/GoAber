@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByNickname", query = "SELECT u FROM User u WHERE u.nickname = :nickname")})
 public class User implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Device> deviceCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -168,6 +170,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.User[ idUser=" + idUser + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Device> getDeviceCollection() {
+        return deviceCollection;
+    }
+
+    public void setDeviceCollection(Collection<Device> deviceCollection) {
+        this.deviceCollection = deviceCollection;
     }
     
 }

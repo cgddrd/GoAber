@@ -23,7 +23,7 @@
                     <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.EditUserTitle_nickname}" />
                     <h:outputLabel value="#{bundle.EditUserLabel_groupId}" for="groupId" />
                     <h:selectOneMenu id="groupId" value="#{userController.selected.groupId}" title="#{bundle.EditUserTitle_groupId}" >
-                        <f:selectItems value="#{groupTableController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{teamController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditUserLabel_userCredentialsId}" for="userCredentialsId" />
                     <h:selectOneMenu id="userCredentialsId" value="#{userController.selected.userCredentialsId}" title="#{bundle.EditUserTitle_userCredentialsId}" >

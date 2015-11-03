@@ -34,6 +34,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCommunityTitle_endpointUrl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.endpointUrl}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
                             <h:commandLink action="#{communityController.prepareView}" value="#{bundle.ListCommunityViewLink}"/>

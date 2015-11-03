@@ -19,6 +19,8 @@
                     <h:inputText id="idCommunity" value="#{communityController.selected.idCommunity}" title="#{bundle.EditCommunityTitle_idCommunity}" required="true" requiredMessage="#{bundle.EditCommunityRequiredMessage_idCommunity}"/>
                     <h:outputLabel value="#{bundle.EditCommunityLabel_name}" for="name" />
                     <h:inputText id="name" value="#{communityController.selected.name}" title="#{bundle.EditCommunityTitle_name}" required="true" requiredMessage="#{bundle.EditCommunityRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.EditCommunityLabel_endpointUrl}" for="endpointUrl" />
+                    <h:inputText id="endpointUrl" value="#{communityController.selected.endpointUrl}" title="#{bundle.EditCommunityTitle_endpointUrl}" />
                 </h:panelGrid>
                 <h:commandLink action="#{communityController.update}" value="#{bundle.EditCommunitySaveLink}"/>
                 <br />

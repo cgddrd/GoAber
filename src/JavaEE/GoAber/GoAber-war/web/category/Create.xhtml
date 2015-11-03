@@ -17,6 +17,8 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateCategoryLabel_idCategory}" for="idCategory" />
                     <h:inputText id="idCategory" value="#{categoryController.selected.idCategory}" title="#{bundle.CreateCategoryTitle_idCategory}" required="true" requiredMessage="#{bundle.CreateCategoryRequiredMessage_idCategory}"/>
+                    <h:outputLabel value="#{bundle.CreateCategoryLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{categoryController.selected.name}" title="#{bundle.CreateCategoryTitle_name}" required="true" requiredMessage="#{bundle.CreateCategoryRequiredMessage_name}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{categoryController.create}" value="#{bundle.CreateCategorySaveLink}" />

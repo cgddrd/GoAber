@@ -17,6 +17,8 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditCategoryLabel_idCategory}" for="idCategory" />
                     <h:inputText id="idCategory" value="#{categoryController.selected.idCategory}" title="#{bundle.EditCategoryTitle_idCategory}" required="true" requiredMessage="#{bundle.EditCategoryRequiredMessage_idCategory}"/>
+                    <h:outputLabel value="#{bundle.EditCategoryLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{categoryController.selected.name}" title="#{bundle.EditCategoryTitle_name}" required="true" requiredMessage="#{bundle.EditCategoryRequiredMessage_name}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{categoryController.update}" value="#{bundle.EditCategorySaveLink}"/>
                 <br />

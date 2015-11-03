@@ -34,6 +34,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Community.findByIdCommunity", query = "SELECT c FROM Community c WHERE c.idCommunity = :idCommunity"),
     @NamedQuery(name = "Community.findByName", query = "SELECT c FROM Community c WHERE c.name = :name")})
 public class Community implements Serializable {
+    @Size(max = 250)
+    @Column(name = "endpointUrl")
+    private String endpointUrl;
+    @OneToMany(mappedBy = "communityStartedBy")
+    private Collection<Challenge> challengeCollection;
     @OneToMany(mappedBy = "communityId")
     private Collection<Team> teamCollection;
     private static final long serialVersionUID = 1L;
@@ -119,6 +124,23 @@ public class Community implements Serializable {
 
     public void setTeamCollection(Collection<Team> teamCollection) {
         this.teamCollection = teamCollection;
+    }
+
+    public String getEndpointUrl() {
+        return endpointUrl;
+    }
+
+    public void setEndpointUrl(String endpointUrl) {
+        this.endpointUrl = endpointUrl;
+    }
+
+    @XmlTransient
+    public Collection<Challenge> getChallengeCollection() {
+        return challengeCollection;
+    }
+
+    public void setChallengeCollection(Collection<Challenge> challengeCollection) {
+        this.challengeCollection = challengeCollection;
     }
     
 }

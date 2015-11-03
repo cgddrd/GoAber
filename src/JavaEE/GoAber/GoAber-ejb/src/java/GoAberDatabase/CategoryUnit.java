@@ -6,7 +6,9 @@
 package GoAberDatabase;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CategoryUnit.findAll", query = "SELECT c FROM CategoryUnit c"),
     @NamedQuery(name = "CategoryUnit.findByIdCategoryUnit", query = "SELECT c FROM CategoryUnit c WHERE c.idCategoryUnit = :idCategoryUnit")})
 public class CategoryUnit implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryUnitId")
+    private Collection<ActivityData> activityDataCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,6 +103,15 @@ public class CategoryUnit implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.CategoryUnit[ idCategoryUnit=" + idCategoryUnit + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ActivityData> getActivityDataCollection() {
+        return activityDataCollection;
+    }
+
+    public void setActivityDataCollection(Collection<ActivityData> activityDataCollection) {
+        this.activityDataCollection = activityDataCollection;
     }
     
 }

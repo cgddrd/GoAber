@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -41,6 +43,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Challenge.findByEndTime", query = "SELECT c FROM Challenge c WHERE c.endTime = :endTime"),
     @NamedQuery(name = "Challenge.findByName", query = "SELECT c FROM Challenge c WHERE c.name = :name")})
 public class Challenge implements Serializable {
+    @JoinColumn(name = "communityStartedBy", referencedColumnName = "idCommunity")
+    @ManyToOne
+    private Community communityStartedBy;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
+    private Collection<GroupChallenge> groupChallengeCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -150,6 +157,23 @@ public class Challenge implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.Challenge[ idChallenge=" + idChallenge + " ]";
+    }
+
+    public Community getCommunityStartedBy() {
+        return communityStartedBy;
+    }
+
+    public void setCommunityStartedBy(Community communityStartedBy) {
+        this.communityStartedBy = communityStartedBy;
+    }
+
+    @XmlTransient
+    public Collection<GroupChallenge> getGroupChallengeCollection() {
+        return groupChallengeCollection;
+    }
+
+    public void setGroupChallengeCollection(Collection<GroupChallenge> groupChallengeCollection) {
+        this.groupChallengeCollection = groupChallengeCollection;
     }
     
 }

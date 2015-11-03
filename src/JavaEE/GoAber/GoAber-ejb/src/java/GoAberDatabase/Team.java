@@ -6,7 +6,9 @@
 package GoAberDatabase;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,10 +18,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,6 +37,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Team.findByIdGroup", query = "SELECT t FROM Team t WHERE t.idGroup = :idGroup"),
     @NamedQuery(name = "Team.findByName", query = "SELECT t FROM Team t WHERE t.name = :name")})
 public class Team implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
+    private Collection<GroupChallenge> groupChallengeCollection;
+    @OneToMany(mappedBy = "groupId")
+    private Collection<User> userCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,6 +115,24 @@ public class Team implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.Team[ idGroup=" + idGroup + " ]";
+    }
+
+    @XmlTransient
+    public Collection<GroupChallenge> getGroupChallengeCollection() {
+        return groupChallengeCollection;
+    }
+
+    public void setGroupChallengeCollection(Collection<GroupChallenge> groupChallengeCollection) {
+        this.groupChallengeCollection = groupChallengeCollection;
+    }
+
+    @XmlTransient
+    public Collection<User> getUserCollection() {
+        return userCollection;
+    }
+
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
     
 }
