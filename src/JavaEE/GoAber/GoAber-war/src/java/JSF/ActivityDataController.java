@@ -18,14 +18,15 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "activityDataController")
+
+@ManagedBean(name="activityDataController")
 @SessionScoped
 public class ActivityDataController implements Serializable {
 
+
     private ActivityData current;
     private DataModel items = null;
-    @EJB
-    private SessionBean.ActivityDataFacade ejbFacade;
+    @EJB private SessionBean.ActivityDataFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -43,7 +44,6 @@ public class ActivityDataController implements Serializable {
     private ActivityDataFacade getFacade() {
         return ejbFacade;
     }
-
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -55,7 +55,7 @@ public class ActivityDataController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
                 }
             };
         }
@@ -68,7 +68,7 @@ public class ActivityDataController implements Serializable {
     }
 
     public String prepareView() {
-        current = (ActivityData) getItems().getRowData();
+        current = (ActivityData)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -91,7 +91,7 @@ public class ActivityDataController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (ActivityData) getItems().getRowData();
+        current = (ActivityData)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -108,7 +108,7 @@ public class ActivityDataController implements Serializable {
     }
 
     public String destroy() {
-        current = (ActivityData) getItems().getRowData();
+        current = (ActivityData)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -142,14 +142,14 @@ public class ActivityDataController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
+            selectedItemIndex = count-1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
         }
     }
 
@@ -188,7 +188,8 @@ public class ActivityDataController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = ActivityData.class)
+
+    @FacesConverter(forClass=ActivityData.class)
     public static class ActivityDataControllerConverter implements Converter {
 
         @Override
@@ -196,7 +197,7 @@ public class ActivityDataController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ActivityDataController controller = (ActivityDataController) facesContext.getApplication().getELResolver().
+            ActivityDataController controller = (ActivityDataController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "activityDataController");
             return controller.ejbFacade.find(getKey(value));
         }
@@ -222,7 +223,7 @@ public class ActivityDataController implements Serializable {
                 ActivityData o = (ActivityData) object;
                 return getStringKey(o.getIdActivityData());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + ActivityData.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+ActivityData.class.getName());
             }
         }
 

@@ -37,10 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Team.findByIdGroup", query = "SELECT t FROM Team t WHERE t.idGroup = :idGroup"),
     @NamedQuery(name = "Team.findByName", query = "SELECT t FROM Team t WHERE t.name = :name")})
 public class Team implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
-    private Collection<GroupChallenge> groupChallengeCollection;
-    @OneToMany(mappedBy = "groupId")
-    private Collection<User> userCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +51,10 @@ public class Team implements Serializable {
     @JoinColumn(name = "communityId", referencedColumnName = "idCommunity")
     @ManyToOne
     private Community communityId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
+    private Collection<GroupChallenge> groupChallengeCollection;
+    @OneToMany(mappedBy = "groupId")
+    private Collection<User> userCollection;
 
     public Team() {
     }
@@ -92,6 +92,24 @@ public class Team implements Serializable {
         this.communityId = communityId;
     }
 
+    @XmlTransient
+    public Collection<GroupChallenge> getGroupChallengeCollection() {
+        return groupChallengeCollection;
+    }
+
+    public void setGroupChallengeCollection(Collection<GroupChallenge> groupChallengeCollection) {
+        this.groupChallengeCollection = groupChallengeCollection;
+    }
+
+    @XmlTransient
+    public Collection<User> getUserCollection() {
+        return userCollection;
+    }
+
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -115,24 +133,6 @@ public class Team implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.Team[ idGroup=" + idGroup + " ]";
-    }
-
-    @XmlTransient
-    public Collection<GroupChallenge> getGroupChallengeCollection() {
-        return groupChallengeCollection;
-    }
-
-    public void setGroupChallengeCollection(Collection<GroupChallenge> groupChallengeCollection) {
-        this.groupChallengeCollection = groupChallengeCollection;
-    }
-
-    @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
-    }
-
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
     }
     
 }

@@ -39,8 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "DeviceType.findByClientId", query = "SELECT d FROM DeviceType d WHERE d.clientId = :clientId"),
     @NamedQuery(name = "DeviceType.findByAuthorizationEndpoint", query = "SELECT d FROM DeviceType d WHERE d.authorizationEndpoint = :authorizationEndpoint")})
 public class DeviceType implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceTypeId")
-    private Collection<Device> deviceCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +63,8 @@ public class DeviceType implements Serializable {
     @Size(max = 250)
     @Column(name = "authorizationEndpoint")
     private String authorizationEndpoint;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceTypeId")
+    private Collection<Device> deviceCollection;
 
     public DeviceType() {
     }
@@ -129,6 +129,15 @@ public class DeviceType implements Serializable {
         this.authorizationEndpoint = authorizationEndpoint;
     }
 
+    @XmlTransient
+    public Collection<Device> getDeviceCollection() {
+        return deviceCollection;
+    }
+
+    public void setDeviceCollection(Collection<Device> deviceCollection) {
+        this.deviceCollection = deviceCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -152,15 +161,6 @@ public class DeviceType implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.DeviceType[ idDeviceType=" + idDeviceType + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Device> getDeviceCollection() {
-        return deviceCollection;
-    }
-
-    public void setDeviceCollection(Collection<Device> deviceCollection) {
-        this.deviceCollection = deviceCollection;
     }
     
 }

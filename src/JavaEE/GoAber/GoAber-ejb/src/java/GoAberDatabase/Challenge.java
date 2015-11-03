@@ -43,11 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Challenge.findByEndTime", query = "SELECT c FROM Challenge c WHERE c.endTime = :endTime"),
     @NamedQuery(name = "Challenge.findByName", query = "SELECT c FROM Challenge c WHERE c.name = :name")})
 public class Challenge implements Serializable {
-    @JoinColumn(name = "communityStartedBy", referencedColumnName = "idCommunity")
-    @ManyToOne
-    private Community communityStartedBy;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
-    private Collection<GroupChallenge> groupChallengeCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,6 +66,11 @@ public class Challenge implements Serializable {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
     private Collection<UserChallenge> userChallengeCollection;
+    @JoinColumn(name = "communityStartedBy", referencedColumnName = "idCommunity")
+    @ManyToOne
+    private Community communityStartedBy;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
+    private Collection<GroupChallenge> groupChallengeCollection;
 
     public Challenge() {
     }
@@ -134,6 +134,23 @@ public class Challenge implements Serializable {
         this.userChallengeCollection = userChallengeCollection;
     }
 
+    public Community getCommunityStartedBy() {
+        return communityStartedBy;
+    }
+
+    public void setCommunityStartedBy(Community communityStartedBy) {
+        this.communityStartedBy = communityStartedBy;
+    }
+
+    @XmlTransient
+    public Collection<GroupChallenge> getGroupChallengeCollection() {
+        return groupChallengeCollection;
+    }
+
+    public void setGroupChallengeCollection(Collection<GroupChallenge> groupChallengeCollection) {
+        this.groupChallengeCollection = groupChallengeCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -157,23 +174,6 @@ public class Challenge implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.Challenge[ idChallenge=" + idChallenge + " ]";
-    }
-
-    public Community getCommunityStartedBy() {
-        return communityStartedBy;
-    }
-
-    public void setCommunityStartedBy(Community communityStartedBy) {
-        this.communityStartedBy = communityStartedBy;
-    }
-
-    @XmlTransient
-    public Collection<GroupChallenge> getGroupChallengeCollection() {
-        return groupChallengeCollection;
-    }
-
-    public void setGroupChallengeCollection(Collection<GroupChallenge> groupChallengeCollection) {
-        this.groupChallengeCollection = groupChallengeCollection;
     }
     
 }

@@ -34,14 +34,14 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CategoryUnit.findAll", query = "SELECT c FROM CategoryUnit c"),
     @NamedQuery(name = "CategoryUnit.findByIdCategoryUnit", query = "SELECT c FROM CategoryUnit c WHERE c.idCategoryUnit = :idCategoryUnit")})
 public class CategoryUnit implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryUnitId")
-    private Collection<ActivityData> activityDataCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idCategoryUnit")
     private Integer idCategoryUnit;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryUnitId")
+    private Collection<ActivityData> activityDataCollection;
     @JoinColumn(name = "categoryId", referencedColumnName = "idCategory")
     @ManyToOne(optional = false)
     private Category categoryId;
@@ -62,6 +62,15 @@ public class CategoryUnit implements Serializable {
 
     public void setIdCategoryUnit(Integer idCategoryUnit) {
         this.idCategoryUnit = idCategoryUnit;
+    }
+
+    @XmlTransient
+    public Collection<ActivityData> getActivityDataCollection() {
+        return activityDataCollection;
+    }
+
+    public void setActivityDataCollection(Collection<ActivityData> activityDataCollection) {
+        this.activityDataCollection = activityDataCollection;
     }
 
     public Category getCategoryId() {
@@ -103,15 +112,6 @@ public class CategoryUnit implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.CategoryUnit[ idCategoryUnit=" + idCategoryUnit + " ]";
-    }
-
-    @XmlTransient
-    public Collection<ActivityData> getActivityDataCollection() {
-        return activityDataCollection;
-    }
-
-    public void setActivityDataCollection(Collection<ActivityData> activityDataCollection) {
-        this.activityDataCollection = activityDataCollection;
     }
     
 }
