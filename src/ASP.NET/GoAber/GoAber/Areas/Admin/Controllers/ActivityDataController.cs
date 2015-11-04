@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GoAber;
+using System.Collections;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -39,7 +40,8 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ActivityData/Create
         public ActionResult Create()
         {
-            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "idCategoryUnit", "idCategoryUnit");
+            var categories = CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
             ViewBag.userId = new SelectList(db.Users, "idUser", "email");
             return View();
         }
@@ -58,7 +60,8 @@ namespace GoAber.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "idCategoryUnit", "idCategoryUnit", activityData.categoryUnitId);
+            var categories = CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
             ViewBag.userId = new SelectList(db.Users, "idUser", "email", activityData.userId);
             return View(activityData);
         }
@@ -131,6 +134,18 @@ namespace GoAber.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private IEnumerable CreateCategoryUnitList()
+        {
+            var categories = db.CategoryUnits.Select(c => new
+            {
+                idCategoryUnit = c.idCategoryUnit,
+                category = c.category.name,
+                unit = c.unit.name
+            }).ToList();
+
+            return categories;
         }
     }
 }
