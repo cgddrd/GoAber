@@ -11,6 +11,7 @@ namespace GoAber
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Data.Entity;
 
     public class ActivityData
@@ -18,10 +19,13 @@ namespace GoAber
         public int Id { get; set; }
         public int categoryUnitId { get; set; }
         public int userId { get; set; }
+
+        [DisplayName("Value")]
         public Nullable<int> value { get; set; }
+        [DisplayName("Last Updated")]
         public Nullable<System.DateTime> lastUpdated { get; set; }
+        [DisplayName("Date")]
         public Nullable<System.DateTime> date { get; set; }
-    
         public virtual CategoryUnit categoryunit { get; set; }
         public virtual User user { get; set; }
 

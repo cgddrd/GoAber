@@ -1,0 +1,63 @@
+﻿@model IEnumerable<GoAber.ActivityData>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Unit
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user.email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastUpdated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoryunit.category.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoryunit.unit.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user.email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idActivityData }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idActivityData }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idActivityData })
+        </td>
+    </tr>
+}
+
+</table>
