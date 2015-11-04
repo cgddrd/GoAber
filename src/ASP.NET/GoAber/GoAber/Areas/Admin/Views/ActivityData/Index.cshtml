@@ -21,7 +21,10 @@
             @Html.DisplayNameFor(model => model.date)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.categoryunit.idCategoryUnit)
+            Category
+        </th>
+        <th>
+            Unit
         </th>
         <th>
             @Html.DisplayNameFor(model => model.user.email)
@@ -41,7 +44,10 @@
             @Html.DisplayFor(modelItem => item.date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.categoryunit.idCategoryUnit)
+            @Html.DisplayFor(modelItem => item.categoryunit.category.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoryunit.unit.name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.user.email)
