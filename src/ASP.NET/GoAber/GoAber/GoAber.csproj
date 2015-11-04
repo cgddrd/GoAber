@@ -587,9 +587,10 @@
     <Content Include="Views\userroles\Index.cshtml" />
     <Content Include="Views\FitBit\Callback.cshtml" />
     <Content Include="Views\FitBit\Index.cshtml" />
-    <Content Include="Views\FitBit\ShowDay.cshtml" />
-    <Content Include="Views\FitBit\ShowHeartDay.cshtml" />
+    <Content Include="Views\FitBit\getActivityDay.cshtml" />
+    <Content Include="Views\FitBit\getHeartDay.cshtml" />
     <Content Include="Views\FitBit\StartOAuth.cshtml" />
+    <Content Include="Views\FitBit\getSleepDay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

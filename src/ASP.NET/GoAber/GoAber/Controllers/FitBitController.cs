@@ -136,6 +136,16 @@ namespace GoAber.Controllers
 
         private String refreshToken()
         {
+            WebServerClient fitbit = getClient();
+            goaberEntities db = new goaberEntities();
+            var query = from d in db.devices
+                        where d.userId == 1 // MOCK USER ID FOR NOW
+                        select d;
+            device device = query.SingleOrDefault();
+            if (device != null) { 
+                db.devices.Remove(device);
+                db.SaveChanges();
+            }
             String newToken = "";
             return newToken;
         }
@@ -145,16 +155,14 @@ namespace GoAber.Controllers
          *  START API CALLS FOR VARIOUS METHODS HERE
          * ------------------------------------------
          */
-
-        public ActionResult ShowDay()
+        public ActionResult getActivityDay()
         {
             string token = getCurrentUserAccessToken(1);
             if(String.IsNullOrEmpty(token))
-                RedirectToAction("StartOAuth"); // redirect to authorisation
+                return RedirectToAction("StartOAuth"); // redirect to authorisation
             //-----------------------------
             string result = String.Empty;
-            HttpClient client = getAuthorisedClient();
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            HttpClient client = getAuthorisedClient(token);
             int day = DateTime.Now.Day;
             int month = DateTime.Now.Month;
             int year = DateTime.Now.Year;
@@ -172,14 +180,18 @@ namespace GoAber.Controllers
             return View();
         }
 
-        public ActionResult ShowHeartDay()
+        public ActionResult getHeartDay()
         {
+            string token = getCurrentUserAccessToken(1);
+            if (String.IsNullOrEmpty(token))
+                return RedirectToAction("StartOAuth"); // redirect to authorisation
+            //-----------------------------
             string result = String.Empty;
-            HttpClient client = getAuthorisedClient();
+            HttpClient client = getAuthorisedClient(token);
             int day = DateTime.Now.Day;
             int month = DateTime.Now.Month;
             int year = DateTime.Now.Year;
-            ViewBag.RequestingUrl = String.Format(apiAddress+"/activities/heart/date/{0}/{1}.json", "today", "1d");
+            ViewBag.RequestingUrl = String.Format(apiAddress + "/activities/heart/date/{0}-{1}-{2}.json", year, month, day);
             var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
             if (apiResponse.IsSuccessStatusCode)
             {
@@ -193,10 +205,35 @@ namespace GoAber.Controllers
             return View();
         }
 
-        private HttpClient getAuthorisedClient()
+        public ActionResult getSleepDay()
+        {
+            string token = getCurrentUserAccessToken(1);
+            if (String.IsNullOrEmpty(token))
+                return RedirectToAction("StartOAuth"); // redirect to authorisation
+            //-----------------------------
+            string result = String.Empty;
+            HttpClient client = getAuthorisedClient(token);
+            int day = DateTime.Now.Day;
+            int month = DateTime.Now.Month;
+            int year = DateTime.Now.Year;
+            ViewBag.RequestingUrl = String.Format(apiAddress + "/sleep/date/{0}-{1}-{2}.json", year, month, day);
+            var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
+            if (apiResponse.IsSuccessStatusCode)
+            {
+                result = apiResponse.Content.ReadAsStringAsync().Result;
+                ViewBag.Result = result;
+            }
+            else
+            {
+                ViewBag.Result = apiResponse.StatusCode;
+            }
+            return View();
+        }
+
+        private HttpClient getAuthorisedClient(string token)
         {
             HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", (String)Session["InitialAccessToken"]);
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             return client;
         }
     }
