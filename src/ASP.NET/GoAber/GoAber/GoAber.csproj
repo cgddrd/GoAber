@@ -194,6 +194,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Category.cs">
       <DependentUpon>GoAberDataModel.tt</DependentUpon>
     </Compile>
@@ -299,6 +300,7 @@
     <Content Include="Areas\Admin\Views\ActivityData\Details.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
