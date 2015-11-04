@@ -29,7 +29,11 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas.Find(id);
+            ActivityData activityData = db.ActivityDatas
+                                            .Include(a => a.categoryunit)
+                                            .Include(a => a.categoryunit.category)
+                                            .Include(a => a.categoryunit.unit)
+                                            .SingleOrDefault(d => d.idActivityData == id);
             if (activityData == null)
             {
                 return HttpNotFound();

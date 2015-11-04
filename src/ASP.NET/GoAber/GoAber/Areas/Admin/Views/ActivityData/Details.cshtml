@@ -35,11 +35,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.categoryunit.idCategoryUnit)
+            Category
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.categoryunit.idCategoryUnit)
+            @Html.DisplayFor(model => model.categoryunit.category.name)
+        </dd>
+
+        <dt>
+           Unit
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoryunit.unit.name)
         </dd>
 
         <dt>
