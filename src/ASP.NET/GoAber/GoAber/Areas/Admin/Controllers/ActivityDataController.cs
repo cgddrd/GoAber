@@ -78,7 +78,9 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "idCategoryUnit", "idCategoryUnit", activityData.categoryUnitId);
+
+            var categories = CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
             ViewBag.userId = new SelectList(db.Users, "idUser", "email", activityData.userId);
             return View(activityData);
         }
@@ -96,7 +98,9 @@ namespace GoAber.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "idCategoryUnit", "idCategoryUnit", activityData.categoryUnitId);
+
+            var categories = CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
             ViewBag.userId = new SelectList(db.Users, "idUser", "email", activityData.userId);
             return View(activityData);
         }
