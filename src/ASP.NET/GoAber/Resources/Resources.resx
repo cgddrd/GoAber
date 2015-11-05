@@ -120,10 +120,10 @@
   <data name="ChooseYourLanguage" xml:space="preserve">
     <value>Choose your language!</value>
   </data>
-  <data name="Test1" xml:space="preserve">
-    <value>This is English Test</value>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
   </data>
-  <data name="Test2" xml:space="preserve">
-    <value>This is a second English Test</value>
+  <data name="email" xml:space="preserve">
+    <value>myemail</value>
   </data>
 </root>

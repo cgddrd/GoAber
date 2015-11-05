@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateUserLabel_idUser}" for="idUser" />
+                    <h:inputText id="idUser" value="#{userController.selected.idUser}" title="#{bundle.CreateUserTitle_idUser}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_idUser}"/>
+                    <h:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{userController.selected.email}" title="#{bundle.CreateUserTitle_email}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_email}"/>
+                    <h:outputLabel value="#{bundle.CreateUserLabel_nickname}" for="nickname" />
+                    <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.CreateUserTitle_nickname}" />
+                    <h:outputLabel value="#{bundle.CreateUserLabel_groupId}" for="groupId" />
+                    <h:selectOneMenu id="groupId" value="#{userController.selected.groupId}" title="#{bundle.CreateUserTitle_groupId}" >
+                        <f:selectItems value="#{groupTableController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateUserLabel_userCredentialsId}" for="userCredentialsId" />
+                    <h:selectOneMenu id="userCredentialsId" value="#{userController.selected.userCredentialsId}" title="#{bundle.CreateUserTitle_userCredentialsId}" >
+                        <f:selectItems value="#{userCredentialsController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateUserLabel_userRoleId}" for="userRoleId" />
+                    <h:selectOneMenu id="userRoleId" value="#{userController.selected.userRoleId}" title="#{bundle.CreateUserTitle_userRoleId}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_userRoleId}">
+                        <f:selectItems value="#{userRoleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{userController.prepareList}" value="#{bundle.CreateUserShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateUserIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

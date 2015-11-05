@@ -29,7 +29,7 @@ namespace GoAber.Controllers
         }
 
         /// <summary>
-        /// Code take from the following url.
+        /// Code sourced from the following url.
         /// http://afana.me/post/aspnet-mvc-internationalization.aspx
         /// </summary>
         public ActionResult SetCulture(string culture)

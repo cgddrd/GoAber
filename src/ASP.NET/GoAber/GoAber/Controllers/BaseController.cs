@@ -11,7 +11,7 @@ namespace GoAber.Controllers
     public class BaseController : Controller
     {
         /// <summary>
-        /// Code take from the following url.
+        /// Code sourced from the following url.
         /// http://afana.me/post/aspnet-mvc-internationalization.aspx
         /// </summary>
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
@@ -24,10 +24,10 @@ namespace GoAber.Controllers
                 cultureName = cultureCookie.Value;
             else
                 cultureName = Request.UserLanguages != null && Request.UserLanguages.Length > 0 ?
-                        Request.UserLanguages[0] :  // obtain it from HTTP header AcceptLanguages
+                        Request.UserLanguages[0] : 
                         null;
             // Validate culture name
-            cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
+            cultureName = CultureHelper.GetImplementedCulture(cultureName); 
 
             // Modify current thread's cultures            
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);

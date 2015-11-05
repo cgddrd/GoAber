@@ -70,20 +70,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is English Test.
+        ///   Looks up a localized string similar to Create.
         /// </summary>
-        public static string Test1 {
+        public static string Create {
             get {
-                return ResourceManager.GetString("Test1", resourceCulture);
+                return ResourceManager.GetString("Create", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is a second English Test.
+        ///   Looks up a localized string similar to myemail.
         /// </summary>
-        public static string Test2 {
+        public static string email {
             get {
-                return ResourceManager.GetString("Test2", resourceCulture);
+                return ResourceManager.GetString("email", resourceCulture);
             }
         }
     }

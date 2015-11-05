@@ -120,10 +120,10 @@
   <data name="ChooseYourLanguage" xml:space="preserve">
     <value>Dewis iaith !</value>
   </data>
-  <data name="Test1" xml:space="preserve">
-    <value>Mae hwn yn brawf</value>
+  <data name="Create" xml:space="preserve">
+    <value>[WELSH]Create</value>
   </data>
-  <data name="Test2" xml:space="preserve">
-    <value>Mae hwn yn ail brawf</value>
+  <data name="email" xml:space="preserve">
+    <value>myemail</value>
   </data>
 </root>

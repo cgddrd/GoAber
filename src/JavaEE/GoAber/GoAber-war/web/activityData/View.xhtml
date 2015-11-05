@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewActivityDataTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewActivityDataLabel_idActivityData}"/>
+                    <h:outputText value="#{activityDataController.selected.idActivityData}" title="#{bundle.ViewActivityDataTitle_idActivityData}"/>
+                    <h:outputText value="#{bundle.ViewActivityDataLabel_value}"/>
+                    <h:outputText value="#{activityDataController.selected.value}" title="#{bundle.ViewActivityDataTitle_value}"/>
+                    <h:outputText value="#{bundle.ViewActivityDataLabel_lastUpdated}"/>
+                    <h:outputText value="#{activityDataController.selected.lastUpdated}" title="#{bundle.ViewActivityDataTitle_lastUpdated}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewActivityDataLabel_date}"/>
+                    <h:outputText value="#{activityDataController.selected.date}" title="#{bundle.ViewActivityDataTitle_date}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewActivityDataLabel_categoryUnitId}"/>
+                    <h:outputText value="#{activityDataController.selected.categoryUnitId}" title="#{bundle.ViewActivityDataTitle_categoryUnitId}"/>
+                    <h:outputText value="#{bundle.ViewActivityDataLabel_userId}"/>
+                    <h:outputText value="#{activityDataController.selected.userId}" title="#{bundle.ViewActivityDataTitle_userId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{activityDataController.destroyAndView}" value="#{bundle.ViewActivityDataDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewActivityDataEditLink}"/>
+                <br />
+                <h:commandLink action="#{activityDataController.prepareCreate}" value="#{bundle.ViewActivityDataCreateLink}" />
+                <br />
+                <h:commandLink action="#{activityDataController.prepareList}" value="#{bundle.ViewActivityDataShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewActivityDataIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

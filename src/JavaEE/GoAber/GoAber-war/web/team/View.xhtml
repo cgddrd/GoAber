@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTeamTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTeamLabel_idGroup}"/>
+                    <h:outputText value="#{teamController.selected.idGroup}" title="#{bundle.ViewTeamTitle_idGroup}"/>
+                    <h:outputText value="#{bundle.ViewTeamLabel_name}"/>
+                    <h:outputText value="#{teamController.selected.name}" title="#{bundle.ViewTeamTitle_name}"/>
+                    <h:outputText value="#{bundle.ViewTeamLabel_communityId}"/>
+                    <h:outputText value="#{teamController.selected.communityId}" title="#{bundle.ViewTeamTitle_communityId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{teamController.destroyAndView}" value="#{bundle.ViewTeamDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTeamEditLink}"/>
+                <br />
+                <h:commandLink action="#{teamController.prepareCreate}" value="#{bundle.ViewTeamCreateLink}" />
+                <br />
+                <h:commandLink action="#{teamController.prepareList}" value="#{bundle.ViewTeamShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTeamIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
