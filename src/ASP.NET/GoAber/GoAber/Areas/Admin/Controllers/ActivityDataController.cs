@@ -15,7 +15,7 @@ namespace GoAber.Areas.Admin.Controllers
 {
     public class ActivityDataController : Controller
     {
-        private const int pageSize = 2;
+        private const int pageSize = 100;
 
         //private GoAberEntities db = new GoAberEntities();
         private ApplicationDbContext db = new ApplicationDbContext();
