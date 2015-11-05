@@ -22,9 +22,9 @@ public partial class Users
     public Users()
     {
 
-        this.activitydatas = new HashSet<activitydata>();
+        this.activitydatas = new HashSet<ActivityData>();
 
-        this.userchallenges = new HashSet<userchallenge>();
+        this.userchallenges = new HashSet<UserChallenge>();
 
     }
 
@@ -42,20 +42,17 @@ public partial class Users
     public Nullable<int> groupId { get; set; }
 
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<ActivityData> activitydatas { get; set; }
+
+    public virtual Team group { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<UserChallenge> userchallenges { get; set; }
 
-    public virtual ICollection<activitydata> activitydatas { get; set; }
+    public virtual UserCredential usercredential { get; set; }
 
-    public virtual group group { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-    public virtual ICollection<userchallenge> userchallenges { get; set; }
-
-    public virtual usercredential usercredential { get; set; }
-
-    public virtual userrole userrole { get; set; }
+    public virtual UserRole userrole { get; set; }
 
 }
 

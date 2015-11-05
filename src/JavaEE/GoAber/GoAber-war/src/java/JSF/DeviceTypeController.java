@@ -18,14 +18,15 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "deviceTypeController")
+
+@ManagedBean(name="deviceTypeController")
 @SessionScoped
 public class DeviceTypeController implements Serializable {
 
+
     private DeviceType current;
     private DataModel items = null;
-    @EJB
-    private SessionBean.DeviceTypeFacade ejbFacade;
+    @EJB private SessionBean.DeviceTypeFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -43,7 +44,6 @@ public class DeviceTypeController implements Serializable {
     private DeviceTypeFacade getFacade() {
         return ejbFacade;
     }
-
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -55,7 +55,7 @@ public class DeviceTypeController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
                 }
             };
         }
@@ -68,7 +68,7 @@ public class DeviceTypeController implements Serializable {
     }
 
     public String prepareView() {
-        current = (DeviceType) getItems().getRowData();
+        current = (DeviceType)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -91,7 +91,7 @@ public class DeviceTypeController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (DeviceType) getItems().getRowData();
+        current = (DeviceType)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -108,7 +108,7 @@ public class DeviceTypeController implements Serializable {
     }
 
     public String destroy() {
-        current = (DeviceType) getItems().getRowData();
+        current = (DeviceType)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -142,14 +142,14 @@ public class DeviceTypeController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
+            selectedItemIndex = count-1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
         }
     }
 
@@ -188,7 +188,8 @@ public class DeviceTypeController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = DeviceType.class)
+
+    @FacesConverter(forClass=DeviceType.class)
     public static class DeviceTypeControllerConverter implements Converter {
 
         @Override
@@ -196,7 +197,7 @@ public class DeviceTypeController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            DeviceTypeController controller = (DeviceTypeController) facesContext.getApplication().getELResolver().
+            DeviceTypeController controller = (DeviceTypeController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "deviceTypeController");
             return controller.ejbFacade.find(getKey(value));
         }
@@ -222,7 +223,7 @@ public class DeviceTypeController implements Serializable {
                 DeviceType o = (DeviceType) object;
                 return getStringKey(o.getIdDeviceType());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + DeviceType.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+DeviceType.class.getName());
             }
         }
 

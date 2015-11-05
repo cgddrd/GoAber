@@ -10,13 +10,12 @@
     <class>GoAberDatabase.Device</class>
     <class>GoAberDatabase.DeviceType</class>
     <class>GoAberDatabase.GroupChallenge</class>
-    <class>GoAberDatabase.GroupTable</class>
+    <class>GoAberDatabase.Team</class>
     <class>GoAberDatabase.Unit</class>
     <class>GoAberDatabase.User</class>
     <class>GoAberDatabase.UserChallenge</class>
     <class>GoAberDatabase.UserCredentials</class>
     <class>GoAberDatabase.UserRole</class>
-    <class>GoAberDatabase.Team</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

@@ -13,15 +13,16 @@ namespace GoAber
     using System.Collections.Generic;
     using System.ComponentModel;
 
-    public partial class Category
+    public partial class Unit
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public Unit()
         {
             this.categoryunits = new HashSet<CategoryUnit>();
         }
-
-        public int idCategory { get; set; }
+    
+        public int Id { get; set; }
+		
         [DisplayName("Name")]
         public string name { get; set; }
     

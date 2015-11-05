@@ -17,10 +17,6 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateDeviceLabel_idDevice}" for="idDevice" />
                     <h:inputText id="idDevice" value="#{deviceController.selected.idDevice}" title="#{bundle.CreateDeviceTitle_idDevice}" required="true" requiredMessage="#{bundle.CreateDeviceRequiredMessage_idDevice}"/>
-                    <h:outputLabel value="#{bundle.CreateDeviceLabel_deviceTypeId}" for="deviceTypeId" />
-                    <h:inputText id="deviceTypeId" value="#{deviceController.selected.deviceTypeId}" title="#{bundle.CreateDeviceTitle_deviceTypeId}" required="true" requiredMessage="#{bundle.CreateDeviceRequiredMessage_deviceTypeId}"/>
-                    <h:outputLabel value="#{bundle.CreateDeviceLabel_userId}" for="userId" />
-                    <h:inputText id="userId" value="#{deviceController.selected.userId}" title="#{bundle.CreateDeviceTitle_userId}" required="true" requiredMessage="#{bundle.CreateDeviceRequiredMessage_userId}"/>
                     <h:outputLabel value="#{bundle.CreateDeviceLabel_accessToken}" for="accessToken" />
                     <h:inputText id="accessToken" value="#{deviceController.selected.accessToken}" title="#{bundle.CreateDeviceTitle_accessToken}" />
                     <h:outputLabel value="#{bundle.CreateDeviceLabel_refreshToken}" for="refreshToken" />
@@ -29,6 +25,14 @@
                     <h:inputText id="tokenExpiration" value="#{deviceController.selected.tokenExpiration}" title="#{bundle.CreateDeviceTitle_tokenExpiration}" >
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateDeviceLabel_deviceTypeId}" for="deviceTypeId" />
+                    <h:selectOneMenu id="deviceTypeId" value="#{deviceController.selected.deviceTypeId}" title="#{bundle.CreateDeviceTitle_deviceTypeId}" required="true" requiredMessage="#{bundle.CreateDeviceRequiredMessage_deviceTypeId}">
+                        <f:selectItems value="#{deviceTypeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateDeviceLabel_userId}" for="userId" />
+                    <h:selectOneMenu id="userId" value="#{deviceController.selected.userId}" title="#{bundle.CreateDeviceTitle_userId}" required="true" requiredMessage="#{bundle.CreateDeviceRequiredMessage_userId}">
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{deviceController.create}" value="#{bundle.CreateDeviceSaveLink}" />

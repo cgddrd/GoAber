@@ -13,10 +13,11 @@ namespace GoAber
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Data.Entity;
 
-    public partial class ActivityData
+    public class ActivityData
     {
-        public int idActivityData { get; set; }
+        public int Id { get; set; }
         public int categoryUnitId { get; set; }
         public int userId { get; set; }
 
@@ -30,5 +31,10 @@ namespace GoAber
         public Nullable<System.DateTime> date { get; set; }
         public virtual CategoryUnit categoryunit { get; set; }
         public virtual User user { get; set; }
+
+        //public class MovieDBContext : DbContext
+        //{
+        //    public DbSet<ActivityData> ActivityData { get; set; }
+        //}
     }
 }

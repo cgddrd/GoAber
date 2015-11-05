@@ -6,7 +6,9 @@
 package GoAberDatabase;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,10 +18,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -47,6 +51,10 @@ public class Team implements Serializable {
     @JoinColumn(name = "communityId", referencedColumnName = "idCommunity")
     @ManyToOne
     private Community communityId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
+    private Collection<GroupChallenge> groupChallengeCollection;
+    @OneToMany(mappedBy = "groupId")
+    private Collection<User> userCollection;
 
     public Team() {
     }
@@ -82,6 +90,24 @@ public class Team implements Serializable {
 
     public void setCommunityId(Community communityId) {
         this.communityId = communityId;
+    }
+
+    @XmlTransient
+    public Collection<GroupChallenge> getGroupChallengeCollection() {
+        return groupChallengeCollection;
+    }
+
+    public void setGroupChallengeCollection(Collection<GroupChallenge> groupChallengeCollection) {
+        this.groupChallengeCollection = groupChallengeCollection;
+    }
+
+    @XmlTransient
+    public Collection<User> getUserCollection() {
+        return userCollection;
+    }
+
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
 
     @Override

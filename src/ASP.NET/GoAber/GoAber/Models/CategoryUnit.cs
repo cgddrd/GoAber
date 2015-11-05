@@ -20,7 +20,7 @@ namespace GoAber
             this.activitydatas = new HashSet<ActivityData>();
         }
     
-        public int idCategoryUnit { get; set; }
+        public int Id { get; set; }
         public int categoryId { get; set; }
         public int unitId { get; set; }
     
