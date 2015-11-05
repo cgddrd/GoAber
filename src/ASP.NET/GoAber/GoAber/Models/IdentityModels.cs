@@ -20,7 +20,7 @@ namespace GoAber.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-
+         
         /*static ApplicationDbContext() {
             Database.SetInitializer(new MySqlInitializer());
         }*/

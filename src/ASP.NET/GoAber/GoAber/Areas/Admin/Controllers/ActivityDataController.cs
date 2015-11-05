@@ -48,7 +48,11 @@ namespace GoAber.Areas.Admin.Controllers
         {
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
-            ViewBag.userId = new SelectList(db.Users, "idUser", "email");
+
+            // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
+            // CG TODO: Add remaining properties to ApplicationUser so that we can get rid of 'GoAber.User' model.
+            ViewBag.userId = new SelectList(db.Users1, "idUser", "email");
+
             return View();
         }
 
