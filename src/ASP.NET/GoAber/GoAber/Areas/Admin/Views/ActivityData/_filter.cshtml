@@ -1,5 +1,8 @@
 ﻿
 <h3>Filter</h3>
+
+@Html.ActionLink("Clear", "Index")
+
 @using (Html.BeginForm("Index", "ActivityData", FormMethod.Post, new { @class = "form-inline" }))
 {
     @Html.AntiForgeryToken()
