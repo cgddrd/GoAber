@@ -189,7 +189,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             if(categoryUnitId.HasValue)
             {
-                activityData = activityData.Where(a => a.categoryunit.idCategoryUnit == categoryUnitId);
+                activityData = activityData.Where(a => a.categoryunit.Id == categoryUnitId);
             }
             
             if (fromDate.HasValue)
