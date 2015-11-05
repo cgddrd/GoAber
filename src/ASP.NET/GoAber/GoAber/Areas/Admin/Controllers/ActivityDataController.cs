@@ -23,19 +23,19 @@ namespace GoAber.Areas.Admin.Controllers
                                     .Include(a => a.user);
 
             var categories = CreateCategoryUnitList();
-            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             return View(activityDatas.ToList());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string email, int idCategoryUnit)
+        public ActionResult Index(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
         {
             var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.user);
-            activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit);
+            activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit, fromDate, toDate);
 
             var categories = CreateCategoryUnitList();
-            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             return View(activityData.ToList());
         }
 
@@ -173,14 +173,27 @@ namespace GoAber.Areas.Admin.Controllers
             return categories;
         }
 
-        private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, string email, int categoryUnitId)
+        private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, string email, int? categoryUnitId, DateTime? fromDate, DateTime? toDate)
         {
             if (!String.IsNullOrEmpty(email))
             {
                 activityData = activityData.Where(a => a.user.email.Contains(email));
             }
 
-            activityData = activityData.Where(a => a.categoryunit.idCategoryUnit == categoryUnitId);
+            if(categoryUnitId.HasValue)
+            {
+                activityData = activityData.Where(a => a.categoryunit.idCategoryUnit == categoryUnitId);
+            }
+            
+            if (fromDate.HasValue)
+            {
+                activityData = activityData.Where(a => a.date >= fromDate);
+            }
+
+            if (toDate.HasValue)
+            {
+                activityData = activityData.Where(a => a.date <= toDate);
+            }
 
             return activityData;
         }
