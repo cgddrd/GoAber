@@ -6,36 +6,29 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using GoAber;
-using System.Collections;
 using GoAber.Models;
 
-namespace GoAber.Areas.Admin.Controllers
+namespace GoAber
 {
-    public class ActivityDataController : Controller
+    public class ActivityDatasController : Controller
     {
-        //private GoAberEntities db = new GoAberEntities();
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Admin/ActivityData
+        // GET: ActivityDatas
         public ActionResult Index()
         {
-            var activityDatas1 = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.user);
-            return View(activityDatas1.ToList());
+            var activityDatas = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.user);
+            return View(activityDatas.ToList());
         }
 
-        // GET: Admin/ActivityData/Details/5
+        // GET: ActivityDatas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas
-                                            .Include(a => a.categoryunit)
-                                            .Include(a => a.categoryunit.category)
-                                            .Include(a => a.categoryunit.unit)
-                                            .SingleOrDefault(d => d.Id == id);
+            ActivityData activityData = db.ActivityDatas.Find(id);
             if (activityData == null)
             {
                 return HttpNotFound();
@@ -43,25 +36,20 @@ namespace GoAber.Areas.Admin.Controllers
             return View(activityData);
         }
 
-        // GET: Admin/ActivityData/Create
+        // GET: ActivityDatas/Create
         public ActionResult Create()
         {
-            var categories = CreateCategoryUnitList();
-            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
-
-            // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
-            // CG TODO: Add remaining properties to ApplicationUser so that we can get rid of 'GoAber.User' model.
-            ViewBag.userId = new SelectList(db.Users1, "Id", "email");
-
+            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id");
+            ViewBag.userId = new SelectList(db.Users, "Id", "email");
             return View();
         }
 
-        // POST: Admin/ActivityData/Create
+        // POST: ActivityDatas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idActivityData,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
+        public ActionResult Create([Bind(Include = "Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
             {
@@ -70,13 +58,12 @@ namespace GoAber.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            var categories = CreateCategoryUnitList();
-            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
+            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id", activityData.categoryUnitId);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.userId);
             return View(activityData);
         }
 
-        // GET: Admin/ActivityData/Edit/5
+        // GET: ActivityDatas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,14 +75,12 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-
-            var categories = CreateCategoryUnitList();
-            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
+            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id", activityData.categoryUnitId);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.userId);
             return View(activityData);
         }
 
-        // POST: Admin/ActivityData/Edit/5
+        // POST: ActivityDatas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -108,14 +93,12 @@ namespace GoAber.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            var categories = CreateCategoryUnitList();
-            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
+            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id", activityData.categoryUnitId);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.userId);
             return View(activityData);
         }
 
-        // GET: Admin/ActivityData/Delete/5
+        // GET: ActivityDatas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -130,7 +113,7 @@ namespace GoAber.Areas.Admin.Controllers
             return View(activityData);
         }
 
-        // POST: Admin/ActivityData/Delete/5
+        // POST: ActivityDatas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -148,19 +131,6 @@ namespace GoAber.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private IEnumerable CreateCategoryUnitList()
-        {
-            var categories = db.CategoryUnits.Select(c => new
-            {
-                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
-                idCategoryUnit = c.Id,
-                category = c.category.name,
-                unit = c.unit.name
-            }).ToList();
-
-            return categories;
         }
     }
 }

@@ -18,14 +18,15 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "unitController")
+
+@ManagedBean(name="unitController")
 @SessionScoped
 public class UnitController implements Serializable {
 
+
     private Unit current;
     private DataModel items = null;
-    @EJB
-    private SessionBean.UnitFacade ejbFacade;
+    @EJB private SessionBean.UnitFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -43,7 +44,6 @@ public class UnitController implements Serializable {
     private UnitFacade getFacade() {
         return ejbFacade;
     }
-
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -55,7 +55,7 @@ public class UnitController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
                 }
             };
         }
@@ -68,7 +68,7 @@ public class UnitController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Unit) getItems().getRowData();
+        current = (Unit)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -91,7 +91,7 @@ public class UnitController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Unit) getItems().getRowData();
+        current = (Unit)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -108,7 +108,7 @@ public class UnitController implements Serializable {
     }
 
     public String destroy() {
-        current = (Unit) getItems().getRowData();
+        current = (Unit)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -142,14 +142,14 @@ public class UnitController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
+            selectedItemIndex = count-1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
         }
     }
 
@@ -188,7 +188,8 @@ public class UnitController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Unit.class)
+
+    @FacesConverter(forClass=Unit.class)
     public static class UnitControllerConverter implements Converter {
 
         @Override
@@ -196,7 +197,7 @@ public class UnitController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            UnitController controller = (UnitController) facesContext.getApplication().getELResolver().
+            UnitController controller = (UnitController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "unitController");
             return controller.ejbFacade.find(getKey(value));
         }
@@ -222,7 +223,7 @@ public class UnitController implements Serializable {
                 Unit o = (Unit) object;
                 return getStringKey(o.getIdUnit());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Unit.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+Unit.class.getName());
             }
         }
 

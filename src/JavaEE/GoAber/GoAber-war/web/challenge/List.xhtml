@@ -56,6 +56,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListChallengeTitle_communityStartedBy}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.communityStartedBy}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
                             <h:commandLink action="#{challengeController.prepareView}" value="#{bundle.ListChallengeViewLink}"/>

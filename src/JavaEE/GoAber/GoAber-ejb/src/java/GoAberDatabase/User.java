@@ -57,6 +57,8 @@ public class User implements Serializable {
     private Collection<UserChallenge> userChallengeCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<ActivityData> activityDataCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Device> deviceCollection;
     @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
     @ManyToOne
     private Team groupId;
@@ -119,6 +121,15 @@ public class User implements Serializable {
 
     public void setActivityDataCollection(Collection<ActivityData> activityDataCollection) {
         this.activityDataCollection = activityDataCollection;
+    }
+
+    @XmlTransient
+    public Collection<Device> getDeviceCollection() {
+        return deviceCollection;
+    }
+
+    public void setDeviceCollection(Collection<Device> deviceCollection) {
+        this.deviceCollection = deviceCollection;
     }
 
     public Team getGroupId() {

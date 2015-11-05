@@ -32,19 +32,20 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Unit.findAll", query = "SELECT u FROM Unit u"),
-    @NamedQuery(name = "Unit.findByIdUnit", query = "SELECT u FROM Unit u WHERE u.idUnit = :idUnit")})
+    @NamedQuery(name = "Unit.findByIdUnit", query = "SELECT u FROM Unit u WHERE u.idUnit = :idUnit"),
+    @NamedQuery(name = "Unit.findByName", query = "SELECT u FROM Unit u WHERE u.name = :name")})
 public class Unit implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "name")
-    private String name;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idUnit")
     private Integer idUnit;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "name")
+    private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "unitId")
     private Collection<CategoryUnit> categoryUnitCollection;
 
@@ -55,12 +56,25 @@ public class Unit implements Serializable {
         this.idUnit = idUnit;
     }
 
+    public Unit(Integer idUnit, String name) {
+        this.idUnit = idUnit;
+        this.name = name;
+    }
+
     public Integer getIdUnit() {
         return idUnit;
     }
 
     public void setIdUnit(Integer idUnit) {
         this.idUnit = idUnit;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @XmlTransient
@@ -95,14 +109,6 @@ public class Unit implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.Unit[ idUnit=" + idUnit + " ]";
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
     
 }

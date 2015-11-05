@@ -12,22 +12,17 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class Team
+    public partial class UserCredential
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Team()
+        public UserCredential()
         {
-            this.groupchallenges = new HashSet<GroupChallenge>();
             this.users = new HashSet<User>();
         }
     
-        public int idGroup { get; set; }
-        public string name { get; set; }
-        public Nullable<int> communityId { get; set; }
+        public int Id { get; set; }
+        public string password { get; set; }
     
-        public virtual Community community { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GroupChallenge> groupchallenges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> users { get; set; }
     }

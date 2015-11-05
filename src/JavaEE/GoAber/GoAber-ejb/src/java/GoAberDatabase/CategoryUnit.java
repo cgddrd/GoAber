@@ -6,7 +6,9 @@
 package GoAberDatabase;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,6 +40,8 @@ public class CategoryUnit implements Serializable {
     @Basic(optional = false)
     @Column(name = "idCategoryUnit")
     private Integer idCategoryUnit;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryUnitId")
+    private Collection<ActivityData> activityDataCollection;
     @JoinColumn(name = "categoryId", referencedColumnName = "idCategory")
     @ManyToOne(optional = false)
     private Category categoryId;
@@ -56,6 +62,15 @@ public class CategoryUnit implements Serializable {
 
     public void setIdCategoryUnit(Integer idCategoryUnit) {
         this.idCategoryUnit = idCategoryUnit;
+    }
+
+    @XmlTransient
+    public Collection<ActivityData> getActivityDataCollection() {
+        return activityDataCollection;
+    }
+
+    public void setActivityDataCollection(Collection<ActivityData> activityDataCollection) {
+        this.activityDataCollection = activityDataCollection;
     }
 
     public Category getCategoryId() {
