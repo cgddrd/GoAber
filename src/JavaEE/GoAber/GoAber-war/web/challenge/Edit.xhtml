@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditChallengeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditChallengeLabel_idChallenge}" for="idChallenge" />
+                    <h:inputText id="idChallenge" value="#{challengeController.selected.idChallenge}" title="#{bundle.EditChallengeTitle_idChallenge}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_idChallenge}"/>
+                    <h:outputLabel value="#{bundle.EditChallengeLabel_categoryUnit}" for="categoryUnit" />
+                    <h:inputText id="categoryUnit" value="#{challengeController.selected.categoryUnit}" title="#{bundle.EditChallengeTitle_categoryUnit}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_categoryUnit}"/>
+                    <h:outputLabel value="#{bundle.EditChallengeLabel_startTime}" for="startTime" />
+                    <h:inputText id="startTime" value="#{challengeController.selected.startTime}" title="#{bundle.EditChallengeTitle_startTime}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_startTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditChallengeLabel_endTime}" for="endTime" />
+                    <h:inputText id="endTime" value="#{challengeController.selected.endTime}" title="#{bundle.EditChallengeTitle_endTime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditChallengeLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{challengeController.selected.name}" title="#{bundle.EditChallengeTitle_name}" />
+                    <h:outputLabel value="#{bundle.EditChallengeLabel_communityStartedBy}" for="communityStartedBy" />
+                    <h:selectOneMenu id="communityStartedBy" value="#{challengeController.selected.communityStartedBy}" title="#{bundle.EditChallengeTitle_communityStartedBy}" >
+                        <f:selectItems value="#{communityController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{challengeController.update}" value="#{bundle.EditChallengeSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditChallengeViewLink}"/>
+                <br />
+                <h:commandLink action="#{challengeController.prepareList}" value="#{bundle.EditChallengeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditChallengeIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

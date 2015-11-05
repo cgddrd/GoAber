@@ -261,3 +261,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/src/JavaEE/GoAber/GoAber-ejb/dist/
+/src/JavaEE/GoAber/GoAber-war/dist/

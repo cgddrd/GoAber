@@ -17,10 +17,8 @@ namespace GoAber.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private GoAberEntities db = new GoAberEntities();
-
-        ApplicationDbContext context;
-
+        //private GoAberEntities db = new GoAberEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
             context = new ApplicationDbContext();
@@ -198,10 +196,13 @@ namespace GoAber.Controllers
                 if (result.Succeeded)
                 {
 
-                    //Assign Role to user Here 
-                    await this.UserManager.AddToRoleAsync(user.Id, model.Name);
-                    //Ends Here
+                //var test = new GoAber.User();
+                //test.email = model.Email;
+                //test.nickname = model.Email;
+                //test.userRoleId = 3;
 
+                //db.Users.Add(test);
+                //db.SaveChanges();
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
