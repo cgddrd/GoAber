@@ -12,10 +12,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,9 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GroupChallenge.findAll", query = "SELECT g FROM GroupChallenge g"),
-    @NamedQuery(name = "GroupChallenge.findByIdGroupChallenge", query = "SELECT g FROM GroupChallenge g WHERE g.idGroupChallenge = :idGroupChallenge"),
-    @NamedQuery(name = "GroupChallenge.findByGroupId", query = "SELECT g FROM GroupChallenge g WHERE g.groupId = :groupId"),
-    @NamedQuery(name = "GroupChallenge.findByChallengeId", query = "SELECT g FROM GroupChallenge g WHERE g.challengeId = :challengeId")})
+    @NamedQuery(name = "GroupChallenge.findByIdGroupChallenge", query = "SELECT g FROM GroupChallenge g WHERE g.idGroupChallenge = :idGroupChallenge")})
 public class GroupChallenge implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,26 +36,18 @@ public class GroupChallenge implements Serializable {
     @Basic(optional = false)
     @Column(name = "idGroupChallenge")
     private Integer idGroupChallenge;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "groupId")
-    private int groupId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "challengeId")
-    private int challengeId;
+    @JoinColumn(name = "challengeId", referencedColumnName = "idChallenge")
+    @ManyToOne(optional = false)
+    private Challenge challengeId;
+    @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
+    @ManyToOne(optional = false)
+    private Team groupId;
 
     public GroupChallenge() {
     }
 
     public GroupChallenge(Integer idGroupChallenge) {
         this.idGroupChallenge = idGroupChallenge;
-    }
-
-    public GroupChallenge(Integer idGroupChallenge, int groupId, int challengeId) {
-        this.idGroupChallenge = idGroupChallenge;
-        this.groupId = groupId;
-        this.challengeId = challengeId;
     }
 
     public Integer getIdGroupChallenge() {
@@ -67,20 +58,20 @@ public class GroupChallenge implements Serializable {
         this.idGroupChallenge = idGroupChallenge;
     }
 
-    public int getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
-    }
-
-    public int getChallengeId() {
+    public Challenge getChallengeId() {
         return challengeId;
     }
 
-    public void setChallengeId(int challengeId) {
+    public void setChallengeId(Challenge challengeId) {
         this.challengeId = challengeId;
+    }
+
+    public Team getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Team groupId) {
+        this.groupId = groupId;
     }
 
     @Override

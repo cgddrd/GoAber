@@ -6,7 +6,9 @@
 package GoAberDatabase;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,9 +16,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -59,6 +63,8 @@ public class DeviceType implements Serializable {
     @Size(max = 250)
     @Column(name = "authorizationEndpoint")
     private String authorizationEndpoint;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceTypeId")
+    private Collection<Device> deviceCollection;
 
     public DeviceType() {
     }
@@ -121,6 +127,15 @@ public class DeviceType implements Serializable {
 
     public void setAuthorizationEndpoint(String authorizationEndpoint) {
         this.authorizationEndpoint = authorizationEndpoint;
+    }
+
+    @XmlTransient
+    public Collection<Device> getDeviceCollection() {
+        return deviceCollection;
+    }
+
+    public void setDeviceCollection(Collection<Device> deviceCollection) {
+        this.deviceCollection = deviceCollection;
     }
 
     @Override

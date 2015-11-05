@@ -11,25 +11,22 @@ namespace GoAber
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Challenge
+    using System.ComponentModel;
+
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Challenge()
+        public Category()
         {
-            this.userchallenges = new HashSet<UserChallenge>();
-            this.groupchallenges = new HashSet<GroupChallenge>();
+            this.categoryunits = new HashSet<CategoryUnit>();
         }
     
-        public int idChallenge { get; set; }
-        public int categoryUnit { get; set; }
-        public System.DateTime startTime { get; set; }
-        public Nullable<System.DateTime> endTime { get; set; }
+        public int Id { get; set; }
+		
+        [DisplayName("Name")]
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserChallenge> userchallenges { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GroupChallenge> groupchallenges { get; set; }
+        public virtual ICollection<CategoryUnit> categoryunits { get; set; }
     }
 }

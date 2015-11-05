@@ -17,8 +17,8 @@ namespace GoAber.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private GoAberEntities db = new GoAberEntities();
-
+        //private GoAberEntities db = new GoAberEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -155,13 +155,13 @@ namespace GoAber.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
-                var test = new GoAber.User();
-                test.email = model.Email;
-                test.nickname = model.Email;
-                test.userRoleId = 3;
+                //var test = new GoAber.User();
+                //test.email = model.Email;
+                //test.nickname = model.Email;
+                //test.userRoleId = 3;
 
-                db.Users.Add(test);
-                db.SaveChanges();
+                //db.Users.Add(test);
+                //db.SaveChanges();
 
                 if (result.Succeeded)
                 {

@@ -12,16 +12,13 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class Device
+    public partial class GroupChallenge
     {
-        public int idDevice { get; set; }
-        public int deviceTypeId { get; set; }
-        public int userId { get; set; }
-        public string accessToken { get; set; }
-        public string refreshToken { get; set; }
-        public Nullable<System.DateTime> tokenExpiration { get; set; }
+        public int Id { get; set; }
+        public int groupId { get; set; }
+        public int challengeId { get; set; }
     
-        public virtual Devicetype devicetype { get; set; }
-        public virtual User user { get; set; }
+        public virtual Challenge challenge { get; set; }
+        public virtual Team team { get; set; }
     }
 }

@@ -32,10 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Community.findAll", query = "SELECT c FROM Community c"),
     @NamedQuery(name = "Community.findByIdCommunity", query = "SELECT c FROM Community c WHERE c.idCommunity = :idCommunity"),
-    @NamedQuery(name = "Community.findByName", query = "SELECT c FROM Community c WHERE c.name = :name")})
+    @NamedQuery(name = "Community.findByName", query = "SELECT c FROM Community c WHERE c.name = :name"),
+    @NamedQuery(name = "Community.findByEndpointUrl", query = "SELECT c FROM Community c WHERE c.endpointUrl = :endpointUrl")})
 public class Community implements Serializable {
-    @OneToMany(mappedBy = "communityId")
-    private Collection<Team> teamCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,8 +46,13 @@ public class Community implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-  //  @OneToMany(mappedBy = "communityId")
-   // private Collection<GroupTable> groupTableCollection;
+    @Size(max = 250)
+    @Column(name = "endpointUrl")
+    private String endpointUrl;
+    @OneToMany(mappedBy = "communityId")
+    private Collection<Team> teamCollection;
+    @OneToMany(mappedBy = "communityStartedBy")
+    private Collection<Challenge> challengeCollection;
 
     public Community() {
     }
@@ -78,14 +82,31 @@ public class Community implements Serializable {
         this.name = name;
     }
 
-  /*  @XmlTransient
-    public Collection<GroupTable> getGroupTableCollection() {
-        return groupTableCollection;
+    public String getEndpointUrl() {
+        return endpointUrl;
     }
 
-    public void setGroupTableCollection(Collection<GroupTable> groupTableCollection) {
-        this.groupTableCollection = groupTableCollection;
-    }*/
+    public void setEndpointUrl(String endpointUrl) {
+        this.endpointUrl = endpointUrl;
+    }
+
+    @XmlTransient
+    public Collection<Team> getTeamCollection() {
+        return teamCollection;
+    }
+
+    public void setTeamCollection(Collection<Team> teamCollection) {
+        this.teamCollection = teamCollection;
+    }
+
+    @XmlTransient
+    public Collection<Challenge> getChallengeCollection() {
+        return challengeCollection;
+    }
+
+    public void setChallengeCollection(Collection<Challenge> challengeCollection) {
+        this.challengeCollection = challengeCollection;
+    }
 
     @Override
     public int hashCode() {
@@ -110,15 +131,6 @@ public class Community implements Serializable {
     @Override
     public String toString() {
         return "GoAberDatabase.Community[ idCommunity=" + idCommunity + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Team> getTeamCollection() {
-        return teamCollection;
-    }
-
-    public void setTeamCollection(Collection<Team> teamCollection) {
-        this.teamCollection = teamCollection;
     }
     
 }

@@ -17,6 +17,8 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewUnitLabel_idUnit}"/>
                     <h:outputText value="#{unitController.selected.idUnit}" title="#{bundle.ViewUnitTitle_idUnit}"/>
+                    <h:outputText value="#{bundle.ViewUnitLabel_name}"/>
+                    <h:outputText value="#{unitController.selected.name}" title="#{bundle.ViewUnitTitle_name}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{unitController.destroyAndView}" value="#{bundle.ViewUnitDestroyLink}"/>

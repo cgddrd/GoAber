@@ -17,10 +17,6 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewDeviceLabel_idDevice}"/>
                     <h:outputText value="#{deviceController.selected.idDevice}" title="#{bundle.ViewDeviceTitle_idDevice}"/>
-                    <h:outputText value="#{bundle.ViewDeviceLabel_deviceTypeId}"/>
-                    <h:outputText value="#{deviceController.selected.deviceTypeId}" title="#{bundle.ViewDeviceTitle_deviceTypeId}"/>
-                    <h:outputText value="#{bundle.ViewDeviceLabel_userId}"/>
-                    <h:outputText value="#{deviceController.selected.userId}" title="#{bundle.ViewDeviceTitle_userId}"/>
                     <h:outputText value="#{bundle.ViewDeviceLabel_accessToken}"/>
                     <h:outputText value="#{deviceController.selected.accessToken}" title="#{bundle.ViewDeviceTitle_accessToken}"/>
                     <h:outputText value="#{bundle.ViewDeviceLabel_refreshToken}"/>
@@ -29,6 +25,10 @@
                     <h:outputText value="#{deviceController.selected.tokenExpiration}" title="#{bundle.ViewDeviceTitle_tokenExpiration}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
+                    <h:outputText value="#{bundle.ViewDeviceLabel_deviceTypeId}"/>
+                    <h:outputText value="#{deviceController.selected.deviceTypeId}" title="#{bundle.ViewDeviceTitle_deviceTypeId}"/>
+                    <h:outputText value="#{bundle.ViewDeviceLabel_userId}"/>
+                    <h:outputText value="#{deviceController.selected.userId}" title="#{bundle.ViewDeviceTitle_userId}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{deviceController.destroyAndView}" value="#{bundle.ViewDeviceDestroyLink}"/>

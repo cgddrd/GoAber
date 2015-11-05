@@ -184,9 +184,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivityData.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -195,76 +192,34 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
-    <Compile Include="Category.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CategoryUnit.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Challenge.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Community.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivityDatasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Device.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Devicetype.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GoAberDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GoAberDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GoAberDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GoAberDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GoAberDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="GroupChallenge.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActivityData.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CategoryUnit.cs" />
+    <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\Community.cs" />
+    <Compile Include="Models\Device.cs" />
+    <Compile Include="Models\DeviceType.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\GroupChallenge.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="MySqlConfiguration.cs" />
-    <Compile Include="MySqlHistoryContext.cs" />
-    <Compile Include="MySqlInitializer.cs" />
+    <Compile Include="Models\Unit.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserChallenge.cs" />
+    <Compile Include="Models\UserCredential.cs" />
+    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Team.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Unit.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserChallenge.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserCredential.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserRole.cs">
-      <DependentUpon>GoAberDataModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -273,25 +228,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="GoAberDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GoAberDataModel.edmx</DependentUpon>
-      <LastGenOutput>GoAberDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="GoAberDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GoAberDataModel.edmx</DependentUpon>
-      <LastGenOutput>GoAberDataModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="GoAberDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GoAberDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="GoAberDataModel.edmx.diagram">
-      <DependentUpon>GoAberDataModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
@@ -348,15 +286,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\ManageUserRoles.cshtml" />
+    <Content Include="Views\ActivityDatas\Create.cshtml" />
+    <Content Include="Views\ActivityDatas\Delete.cshtml" />
+    <Content Include="Views\ActivityDatas\Details.cshtml" />
+    <Content Include="Views\ActivityDatas\Edit.cshtml" />
+    <Content Include="Views\ActivityDatas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

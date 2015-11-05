@@ -11,35 +11,27 @@ namespace GoAber
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
-    public partial class User
+    
+    public partial class Challenge
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Challenge()
         {
-            this.activitydatas = new HashSet<ActivityData>();
             this.userchallenges = new HashSet<UserChallenge>();
-            this.devices = new HashSet<Device>();
+            this.groupchallenges = new HashSet<GroupChallenge>();
         }
     
-        public int idUser { get; set; }
-        [DisplayName("Email")]
-        public string email { get; set; }
-        [DisplayName("Nickname")]
-        public string nickname { get; set; }
-        public int userRoleId { get; set; }
-        public Nullable<int> userCredentialsId { get; set; }
-        public Nullable<int> groupId { get; set; }
+        public int Id { get; set; }
+        public int categoryUnit { get; set; }
+        public System.DateTime startTime { get; set; }
+        public Nullable<System.DateTime> endTime { get; set; }
+        public string name { get; set; }
+        public Nullable<int> communityStartedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActivityData> activitydatas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChallenge> userchallenges { get; set; }
-        public virtual UserCredential usercredential { get; set; }
-        public virtual UserRole userrole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Device> devices { get; set; }
-        public virtual Team team { get; set; }
+        public virtual ICollection<GroupChallenge> groupchallenges { get; set; }
+        public virtual Community community { get; set; }
     }
 }

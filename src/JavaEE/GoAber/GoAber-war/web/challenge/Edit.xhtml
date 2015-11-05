@@ -29,6 +29,10 @@
                     </h:inputText>
                     <h:outputLabel value="#{bundle.EditChallengeLabel_name}" for="name" />
                     <h:inputText id="name" value="#{challengeController.selected.name}" title="#{bundle.EditChallengeTitle_name}" />
+                    <h:outputLabel value="#{bundle.EditChallengeLabel_communityStartedBy}" for="communityStartedBy" />
+                    <h:selectOneMenu id="communityStartedBy" value="#{challengeController.selected.communityStartedBy}" title="#{bundle.EditChallengeTitle_communityStartedBy}" >
+                        <f:selectItems value="#{communityController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
                 <h:commandLink action="#{challengeController.update}" value="#{bundle.EditChallengeSaveLink}"/>
                 <br />

@@ -12,13 +12,18 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class GroupChallenge
+    public partial class UserRole
     {
-        public int idGroupChallenge { get; set; }
-        public int groupId { get; set; }
-        public int challengeId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserRole()
+        {
+            this.users = new HashSet<User>();
+        }
     
-        public virtual Challenge challenge { get; set; }
-        public virtual Team team { get; set; }
+        public int Id { get; set; }
+        public string type { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> users { get; set; }
     }
 }

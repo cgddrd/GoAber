@@ -8,12 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using GoAber;
 using System.Collections;
+using GoAber.Models;
 
 namespace GoAber.Areas.Admin.Controllers
 {
     public class ActivityDataController : Controller
     {
-        private GoAberEntities db = new GoAberEntities();
+        //private GoAberEntities db = new GoAberEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Admin/ActivityData
         public ActionResult Index()
@@ -50,7 +52,7 @@ namespace GoAber.Areas.Admin.Controllers
                                             .Include(a => a.categoryunit)
                                             .Include(a => a.categoryunit.category)
                                             .Include(a => a.categoryunit.unit)
-                                            .SingleOrDefault(d => d.idActivityData == id);
+                                            .SingleOrDefault(d => d.Id == id);
             if (activityData == null)
             {
                 return HttpNotFound();
@@ -63,7 +65,11 @@ namespace GoAber.Areas.Admin.Controllers
         {
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
-            ViewBag.userId = new SelectList(db.Users, "idUser", "email");
+
+            // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
+            // CG TODO: Add remaining properties to ApplicationUser so that we can get rid of 'GoAber.User' model.
+            ViewBag.userId = new SelectList(db.Users1, "Id", "email");
+
             return View();
         }
 
@@ -83,7 +89,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "idUser", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
             return View(activityData);
         }
 
@@ -102,7 +108,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "idUser", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
             return View(activityData);
         }
 
@@ -111,7 +117,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idActivityData,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
+        public ActionResult Edit([Bind(Include = "Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
             {
@@ -122,7 +128,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "idUser", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
             return View(activityData);
         }
 
@@ -165,7 +171,8 @@ namespace GoAber.Areas.Admin.Controllers
         {
             var categories = db.CategoryUnits.Select(c => new
             {
-                idCategoryUnit = c.idCategoryUnit,
+                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
+                idCategoryUnit = c.Id,
                 category = c.category.name,
                 unit = c.unit.name
             }).ToList();

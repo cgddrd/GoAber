@@ -12,18 +12,23 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRole
+    public partial class DeviceType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserRole()
+        public DeviceType()
         {
-            this.users = new HashSet<User>();
+            this.devices = new HashSet<Device>();
         }
     
-        public int idUserRole { get; set; }
-        public string type { get; set; }
+        public int Id { get; set; }
+        public string name { get; set; }
+        public string tokenEndpoint { get; set; }
+        public string consumerKey { get; set; }
+        public string consumerSecret { get; set; }
+        public string clientId { get; set; }
+        public string authorizationEndpoint { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> users { get; set; }
+        public virtual ICollection<Device> devices { get; set; }
     }
 }

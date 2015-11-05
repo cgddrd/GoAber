@@ -29,6 +29,8 @@
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewChallengeLabel_name}"/>
                     <h:outputText value="#{challengeController.selected.name}" title="#{bundle.ViewChallengeTitle_name}"/>
+                    <h:outputText value="#{bundle.ViewChallengeLabel_communityStartedBy}"/>
+                    <h:outputText value="#{challengeController.selected.communityStartedBy}" title="#{bundle.ViewChallengeTitle_communityStartedBy}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{challengeController.destroyAndView}" value="#{bundle.ViewChallengeDestroyLink}"/>
