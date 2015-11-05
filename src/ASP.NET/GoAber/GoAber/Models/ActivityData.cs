@@ -29,9 +29,9 @@ namespace GoAber
         public virtual CategoryUnit categoryunit { get; set; }
         public virtual User user { get; set; }
 
-        public class MovieDBContext : DbContext
-        {
-            public DbSet<ActivityData> ActivityData { get; set; }
-        }
+        //public class MovieDBContext : DbContext
+        //{
+        //    public DbSet<ActivityData> ActivityData { get; set; }
+        //}
     }
 }

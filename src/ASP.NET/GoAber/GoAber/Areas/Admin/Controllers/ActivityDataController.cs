@@ -51,7 +51,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
             // CG TODO: Add remaining properties to ApplicationUser so that we can get rid of 'GoAber.User' model.
-            ViewBag.userId = new SelectList(db.Users1, "idUser", "email");
+            ViewBag.userId = new SelectList(db.Users1, "Id", "email");
 
             return View();
         }
@@ -72,7 +72,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "idUser", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
             return View(activityData);
         }
 
@@ -91,7 +91,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "idUser", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
             return View(activityData);
         }
 
@@ -100,7 +100,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idActivityData,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
+        public ActionResult Edit([Bind(Include = "Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "idUser", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
             return View(activityData);
         }
 
