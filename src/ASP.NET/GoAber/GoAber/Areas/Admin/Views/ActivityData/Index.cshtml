@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<GoAber.ActivityData>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Activity Data";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
+
+@{Html.RenderPartial("_Filter");}
+
+<h3>Results</h3>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>

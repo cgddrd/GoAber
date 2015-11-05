@@ -18,8 +18,25 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ActivityData
         public ActionResult Index()
         {
-            var activityDatas1 = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.user);
-            return View(activityDatas1.ToList());
+            var activityDatas = db.ActivityDatas
+                                    .Include(a => a.categoryunit)
+                                    .Include(a => a.user);
+
+            var categories = CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
+            return View(activityDatas.ToList());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string email, int idCategoryUnit)
+        {
+            var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.user);
+            activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit);
+
+            var categories = CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
+            return View(activityData.ToList());
         }
 
         // GET: Admin/ActivityData/Details/5
@@ -154,6 +171,18 @@ namespace GoAber.Areas.Admin.Controllers
             }).ToList();
 
             return categories;
+        }
+
+        private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, string email, int categoryUnitId)
+        {
+            if (!String.IsNullOrEmpty(email))
+            {
+                activityData = activityData.Where(a => a.user.email.Contains(email));
+            }
+
+            activityData = activityData.Where(a => a.categoryunit.idCategoryUnit == categoryUnitId);
+
+            return activityData;
         }
     }
 }
