@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -46,26 +47,28 @@ namespace GoAber.Migrations
             }
 
             //CG - Now create the default/test users.
-            if (!context.Users.Any(u => u.UserName == "admin"))
+            if (!context.Users.Any(u => u.UserName == "admin@aber.ac.uk"))
             {
                 var adminUser = new ApplicationUser
                 {
-                    UserName = "admin",
-                    Email = "admin@test.com",
+                    // CG - NOTE: Username and Email properties must be currently set to the same value.
+                    UserName = "admin@aber.ac.uk",
+                    Email = "admin@aber.ac.uk",
                     Nickname = "adminuser",
                     DateOfBirth = DateTime.Now
                 };
 
                 userManager.Create(adminUser, "Juddy123!");
                 userManager.AddToRole(adminUser.Id, "Administrator");
+
             }
 
-            if (!context.Users.Any(u => u.UserName == "coord"))
+            if (!context.Users.Any(u => u.UserName == "coord@aber.ac.uk"))
             {
                 var coordUser = new ApplicationUser
                 {
-                    UserName = "coord",
-                    Email = "coord@test.com",
+                    UserName = "coord@aber.ac.uk",
+                    Email = "coord@aber.ac.uk",
                     Nickname = "coorduser",
                     DateOfBirth = DateTime.Now
                 };
@@ -74,19 +77,32 @@ namespace GoAber.Migrations
                 userManager.AddToRole(coordUser.Id, "Coordinator");
             }
 
-            if (!context.Users.Any(u => u.UserName == "user1"))
+            if (!context.Users.Any(u => u.UserName == "user1@aber.ac.uk"))
             {
-                var coordUser = new ApplicationUser
+                var normalUser = new ApplicationUser
                 {
-                    UserName = "user1",
-                    Email = "user1@test.com",
+                    UserName = "user1@aber.ac.uk",
+                    Email = "user1@aber.ac.uk",
                     Nickname = "user1user",
                     DateOfBirth = DateTime.Now
                 };
 
-                userManager.Create(coordUser, "Juddy123!");
-                userManager.AddToRole(coordUser.Id, "Participant");
+                userManager.Create(normalUser, "Juddy123!");
+                userManager.AddToRole(normalUser.Id, "Participant");
             }
+
+            context.CategoryUnits.AddOrUpdate(x => x.Id,
+                new CategoryUnit() { category = new Category() { name = "Walking" }, unit = new Unit() {name = "Steps"} }
+                );
+
+            context.Users1.AddOrUpdate(x => x.Id,
+                new User() { email = "sam@test.com",
+                            group = new Team() { name = "Comp Sci Team", community = new Community() { name = "Aber Uni" }},
+                            usercredential = new UserCredential() { password = "Password123!" },
+                            userrole = new UserRole() { type = "Admin" },
+                            nickname = "Sam" 
+                            }
+                );
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
