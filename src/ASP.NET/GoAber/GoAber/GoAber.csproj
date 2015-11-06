@@ -273,6 +273,8 @@
     <Compile Include="activitydata.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
+    <Compile Include="App_Code\OAuth\ManualHTTPRequests.cs" />
+    <Compile Include="App_Code\Shared\Extensions.cs" />
     <Compile Include="Controllers\activitydatasController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -299,7 +301,6 @@
     <Compile Include="Controllers\FitBitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OAuthConnectivity.cs" />
     <Compile Include="device.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
     </Compile>
@@ -596,7 +597,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="bin\roslyn\" />
     <Folder Include="Controllers\DeviceAPIs\" />
-    <Folder Include="Controllers\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
