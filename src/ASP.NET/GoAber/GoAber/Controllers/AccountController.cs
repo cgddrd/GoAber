@@ -17,8 +17,10 @@ namespace GoAber.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext context;
         //private GoAberEntities db = new GoAberEntities();
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
+
         public AccountController()
         {
             context = new ApplicationDbContext();
@@ -145,45 +147,6 @@ namespace GoAber.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Register
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Register(RegisterViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-        //        var result = await UserManager.CreateAsync(user, model.Password);
-
-        //        var test = new GoAber.User();
-        //        test.email = model.Email;
-        //        test.nickname = model.Email;
-        //        test.userRoleId = 3;
-
-        //        db.Users1.Add(test);
-        //        db.SaveChanges();
-
-        //        if (result.Succeeded)
-        //        {
-        //            await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-        //            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-        //            // Send an email with this link
-        //            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-        //            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-        //            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-        //            return RedirectToAction("Index", "Home");
-        //        }
-        //        AddErrors(result);
-        //    }
-
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -191,18 +154,22 @@ namespace GoAber.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+
+                    //CG - Wire our extended properties from 'ApplicationUser' into the Register view model.
+                    Nickname = model.Nickname,
+                    DateOfBirth = model.DateOfBirth
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
-
-                //var test = new GoAber.User();
-                //test.email = model.Email;
-                //test.nickname = model.Email;
-                //test.userRoleId = 3;
-
-                //db.Users.Add(test);
-                //db.SaveChanges();
+                    //CG - When creating a new user, we want to automatically assign them the role of Participant.
+                    await UserManager.AddToRoleAsync(user.Id, "Participant");
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 

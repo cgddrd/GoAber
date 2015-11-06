@@ -22,14 +22,6 @@ namespace GoAber.Controllers
         // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
         public ApplicationUserManager UserManager
         {
-            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
-            private set { _userManager = value; }
-        }
-
-        private ApplicationUserManager _userManager;
-
-        public ApplicationUserManager UserManager
-        {
             get
             {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
