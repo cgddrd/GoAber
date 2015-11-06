@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace GoAber.Models
 {
     using System;
@@ -18,7 +20,7 @@ namespace GoAber.Models
     {
         public int Id { get; set; }
         public int categoryUnitId { get; set; }
-        public int userId { get; set; }
+        
 
         [DisplayName("Value")]
         public Nullable<int> value { get; set; }
@@ -27,7 +29,10 @@ namespace GoAber.Models
         [DisplayName("Date")]
         public Nullable<System.DateTime> date { get; set; }
         public virtual CategoryUnit categoryunit { get; set; }
-        public virtual User user { get; set; }
+
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
+        
 
         //public class MovieDBContext : DbContext
         //{

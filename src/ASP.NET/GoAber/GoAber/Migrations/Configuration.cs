@@ -95,14 +95,14 @@ namespace GoAber.Migrations
                 new CategoryUnit() { category = new Category() { name = "Walking" }, unit = new Unit() {name = "Steps"} }
                 );
 
-            context.Users1.AddOrUpdate(x => x.Id,
-                new User() { email = "sam@test.com",
-                            group = new Team() { name = "Comp Sci Team", community = new Community() { name = "Aber Uni" }},
-                            usercredential = new UserCredential() { password = "Password123!" },
-                            userrole = new UserRole() { type = "Admin" },
-                            nickname = "Sam" 
-                            }
-                );
+            //context.Users1.AddOrUpdate(x => x.Id,
+            //    new User() { email = "sam@test.com",
+            //                group = new Team() { name = "Comp Sci Team", community = new Community() { name = "Aber Uni" }},
+            //                usercredential = new UserCredential() { password = "Password123!" },
+            //                userrole = new UserRole() { type = "Admin" },
+            //                nickname = "Sam" 
+            //                }
+            //    );
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.

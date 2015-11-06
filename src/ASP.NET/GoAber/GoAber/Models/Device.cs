@@ -22,6 +22,8 @@ namespace GoAber.Models
         public Nullable<System.DateTime> tokenExpiration { get; set; }
     
         public virtual DeviceType deviceType { get; set; }
-        public virtual User user { get; set; }
+
+        //public virtual User user { get; set; }
+        public virtual ApplicationUser user { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ActivityData
         public ActionResult Index()
         {
-            var activityDatas1 = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.user);
+            var activityDatas1 = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
             return View(activityDatas1.ToList());
         }
 
@@ -36,6 +36,10 @@ namespace GoAber.Areas.Admin.Controllers
                                             .Include(a => a.categoryunit.category)
                                             .Include(a => a.categoryunit.unit)
                                             .SingleOrDefault(d => d.Id == id);
+
+            ActivityData activityData2 = db.ActivityDatas.Find(id);
+
+
             if (activityData == null)
             {
                 return HttpNotFound();
@@ -51,7 +55,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
             // CG TODO: Add remaining properties to ApplicationUser so that we can get rid of 'GoAber.User' model.
-            ViewBag.userId = new SelectList(db.Users1, "Id", "email");
+            ViewBag.userId = new SelectList(db.Users, "Id", "email");
 
             return View();
         }
@@ -61,7 +65,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idActivityData,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
+        public ActionResult Create([Bind(Include = "ApplicationUserId,idActivityData,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +76,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.ApplicationUserId);
             return View(activityData);
         }
 
@@ -91,7 +95,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
             return View(activityData);
         }
 
@@ -111,7 +115,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users1, "Id", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
             return View(activityData);
         }
 
@@ -161,6 +165,18 @@ namespace GoAber.Areas.Admin.Controllers
             }).ToList();
 
             return categories;
+        }
+
+        private IEnumerable CreateUserList()
+        {
+            var users = db.Users.Select(c => new
+            {
+                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
+                idUser = c.Id,
+                email = c.Email
+            }).ToList();
+
+            return users;
         }
     }
 }
