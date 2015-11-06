@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace GoAber
+namespace GoAber.Models
 {
 
 using System;

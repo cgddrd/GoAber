@@ -41,15 +41,15 @@ namespace GoAber.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<GoAber.ActivityData> ActivityDatas { get; set; }
+        public System.Data.Entity.DbSet<GoAber.Models.ActivityData> ActivityDatas { get; set; }
 
-        public System.Data.Entity.DbSet<GoAber.CategoryUnit> CategoryUnits { get; set; }
+        public System.Data.Entity.DbSet<GoAber.Models.CategoryUnit> CategoryUnits { get; set; }
 
-        public System.Data.Entity.DbSet<GoAber.UserRole> UserRoles { get; set; }
+        public System.Data.Entity.DbSet<GoAber.Models.UserRole> UserRoles { get; set; }
 
-        public GoAber.Team Group { get; set; }
+        public GoAber.Models.Team Group { get; set; }
 
-        public System.Data.Entity.DbSet<GoAber.User> Users1 { get; set; }
+        public System.Data.Entity.DbSet<GoAber.Models.User> Users1 { get; set; }
 
         /*
         public DbSet<ActivityData> ActivityDatas { get; set; }
