@@ -14,6 +14,15 @@ namespace GoAber
     
     public partial class activitydata
     {
+        public activitydata(int categoryUnitID, int userID, DateTime activityDate,
+            DateTime activityLastUpdated, int activityValue)
+        {
+            idActivityData = categoryUnitID;
+            userId = userID;
+            date = activityDate;
+            lastUpdated = activityLastUpdated;
+            value = activityValue;
+        }
         public int idActivityData { get; set; }
         public int categoryUnitId { get; set; }
         public int userId { get; set; }

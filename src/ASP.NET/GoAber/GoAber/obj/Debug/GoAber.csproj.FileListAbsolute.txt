@@ -71,7 +71,6 @@ C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.O
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.dll
 C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.pdb
-C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.csprojResolveAssemblyReference.cache
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\roslyn\csc.exe
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll

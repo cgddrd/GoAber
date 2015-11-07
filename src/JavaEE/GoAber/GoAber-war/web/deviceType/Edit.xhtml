@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDeviceTypeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDeviceTypeLabel_idDeviceType}" for="idDeviceType" />
+                    <h:inputText id="idDeviceType" value="#{deviceTypeController.selected.idDeviceType}" title="#{bundle.EditDeviceTypeTitle_idDeviceType}" required="true" requiredMessage="#{bundle.EditDeviceTypeRequiredMessage_idDeviceType}"/>
+                    <h:outputLabel value="#{bundle.EditDeviceTypeLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{deviceTypeController.selected.name}" title="#{bundle.EditDeviceTypeTitle_name}" />
+                    <h:outputLabel value="#{bundle.EditDeviceTypeLabel_tokenEndpoint}" for="tokenEndpoint" />
+                    <h:inputText id="tokenEndpoint" value="#{deviceTypeController.selected.tokenEndpoint}" title="#{bundle.EditDeviceTypeTitle_tokenEndpoint}" />
+                    <h:outputLabel value="#{bundle.EditDeviceTypeLabel_consumerKey}" for="consumerKey" />
+                    <h:inputText id="consumerKey" value="#{deviceTypeController.selected.consumerKey}" title="#{bundle.EditDeviceTypeTitle_consumerKey}" />
+                    <h:outputLabel value="#{bundle.EditDeviceTypeLabel_consumerSecret}" for="consumerSecret" />
+                    <h:inputText id="consumerSecret" value="#{deviceTypeController.selected.consumerSecret}" title="#{bundle.EditDeviceTypeTitle_consumerSecret}" />
+                    <h:outputLabel value="#{bundle.EditDeviceTypeLabel_clientId}" for="clientId" />
+                    <h:inputText id="clientId" value="#{deviceTypeController.selected.clientId}" title="#{bundle.EditDeviceTypeTitle_clientId}" />
+                    <h:outputLabel value="#{bundle.EditDeviceTypeLabel_authorizationEndpoint}" for="authorizationEndpoint" />
+                    <h:inputText id="authorizationEndpoint" value="#{deviceTypeController.selected.authorizationEndpoint}" title="#{bundle.EditDeviceTypeTitle_authorizationEndpoint}" />
+                </h:panelGrid>
+                <h:commandLink action="#{deviceTypeController.update}" value="#{bundle.EditDeviceTypeSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditDeviceTypeViewLink}"/>
+                <br />
+                <h:commandLink action="#{deviceTypeController.prepareList}" value="#{bundle.EditDeviceTypeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditDeviceTypeIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

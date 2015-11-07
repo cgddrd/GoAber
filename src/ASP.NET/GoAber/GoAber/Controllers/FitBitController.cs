@@ -15,7 +15,7 @@ using GoAber.Extensions;
 
 namespace GoAber.Controllers
 {
-    public class FitBitController : Controller
+    public class FitBitController : Controller, DeviceAPI
     {
         private const string DEVICENAME = "fitbit";
         private const string APIADDRESS = "https://api.fitbit.com/1/user/-";
@@ -163,7 +163,7 @@ namespace GoAber.Controllers
                     state.AccessToken = device.accessToken;
                     state.Callback = new Uri("https://api.fitbit.com/oauth2/token");
                     state.RefreshToken = device.refreshToken;
-
+                    
                     if (fitbit.RefreshAuthorization(state))
                     {
                         device.accessToken = state.AccessToken;
@@ -171,6 +171,7 @@ namespace GoAber.Controllers
                         device.tokenExpiration = state.AccessTokenExpirationUtc;
                         db.Entry(device).State = EntityState.Modified;
                         db.SaveChanges();
+                        return state.AccessToken;
                     }
 
                 } catch (Exception e)
@@ -184,8 +185,7 @@ namespace GoAber.Controllers
                 }
 
             }
-            String newToken = "";
-            return newToken;
+            return "";
         }
 
         /*
@@ -193,43 +193,80 @@ namespace GoAber.Controllers
          *  START API CALLS FOR VARIOUS METHODS HERE
          * ------------------------------------------
          */
-        private ActionResult getDay(string ls_path)
+        public activitydata getDayActivities(string ls_path, int userID, int day, int month, int year)
         {
-            string token = getCurrentUserAccessToken(1);
+            string token = getCurrentUserAccessToken(userID);
             if (String.IsNullOrEmpty(token))
-                return RedirectToAction("StartOAuth"); // redirect to authorisation
+                return null;
             //-----------------------------
             string result = String.Empty;
             HttpClient client = getAuthorisedClient(token);
-            int day = DateTime.Now.Day;
-            int month = DateTime.Now.Month;
-            int year = DateTime.Now.Year;
             ViewBag.RequestingUrl = String.Format(APIADDRESS + "{0}{1}-{2}-{3}.json", ls_path, year, month, day);
             var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
             if (apiResponse.IsSuccessStatusCode)
             {
                 result = apiResponse.Content.ReadAsStringAsync().Result;
-                ViewBag.Result = result;
+                JToken jToken = JObject.Parse(result);
+                JToken summary = jToken.SelectToken("summary");
+                int categoryUnitID = 0;
+                int steps = (int)summary.SelectToken("steps");
+                DateTime date = new DateTime(year, month, day);
+                activitydata data = new activitydata(categoryUnitID, userID, date, DateTime.Now, steps);
+                return data;
             }
-            else
+            ViewBag.Result = apiResponse.StatusCode;
+            return null;
+        }
+
+        public activitydata getDayHeart(string ls_path, int userID, int day, int month, int year)
+        {
+            string token = getCurrentUserAccessToken(userID);
+            if (String.IsNullOrEmpty(token))
+                return null;
+            //-----------------------------
+            string result = String.Empty;
+            HttpClient client = getAuthorisedClient(token);
+            ViewBag.RequestingUrl = String.Format(APIADDRESS + "{0}{1}-{2}-{3}/1d.json", ls_path, year, month, day);
+            var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
+            if (apiResponse.IsSuccessStatusCode)
             {
-                ViewBag.Result = apiResponse.StatusCode;
+                result = apiResponse.Content.ReadAsStringAsync().Result;
+                JToken jToken = JObject.Parse(result);
+                JToken summary = jToken.SelectToken("activities-heart");
+                JToken first = jToken.First;
+                int restingHeartRate = (int)first.SelectToken("restingHeartRate");
+                int categoryUnitID = 0;
+                DateTime date = new DateTime(year, month, day);
+                activitydata data = new activitydata(categoryUnitID, userID, date, DateTime.Now, restingHeartRate);
+                return data;
             }
-            return View();
+            ViewBag.Result = apiResponse.StatusCode;
+            return null;
         }
 
         public ActionResult getActivityDay()
         {
-            return getDay("/activities/date/");
+            int day = 6;
+            int month = 11;
+            int year = 2015;
+            activitydata activityDay = getDayActivities("/activities/date/", 1, day, month, year);
+            if (activityDay != null)
+            {
+                ViewBag.Result = activityDay.value;
+            }
+            return View();
         }
         public ActionResult getHeartDay()
         {
-            return getDay("/activities/heart/date/");
-        }
-
-        public ActionResult getSleepDay()
-        {
-            return getDay("/sleep/date/");
+            int day = 6;
+            int month = 11;
+            int year = 2015;
+            activitydata activityHeart = getDayHeart("/activities/heart/date/", 1, day, month, year);
+            if (activityHeart != null)
+            {
+                ViewBag.Result = activityHeart.value;
+            }
+            return View();
         }
 
         private HttpClient getAuthorisedClient(string token)

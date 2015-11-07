@@ -300,6 +300,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FitBitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DeviceAPI.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="device.cs">
       <DependentUpon>ModelGoAber.tt</DependentUpon>
