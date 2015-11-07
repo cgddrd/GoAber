@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{admin.CreateActivityDataTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <h:outputLabel class="control-label col-md-2" value="#{admin.CreateActivityDataLabel_idActivityData}" for="idActivityData" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="idActivityData" value="#{adminActivityDataController.selected.idActivityData}" title="#{admin.CreateActivityDataTitle_idActivityData}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_idActivityData}"/>                
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_value}" for="value" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="value" value="#{adminActivityDataController.selected.value}" title="#{admin.CreateActivityDataTitle_value}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_lastUpdated}" for="lastUpdated" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="lastUpdated" value="#{adminActivityDataController.selected.lastUpdated}" title="#{admin.CreateActivityDataTitle_lastUpdated}" >
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:inputText>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_date}" for="date" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="date" value="#{adminActivityDataController.selected.date}" title="#{admin.CreateActivityDataTitle_date}" >
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:inputText>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
+                        <div class="col-md-10">
+                            <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{adminActivityDataController.selected.categoryUnitId}" title="#{admin.CreateActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_categoryUnitId}">
+                                <f:selectItems value="#{categoryUnitController.itemsAvailableSelectOne}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_userId}" for="userId" />
+                        <div class="col-md-10">
+                            <h:selectOneMenu class="form-control" id="userId" value="#{adminActivityDataController.selected.userId}" title="#{admin.CreateActivityDataTitle_userId}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_userId}">
+                                <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <h:commandLink class="btn btn-default" action="#{adminActivityDataController.create}" value="#{admin.CreateActivityDataSaveLink}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{admin.CreateActivityDataShowAllLink}" immediate="true"/>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
