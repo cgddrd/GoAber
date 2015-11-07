@@ -6,6 +6,7 @@ import JSF.admin.util.PaginationHelper;
 import SessionBean.ActivityDataFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -82,6 +83,7 @@ public class ActivityDataController implements Serializable {
 
     public String create() {
         try {
+            current.setLastUpdated(new Date());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataCreated"));
             return prepareCreate();
@@ -99,6 +101,7 @@ public class ActivityDataController implements Serializable {
 
     public String update() {
         try {
+            current.setLastUpdated(new Date());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataUpdated"));
             return "View";
