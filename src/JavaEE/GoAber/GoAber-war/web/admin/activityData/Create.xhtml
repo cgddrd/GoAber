@@ -15,25 +15,9 @@
             <h:form>
                 <div class="form-horizontal">
                     <div class="form-group">
-                        <h:outputLabel class="control-label col-md-2" value="#{admin.CreateActivityDataLabel_idActivityData}" for="idActivityData" />
-                        <div class="col-md-10">
-                            <h:inputText class="form-control" id="idActivityData" value="#{adminActivityDataController.selected.idActivityData}" title="#{admin.CreateActivityDataTitle_idActivityData}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_idActivityData}"/>                
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_value}" for="value" />
                         <div class="col-md-10">
                             <h:inputText class="form-control" id="value" value="#{adminActivityDataController.selected.value}" title="#{admin.CreateActivityDataTitle_value}" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_lastUpdated}" for="lastUpdated" />
-                        <div class="col-md-10">
-                            <h:inputText class="form-control" id="lastUpdated" value="#{adminActivityDataController.selected.lastUpdated}" title="#{admin.CreateActivityDataTitle_lastUpdated}" >
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:inputText>
                         </div>
                     </div>
 
@@ -49,8 +33,8 @@
                     <div class="form-group">
                         <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
                         <div class="col-md-10">
-                            <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{adminActivityDataController.selected.categoryUnitId}" title="#{admin.CreateActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_categoryUnitId}">
-                                <f:selectItems value="#{categoryUnitController.itemsAvailableSelectOne}"/>
+                            <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{adminActivityDataController.selected.categoryUnitId}" title="#{admin.CreateActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
+                                <f:selectItems value="#{categoryUnitController.getDisplayItems()}"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
@@ -58,8 +42,8 @@
                     <div class="form-group">
                         <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_userId}" for="userId" />
                         <div class="col-md-10">
-                            <h:selectOneMenu class="form-control" id="userId" value="#{adminActivityDataController.selected.userId}" title="#{admin.CreateActivityDataTitle_userId}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_userId}">
-                                <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                            <h:selectOneMenu class="form-control" id="userId" value="#{adminActivityDataController.selected.userId}" title="#{admin.CreateActivityDataTitle_userId}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_userId}" converter="userConverter">
+                                <f:selectItems value="#{userController.items}" var="user" itemLabel="#{user.email}" itemValue="#{user}"/>
                             </h:selectOneMenu>
                         </div>
                     </div>

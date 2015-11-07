@@ -189,7 +189,7 @@ public class UserController implements Serializable {
     }
 
 
-    @FacesConverter(forClass=User.class)
+    @FacesConverter(value="userConverter", forClass=User.class)
     public static class UserControllerConverter implements Converter {
 
         @Override

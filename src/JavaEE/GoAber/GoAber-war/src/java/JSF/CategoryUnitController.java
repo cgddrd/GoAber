@@ -1,12 +1,18 @@
 package JSF;
 
+import GoAberDatabase.Category;
 import GoAberDatabase.CategoryUnit;
+import GoAberDatabase.Unit;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.CategoryUnitFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,6 +23,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 
 @ManagedBean(name="categoryUnitController")
@@ -27,12 +34,14 @@ public class CategoryUnitController implements Serializable {
     private CategoryUnit current;
     private DataModel items = null;
     @EJB private SessionBean.CategoryUnitFacade ejbFacade;
+    @EJB private SessionBean.CategoryFacade categoryFacade;
+    @EJB private SessionBean.UnitFacade unitFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     public CategoryUnitController() {
     }
-
+    
     public CategoryUnit getSelected() {
         if (current == null) {
             current = new CategoryUnit();
@@ -188,8 +197,32 @@ public class CategoryUnitController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    public List<SelectItem> getDisplayItems() {
+        List<SelectItem> itemsList = new ArrayList<>();
+        List<Category> categories = categoryFacade.findAll();
+        for(Category category : categories) {
+            SelectItemGroup group = new SelectItemGroup(category.getName());
+            SelectItem[] selectItems = createUnitsForCategory(category.getIdCategory());
+            group.setSelectItems(selectItems);
+            itemsList.add(group);
+        }
+        return itemsList;
+    }
 
-    @FacesConverter(forClass=CategoryUnit.class)
+    public SelectItem[] createUnitsForCategory(int id) {
+        List<CategoryUnit> categoryUnits = ejbFacade.findByCategory(id);
+        SelectItem[] selectItems = new SelectItem[categoryUnits.size()];
+        int i =0;
+        for(CategoryUnit categoryUnitItem : categoryUnits) {
+            Unit unit = unitFacade.find(categoryUnitItem.getUnitId().getIdUnit());
+            SelectItem item = new SelectItem(categoryUnitItem, unit.getName());
+            selectItems[i] = item;
+            i++;
+        }
+        return selectItems;
+    }
+
+    @FacesConverter(value="categoryUnitConverter",forClass=CategoryUnit.class)
     public static class CategoryUnitControllerConverter implements Converter {
 
         @Override
