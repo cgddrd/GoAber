@@ -53,19 +53,28 @@
                     </dd>
                     
                     <dt>
-                        <h:outputText value="#{admin.ViewActivityDataLabel_categoryUnitId}"/>
+                        <h:outputText value="#{admin.ViewActivityDataLabel_unit}"/>
                     </dt>
                     
                     <dd>
-                        <h:outputText value="#{adminActivityDataController.selected.categoryUnitId}" title="#{admin.ViewActivityDataTitle_categoryUnitId}"/>
+                        <h:outputText value="#{adminActivityDataController.selected.categoryUnitId.categoryId.name}" title="#{admin.ViewActivityDataTitle_category}"/>
                     </dd>
+                    
+                    <dt>
+                        <h:outputText value="#{admin.ViewActivityDataLabel_category}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{adminActivityDataController.selected.categoryUnitId.unitId.name}" title="#{admin.ViewActivityDataTitle_unit}"/>
+                    </dd>
+                    
                     
                     <dt>
                         <h:outputText value="#{admin.ViewActivityDataLabel_userId}"/>
                     </dt>
                     
                     <dd>
-                        <h:outputText value="#{adminActivityDataController.selected.userId}" title="#{admin.ViewActivityDataTitle_userId}"/>
+                        <h:outputText value="#{adminActivityDataController.selected.userId.email}" title="#{admin.ViewActivityDataTitle_userId}"/>
                     </dd>
                 </dl>
 
