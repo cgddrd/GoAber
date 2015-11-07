@@ -52,15 +52,21 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{admin.ListActivityDataTitle_categoryUnitId}"/>
+                                <h:outputText value="#{admin.ListActivityDataTitle_category}"/>
                             </f:facet>
-                            <h:outputText value="#{item.categoryUnitId}"/>
+                            <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{admin.ListActivityDataTitle_userId}"/>
+                                <h:outputText value="#{admin.ListActivityDataTitle_unit}"/>
                             </f:facet>
-                            <h:outputText value="#{item.userId}"/>
+                            <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{admin.ListActivityDataTitle_user}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userId.email}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
