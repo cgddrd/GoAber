@@ -1,12 +1,15 @@
 package JSF;
 
 import GoAberDatabase.User;
+import GoAberDatabase.UserCredentials;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
+import SessionBean.UserCredentialsFacade;
 import SessionBean.UserFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -30,7 +33,15 @@ public class UserController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
+    private UserCredentials currentUC;
+    @EJB private SessionBean.UserCredentialsFacade ucEJBFacacde;
+    
     public UserController() {
+    }
+    
+    @PostConstruct
+    public void Init() {
+        currentUC = new UserCredentials();
     }
 
     public User getSelected() {
@@ -44,6 +55,11 @@ public class UserController implements Serializable {
     private UserFacade getFacade() {
         return ejbFacade;
     }
+    
+    private UserCredentialsFacade getUCFacade() {
+        return ucEJBFacacde;
+    }
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -78,10 +94,21 @@ public class UserController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
+    
+    public UserCredentials getCurrentUC() {
+        return this.currentUC;
+    }
 
     public String create() {
         try {
+            //getUCFacade().create(currentUserCredentials);
+            //current.setUserCredentialsId(currentUserCredentials);
+//            System.out.println(currentUC.getPassword());
+            getUCFacade().create(currentUC);
+            
+            current.setUserCredentialsId(currentUC);
             getFacade().create(current);
+            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
             return prepareCreate();
         } catch (Exception e) {
