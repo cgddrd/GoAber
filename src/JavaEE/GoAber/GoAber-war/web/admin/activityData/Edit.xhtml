@@ -15,27 +15,11 @@
             </h:panelGroup>
             <h:form>
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <h:outputLabel class="control-label col-md-2" value="#{admin.EditActivityDataLabel_idActivityData}" for="idActivityData" />
-                        <div class="col-md-10">
-                            <h:inputText class="form-control" id="idActivityData" value="#{adminActivityDataController.selected.idActivityData}" title="#{admin.EditActivityDataTitle_idActivityData}" required="true" requiredMessage="#{admin.EditActivityDataRequiredMessage_idActivityData}"/>
-                    
-                        </div>
-                    </div>
                     
                     <div class="form-group">
                         <h:outputLabel class="control-label col-md-2" value="#{admin.EditActivityDataLabel_value}" for="value" />
                         <div class="col-md-10">
                             <h:inputText class="form-control" id="value" value="#{adminActivityDataController.selected.value}" title="#{admin.EditActivityDataTitle_value}" />
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <h:outputLabel class="control-label col-md-2" value="#{admin.EditActivityDataLabel_lastUpdated}" for="lastUpdated" />
-                        <div class="col-md-10">
-                            <h:inputText class="form-control" id="lastUpdated" value="#{adminActivityDataController.selected.lastUpdated}" title="#{admin.EditActivityDataTitle_lastUpdated}" >
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:inputText>
                         </div>
                     </div>
                     
@@ -49,10 +33,10 @@
                     </div>
                     
                     <div class="form-group">
-                        <h:outputLabel class="control-label col-md-2" value="#{admin.EditActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
+                        <h:outputLabel class="col-md-2 control-label" value="#{admin.EditActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
                         <div class="col-md-10">
-                            <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{adminActivityDataController.selected.categoryUnitId}" title="#{admin.EditActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{admin.EditActivityDataRequiredMessage_categoryUnitId}">
-                                <f:selectItems value="#{categoryUnitController.itemsAvailableSelectOne}"/>
+                            <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{adminActivityDataController.selected.categoryUnitId}" title="#{admin.EditActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{admin.EditActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
+                                <f:selectItems value="#{categoryUnitController.getDisplayItems()}"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
@@ -60,8 +44,8 @@
                     <div class="form-group">
                         <h:outputLabel class="control-label col-md-2" value="#{admin.EditActivityDataLabel_userId}" for="userId" />
                         <div class="col-md-10">
-                            <h:selectOneMenu class="form-control" id="userId" value="#{adminActivityDataController.selected.userId}" title="#{admin.EditActivityDataTitle_userId}" required="true" requiredMessage="#{admin.EditActivityDataRequiredMessage_userId}">
-                                <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                            <h:selectOneMenu class="form-control" id="userId" value="#{adminActivityDataController.selected.userId}" title="#{admin.EditActivityDataTitle_userId}" required="true" requiredMessage="#{admin.EditActivityDataRequiredMessage_userId}" converter="userConverter">
+                                <f:selectItems value="#{userController.items}" var="user" itemLabel="#{user.email}" itemValue="#{user}"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
