@@ -16,6 +16,11 @@ namespace GoAber
 
     public class ActivityData
     {
+        public ActivityData()
+        {
+            
+        }
+
         public ActivityData(int categoryUnitID, int userID, DateTime date, DateTime now, int steps)
         {
             categoryUnitId = categoryUnitID;

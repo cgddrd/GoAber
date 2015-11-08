@@ -288,6 +288,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511082008575_Init.cs" />
+    <Compile Include="Migrations\201511082008575_Init.Designer.cs">
+      <DependentUpon>201511082008575_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityData.cs" />
     <Compile Include="Models\Category.cs" />
@@ -310,10 +315,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database1.mdf" />
-    <Content Include="App_Data\Database1_log.ldf">
-      <DependentUpon>Database1.mdf</DependentUpon>
-    </Content>
     <Content Include="bin\Antlr3.Runtime.pdb" />
     <Content Include="bin\DotNetOpenAuth.Core.dll" />
     <Content Include="bin\DotNetOpenAuth.Core.UI.dll" />
@@ -465,8 +466,15 @@
     <Content Include="Views\ActivityDatas\Details.cshtml" />
     <Content Include="Views\ActivityDatas\Edit.cshtml" />
     <Content Include="Views\ActivityDatas\Index.cshtml" />
+    <Content Include="Views\FitBit\Callback.cshtml" />
+    <Content Include="Views\FitBit\getActivityDay.cshtml" />
+    <Content Include="Views\FitBit\getHeartDay.cshtml" />
+    <Content Include="Views\FitBit\getSleepDay.cshtml" />
+    <Content Include="Views\FitBit\Index.cshtml" />
+    <Content Include="Views\FitBit\StartOAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -479,6 +487,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511082008575_Init.resx">
+      <DependentUpon>201511082008575_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
