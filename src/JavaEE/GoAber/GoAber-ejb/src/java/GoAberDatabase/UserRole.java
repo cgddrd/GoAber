@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u"),
     @NamedQuery(name = "UserRole.findByIdUserRole", query = "SELECT u FROM UserRole u WHERE u.idUserRole = :idUserRole"),
-    @NamedQuery(name = "UserRole.findByIdRole", query = "SELECT u FROM UserRole u WHERE u.idRole = :idRole"),
+    @NamedQuery(name = "UserRole.findByRoleId", query = "SELECT u FROM UserRole u WHERE u.roleId = :roleId"),
     @NamedQuery(name = "UserRole.findByEmail", query = "SELECT u FROM UserRole u WHERE u.email = :email")})
 public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -42,11 +44,17 @@ public class UserRole implements Serializable {
     @Basic(optional = false)
     @Column(name = "idUserRole")
     private Integer idUserRole;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "idRole")
-    private String idRole;
+    
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 45)
+//    @Column(name = "idRole")
+//    private String idRole;
+    
+    @JoinColumn(name = "roleId", referencedColumnName = "idRole")
+    @ManyToOne
+    private Role roleId;
+            
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -63,9 +71,9 @@ public class UserRole implements Serializable {
         this.idUserRole = idUserRole;
     }
 
-    public UserRole(Integer idUserRole, String idRole, String email) {
+    public UserRole(Integer idUserRole, Role roleId, String email) {
         this.idUserRole = idUserRole;
-        this.idRole = idRole;
+        this.roleId = roleId;
         this.email = email;
     }
 
@@ -77,12 +85,12 @@ public class UserRole implements Serializable {
         this.idUserRole = idUserRole;
     }
 
-    public String getIdRole() {
-        return idRole;
+    public Role getRoleId() {
+        return roleId;
     }
 
-    public void setIdRole(String idRole) {
-        this.idRole = idRole;
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
     }
 
     public String getEmail() {

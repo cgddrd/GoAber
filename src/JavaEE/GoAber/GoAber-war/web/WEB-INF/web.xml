@@ -9,32 +9,53 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+    <!--CG - Defining the user session logout servlet.-->
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>JSF.LogoutServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
+    
+    <!--CG - Defining the URL routing for the logout servlet.-->
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
     
-<!--    <login-config>
+    <!--CG - Setting up of the form-based user authentication.-->
+    <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>GoAberRealm</realm-name>
         <form-login-config>
             <form-login-page>/faces/login.xhtml</form-login-page>
             <form-error-page>/faces/loginerror.xhtml</form-error-page>
         </form-login-config>
-    </login-config>-->
+    </login-config>
+    
+    <!--
+    CG - Use this approach if we want to perform basic authentication.
     
     <login-config>
         <auth-method>BASIC</auth-method>
         <realm-name>GoAberRealm</realm-name>
     </login-config>
+    
+    -->
     
     <security-constraint>
         <display-name>Constraint1</display-name>
@@ -52,4 +73,9 @@
         </user-data-constraint>
     </security-constraint>
     
+    <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
+    <error-page>
+      <error-code>403</error-code>
+      <location>/faces/index.xhtml</location>
+    </error-page> 
 </web-app>

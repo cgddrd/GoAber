@@ -56,20 +56,31 @@ public class User implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
+    
+    
     @Size(max = 45)
     @Column(name = "nickname")
     private String nickname;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<ActivityData> activityDataCollection;
+    
     @JoinColumn(name = "userRoleId", referencedColumnName = "idUserRole")
     @ManyToOne(optional = false)
     private UserRole userRoleId;
+    
     @JoinColumn(name = "userCredentialsId", referencedColumnName = "idUserCredentials")
     @ManyToOne
     private UserCredentials userCredentialsId;
+    
+    @JoinColumn(name = "roleId", referencedColumnName = "idRole")
+    @ManyToOne
+    private Role roleId;
+    
     @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
     @ManyToOne
     private Team groupId;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Device> deviceCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
@@ -118,6 +129,14 @@ public class User implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+    
+    public Role getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
     }
 
     @XmlTransient

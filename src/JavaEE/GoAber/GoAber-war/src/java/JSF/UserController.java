@@ -1,5 +1,6 @@
 package JSF;
 
+import GoAberDatabase.Role;
 import GoAberDatabase.User;
 import GoAberDatabase.UserCredentials;
 import GoAberDatabase.UserRole;
@@ -40,12 +41,15 @@ public class UserController implements Serializable {
     @EJB private SessionBean.UserFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
     private MessageDigest md;
-
+    
     private UserCredentials currentUC;
     private UserRole currentUR;
+    
     @EJB private SessionBean.UserCredentialsFacade ucEJBFacacde;
     @EJB private SessionBean.UserRoleFacade urEJBFacade;
+    @EJB private SessionBean.RoleFacade rEJBFacade;
     
     public UserController() {
     }
@@ -107,39 +111,37 @@ public class UserController implements Serializable {
 
     public String prepareCreate() {
         current = new User();
-        
-        // CG - Recreate new user credentials along with new user.
-        currentUC = new UserCredentials();
-        currentUR = new UserRole();
-        
         selectedItemIndex = -1;
         return "Create";
     }
     
-    public UserCredentials getCurrentUC() {
-        return this.currentUC;
-    }
+//    public UserCredentials getCurrentUC() {
+//        return this.currentUC;
+//    }
 
     public String create() {
         try {
             
-            String newPassword = current.getPassword();
+            Role participantRole = rEJBFacade.find("participant");
             
+            String newPassword = current.getPassword();
             current.setPassword(encodePassword(newPassword));
             
+            // CG - Create the new 'UserCredentials' item.
             currentUC.setUsername(current.getEmail());
             currentUC.setPassword(current.getPassword());
-            
-            currentUR.setIdRole("admin");
-            currentUR.setEmail(current.getEmail());
-            
-            getURFacade().create(currentUR);
-            
-            current.setUserRoleId(currentUR);
-            
             getUCFacade().create(currentUC);
             
+            // CG - Create the new 'UserRole' item.
+            currentUR.setRoleId(participantRole);
+            currentUR.setEmail(current.getEmail());
+            getURFacade().create(currentUR);
+            
+            // CG - Setup our new user.
+            current.setRoleId(participantRole);
+            current.setUserRoleId(currentUR);
             current.setUserCredentialsId(currentUC);
+            
             getFacade().create(current);
             
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
