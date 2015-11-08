@@ -5,7 +5,7 @@
  */
 package SessionBean;
 
-import GoAberDatabase.UserRole;
+import GoAberDatabase.Role;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author connorgoddard
  */
 @Stateless
-public class UserRoleFacade extends AbstractFacade<UserRole> {
+public class RoleFacade extends AbstractFacade<Role> {
     @PersistenceContext(unitName = "GoAber-warPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class UserRoleFacade extends AbstractFacade<UserRole> {
         return em;
     }
 
-    public UserRoleFacade() {
-        super(UserRole.class);
+    public RoleFacade() {
+        super(Role.class);
     }
     
 }

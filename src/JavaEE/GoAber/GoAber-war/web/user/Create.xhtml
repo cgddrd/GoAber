@@ -29,16 +29,16 @@
                     <h:selectOneMenu id="userCredentialsId" value="#{userController.selected.userCredentialsId}" title="#{bundle.CreateUserTitle_userCredentialsId}" >
                         <f:selectItems value="#{userCredentialsController.itemsAvailableSelectOne}"/>
                     </h:selectOneMenu>-->
-                    <h:outputLabel value="#{bundle.CreateUserLabel_userRoleId}" for="userRoleId" />
+<!--                    <h:outputLabel value="#{bundle.CreateUserLabel_userRoleId}" for="userRoleId" />
                     <h:selectOneMenu id="userRoleId" value="#{userController.selected.userRoleId}" title="#{bundle.CreateUserTitle_userRoleId}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_userRoleId}">
                         <f:selectItems value="#{userRoleController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
+                    </h:selectOneMenu>-->
                     
 <!--                    <h:outputLabel value="#{bundle.CreateUserCredentialsLabel_idUserCredentials}" for="idUserCredentials" />
                     <h:inputText id="idUserCredentials" value="#{userCredentialsController.selected.idUserCredentials}" title="#{bundle.CreateUserCredentialsTitle_idUserCredentials}" required="true" requiredMessage="#{bundle.CreateUserCredentialsRequiredMessage_idUserCredentials}"/>-->
                     <h:outputLabel value="#{bundle.CreateUserCredentialsLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{userController.currentUC.password}" title="#{bundle.CreateUserCredentialsTitle_password}" />
-                
+                    <!--<h:inputText id="password" value="#{userController.currentUC.password}" title="#{bundle.CreateUserCredentialsTitle_password}" />-->
+                      <h:inputText id="password" value="#{userController.selected.password}" title="#{bundle.CreateUserCredentialsTitle_password}" />
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />

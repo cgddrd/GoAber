@@ -1,22 +1,12 @@
 package JSF;
 
-import GoAberDatabase.User;
-import GoAberDatabase.UserCredentials;
-import GoAberDatabase.UserRole;
+import GoAberDatabase.Role;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
-import SessionBean.UserCredentialsFacade;
-import SessionBean.UserFacade;
-import SessionBean.UserRoleFacade;
+import SessionBean.RoleFacade;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -27,55 +17,33 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.xml.bind.DatatypeConverter;
 
-
-@ManagedBean(name="userController")
+@ManagedBean(name = "roleController")
 @SessionScoped
-public class UserController implements Serializable {
+public class RoleController implements Serializable {
 
-
-    private User current;
+    private Role current;
     private DataModel items = null;
-    @EJB private SessionBean.UserFacade ejbFacade;
+    @EJB
+    private SessionBean.RoleFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private MessageDigest md;
 
-    private UserCredentials currentUC;
-    private UserRole currentUR;
-    @EJB private SessionBean.UserCredentialsFacade ucEJBFacacde;
-    @EJB private SessionBean.UserRoleFacade urEJBFacade;
-    
-    public UserController() {
-    }
-    
-    @PostConstruct
-    public void Init() {
-        currentUC = new UserCredentials();
-        currentUR = new UserRole();
+    public RoleController() {
     }
 
-    public User getSelected() {
+    public Role getSelected() {
         if (current == null) {
-            current = new User();
+            current = new Role();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private UserFacade getFacade() {
+    private RoleFacade getFacade() {
         return ejbFacade;
     }
-    
-    private UserCredentialsFacade getUCFacade() {
-        return ucEJBFacacde;
-    }
-    
-    private UserRoleFacade getURFacade() {
-        return urEJBFacade;
-    }
-    
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -87,7 +55,7 @@ public class UserController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                 }
             };
         }
@@ -100,76 +68,30 @@ public class UserController implements Serializable {
     }
 
     public String prepareView() {
-        current = (User)getItems().getRowData();
+        current = (Role) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new User();
-        
-        // CG - Recreate new user credentials along with new user.
-        currentUC = new UserCredentials();
-        currentUR = new UserRole();
-        
+        current = new Role();
         selectedItemIndex = -1;
         return "Create";
-    }
-    
-    public UserCredentials getCurrentUC() {
-        return this.currentUC;
     }
 
     public String create() {
         try {
-            
-            String newPassword = current.getPassword();
-            
-            current.setPassword(encodePassword(newPassword));
-            
-            currentUC.setUsername(current.getEmail());
-            currentUC.setPassword(current.getPassword());
-            
-            currentUR.setIdRole("admin");
-            currentUR.setEmail(current.getEmail());
-            
-            getURFacade().create(currentUR);
-            
-            current.setUserRoleId(currentUR);
-            
-            getUCFacade().create(currentUC);
-            
-            current.setUserCredentialsId(currentUC);
             getFacade().create(current);
-            
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RoleCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
-    
-    private String encodePassword(String password) {
-        if(md == null) {
-            try {
-                md = MessageDigest.getInstance("SHA-256");
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        try {
-            md.update(password.getBytes("UTF-8"));
-            byte[] digest = md.digest();
-            return DatatypeConverter.printBase64Binary(digest).toString();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
 
     public String prepareEdit() {
-        current = (User)getItems().getRowData();
+        current = (Role) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -177,7 +99,7 @@ public class UserController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RoleUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -186,7 +108,7 @@ public class UserController implements Serializable {
     }
 
     public String destroy() {
-        current = (User)getItems().getRowData();
+        current = (Role) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -210,7 +132,7 @@ public class UserController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RoleDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -220,14 +142,14 @@ public class UserController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count-1;
+            selectedItemIndex = count - 1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 
@@ -266,27 +188,26 @@ public class UserController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-
-    @FacesConverter(forClass=User.class)
-    public static class UserControllerConverter implements Converter {
+    @FacesConverter(forClass = Role.class)
+    public static class RoleControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            UserController controller = (UserController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "userController");
+            RoleController controller = (RoleController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "roleController");
             return controller.ejbFacade.find(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -297,11 +218,11 @@ public class UserController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof User) {
-                User o = (User) object;
-                return getStringKey(o.getIdUser());
+            if (object instanceof Role) {
+                Role o = (Role) object;
+                return getStringKey(o.getIdRole());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+User.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Role.class.getName());
             }
         }
 

@@ -25,15 +25,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "userrole")
+@Table(name = "UserRole")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u"),
     @NamedQuery(name = "UserRole.findByIdUserRole", query = "SELECT u FROM UserRole u WHERE u.idUserRole = :idUserRole"),
-    @NamedQuery(name = "UserRole.findByType", query = "SELECT u FROM UserRole u WHERE u.type = :type")})
+    @NamedQuery(name = "UserRole.findByIdRole", query = "SELECT u FROM UserRole u WHERE u.idRole = :idRole"),
+    @NamedQuery(name = "UserRole.findByEmail", query = "SELECT u FROM UserRole u WHERE u.email = :email")})
 public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,8 +45,14 @@ public class UserRole implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "type")
-    private String type;
+    @Column(name = "idRole")
+    private String idRole;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "email")
+    private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRoleId")
     private Collection<User> userCollection;
 
@@ -56,9 +63,10 @@ public class UserRole implements Serializable {
         this.idUserRole = idUserRole;
     }
 
-    public UserRole(Integer idUserRole, String type) {
+    public UserRole(Integer idUserRole, String idRole, String email) {
         this.idUserRole = idUserRole;
-        this.type = type;
+        this.idRole = idRole;
+        this.email = email;
     }
 
     public Integer getIdUserRole() {
@@ -69,12 +77,20 @@ public class UserRole implements Serializable {
         this.idUserRole = idUserRole;
     }
 
-    public String getType() {
-        return type;
+    public String getIdRole() {
+        return idRole;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setIdRole(String idRole) {
+        this.idRole = idRole;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @XmlTransient
