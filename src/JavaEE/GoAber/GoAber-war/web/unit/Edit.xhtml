@@ -17,6 +17,8 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditUnitLabel_idUnit}" for="idUnit" />
                     <h:inputText id="idUnit" value="#{unitController.selected.idUnit}" title="#{bundle.EditUnitTitle_idUnit}" required="true" requiredMessage="#{bundle.EditUnitRequiredMessage_idUnit}"/>
+                    <h:outputLabel value="#{bundle.EditUnitLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{unitController.selected.name}" title="#{bundle.EditUnitTitle_name}" required="true" requiredMessage="#{bundle.EditUnitRequiredMessage_name}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{unitController.update}" value="#{bundle.EditUnitSaveLink}"/>
                 <br />

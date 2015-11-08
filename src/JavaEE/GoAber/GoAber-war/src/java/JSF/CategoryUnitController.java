@@ -18,14 +18,15 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "categoryUnitController")
+
+@ManagedBean(name="categoryUnitController")
 @SessionScoped
 public class CategoryUnitController implements Serializable {
 
+
     private CategoryUnit current;
     private DataModel items = null;
-    @EJB
-    private SessionBean.CategoryUnitFacade ejbFacade;
+    @EJB private SessionBean.CategoryUnitFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
@@ -43,7 +44,6 @@ public class CategoryUnitController implements Serializable {
     private CategoryUnitFacade getFacade() {
         return ejbFacade;
     }
-
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -55,7 +55,7 @@ public class CategoryUnitController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
                 }
             };
         }
@@ -68,7 +68,7 @@ public class CategoryUnitController implements Serializable {
     }
 
     public String prepareView() {
-        current = (CategoryUnit) getItems().getRowData();
+        current = (CategoryUnit)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
@@ -91,7 +91,7 @@ public class CategoryUnitController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (CategoryUnit) getItems().getRowData();
+        current = (CategoryUnit)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -108,7 +108,7 @@ public class CategoryUnitController implements Serializable {
     }
 
     public String destroy() {
-        current = (CategoryUnit) getItems().getRowData();
+        current = (CategoryUnit)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -142,14 +142,14 @@ public class CategoryUnitController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
+            selectedItemIndex = count-1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
         }
     }
 
@@ -188,7 +188,8 @@ public class CategoryUnitController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = CategoryUnit.class)
+
+    @FacesConverter(forClass=CategoryUnit.class)
     public static class CategoryUnitControllerConverter implements Converter {
 
         @Override
@@ -196,7 +197,7 @@ public class CategoryUnitController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            CategoryUnitController controller = (CategoryUnitController) facesContext.getApplication().getELResolver().
+            CategoryUnitController controller = (CategoryUnitController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "categoryUnitController");
             return controller.ejbFacade.find(getKey(value));
         }
@@ -222,7 +223,7 @@ public class CategoryUnitController implements Serializable {
                 CategoryUnit o = (CategoryUnit) object;
                 return getStringKey(o.getIdCategoryUnit());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + CategoryUnit.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+CategoryUnit.class.getName());
             }
         }
 

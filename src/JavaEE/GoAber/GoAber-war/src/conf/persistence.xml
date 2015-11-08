@@ -9,7 +9,7 @@
     <class>GoAberDatabase.Device</class>
     <class>GoAberDatabase.DeviceType</class>
     <class>GoAberDatabase.GroupChallenge</class>
-    <class>GoAberDatabase.GroupTable</class>
+    <class>GoAberDatabase.Team</class>
     <class>GoAberDatabase.Unit</class>
     <class>GoAberDatabase.User</class>
     <class>GoAberDatabase.UserChallenge</class>

@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -64,6 +66,11 @@ public class Challenge implements Serializable {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
     private Collection<UserChallenge> userChallengeCollection;
+    @JoinColumn(name = "communityStartedBy", referencedColumnName = "idCommunity")
+    @ManyToOne
+    private Community communityStartedBy;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
+    private Collection<GroupChallenge> groupChallengeCollection;
 
     public Challenge() {
     }
@@ -125,6 +132,23 @@ public class Challenge implements Serializable {
 
     public void setUserChallengeCollection(Collection<UserChallenge> userChallengeCollection) {
         this.userChallengeCollection = userChallengeCollection;
+    }
+
+    public Community getCommunityStartedBy() {
+        return communityStartedBy;
+    }
+
+    public void setCommunityStartedBy(Community communityStartedBy) {
+        this.communityStartedBy = communityStartedBy;
+    }
+
+    @XmlTransient
+    public Collection<GroupChallenge> getGroupChallengeCollection() {
+        return groupChallengeCollection;
+    }
+
+    public void setGroupChallengeCollection(Collection<GroupChallenge> groupChallengeCollection) {
+        this.groupChallengeCollection = groupChallengeCollection;
     }
 
     @Override

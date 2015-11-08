@@ -81,9 +81,9 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to myemail.
         /// </summary>
-        public static string email {
+        public static string Email {
             get {
-                return ResourceManager.GetString("email", resourceCulture);
+                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
     }

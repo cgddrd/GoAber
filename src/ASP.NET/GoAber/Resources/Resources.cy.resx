@@ -123,7 +123,7 @@
   <data name="Create" xml:space="preserve">
     <value>[WELSH]Create</value>
   </data>
-  <data name="email" xml:space="preserve">
+  <data name="Email" xml:space="preserve">
     <value>myemail</value>
   </data>
 </root>

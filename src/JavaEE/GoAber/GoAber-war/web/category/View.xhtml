@@ -17,6 +17,8 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewCategoryLabel_idCategory}"/>
                     <h:outputText value="#{categoryController.selected.idCategory}" title="#{bundle.ViewCategoryTitle_idCategory}"/>
+                    <h:outputText value="#{bundle.ViewCategoryLabel_name}"/>
+                    <h:outputText value="#{categoryController.selected.name}" title="#{bundle.ViewCategoryTitle_name}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{categoryController.destroyAndView}" value="#{bundle.ViewCategoryDestroyLink}"/>

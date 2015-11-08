@@ -17,10 +17,14 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateGroupChallengeLabel_idGroupChallenge}" for="idGroupChallenge" />
                     <h:inputText id="idGroupChallenge" value="#{groupChallengeController.selected.idGroupChallenge}" title="#{bundle.CreateGroupChallengeTitle_idGroupChallenge}" required="true" requiredMessage="#{bundle.CreateGroupChallengeRequiredMessage_idGroupChallenge}"/>
-                    <h:outputLabel value="#{bundle.CreateGroupChallengeLabel_groupId}" for="groupId" />
-                    <h:inputText id="groupId" value="#{groupChallengeController.selected.groupId}" title="#{bundle.CreateGroupChallengeTitle_groupId}" required="true" requiredMessage="#{bundle.CreateGroupChallengeRequiredMessage_groupId}"/>
                     <h:outputLabel value="#{bundle.CreateGroupChallengeLabel_challengeId}" for="challengeId" />
-                    <h:inputText id="challengeId" value="#{groupChallengeController.selected.challengeId}" title="#{bundle.CreateGroupChallengeTitle_challengeId}" required="true" requiredMessage="#{bundle.CreateGroupChallengeRequiredMessage_challengeId}"/>
+                    <h:selectOneMenu id="challengeId" value="#{groupChallengeController.selected.challengeId}" title="#{bundle.CreateGroupChallengeTitle_challengeId}" required="true" requiredMessage="#{bundle.CreateGroupChallengeRequiredMessage_challengeId}">
+                        <f:selectItems value="#{challengeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateGroupChallengeLabel_groupId}" for="groupId" />
+                    <h:selectOneMenu id="groupId" value="#{groupChallengeController.selected.groupId}" title="#{bundle.CreateGroupChallengeTitle_groupId}" required="true" requiredMessage="#{bundle.CreateGroupChallengeRequiredMessage_groupId}">
+                        <f:selectItems value="#{teamController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{groupChallengeController.create}" value="#{bundle.CreateGroupChallengeSaveLink}" />

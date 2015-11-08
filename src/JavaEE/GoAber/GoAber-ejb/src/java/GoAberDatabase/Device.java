@@ -13,12 +13,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -32,8 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Device.findAll", query = "SELECT d FROM Device d"),
     @NamedQuery(name = "Device.findByIdDevice", query = "SELECT d FROM Device d WHERE d.idDevice = :idDevice"),
-    @NamedQuery(name = "Device.findByDeviceTypeId", query = "SELECT d FROM Device d WHERE d.deviceTypeId = :deviceTypeId"),
-    @NamedQuery(name = "Device.findByUserId", query = "SELECT d FROM Device d WHERE d.userId = :userId"),
     @NamedQuery(name = "Device.findByAccessToken", query = "SELECT d FROM Device d WHERE d.accessToken = :accessToken"),
     @NamedQuery(name = "Device.findByRefreshToken", query = "SELECT d FROM Device d WHERE d.refreshToken = :refreshToken"),
     @NamedQuery(name = "Device.findByTokenExpiration", query = "SELECT d FROM Device d WHERE d.tokenExpiration = :tokenExpiration")})
@@ -44,14 +43,6 @@ public class Device implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDevice")
     private Integer idDevice;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "deviceTypeId")
-    private int deviceTypeId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "userId")
-    private int userId;
     @Size(max = 45)
     @Column(name = "accessToken")
     private String accessToken;
@@ -61,6 +52,12 @@ public class Device implements Serializable {
     @Column(name = "tokenExpiration")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tokenExpiration;
+    @JoinColumn(name = "deviceTypeId", referencedColumnName = "idDeviceType")
+    @ManyToOne(optional = false)
+    private DeviceType deviceTypeId;
+    @JoinColumn(name = "userId", referencedColumnName = "idUser")
+    @ManyToOne(optional = false)
+    private User userId;
 
     public Device() {
     }
@@ -69,34 +66,12 @@ public class Device implements Serializable {
         this.idDevice = idDevice;
     }
 
-    public Device(Integer idDevice, int deviceTypeId, int userId) {
-        this.idDevice = idDevice;
-        this.deviceTypeId = deviceTypeId;
-        this.userId = userId;
-    }
-
     public Integer getIdDevice() {
         return idDevice;
     }
 
     public void setIdDevice(Integer idDevice) {
         this.idDevice = idDevice;
-    }
-
-    public int getDeviceTypeId() {
-        return deviceTypeId;
-    }
-
-    public void setDeviceTypeId(int deviceTypeId) {
-        this.deviceTypeId = deviceTypeId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public String getAccessToken() {
@@ -121,6 +96,22 @@ public class Device implements Serializable {
 
     public void setTokenExpiration(Date tokenExpiration) {
         this.tokenExpiration = tokenExpiration;
+    }
+
+    public DeviceType getDeviceTypeId() {
+        return deviceTypeId;
+    }
+
+    public void setDeviceTypeId(DeviceType deviceTypeId) {
+        this.deviceTypeId = deviceTypeId;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override
