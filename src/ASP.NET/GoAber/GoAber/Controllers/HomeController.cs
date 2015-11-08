@@ -11,19 +11,22 @@ namespace GoAber.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = Resources.Resources.HomeController_Index_Home_Page;
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Title = Resources.Resources.HomeController_About_About;
+            ViewBag.Message = Resources.Resources.HomeController_About_application_description;
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Title = Resources.Resources.HomeController_Contact_title;
+            ViewBag.Message = Resources.Resources.HomeController_Contact_contact_page_header;
 
             return View();
         }

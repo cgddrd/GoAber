@@ -1,12 +1,12 @@
 ﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Resources.Roles_Edit_cshtml_Execute_Edit;
 }
 
 <h2>Edit Role</h2>
 
-@Html.ActionLink("List Roles", "Index") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
+@Html.ActionLink(Resources.Roles_Edit_cshtml_Execute_List_Roles, "Index") | @Html.ActionLink(Resources.Roles_Edit_cshtml_Execute_Manage_User_Role, "ManageUserRoles")
 <hr />
 @using (Html.BeginForm())
 {

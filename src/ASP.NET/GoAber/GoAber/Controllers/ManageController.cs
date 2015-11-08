@@ -54,13 +54,14 @@ namespace GoAber.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            ViewBag.Title = Resources.Resources.ManageController_Index_Manage;
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? Resources.Resources.ManageController_Index_password_changed
+                : message == ManageMessageId.SetPasswordSuccess ? Resources.Resources.ManageController_Index_password_set
+                : message == ManageMessageId.SetTwoFactorSuccess ? Resources.Resources.ManageController_Index_two_factor_authentication_provider_set
+                : message == ManageMessageId.Error ? Resources.Resources.ManageController_Index_error
+                : message == ManageMessageId.AddPhoneSuccess ? Resources.Resources.ManageController_Index_phone_number_added
+                : message == ManageMessageId.RemovePhoneSuccess ? Resources.Resources.ManageController_phone_number_removed
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -123,7 +124,7 @@ namespace GoAber.Controllers
                 var message = new IdentityMessage
                 {
                     Destination = model.Number,
-                    Body = "Your security code is: " + code
+                    Body = Resources.Resources.ManageController_AddPhoneNumber_security_code_is + code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
@@ -190,7 +191,7 @@ namespace GoAber.Controllers
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
+            ModelState.AddModelError("", Resources.Resources.ManageController_VerifyPhoneNumber_Failed_verify_phone);
             return View(model);
         }
 
@@ -279,8 +280,8 @@ namespace GoAber.Controllers
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageMessageId.RemoveLoginSuccess ? Resources.Resources.ManageController_ManageLogins_external_login_removed
+                : message == ManageMessageId.Error ? Resources.Resources.ManageController_Index_error
                 : "";
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)
