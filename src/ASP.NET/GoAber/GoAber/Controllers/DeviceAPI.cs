@@ -8,7 +8,7 @@ namespace GoAber.Controllers
 {
     interface DeviceAPI
     {
-        activitydata getDayActivities(string ls_path, int userID, int day, int month, int year);
-        activitydata getDayHeart(string ls_path, int userID, int day, int month, int year);
+        ActivityData getDayActivities(string ls_path, int userID, int day, int month, int year);
+        ActivityData getDayHeart(string ls_path, int userID, int day, int month, int year);
     }
 }

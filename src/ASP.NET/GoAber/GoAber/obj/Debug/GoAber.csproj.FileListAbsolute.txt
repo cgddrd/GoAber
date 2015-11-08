@@ -144,3 +144,4 @@ C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.Owin.Se
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.pdb
+C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.csprojResolveAssemblyReference.cache

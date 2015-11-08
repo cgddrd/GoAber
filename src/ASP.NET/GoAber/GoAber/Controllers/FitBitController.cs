@@ -9,9 +9,8 @@ using GoAber.Controllers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using GoAber.App_Code.OAuth;
 using System.Data.Entity;
-using GoAber.Extensions;
+using GoAber.Models;
 
 namespace GoAber.Controllers
 {
@@ -19,12 +18,12 @@ namespace GoAber.Controllers
     {
         private const string DEVICENAME = "fitbit";
         private const string APIADDRESS = "https://api.fitbit.com/1/user/-";
-        goaberEntities db = new goaberEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         private WebServerClient getClient()
         {
 
-            devicetype deviceType = findDeviceTypeByName(DEVICENAME);
+            DeviceType deviceType = findDeviceTypeByName(DEVICENAME);
             if (deviceType == null)
                 return null;
             AuthorizationServerDescription description = new AuthorizationServerDescription
@@ -41,18 +40,18 @@ namespace GoAber.Controllers
             return fitbit;
         }
 
-        private devicetype findDeviceTypeByName(String name)
+        private DeviceType findDeviceTypeByName(String name)
         {
-            var query = from d in db.devicetypes
+            var query = from d in db.DeviceTypes
                         where d.name == name
                         select d;
-            devicetype deviceType = query.SingleOrDefault();
+            DeviceType deviceType = query.SingleOrDefault();
             return deviceType;
         }
 
         public ActionResult Index()
         {
-            device device = FindDevice();
+            Device device = FindDevice();
             if(device == null)
                 return RedirectToAction("StartOAuth"); // redirect to authorisation
             if (DateTime.UtcNow > device.tokenExpiration)
@@ -94,23 +93,23 @@ namespace GoAber.Controllers
                     ViewBag.Message = "Device not authorised!";
                     return View();
                 }
-                devicetype deviceType = findDeviceTypeByName(DEVICENAME);
+                DeviceType deviceType = findDeviceTypeByName(DEVICENAME);
                 if(deviceType == null)
                 {
                     ViewBag.Message = "Could not find FitBit connectivity settings!";
                     return View();
                 }
 
-                device device = new device();
+                Device device = new Device();
                 device.ConstructionFactory(
                     authorisation.AccessToken,
                     authorisation.RefreshToken,
-                    deviceType.idDeviceType,
+                    deviceType.Id,
                     authorisation.AccessTokenExpirationUtc,
                     1);
-               
 
-                device temp = FindDevice();
+
+                Device temp = FindDevice();
                 if (temp != null)
                 {
                     temp.refreshToken = device.refreshToken;
@@ -120,7 +119,7 @@ namespace GoAber.Controllers
                 }
                 else
                 {
-                    db.devices.Add(device);
+                    db.Devices.Add(device);
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index"); // redirect to list of actions
@@ -132,9 +131,9 @@ namespace GoAber.Controllers
             return View();
         }
 
-        private device FindDevice()
+        private Device FindDevice()
         {
-            var query = from d in db.devices
+            var query = from d in db.Devices
                         where d.userId == 1 // MOCK USER ID FOR NOW
                         select d;
             return query.SingleOrDefault();
@@ -143,7 +142,7 @@ namespace GoAber.Controllers
 
         private String getCurrentUserAccessToken(int userID)
         {
-            device device = FindDevice();
+            Device device = FindDevice();
             if (device == null)
                 return null; // No token availible for this user
             if (DateTime.UtcNow > device.tokenExpiration)
@@ -155,7 +154,7 @@ namespace GoAber.Controllers
         private String refreshToken()
         {
             WebServerClient fitbit = getClient();
-            device device = FindDevice();
+            Device device = FindDevice();
             if (device != null) {
                 try
                 {
@@ -193,7 +192,7 @@ namespace GoAber.Controllers
          *  START API CALLS FOR VARIOUS METHODS HERE
          * ------------------------------------------
          */
-        public activitydata getDayActivities(string ls_path, int userID, int day, int month, int year)
+        public ActivityData getDayActivities(string ls_path, int userID, int day, int month, int year)
         {
             string token = getCurrentUserAccessToken(userID);
             if (String.IsNullOrEmpty(token))
@@ -211,14 +210,14 @@ namespace GoAber.Controllers
                 int categoryUnitID = 0;
                 int steps = (int)summary.SelectToken("steps");
                 DateTime date = new DateTime(year, month, day);
-                activitydata data = new activitydata(categoryUnitID, userID, date, DateTime.Now, steps);
+                ActivityData data = new ActivityData(categoryUnitID, userID, date, DateTime.Now, steps);
                 return data;
             }
             ViewBag.Result = apiResponse.StatusCode;
             return null;
         }
 
-        public activitydata getDayHeart(string ls_path, int userID, int day, int month, int year)
+        public ActivityData getDayHeart(string ls_path, int userID, int day, int month, int year)
         {
             string token = getCurrentUserAccessToken(userID);
             if (String.IsNullOrEmpty(token))
@@ -237,7 +236,7 @@ namespace GoAber.Controllers
                 int restingHeartRate = (int)first.SelectToken("restingHeartRate");
                 int categoryUnitID = 0;
                 DateTime date = new DateTime(year, month, day);
-                activitydata data = new activitydata(categoryUnitID, userID, date, DateTime.Now, restingHeartRate);
+                ActivityData data = new ActivityData(categoryUnitID, userID, date, DateTime.Now, restingHeartRate);
                 return data;
             }
             ViewBag.Result = apiResponse.StatusCode;
@@ -249,7 +248,7 @@ namespace GoAber.Controllers
             int day = 6;
             int month = 11;
             int year = 2015;
-            activitydata activityDay = getDayActivities("/activities/date/", 1, day, month, year);
+            ActivityData activityDay = getDayActivities("/activities/date/", 1, day, month, year);
             if (activityDay != null)
             {
                 ViewBag.Result = activityDay.value;
@@ -261,7 +260,7 @@ namespace GoAber.Controllers
             int day = 6;
             int month = 11;
             int year = 2015;
-            activitydata activityHeart = getDayHeart("/activities/heart/date/", 1, day, month, year);
+            ActivityData activityHeart = getDayHeart("/activities/heart/date/", 1, day, month, year);
             if (activityHeart != null)
             {
                 ViewBag.Result = activityHeart.value;

@@ -16,6 +16,18 @@ namespace GoAber
 
     public class ActivityData
     {
+        private DateTime now;
+        private int steps;
+
+        public ActivityData(int categoryUnitID, int userID, DateTime date, DateTime now, int steps)
+        {
+            categoryUnitId = categoryUnitID;
+            userId = userID;
+            this.date = date;
+            this.now = now;
+            this.steps = steps;
+        }
+
         public int Id { get; set; }
         public int categoryUnitId { get; set; }
         public int userId { get; set; }
