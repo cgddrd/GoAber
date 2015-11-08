@@ -17,8 +17,8 @@ QualityAssurance/staticCodeAnalysis/output/
 /src/JavaEE/GoAber/nbdist/
 /src/JavaEE/GoAber/nbactions.xml
 /src/JavaEE/GoAber/nb-configuration.xml
-/src/JavaEE/GoAber/GoAber-ejb/nbproject/
-/src/JavaEE/GoAber/GoAber-war/nbproject/
+/src/JavaEE/GoAber/GoAber-ejb/nbproject/private/
+/src/JavaEE/GoAber/GoAber-war/nbproject/private/
 
 # Class Files #
 *.class
@@ -261,3 +261,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/src/JavaEE/GoAber/GoAber-ejb/dist/
+/src/JavaEE/GoAber/GoAber-war/dist/

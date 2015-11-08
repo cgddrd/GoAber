@@ -270,102 +270,50 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="activitydata.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="App_Code\OAuth\ManualHTTPRequests.cs" />
-    <Compile Include="App_Code\Shared\Extensions.cs" />
-    <Compile Include="Controllers\activitydatasController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\categoriesController.cs" />
-    <Compile Include="category.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="categoryunit.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\categoryunitsController.cs" />
-    <Compile Include="challenge.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\challengesController.cs" />
-    <Compile Include="Controllers\communitiesController.cs" />
-    <Compile Include="community.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivityDatasController.cs" />
     <Compile Include="Controllers\FitBitController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DeviceAPI.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="device.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\devicesController.cs" />
-    <Compile Include="devicetype.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\devicetypesController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="group.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="groupchallenge.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\groupchallengesController.cs" />
-    <Compile Include="Controllers\groupsController.cs" />
-    <Compile Include="ModelGoAber.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGoAber.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelGoAber.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelGoAber.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelGoAber.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActivityData.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CategoryUnit.cs" />
+    <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\Community.cs" />
+    <Compile Include="Models\Device.cs" />
+    <Compile Include="Models\DeviceType.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\GroupChallenge.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Models\Unit.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserChallenge.cs" />
+    <Compile Include="Models\UserCredential.cs" />
+    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="unit.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\unitsController.cs" />
-    <Compile Include="user.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="userchallenge.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\userchallengesController.cs" />
-    <Compile Include="usercredential.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\usercredentialsController.cs" />
-    <Compile Include="userrole.cs">
-      <DependentUpon>ModelGoAber.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\userrolesController.cs" />
-    <Compile Include="Controllers\usersController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Database1.mdf" />
+    <Content Include="App_Data\Database1_log.ldf">
+      <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
     <Content Include="bin\Antlr3.Runtime.pdb" />
     <Content Include="bin\DotNetOpenAuth.Core.dll" />
     <Content Include="bin\DotNetOpenAuth.Core.UI.dll" />
@@ -449,26 +397,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="ModelGoAber.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelGoAber.edmx</DependentUpon>
-      <LastGenOutput>ModelGoAber.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ModelGoAber.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelGoAber.edmx</DependentUpon>
-      <LastGenOutput>ModelGoAber.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="ModelGoAber.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelGoAber.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="ModelGoAber.edmx.diagram">
-      <DependentUpon>ModelGoAber.edmx</DependentUpon>
-    </Content>
-    <Content Include="bin\GoAber.dll.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\ActivityData\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ActivityData\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ActivityData\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ActivityData\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ActivityData\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -517,87 +456,18 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\activitydatas\Create.cshtml" />
-    <Content Include="Views\activitydatas\Delete.cshtml" />
-    <Content Include="Views\activitydatas\Details.cshtml" />
-    <Content Include="Views\activitydatas\Edit.cshtml" />
-    <Content Include="Views\activitydatas\Index.cshtml" />
-    <Content Include="Views\categories\Create.cshtml" />
-    <Content Include="Views\categories\Delete.cshtml" />
-    <Content Include="Views\categories\Details.cshtml" />
-    <Content Include="Views\categories\Edit.cshtml" />
-    <Content Include="Views\categories\Index.cshtml" />
-    <Content Include="Views\categoryunits\Create.cshtml" />
-    <Content Include="Views\categoryunits\Delete.cshtml" />
-    <Content Include="Views\categoryunits\Details.cshtml" />
-    <Content Include="Views\categoryunits\Edit.cshtml" />
-    <Content Include="Views\categoryunits\Index.cshtml" />
-    <Content Include="Views\challenges\Create.cshtml" />
-    <Content Include="Views\challenges\Delete.cshtml" />
-    <Content Include="Views\challenges\Details.cshtml" />
-    <Content Include="Views\challenges\Edit.cshtml" />
-    <Content Include="Views\challenges\Index.cshtml" />
-    <Content Include="Views\communities\Create.cshtml" />
-    <Content Include="Views\communities\Delete.cshtml" />
-    <Content Include="Views\communities\Details.cshtml" />
-    <Content Include="Views\communities\Edit.cshtml" />
-    <Content Include="Views\communities\Index.cshtml" />
-    <Content Include="Views\devices\Create.cshtml" />
-    <Content Include="Views\devices\Delete.cshtml" />
-    <Content Include="Views\devices\Details.cshtml" />
-    <Content Include="Views\devices\Edit.cshtml" />
-    <Content Include="Views\devices\Index.cshtml" />
-    <Content Include="Views\devicetypes\Create.cshtml" />
-    <Content Include="Views\devicetypes\Delete.cshtml" />
-    <Content Include="Views\devicetypes\Details.cshtml" />
-    <Content Include="Views\devicetypes\Edit.cshtml" />
-    <Content Include="Views\devicetypes\Index.cshtml" />
-    <Content Include="Views\groups\Create.cshtml" />
-    <Content Include="Views\groups\Delete.cshtml" />
-    <Content Include="Views\groups\Details.cshtml" />
-    <Content Include="Views\groups\Edit.cshtml" />
-    <Content Include="Views\groups\Index.cshtml" />
-    <Content Include="Views\groupchallenges\Create.cshtml" />
-    <Content Include="Views\groupchallenges\Delete.cshtml" />
-    <Content Include="Views\groupchallenges\Details.cshtml" />
-    <Content Include="Views\groupchallenges\Edit.cshtml" />
-    <Content Include="Views\groupchallenges\Index.cshtml" />
-    <Content Include="Views\units\Create.cshtml" />
-    <Content Include="Views\units\Delete.cshtml" />
-    <Content Include="Views\units\Details.cshtml" />
-    <Content Include="Views\units\Edit.cshtml" />
-    <Content Include="Views\units\Index.cshtml" />
-    <Content Include="Views\users\Create.cshtml" />
-    <Content Include="Views\users\Delete.cshtml" />
-    <Content Include="Views\users\Details.cshtml" />
-    <Content Include="Views\users\Edit.cshtml" />
-    <Content Include="Views\users\Index.cshtml" />
-    <Content Include="Views\userchallenges\Create.cshtml" />
-    <Content Include="Views\userchallenges\Delete.cshtml" />
-    <Content Include="Views\userchallenges\Details.cshtml" />
-    <Content Include="Views\userchallenges\Edit.cshtml" />
-    <Content Include="Views\userchallenges\Index.cshtml" />
-    <Content Include="Views\usercredentials\Create.cshtml" />
-    <Content Include="Views\usercredentials\Delete.cshtml" />
-    <Content Include="Views\usercredentials\Details.cshtml" />
-    <Content Include="Views\usercredentials\Edit.cshtml" />
-    <Content Include="Views\usercredentials\Index.cshtml" />
-    <Content Include="Views\userroles\Create.cshtml" />
-    <Content Include="Views\userroles\Delete.cshtml" />
-    <Content Include="Views\userroles\Details.cshtml" />
-    <Content Include="Views\userroles\Edit.cshtml" />
-    <Content Include="Views\userroles\Index.cshtml" />
-    <Content Include="Views\FitBit\Callback.cshtml" />
-    <Content Include="Views\FitBit\Index.cshtml" />
-    <Content Include="Views\FitBit\getActivityDay.cshtml" />
-    <Content Include="Views\FitBit\getHeartDay.cshtml" />
-    <Content Include="Views\FitBit\StartOAuth.cshtml" />
-    <Content Include="Views\FitBit\getSleepDay.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\ManageUserRoles.cshtml" />
+    <Content Include="Views\ActivityDatas\Create.cshtml" />
+    <Content Include="Views\ActivityDatas\Delete.cshtml" />
+    <Content Include="Views\ActivityDatas\Details.cshtml" />
+    <Content Include="Views\ActivityDatas\Edit.cshtml" />
+    <Content Include="Views\ActivityDatas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="bin\roslyn\" />
-    <Folder Include="Controllers\DeviceAPIs\" />
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
