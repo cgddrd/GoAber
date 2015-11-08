@@ -31,7 +31,7 @@ namespace GoAber
         {
             this.accessToken = accessToken;
             this.refreshToken = refreshToken;
-            this.Id = id;
+            this.deviceTypeId = id;
             this.tokenExpiration = accessTokenExpirationUtc;
             this.userId = v;
         }

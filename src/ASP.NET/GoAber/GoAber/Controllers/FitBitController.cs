@@ -51,11 +51,11 @@ namespace GoAber.Controllers
 
         public ActionResult Index()
         {
-            Device device = FindDevice();
+            Device device = FindDevice(1); // GET USER ID FROM SESSION!!
             if(device == null)
                 return RedirectToAction("StartOAuth"); // redirect to authorisation
             if (DateTime.UtcNow > device.tokenExpiration)
-                refreshToken(); // Token needs refreshing
+                refreshToken(1); // Token needs refreshing
             return View();
         }
 
@@ -106,10 +106,10 @@ namespace GoAber.Controllers
                     authorisation.RefreshToken,
                     deviceType.Id,
                     authorisation.AccessTokenExpirationUtc,
-                    1);
+                    2);
 
 
-                Device temp = FindDevice();
+                Device temp = FindDevice(1); // mock user ID for now - should be getting this from session?
                 if (temp != null)
                 {
                     temp.refreshToken = device.refreshToken;
@@ -131,10 +131,10 @@ namespace GoAber.Controllers
             return View();
         }
 
-        private Device FindDevice()
+        private Device FindDevice(int userID)
         {
             var query = from d in db.Devices
-                        where d.userId == 1 // MOCK USER ID FOR NOW
+                        where d.userId == userID // MOCK USER ID FOR NOW
                         select d;
             return query.SingleOrDefault();
         }
@@ -142,19 +142,19 @@ namespace GoAber.Controllers
 
         private String getCurrentUserAccessToken(int userID)
         {
-            Device device = FindDevice();
+            Device device = FindDevice(userID);
             if (device == null)
                 return null; // No token availible for this user
             if (DateTime.UtcNow > device.tokenExpiration)
-                return refreshToken(); // Token needs refreshing
+                return refreshToken(userID); // Token needs refreshing
             return device.accessToken;
         }
 
 
-        private String refreshToken()
+        private String refreshToken(int userID)
         {
             WebServerClient fitbit = getClient();
-            Device device = FindDevice();
+            Device device = FindDevice(userID);
             if (device != null) {
                 try
                 {
@@ -233,7 +233,7 @@ namespace GoAber.Controllers
                 JToken jToken = JObject.Parse(result);
                 JToken summary = jToken.SelectToken("activities-heart");
                 JToken first = jToken.First;
-                int restingHeartRate = (int)first.SelectToken("restingHeartRate");
+                int restingHeartRate = 0;
                 int categoryUnitID = 0;
                 DateTime date = new DateTime(year, month, day);
                 ActivityData data = new ActivityData(categoryUnitID, userID, date, DateTime.Now, restingHeartRate);
@@ -248,7 +248,7 @@ namespace GoAber.Controllers
             int day = 6;
             int month = 11;
             int year = 2015;
-            ActivityData activityDay = getDayActivities("/activities/date/", 1, day, month, year);
+            ActivityData activityDay = getDayActivities("/activities/date/", 2, day, month, year);
             if (activityDay != null)
             {
                 ViewBag.Result = activityDay.value;
@@ -260,7 +260,7 @@ namespace GoAber.Controllers
             int day = 6;
             int month = 11;
             int year = 2015;
-            ActivityData activityHeart = getDayHeart("/activities/heart/date/", 1, day, month, year);
+            ActivityData activityHeart = getDayHeart("/activities/heart/date/", 2, day, month, year);
             if (activityHeart != null)
             {
                 ViewBag.Result = activityHeart.value;
