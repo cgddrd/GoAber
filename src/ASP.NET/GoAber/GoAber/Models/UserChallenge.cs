@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GoAber
+namespace GoAber.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,6 +19,7 @@ namespace GoAber
         public int userId { get; set; }
     
         public virtual Challenge challenge { get; set; }
-        public virtual User user { get; set; }
+        //public virtual User user { get; set; }
+        public virtual ApplicationUser user { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GoAber
+namespace GoAber.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace GoAber
     {
         public int Id { get; set; }
         public int deviceTypeId { get; set; }
-        public int userId { get; set; }
+
         [MaxLength(450)]
         public string accessToken { get; set; }
         [MaxLength(450)]
@@ -25,15 +25,17 @@ namespace GoAber
         public Nullable<System.DateTime> tokenExpiration { get; set; }
     
         public virtual DeviceType deviceType { get; set; }
-        public virtual User user { get; set; }
 
-        internal void ConstructionFactory(string accessToken, string refreshToken, int id, DateTime? accessTokenExpirationUtc, int v)
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser user { get; set; }
+
+        internal void ConstructionFactory(string accessToken, string refreshToken, int id, DateTime? accessTokenExpirationUtc, string v)
         {
             this.accessToken = accessToken;
             this.refreshToken = refreshToken;
             this.deviceTypeId = id;
             this.tokenExpiration = accessTokenExpirationUtc;
-            this.userId = v;
+            this.ApplicationUserId = v;
         }
     }
 }

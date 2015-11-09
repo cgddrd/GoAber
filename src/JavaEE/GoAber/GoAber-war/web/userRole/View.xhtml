@@ -17,8 +17,10 @@
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewUserRoleLabel_idUserRole}"/>
                     <h:outputText value="#{userRoleController.selected.idUserRole}" title="#{bundle.ViewUserRoleTitle_idUserRole}"/>
-                    <h:outputText value="#{bundle.ViewUserRoleLabel_type}"/>
-                    <h:outputText value="#{userRoleController.selected.type}" title="#{bundle.ViewUserRoleTitle_type}"/>
+                    <h:outputText value="#{bundle.ViewUserRoleLabel_idRole}"/>
+                    <h:outputText value="#{userRoleController.selected.idRole}" title="#{bundle.ViewUserRoleTitle_idRole}"/>
+                    <h:outputText value="#{bundle.ViewUserRoleLabel_email}"/>
+                    <h:outputText value="#{userRoleController.selected.email}" title="#{bundle.ViewUserRoleTitle_email}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{userRoleController.destroyAndView}" value="#{bundle.ViewUserRoleDestroyLink}"/>

@@ -15,7 +15,7 @@
     <class>GoAberDatabase.UserChallenge</class>
     <class>GoAberDatabase.UserCredentials</class>
     <class>GoAberDatabase.UserRole</class>
-    <class>GoAberDatabase.Team</class>
+    <class>GoAberDatabase.Role</class>
     <class>GoAberDatabase.ActivityData</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>

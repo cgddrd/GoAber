@@ -30,10 +30,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "challenge")
+@Table(name = "Challenge")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Challenge.findAll", query = "SELECT c FROM Challenge c"),
@@ -64,11 +64,11 @@ public class Challenge implements Serializable {
     @Size(max = 100)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
-    private Collection<UserChallenge> userChallengeCollection;
     @JoinColumn(name = "communityStartedBy", referencedColumnName = "idCommunity")
     @ManyToOne
     private Community communityStartedBy;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
+    private Collection<UserChallenge> userChallengeCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
     private Collection<GroupChallenge> groupChallengeCollection;
 
@@ -125,6 +125,14 @@ public class Challenge implements Serializable {
         this.name = name;
     }
 
+    public Community getCommunityStartedBy() {
+        return communityStartedBy;
+    }
+
+    public void setCommunityStartedBy(Community communityStartedBy) {
+        this.communityStartedBy = communityStartedBy;
+    }
+
     @XmlTransient
     public Collection<UserChallenge> getUserChallengeCollection() {
         return userChallengeCollection;
@@ -132,14 +140,6 @@ public class Challenge implements Serializable {
 
     public void setUserChallengeCollection(Collection<UserChallenge> userChallengeCollection) {
         this.userChallengeCollection = userChallengeCollection;
-    }
-
-    public Community getCommunityStartedBy() {
-        return communityStartedBy;
-    }
-
-    public void setCommunityStartedBy(Community communityStartedBy) {
-        this.communityStartedBy = communityStartedBy;
     }
 
     @XmlTransient
