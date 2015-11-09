@@ -122,7 +122,7 @@ public class UserController implements Serializable {
     public String create() {
         try {
             
-            Role participantRole = rEJBFacade.find("participant");
+            Role participantRole = rEJBFacade.find("admin");
             
             String newPassword = current.getPassword();
             current.setPassword(encodePassword(newPassword));
