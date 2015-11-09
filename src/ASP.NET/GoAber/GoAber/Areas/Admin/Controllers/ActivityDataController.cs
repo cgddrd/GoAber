@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using GoAber;
 using System.Collections;
 using GoAber.Models;
+using PagedList;
 using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -17,6 +18,8 @@ namespace GoAber.Areas.Admin.Controllers
 {
     public class ActivityDataController : BaseController
     {
+        private const int pageSize = 1;
+
         //private GoAberEntities db = new GoAberEntities();
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -37,15 +40,18 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var activityDatas = db.ActivityDatas
+            var activityData = db.ActivityDatas
                                     .Include(a => a.categoryunit)
-                                    .Include(a => a.User);
+                                    .Include(a => a.User)
+                                    .OrderBy(a => a.date);
 
+            int pageNumber = (page ?? 1);
+            
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View(activityDatas.ToList());
+            return View(activityData.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
