@@ -1,8 +1,8 @@
 package JSF.admin;
 
 import GoAberDatabase.ActivityData;
-import JSF.admin.util.JsfUtil;
-import JSF.admin.util.PaginationHelper;
+import JSF.util.JsfUtil;
+import JSF.util.PaginationHelper;
 import SessionBean.ActivityDataFacade;
 
 import java.io.Serializable;
