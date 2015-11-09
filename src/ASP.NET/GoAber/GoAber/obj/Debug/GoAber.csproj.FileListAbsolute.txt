@@ -221,3 +221,5 @@ C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.dll
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.pdb
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.csprojResolveAssemblyReference.cache
+C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.Migrations.Init.resources
+C:\Users\Craig\Documents\GitHub\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.csproj.GenerateResource.Cache

@@ -469,7 +469,6 @@
     <Content Include="Views\FitBit\Callback.cshtml" />
     <Content Include="Views\FitBit\getActivityDay.cshtml" />
     <Content Include="Views\FitBit\getHeartDay.cshtml" />
-    <Content Include="Views\FitBit\getSleepDay.cshtml" />
     <Content Include="Views\FitBit\Index.cshtml" />
     <Content Include="Views\FitBit\StartOAuth.cshtml" />
   </ItemGroup>

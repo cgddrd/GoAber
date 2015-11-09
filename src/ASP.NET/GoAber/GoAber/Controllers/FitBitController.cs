@@ -45,7 +45,7 @@ namespace GoAber.Controllers
             var query = from d in db.DeviceTypes
                         where d.name == name
                         select d;
-            DeviceType deviceType = query.SingleOrDefault();
+            DeviceType deviceType = query.FirstOrDefault();
             return deviceType;
         }
 
@@ -55,7 +55,7 @@ namespace GoAber.Controllers
             if(device == null)
                 return RedirectToAction("StartOAuth"); // redirect to authorisation
             if (DateTime.UtcNow > device.tokenExpiration)
-                refreshToken(1); // Token needs refreshing
+                RefreshToken(1); // Token needs refreshing
             return View();
         }
 
@@ -106,7 +106,7 @@ namespace GoAber.Controllers
                     authorisation.RefreshToken,
                     deviceType.Id,
                     authorisation.AccessTokenExpirationUtc,
-                    2);
+                    1);
 
 
                 Device temp = FindDevice(1); // mock user ID for now - should be getting this from session?
@@ -136,22 +136,22 @@ namespace GoAber.Controllers
             var query = from d in db.Devices
                         where d.userId == userID // MOCK USER ID FOR NOW
                         select d;
-            return query.SingleOrDefault();
+            return query.FirstOrDefault();
         }
 
 
-        private String getCurrentUserAccessToken(int userID)
+        private String GetCurrentUserAccessToken(int userID)
         {
             Device device = FindDevice(userID);
             if (device == null)
                 return null; // No token availible for this user
             if (DateTime.UtcNow > device.tokenExpiration)
-                return refreshToken(userID); // Token needs refreshing
+                return RefreshToken(userID); // Token needs refreshing
             return device.accessToken;
         }
 
 
-        private String refreshToken(int userID)
+        private String RefreshToken(int userID)
         {
             WebServerClient fitbit = getClient();
             Device device = FindDevice(userID);
@@ -192,9 +192,9 @@ namespace GoAber.Controllers
          *  START API CALLS FOR VARIOUS METHODS HERE
          * ------------------------------------------
          */
-        public ActivityData getDayActivities(string ls_path, int userID, int day, int month, int year)
+        public ActivityData GetDayActivities(string ls_path, int userID, int day, int month, int year)
         {
-            string token = getCurrentUserAccessToken(userID);
+            string token = GetCurrentUserAccessToken(userID);
             if (String.IsNullOrEmpty(token))
                 return null;
             //-----------------------------
@@ -217,9 +217,9 @@ namespace GoAber.Controllers
             return null;
         }
 
-        public ActivityData getDayHeart(string ls_path, int userID, int day, int month, int year)
+        public ActivityData GetDayHeart(string ls_path, int userID, int day, int month, int year)
         {
-            string token = getCurrentUserAccessToken(userID);
+            string token = GetCurrentUserAccessToken(userID);
             if (String.IsNullOrEmpty(token))
                 return null;
             //-----------------------------
@@ -243,24 +243,24 @@ namespace GoAber.Controllers
             return null;
         }
 
-        public ActionResult getActivityDay()
+        public ActionResult GetActivityDayPage()
         {
             int day = 6;
             int month = 11;
             int year = 2015;
-            ActivityData activityDay = getDayActivities("/activities/date/", 2, day, month, year);
+            ActivityData activityDay = GetDayActivities("/activities/date/", 2, day, month, year);
             if (activityDay != null)
             {
                 ViewBag.Result = activityDay.value;
             }
             return View();
         }
-        public ActionResult getHeartDay()
+        public ActionResult GetHeartDayPage()
         {
             int day = 6;
             int month = 11;
             int year = 2015;
-            ActivityData activityHeart = getDayHeart("/activities/heart/date/", 2, day, month, year);
+            ActivityData activityHeart = GetDayHeart("/activities/heart/date/", 2, day, month, year);
             if (activityHeart != null)
             {
                 ViewBag.Result = activityHeart.value;
