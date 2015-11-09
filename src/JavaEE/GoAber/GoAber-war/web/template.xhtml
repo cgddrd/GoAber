@@ -53,6 +53,13 @@
                 <ui:insert name="body"><h:outputText value="#{bundle.tem_body}"/></ui:insert>
             </p>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(".datepicker").datepicker({
+                    maxDate: '0'
+                });
+            });
+        </script>
     </h:body>
 
 </html>
