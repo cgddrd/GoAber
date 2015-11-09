@@ -1,9 +1,9 @@
 ﻿@{
-    ViewBag.Title = "ManageUserRoles";
+    ViewBag.Title = Resources.Roles_ManageUserRoles_cshtml_Execute_ManageUserRoles;
 }
 
 <h2>Manage User Roles</h2>
-@Html.ActionLink("Create New Role", "Create") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
+@Html.ActionLink(Resources.Roles_ManageUserRoles_cshtml_Execute_Create_New_Role, "Create") | @Html.ActionLink(Resources.Roles_ManageUserRoles_cshtml_Execute_Manage_User_Role, "ManageUserRoles")
 <hr />
 
 <h2>Role Add to User</h2>
@@ -15,7 +15,7 @@
 
     <p>
         Username : @Html.TextBox("UserName")
-        Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+        Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, Resources.Roles_ManageUserRoles_cshtml_Execute_Select)
 
     </p>
 
@@ -55,7 +55,7 @@
 
     <p>
         Username : @Html.TextBox("UserName")
-        Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+        Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, Resources.Roles_ManageUserRoles_cshtml_Execute_Select)
 
     </p>
 

@@ -18,25 +18,32 @@ namespace GoAber.Models
 
     public class ActivityData
     {
+        public ActivityData() { }
+
+        public ActivityData(int categoryUnitID, string applicationUserID, DateTime date, DateTime now, int steps)
+        {
+            this.categoryUnitId = categoryUnitID;
+            this.ApplicationUserId = applicationUserID;
+            this.date = date;
+            this.lastUpdated = now;
+            this.value = steps;
+        }
+
         public int Id { get; set; }
         public int categoryUnitId { get; set; }
         
-
         [DisplayName("Value")]
         public Nullable<int> value { get; set; }
+
         [DisplayName("Last Updated")]
         public Nullable<System.DateTime> lastUpdated { get; set; }
+
         [DisplayName("Date")]
         public Nullable<System.DateTime> date { get; set; }
+
         public virtual CategoryUnit categoryunit { get; set; }
 
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser User { get; set; }
-        
-
-        //public class MovieDBContext : DbContext
-        //{
-        //    public DbSet<ActivityData> ActivityData { get; set; }
-        //}
     }
 }

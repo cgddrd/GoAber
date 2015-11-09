@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace GoAber.Migrations
 {
     using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -18,8 +19,8 @@ namespace GoAber.Migrations
 
         protected override void Seed(GoAber.Models.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
 
+            // This method will be called after migrating to the latest version.
             // CG - Create the user roles, then some test users.
 
             var roleStore = new RoleStore<IdentityRole>(context);
@@ -45,7 +46,7 @@ namespace GoAber.Migrations
                 var participantRole = new IdentityRole { Name = "Participant" };
                 roleManager.Create(participantRole);
             }
-
+			
             //CG - Now create the default/test users.
             if (!context.Users.Any(u => u.UserName == "admin@aber.ac.uk"))
             {
@@ -95,14 +96,10 @@ namespace GoAber.Migrations
                 new CategoryUnit() { category = new Category() { name = "Walking" }, unit = new Unit() {name = "Steps"} }
                 );
 
-            //context.Users1.AddOrUpdate(x => x.Id,
-            //    new User() { email = "sam@test.com",
-            //                group = new Team() { name = "Comp Sci Team", community = new Community() { name = "Aber Uni" }},
-            //                usercredential = new UserCredential() { password = "Password123!" },
-            //                userrole = new UserRole() { type = "Admin" },
-            //                nickname = "Sam" 
-            //                }
-            //    );
+            context.DeviceTypes.AddOrUpdate(x => x.Id,
+                new DeviceType() { name = "fitbit", tokenEndpoint = @"https://api.fitbit.com/oauth2/token", consumerKey = "e06d4e7dcbc6fc80c0d00b187b6fb2e1", consumerSecret = "bafe21eca0c10cfe54f21e9b685f041f", clientId = "229R69" , authorizationEndpoint = @"https://www.fitbit.com/oauth2/authorize" }
+            );
+
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.

@@ -9,18 +9,38 @@ using System.Web.Mvc;
 using GoAber;
 using System.Collections;
 using GoAber.Models;
+using GoAber.Controllers;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace GoAber.Areas.Admin.Controllers
 {
-    public class ActivityDataController : Controller
+    public class ActivityDataController : BaseController
     {
         //private GoAberEntities db = new GoAberEntities();
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        private ApplicationUserManager _userManager;
+
+        // CG - We need to create our UserManager instance (copied from AccountController). 
+        // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         // GET: Admin/ActivityData
         public ActionResult Index()
         {
             var activityDatas1 = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
+            //var user = UserManager.FindById(User.Identity.GetUserId());
             return View(activityDatas1.ToList());
         }
 
@@ -36,9 +56,6 @@ namespace GoAber.Areas.Admin.Controllers
                                             .Include(a => a.categoryunit.category)
                                             .Include(a => a.categoryunit.unit)
                                             .SingleOrDefault(d => d.Id == id);
-
-            ActivityData activityData2 = db.ActivityDatas.Find(id);
-
 
             if (activityData == null)
             {
@@ -95,7 +112,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.ApplicationUserId);
             return View(activityData);
         }
 
@@ -104,7 +121,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
+        public ActionResult Edit([Bind(Include = "ApplicationUserId,Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +132,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.ApplicationUserId);
             return View(activityData);
         }
 

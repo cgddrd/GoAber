@@ -45,16 +45,9 @@ namespace GoAber.Models
 
         public System.Data.Entity.DbSet<GoAber.Models.CategoryUnit> CategoryUnits { get; set; }
 
-        //public System.Data.Entity.DbSet<GoAber.Models.UserRole> UserRoles { get; set; }
-
         public GoAber.Models.Team Group { get; set; }
 
-        //public System.Data.Entity.DbSet<GoAber.Models.User> Users1 { get; set; }
-
-        /*
-        public DbSet<ActivityData> ActivityDatas { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<CategoryUnit> CategoryUnits { get; set; }
         public DbSet<Challenge> Challenges { get; set; }
         public DbSet<Community> Communities { get; set; }
         public DbSet<Device> Devices { get; set; }
@@ -62,9 +55,6 @@ namespace GoAber.Models
         public DbSet<Team> Groups { get; set; }
         public DbSet<GroupChallenge> GroupChallenges { get; set; }
         public DbSet<Unit> Units { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<UserChallenge> UserChallenges { get; set; }
-        public DbSet<UserCredential> UserCredentials { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }*/
     }
 }

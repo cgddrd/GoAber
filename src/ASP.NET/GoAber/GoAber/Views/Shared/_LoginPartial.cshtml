@@ -3,7 +3,10 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+    
+    // CG - Removed temporarily to patch Fitbit initial request issues. 
+    // Action for CH to look into further (9/11/15)
+    //@Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
         <li>
@@ -16,7 +19,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink(Resources._LoginPartial_cshtml_Execute_Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(Resources._LoginPartial_cshtml_Execute_Log_in, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
