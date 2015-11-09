@@ -1,0 +1,140 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package GoAberDatabase;
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author connorgoddard
+ */
+@Entity
+@Table(name = "ActivityData")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "ActivityData.findAll", query = "SELECT a FROM ActivityData a"),
+    @NamedQuery(name = "ActivityData.findByIdActivityData", query = "SELECT a FROM ActivityData a WHERE a.idActivityData = :idActivityData"),
+    @NamedQuery(name = "ActivityData.findByValue", query = "SELECT a FROM ActivityData a WHERE a.value = :value"),
+    @NamedQuery(name = "ActivityData.findByLastUpdated", query = "SELECT a FROM ActivityData a WHERE a.lastUpdated = :lastUpdated"),
+    @NamedQuery(name = "ActivityData.findByDate", query = "SELECT a FROM ActivityData a WHERE a.date = :date")})
+public class ActivityData implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idActivityData")
+    private Integer idActivityData;
+    @Column(name = "value")
+    private Integer value;
+    @Column(name = "lastUpdated")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdated;
+    @Column(name = "date")
+    @Temporal(TemporalType.DATE)
+    private Date date;
+    @JoinColumn(name = "userId", referencedColumnName = "idUser")
+    @ManyToOne(optional = false)
+    private User userId;
+    @JoinColumn(name = "categoryUnitId", referencedColumnName = "idCategoryUnit")
+    @ManyToOne(optional = false)
+    private CategoryUnit categoryUnitId;
+
+    public ActivityData() {
+    }
+
+    public ActivityData(Integer idActivityData) {
+        this.idActivityData = idActivityData;
+    }
+
+    public Integer getIdActivityData() {
+        return idActivityData;
+    }
+
+    public void setIdActivityData(Integer idActivityData) {
+        this.idActivityData = idActivityData;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public CategoryUnit getCategoryUnitId() {
+        return categoryUnitId;
+    }
+
+    public void setCategoryUnitId(CategoryUnit categoryUnitId) {
+        this.categoryUnitId = categoryUnitId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idActivityData != null ? idActivityData.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ActivityData)) {
+            return false;
+        }
+        ActivityData other = (ActivityData) object;
+        if ((this.idActivityData == null && other.idActivityData != null) || (this.idActivityData != null && !this.idActivityData.equals(other.idActivityData))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "GoAberDatabase.ActivityData[ idActivityData=" + idActivityData + " ]";
+    }
+    
+}

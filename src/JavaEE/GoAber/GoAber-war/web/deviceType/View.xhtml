@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDeviceTypeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDeviceTypeLabel_idDeviceType}"/>
+                    <h:outputText value="#{deviceTypeController.selected.idDeviceType}" title="#{bundle.ViewDeviceTypeTitle_idDeviceType}"/>
+                    <h:outputText value="#{bundle.ViewDeviceTypeLabel_name}"/>
+                    <h:outputText value="#{deviceTypeController.selected.name}" title="#{bundle.ViewDeviceTypeTitle_name}"/>
+                    <h:outputText value="#{bundle.ViewDeviceTypeLabel_tokenEndpoint}"/>
+                    <h:outputText value="#{deviceTypeController.selected.tokenEndpoint}" title="#{bundle.ViewDeviceTypeTitle_tokenEndpoint}"/>
+                    <h:outputText value="#{bundle.ViewDeviceTypeLabel_consumerKey}"/>
+                    <h:outputText value="#{deviceTypeController.selected.consumerKey}" title="#{bundle.ViewDeviceTypeTitle_consumerKey}"/>
+                    <h:outputText value="#{bundle.ViewDeviceTypeLabel_consumerSecret}"/>
+                    <h:outputText value="#{deviceTypeController.selected.consumerSecret}" title="#{bundle.ViewDeviceTypeTitle_consumerSecret}"/>
+                    <h:outputText value="#{bundle.ViewDeviceTypeLabel_clientId}"/>
+                    <h:outputText value="#{deviceTypeController.selected.clientId}" title="#{bundle.ViewDeviceTypeTitle_clientId}"/>
+                    <h:outputText value="#{bundle.ViewDeviceTypeLabel_authorizationEndpoint}"/>
+                    <h:outputText value="#{deviceTypeController.selected.authorizationEndpoint}" title="#{bundle.ViewDeviceTypeTitle_authorizationEndpoint}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{deviceTypeController.destroyAndView}" value="#{bundle.ViewDeviceTypeDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDeviceTypeEditLink}"/>
+                <br />
+                <h:commandLink action="#{deviceTypeController.prepareCreate}" value="#{bundle.ViewDeviceTypeCreateLink}" />
+                <br />
+                <h:commandLink action="#{deviceTypeController.prepareList}" value="#{bundle.ViewDeviceTypeShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDeviceTypeIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

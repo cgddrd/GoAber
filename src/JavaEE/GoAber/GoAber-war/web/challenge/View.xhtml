@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewChallengeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewChallengeLabel_idChallenge}"/>
+                    <h:outputText value="#{challengeController.selected.idChallenge}" title="#{bundle.ViewChallengeTitle_idChallenge}"/>
+                    <h:outputText value="#{bundle.ViewChallengeLabel_categoryUnit}"/>
+                    <h:outputText value="#{challengeController.selected.categoryUnit}" title="#{bundle.ViewChallengeTitle_categoryUnit}"/>
+                    <h:outputText value="#{bundle.ViewChallengeLabel_startTime}"/>
+                    <h:outputText value="#{challengeController.selected.startTime}" title="#{bundle.ViewChallengeTitle_startTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewChallengeLabel_endTime}"/>
+                    <h:outputText value="#{challengeController.selected.endTime}" title="#{bundle.ViewChallengeTitle_endTime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewChallengeLabel_name}"/>
+                    <h:outputText value="#{challengeController.selected.name}" title="#{bundle.ViewChallengeTitle_name}"/>
+                    <h:outputText value="#{bundle.ViewChallengeLabel_communityStartedBy}"/>
+                    <h:outputText value="#{challengeController.selected.communityStartedBy}" title="#{bundle.ViewChallengeTitle_communityStartedBy}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{challengeController.destroyAndView}" value="#{bundle.ViewChallengeDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewChallengeEditLink}"/>
+                <br />
+                <h:commandLink action="#{challengeController.prepareCreate}" value="#{bundle.ViewChallengeCreateLink}" />
+                <br />
+                <h:commandLink action="#{challengeController.prepareList}" value="#{bundle.ViewChallengeShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewChallengeIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
