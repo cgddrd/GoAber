@@ -29,7 +29,7 @@ public class UserCredentialsController implements Serializable {
     @EJB private SessionBean.UserCredentialsFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    
     public UserCredentialsController() {
     }
 

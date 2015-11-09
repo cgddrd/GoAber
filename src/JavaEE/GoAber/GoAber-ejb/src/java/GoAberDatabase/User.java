@@ -27,15 +27,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByIdUser", query = "SELECT u FROM User u WHERE u.idUser = :idUser"),
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByNickname", query = "SELECT u FROM User u WHERE u.nickname = :nickname")})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -47,27 +48,43 @@ public class User implements Serializable {
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "password")
+    private String password;
+    
+    
     @Size(max = 45)
     @Column(name = "nickname")
     private String nickname;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<UserChallenge> userChallengeCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<ActivityData> activityDataCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Device> deviceCollection;
-    @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
-    @ManyToOne
-    private Team groupId;
-    @JoinColumn(name = "userCredentialsId", referencedColumnName = "idUserCredentials")
-    @ManyToOne
-    private UserCredentials userCredentialsId;
+    
     @JoinColumn(name = "userRoleId", referencedColumnName = "idUserRole")
     @ManyToOne(optional = false)
     private UserRole userRoleId;
+    
+    @JoinColumn(name = "userCredentialsId", referencedColumnName = "idUserCredentials")
+    @ManyToOne
+    private UserCredentials userCredentialsId;
+    
+    @JoinColumn(name = "roleId", referencedColumnName = "idRole")
+    @ManyToOne
+    private Role roleId;
+    
+    @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
+    @ManyToOne
+    private Team groupId;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Device> deviceCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<UserChallenge> userChallengeCollection;
 
     public User() {
     }
@@ -76,9 +93,10 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(Integer idUser, String email) {
+    public User(Integer idUser, String email, String password) {
         this.idUser = idUser;
         this.email = email;
+        this.password = password;
     }
 
     public Integer getIdUser() {
@@ -97,6 +115,14 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getNickname() {
         return nickname;
     }
@@ -104,14 +130,13 @@ public class User implements Serializable {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
-    @XmlTransient
-    public Collection<UserChallenge> getUserChallengeCollection() {
-        return userChallengeCollection;
+    
+    public Role getRoleId() {
+        return roleId;
     }
 
-    public void setUserChallengeCollection(Collection<UserChallenge> userChallengeCollection) {
-        this.userChallengeCollection = userChallengeCollection;
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
     }
 
     @XmlTransient
@@ -123,21 +148,12 @@ public class User implements Serializable {
         this.activityDataCollection = activityDataCollection;
     }
 
-    @XmlTransient
-    public Collection<Device> getDeviceCollection() {
-        return deviceCollection;
+    public UserRole getUserRoleId() {
+        return userRoleId;
     }
 
-    public void setDeviceCollection(Collection<Device> deviceCollection) {
-        this.deviceCollection = deviceCollection;
-    }
-
-    public Team getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Team groupId) {
-        this.groupId = groupId;
+    public void setUserRoleId(UserRole userRoleId) {
+        this.userRoleId = userRoleId;
     }
 
     public UserCredentials getUserCredentialsId() {
@@ -148,12 +164,30 @@ public class User implements Serializable {
         this.userCredentialsId = userCredentialsId;
     }
 
-    public UserRole getUserRoleId() {
-        return userRoleId;
+    public Team getGroupId() {
+        return groupId;
     }
 
-    public void setUserRoleId(UserRole userRoleId) {
-        this.userRoleId = userRoleId;
+    public void setGroupId(Team groupId) {
+        this.groupId = groupId;
+    }
+
+    @XmlTransient
+    public Collection<Device> getDeviceCollection() {
+        return deviceCollection;
+    }
+
+    public void setDeviceCollection(Collection<Device> deviceCollection) {
+        this.deviceCollection = deviceCollection;
+    }
+
+    @XmlTransient
+    public Collection<UserChallenge> getUserChallengeCollection() {
+        return userChallengeCollection;
+    }
+
+    public void setUserChallengeCollection(Collection<UserChallenge> userChallengeCollection) {
+        this.userChallengeCollection = userChallengeCollection;
     }
 
     @Override

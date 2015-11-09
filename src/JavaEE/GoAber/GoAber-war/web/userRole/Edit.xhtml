@@ -17,8 +17,10 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditUserRoleLabel_idUserRole}" for="idUserRole" />
                     <h:inputText id="idUserRole" value="#{userRoleController.selected.idUserRole}" title="#{bundle.EditUserRoleTitle_idUserRole}" required="true" requiredMessage="#{bundle.EditUserRoleRequiredMessage_idUserRole}"/>
-                    <h:outputLabel value="#{bundle.EditUserRoleLabel_type}" for="type" />
-                    <h:inputText id="type" value="#{userRoleController.selected.type}" title="#{bundle.EditUserRoleTitle_type}" required="true" requiredMessage="#{bundle.EditUserRoleRequiredMessage_type}"/>
+                    <h:outputLabel value="#{bundle.EditUserRoleLabel_idRole}" for="idRole" />
+                    <h:inputText id="idRole" value="#{userRoleController.selected.idRole}" title="#{bundle.EditUserRoleTitle_idRole}" required="true" requiredMessage="#{bundle.EditUserRoleRequiredMessage_idRole}"/>
+                    <h:outputLabel value="#{bundle.EditUserRoleLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{userRoleController.selected.email}" title="#{bundle.EditUserRoleTitle_email}" required="true" requiredMessage="#{bundle.EditUserRoleRequiredMessage_email}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{userRoleController.update}" value="#{bundle.EditUserRoleSaveLink}"/>
                 <br />

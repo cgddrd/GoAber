@@ -20,11 +20,21 @@ USE `GoAber` ;
 -- -----------------------------------------------------
 -- Table `GoAber`.`UserRole`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `GoAber`.`Role` ;
+
+CREATE TABLE IF NOT EXISTS `GoAber`.`Role` (
+  -- `idUserRole` INT NOT NULL AUTO_INCREMENT,
+  `idRole` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idRole`),
+  UNIQUE INDEX `roleid_UNIQUE` (`idRole` ASC))
+ENGINE = InnoDB;
+
 DROP TABLE IF EXISTS `GoAber`.`UserRole` ;
 
 CREATE TABLE IF NOT EXISTS `GoAber`.`UserRole` (
   `idUserRole` INT NOT NULL AUTO_INCREMENT,
-  `type` VARCHAR(45) NOT NULL,
+  `idRole` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`idUserRole`),
   UNIQUE INDEX `idUserRole_UNIQUE` (`idUserRole` ASC))
 ENGINE = InnoDB;
@@ -36,12 +46,12 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `GoAber`.`UserCredentials` ;
 
 CREATE TABLE IF NOT EXISTS `GoAber`.`UserCredentials` (
-  `idUserCredentials` INT NOT NULL AUTO_INCREMENT,
-  `password` VARCHAR(100) NULL,
+  `idUserCredentials` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(100) NOT NULL,
   PRIMARY KEY (`idUserCredentials`),
-  UNIQUE INDEX `idUserCredentials_UNIQUE` (`idUserCredentials` ASC))
-ENGINE = InnoDB;
-
+  UNIQUE KEY `idUserCredentials_UNIQUE` (`idUserCredentials` ASC)
+) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `GoAber`.`Community`
@@ -84,7 +94,8 @@ DROP TABLE IF EXISTS `GoAber`.`User` ;
 
 CREATE TABLE IF NOT EXISTS `GoAber`.`User` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
   `nickname` VARCHAR(45) NULL,
   `userRoleId` INT NOT NULL,
   `userCredentialsId` INT NULL,

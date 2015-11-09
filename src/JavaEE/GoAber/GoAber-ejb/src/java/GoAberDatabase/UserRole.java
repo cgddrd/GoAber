@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,15 +27,16 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "userrole")
+@Table(name = "UserRole")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserRole.findAll", query = "SELECT u FROM UserRole u"),
     @NamedQuery(name = "UserRole.findByIdUserRole", query = "SELECT u FROM UserRole u WHERE u.idUserRole = :idUserRole"),
-    @NamedQuery(name = "UserRole.findByType", query = "SELECT u FROM UserRole u WHERE u.type = :type")})
+    @NamedQuery(name = "UserRole.findByRoleId", query = "SELECT u FROM UserRole u WHERE u.roleId = :roleId"),
+    @NamedQuery(name = "UserRole.findByEmail", query = "SELECT u FROM UserRole u WHERE u.email = :email")})
 public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,11 +44,23 @@ public class UserRole implements Serializable {
     @Basic(optional = false)
     @Column(name = "idUserRole")
     private Integer idUserRole;
+    
+//    @Basic(optional = false)
+//    @NotNull
+//    @Size(min = 1, max = 45)
+//    @Column(name = "idRole")
+//    private String idRole;
+    
+    @JoinColumn(name = "roleId", referencedColumnName = "idRole")
+    @ManyToOne
+    private Role roleId;
+            
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "type")
-    private String type;
+    @Size(min = 1, max = 255)
+    @Column(name = "email")
+    private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRoleId")
     private Collection<User> userCollection;
 
@@ -56,9 +71,10 @@ public class UserRole implements Serializable {
         this.idUserRole = idUserRole;
     }
 
-    public UserRole(Integer idUserRole, String type) {
+    public UserRole(Integer idUserRole, Role roleId, String email) {
         this.idUserRole = idUserRole;
-        this.type = type;
+        this.roleId = roleId;
+        this.email = email;
     }
 
     public Integer getIdUserRole() {
@@ -69,12 +85,20 @@ public class UserRole implements Serializable {
         this.idUserRole = idUserRole;
     }
 
-    public String getType() {
-        return type;
+    public Role getRoleId() {
+        return roleId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @XmlTransient

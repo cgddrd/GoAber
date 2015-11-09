@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GoAber
+namespace GoAber.Models
 {
     using System;
     using System.Collections.Generic;
