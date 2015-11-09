@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Callback";
+}
+
+<h2>Callback</h2>
+
+<ul>
+    <li>Message: @ViewBag.Message</li>
+    <li>Initial Access Token: @ViewBag.InitialAccessToken</li>
+    <li>Initial Refresh Token: @ViewBag.InitialRefreshToken</li>
+    <li>Extra Access Token: @ViewBag.ExtraAccessToken</li>
+    <li>Extra Refresh Token: @ViewBag.ExtraRefreshToken</li>
+    <li>Access Token Expiration: @ViewBag.AccessTokenExpiration</li>
+</ul>
+
+<div>
+    @Html.ActionLink("Get Step Data For Today", "ShowDay", "FitBit");
+    @Html.ActionLink("Get Step Data For Today", "ShowHeartDay", "FitBit");
+</div>

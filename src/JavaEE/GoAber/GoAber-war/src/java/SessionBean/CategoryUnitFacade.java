@@ -6,6 +6,7 @@
 package SessionBean;
 
 import GoAberDatabase.CategoryUnit;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,11 @@ public class CategoryUnitFacade extends AbstractFacade<CategoryUnit> {
         super(CategoryUnit.class);
     }
     
+    public List<CategoryUnit> findByUnit(int unitId) {
+        return em.createNamedQuery("CategoryUnit.findByUnitId").setParameter("unitId", unitId).getResultList();
+    }
+    
+    public List<CategoryUnit> findByCategory(int categoryId) {
+        return em.createNamedQuery("CategoryUnit.findByCategoryId").setParameter("categoryId", categoryId).getResultList();
+    }
 }

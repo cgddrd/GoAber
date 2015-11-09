@@ -1,11 +1,11 @@
 ﻿@model GoAber.Models.AddPhoneNumberViewModel
 @{
-    ViewBag.Title = "Phone Number";
+    ViewBag.Title = Resources.Manage_AddPhoneNumber_cshtml_Execute_Phone_Number;
 }
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm(Resources.Manage_AddPhoneNumber_cshtml_Execute_AddPhoneNumber, "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Add a phone number</h4>

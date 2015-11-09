@@ -2,7 +2,6 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="GoAber-warPU" transaction-type="JTA">
     <jta-data-source>GoAberDB</jta-data-source>
-    <class>GoAberDatabase.ActivityData</class>
     <class>GoAberDatabase.Category</class>
     <class>GoAberDatabase.CategoryUnit</class>
     <class>GoAberDatabase.Challenge</class>
@@ -16,6 +15,8 @@
     <class>GoAberDatabase.UserChallenge</class>
     <class>GoAberDatabase.UserCredentials</class>
     <class>GoAberDatabase.UserRole</class>
+    <class>GoAberDatabase.Role</class>
+    <class>GoAberDatabase.ActivityData</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
