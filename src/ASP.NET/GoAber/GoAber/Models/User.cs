@@ -12,7 +12,7 @@ namespace GoAber
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-
+    using System.ComponentModel.DataAnnotations;
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,7 +24,7 @@ namespace GoAber
     
         public int Id { get; set; }
 
-		[DisplayName("Email")]
+        [Display(Name = "Email", ResourceType = typeof(Resources.Resources))]
         public string email { get; set; }
 
         [DisplayName("Nickname")]
