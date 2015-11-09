@@ -26,3 +26,7 @@ textarea {
 .paginator {
     text-align: center;
 }
+
+.form-inline > * {
+   margin:5px 3px;
+}
