@@ -10,10 +10,11 @@ using GoAber;
 using System.Collections;
 using GoAber.Models;
 using PagedList;
+using GoAber.Controllers;
 
 namespace GoAber.Areas.Admin.Controllers
 {
-    public class ActivityDataController : Controller
+    public class ActivityDataController : BaseController
     {
         private const int pageSize = 100;
 

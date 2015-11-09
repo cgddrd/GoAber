@@ -1,7 +1,7 @@
 ﻿@model GoAber.ActivityData
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = Resources.AD_Delete_cshtml_Execute_Delete;
 }
 
 <h2>Delete</h2>
@@ -58,7 +58,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink(Resources.AD_Delete_cshtml_Execute_Back_to_List, "Index")
         </div>
     }
 </div>

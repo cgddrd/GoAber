@@ -13,7 +13,7 @@ using GoAber.Models;
 namespace GoAber.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -87,7 +87,7 @@ namespace GoAber.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", Resources.Resources.AccountController_Login_Invalid_login_attempt);
                     return View(model);
             }
         }
@@ -130,7 +130,7 @@ namespace GoAber.Controllers
                     return View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid code.");
+                    ModelState.AddModelError("", Resources.Resources.AccountController_VerifyCode_Invalid_code);
                     return View(model);
             }
         }
