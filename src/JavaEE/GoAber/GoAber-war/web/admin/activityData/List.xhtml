@@ -15,11 +15,10 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{admin.ListActivityDataEmpty}" rendered="#{adminActivityDataController.items.rowCount == 0}"/>
+                <div>
+                    <h:commandLink action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
+                </div>
                 <h:panelGroup rendered="#{adminActivityDataController.items.rowCount > 0}">
-                    
-                    <div>
-                        <h:commandLink action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
-                    </div>
                     
                     <h:dataTable class="table" value="#{adminActivityDataController.items}" var="item">
                         <h:column>

@@ -130,7 +130,6 @@ public class ActivityDataController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        updateCurrentItem();
         return "List";
     }
 
