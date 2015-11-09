@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "activitydata")
+@Table(name = "ActivityData")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ActivityData.findAll", query = "SELECT a FROM ActivityData a"),
@@ -50,12 +50,12 @@ public class ActivityData implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
-    @JoinColumn(name = "categoryUnitId", referencedColumnName = "idCategoryUnit")
-    @ManyToOne(optional = false)
-    private CategoryUnit categoryUnitId;
     @JoinColumn(name = "userId", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
     private User userId;
+    @JoinColumn(name = "categoryUnitId", referencedColumnName = "idCategoryUnit")
+    @ManyToOne(optional = false)
+    private CategoryUnit categoryUnitId;
 
     public ActivityData() {
     }
@@ -96,20 +96,20 @@ public class ActivityData implements Serializable {
         this.date = date;
     }
 
-    public CategoryUnit getCategoryUnitId() {
-        return categoryUnitId;
-    }
-
-    public void setCategoryUnitId(CategoryUnit categoryUnitId) {
-        this.categoryUnitId = categoryUnitId;
-    }
-
     public User getUserId() {
         return userId;
     }
 
     public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    public CategoryUnit getCategoryUnitId() {
+        return categoryUnitId;
+    }
+
+    public void setCategoryUnitId(CategoryUnit categoryUnitId) {
+        this.categoryUnitId = categoryUnitId;
     }
 
     @Override

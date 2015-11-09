@@ -24,10 +24,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "community")
+@Table(name = "Community")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Community.findAll", query = "SELECT c FROM Community c"),
@@ -49,10 +49,10 @@ public class Community implements Serializable {
     @Size(max = 250)
     @Column(name = "endpointUrl")
     private String endpointUrl;
-    @OneToMany(mappedBy = "communityId")
-    private Collection<Team> teamCollection;
     @OneToMany(mappedBy = "communityStartedBy")
     private Collection<Challenge> challengeCollection;
+    @OneToMany(mappedBy = "communityId")
+    private Collection<Team> teamCollection;
 
     public Community() {
     }
@@ -91,21 +91,21 @@ public class Community implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Team> getTeamCollection() {
-        return teamCollection;
-    }
-
-    public void setTeamCollection(Collection<Team> teamCollection) {
-        this.teamCollection = teamCollection;
-    }
-
-    @XmlTransient
     public Collection<Challenge> getChallengeCollection() {
         return challengeCollection;
     }
 
     public void setChallengeCollection(Collection<Challenge> challengeCollection) {
         this.challengeCollection = challengeCollection;
+    }
+
+    @XmlTransient
+    public Collection<Team> getTeamCollection() {
+        return teamCollection;
+    }
+
+    public void setTeamCollection(Collection<Team> teamCollection) {
+        this.teamCollection = teamCollection;
     }
 
     @Override
