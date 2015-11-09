@@ -21,10 +21,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "userchallenge")
+@Table(name = "UserChallenge")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserChallenge.findAll", query = "SELECT u FROM UserChallenge u"),
@@ -36,12 +36,12 @@ public class UserChallenge implements Serializable {
     @Basic(optional = false)
     @Column(name = "idUserChallenge")
     private Integer idUserChallenge;
-    @JoinColumn(name = "challengeId", referencedColumnName = "idChallenge")
-    @ManyToOne(optional = false)
-    private Challenge challengeId;
     @JoinColumn(name = "userId", referencedColumnName = "idUser")
     @ManyToOne(optional = false)
     private User userId;
+    @JoinColumn(name = "challengeId", referencedColumnName = "idChallenge")
+    @ManyToOne(optional = false)
+    private Challenge challengeId;
 
     public UserChallenge() {
     }
@@ -58,20 +58,20 @@ public class UserChallenge implements Serializable {
         this.idUserChallenge = idUserChallenge;
     }
 
-    public Challenge getChallengeId() {
-        return challengeId;
-    }
-
-    public void setChallengeId(Challenge challengeId) {
-        this.challengeId = challengeId;
-    }
-
     public User getUserId() {
         return userId;
     }
 
     public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    public Challenge getChallengeId() {
+        return challengeId;
+    }
+
+    public void setChallengeId(Challenge challengeId) {
+        this.challengeId = challengeId;
     }
 
     @Override

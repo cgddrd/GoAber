@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "team")
+@Table(name = "Team")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Team.findAll", query = "SELECT t FROM Team t"),
@@ -48,13 +48,13 @@ public class Team implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
+    @OneToMany(mappedBy = "groupId")
+    private Collection<User> userCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
+    private Collection<GroupChallenge> groupChallengeCollection;
     @JoinColumn(name = "communityId", referencedColumnName = "idCommunity")
     @ManyToOne
     private Community communityId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
-    private Collection<GroupChallenge> groupChallengeCollection;
-    @OneToMany(mappedBy = "groupId")
-    private Collection<User> userCollection;
 
     public Team() {
     }
@@ -84,12 +84,13 @@ public class Team implements Serializable {
         this.name = name;
     }
 
-    public Community getCommunityId() {
-        return communityId;
+    @XmlTransient
+    public Collection<User> getUserCollection() {
+        return userCollection;
     }
 
-    public void setCommunityId(Community communityId) {
-        this.communityId = communityId;
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
     }
 
     @XmlTransient
@@ -101,13 +102,12 @@ public class Team implements Serializable {
         this.groupChallengeCollection = groupChallengeCollection;
     }
 
-    @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
+    public Community getCommunityId() {
+        return communityId;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setCommunityId(Community communityId) {
+        this.communityId = communityId;
     }
 
     @Override

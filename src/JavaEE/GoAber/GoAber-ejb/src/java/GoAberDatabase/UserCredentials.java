@@ -17,20 +17,22 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "usercredentials")
+@Table(name = "UserCredentials")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserCredentials.findAll", query = "SELECT u FROM UserCredentials u"),
     @NamedQuery(name = "UserCredentials.findByIdUserCredentials", query = "SELECT u FROM UserCredentials u WHERE u.idUserCredentials = :idUserCredentials"),
+    @NamedQuery(name = "UserCredentials.findByUsername", query = "SELECT u FROM UserCredentials u WHERE u.username = :username"),
     @NamedQuery(name = "UserCredentials.findByPassword", query = "SELECT u FROM UserCredentials u WHERE u.password = :password")})
 public class UserCredentials implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -39,7 +41,14 @@ public class UserCredentials implements Serializable {
     @Basic(optional = false)
     @Column(name = "idUserCredentials")
     private Integer idUserCredentials;
-    @Size(max = 100)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "username")
+    private String username;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
     @OneToMany(mappedBy = "userCredentialsId")
@@ -52,12 +61,26 @@ public class UserCredentials implements Serializable {
         this.idUserCredentials = idUserCredentials;
     }
 
+    public UserCredentials(Integer idUserCredentials, String username, String password) {
+        this.idUserCredentials = idUserCredentials;
+        this.username = username;
+        this.password = password;
+    }
+
     public Integer getIdUserCredentials() {
         return idUserCredentials;
     }
 
     public void setIdUserCredentials(Integer idUserCredentials) {
         this.idUserCredentials = idUserCredentials;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
