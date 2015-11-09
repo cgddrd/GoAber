@@ -7,8 +7,8 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title><ui:insert name="title">Default Title</ui:insert></title>
-        
+        <title><ui:insert name="title"><h:outputText value="#{bundle.tem_title}"/></ui:insert></title>
+
         <h:outputStylesheet library="css" name="bootstrap.css"/>
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <h:outputStylesheet library="css" name="theme.css"/>
@@ -37,17 +37,17 @@
               </div>
             </div>
         </nav>
-        
+
         <div class="container theme-showcase" role="main">
             <div class="page-header">
                 <h1>
-                    <ui:insert name="title">Default Title</ui:insert>
+                    <ui:insert name="title"><h:outputText value="#{bundle.tem_h1}"/></ui:insert>
                 </h1>
             </div>
             <p>
-                <ui:insert name="body">Default Body</ui:insert>
+                <ui:insert name="body"><h:outputText value="#{bundle.tem_body}"/></ui:insert>
             </p>
-        </div>  
+        </div>
         <!-- Include JQuery for Bootstrap -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     </h:body>
