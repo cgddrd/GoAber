@@ -18,7 +18,7 @@ namespace GoAber.Areas.Admin.Controllers
 {
     public class ActivityDataController : BaseController
     {
-        private const int pageSize = 1;
+        private const int pageSize = 100;
 
         //private GoAberEntities db = new GoAberEntities();
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -104,10 +104,11 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ApplicationUserId,idActivityData,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
+        public ActionResult Create([Bind(Include = "ApplicationUserId,idActivityData,categoryUnitId,userId,value,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
             {
+                activityData.lastUpdated = DateTime.Now;
                 db.ActivityDatas.Add(activityData);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -147,6 +148,7 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                activityData.lastUpdated = DateTime.Now;
                 db.Entry(activityData).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

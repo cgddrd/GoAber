@@ -14,6 +14,7 @@ namespace GoAber.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
 
     public class ActivityData
@@ -39,6 +40,8 @@ namespace GoAber.Models
         public Nullable<System.DateTime> lastUpdated { get; set; }
 
         [DisplayName("Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public Nullable<System.DateTime> date { get; set; }
 
         public virtual CategoryUnit categoryunit { get; set; }
