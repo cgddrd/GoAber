@@ -1,15 +1,12 @@
-package JSF;
+package JSF.admin;
 
-import GoAberDatabase.Category;
-import GoAberDatabase.CategoryUnit;
-import GoAberDatabase.Unit;
+import GoAberDatabase.ActivityData;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
-import SessionBean.CategoryUnitFacade;
+import SessionBean.ActivityDataFacade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -21,39 +18,37 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
 
-
-@ManagedBean(name="categoryUnitController")
+@ManagedBean(name = "adminActivityDataController")
 @SessionScoped
-public class CategoryUnitController implements Serializable {
+public class ActivityDataController implements Serializable {
 
-
-    private CategoryUnit current;
+    private ActivityData current;
     private DataModel items = null;
-    @EJB private SessionBean.CategoryUnitFacade ejbFacade;
-    @EJB private SessionBean.CategoryFacade categoryFacade;
-    @EJB private SessionBean.UnitFacade unitFacade;
+    @EJB
+    private SessionBean.ActivityDataFacade ejbFacade;
     private PaginationHelper pagination;
+    private final int itemsPerPage = 100;
     private int selectedItemIndex;
 
-    public CategoryUnitController() {
+    public ActivityDataController() {
     }
-    
-    public CategoryUnit getSelected() {
+
+    public ActivityData getSelected() {
         if (current == null) {
-            current = new CategoryUnit();
+            current = new ActivityData();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private CategoryUnitFacade getFacade() {
+    private ActivityDataFacade getFacade() {
         return ejbFacade;
     }
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
-            pagination = new PaginationHelper(10) {
+            pagination = new PaginationHelper(itemsPerPage) {
 
                 @Override
                 public int getItemsCount() {
@@ -62,7 +57,7 @@ public class CategoryUnitController implements Serializable {
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
+                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()-1}));
                 }
             };
         }
@@ -75,47 +70,55 @@ public class CategoryUnitController implements Serializable {
     }
 
     public String prepareView() {
-        current = (CategoryUnit)getItems().getRowData();
+        current = (ActivityData) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new CategoryUnit();
+        current = new ActivityData();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
+            current.setLastUpdated(new Date());
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CategoryUnitCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
     public String prepareEdit() {
-        current = (CategoryUnit)getItems().getRowData();
+        current = (ActivityData) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
+            current.setLastUpdated(new Date());
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CategoryUnitUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
+    public String prepareDestroy() {
+        current = (ActivityData) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "Delete";
+    }
+        
     public String destroy() {
-        current = (CategoryUnit)getItems().getRowData();
+        current = (ActivityData) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -125,23 +128,17 @@ public class CategoryUnitController implements Serializable {
 
     public String destroyAndView() {
         performDestroy();
+        recreatePagination();
         recreateModel();
-        updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
-        }
+        return "List";
     }
 
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CategoryUnitDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
         }
     }
 
@@ -149,14 +146,14 @@ public class CategoryUnitController implements Serializable {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
             // selected index cannot be bigger than number of items:
-            selectedItemIndex = count-1;
+            selectedItemIndex = count - 1;
             // go to previous page if last page disappeared:
             if (pagination.getPageFirstItem() >= count) {
                 pagination.previousPage();
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
+            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 
@@ -195,41 +192,16 @@ public class CategoryUnitController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public List<SelectItem> getDisplayItems() {
-        List<SelectItem> itemsList = new ArrayList<>();
-        List<Category> categories = categoryFacade.findAll();
-        for(Category category : categories) {
-            SelectItemGroup group = new SelectItemGroup(category.getName());
-            SelectItem[] selectItems = createUnitsForCategory(category.getIdCategory());
-            group.setSelectItems(selectItems);
-            itemsList.add(group);
-        }
-        return itemsList;
-    }
-
-    public SelectItem[] createUnitsForCategory(int id) {
-        List<CategoryUnit> categoryUnits = ejbFacade.findByCategory(id);
-        SelectItem[] selectItems = new SelectItem[categoryUnits.size()];
-        int i =0;
-        for(CategoryUnit categoryUnitItem : categoryUnits) {
-            Unit unit = unitFacade.find(categoryUnitItem.getUnitId().getIdUnit());
-            SelectItem item = new SelectItem(categoryUnitItem, unit.getName());
-            selectItems[i] = item;
-            i++;
-        }
-        return selectItems;
-    }
-
-    @FacesConverter(value="categoryUnitConverter",forClass=CategoryUnit.class)
-    public static class CategoryUnitControllerConverter implements Converter {
+    @FacesConverter(forClass = ActivityData.class)
+    public static class ActivityDataControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            CategoryUnitController controller = (CategoryUnitController)facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "categoryUnitController");
+            ActivityDataController controller = (ActivityDataController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "activityDataController");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -250,11 +222,11 @@ public class CategoryUnitController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof CategoryUnit) {
-                CategoryUnit o = (CategoryUnit) object;
-                return getStringKey(o.getIdCategoryUnit());
+            if (object instanceof ActivityData) {
+                ActivityData o = (ActivityData) object;
+                return getStringKey(o.getIdActivityData());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+CategoryUnit.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + ActivityData.class.getName());
             }
         }
 

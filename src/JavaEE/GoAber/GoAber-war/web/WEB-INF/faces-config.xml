@@ -25,8 +25,8 @@
             <var>bundle</var>
         </resource-bundle>
         <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
+            <base-name>/AdminBundle</base-name>
+            <var>admin</var>
         </resource-bundle>
         <resource-bundle>
             <base-name>/Bundle</base-name>
