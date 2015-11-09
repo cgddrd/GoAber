@@ -9,10 +9,11 @@ using System.Web.Mvc;
 using GoAber;
 using System.Collections;
 using GoAber.Models;
+using GoAber.Controllers;
 
 namespace GoAber.Areas.Admin.Controllers
 {
-    public class ActivityDataController : Controller
+    public class ActivityDataController : BaseController
     {
         //private GoAberEntities db = new GoAberEntities();
         private ApplicationDbContext db = new ApplicationDbContext();
