@@ -3,92 +3,94 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{admin.ListActivityDataTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">          
-            <h3>#{admin.FilterActivityDataTitle}</h3>
-            <ui:include src="_Filter.xhtml"></ui:include>
-            <hr />
             <h:form>
                 <h3>#{admin.ListActivityDataFormTitle}</h3>
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{admin.ListActivityDataEmpty}" rendered="#{adminActivityDataController.items.rowCount == 0}"/>
+
                 <div>
                     <h:commandLink action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
                 </div>
-                <h:panelGroup rendered="#{adminActivityDataController.items.rowCount > 0}">
-                    
-                    <h:dataTable class="table" value="#{adminActivityDataController.items}" var="item">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{admin.ListActivityDataTitle_idActivityData}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idActivityData}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{admin.ListActivityDataTitle_value}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.value}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{admin.ListActivityDataTitle_lastUpdated}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.lastUpdated}">
-                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{admin.ListActivityDataTitle_date}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.date}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{admin.ListActivityDataTitle_category}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{admin.ListActivityDataTitle_unit}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{admin.ListActivityDataTitle_user}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.userId.email}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{adminActivityDataController.prepareView}" value="#{admin.ListActivityDataViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{adminActivityDataController.prepareEdit}" value="#{admin.ListActivityDataEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{adminActivityDataController.prepareDestroy}" value="#{admin.ListActivityDataDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
                 
-                <div class="paginator">
-                    <h:commandLink class="btn btn-default"  action="#{adminActivityDataController.previous}" value="#{admin.Previous}" rendered="#{adminActivityDataController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:outputText value="#{adminActivityDataController.pagination.pageFirstItem + 1}..#{adminActivityDataController.pagination.pageLastItem + 1}/#{adminActivityDataController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink class="btn btn-default"  action="#{adminActivityDataController.next}" value="#{admin.Next}" rendered="#{adminActivityDataController.pagination.hasNextPage}"/>&nbsp;
-                </div>
+                <p:dataTable class="table" value="#{adminActivityDataController.items}" 
+                             emptyMessage="#{admin.ActivityDataNoItems}"
+                             filteredValue="#{adminActivityDataController.filteredItems}" widgetVar="activityDataTable" var="item"
+                             rows="100" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10, 100, 200">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{admin.ListActivityDataTitle_idActivityData}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idActivityData}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{admin.ListActivityDataTitle_value}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.value}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{admin.ListActivityDataTitle_lastUpdated}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lastUpdated}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{admin.ListActivityDataTitle_date}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column filterBy="#{item.categoryUnitId.categoryId.name}" headerText="Category" filterMatchMode="exact">
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('activityDataTable').filter()" >
+                                <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{adminActivityDataController.categories}"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{admin.ListActivityDataTitle_unit}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{admin.ListActivityDataTitle_user}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.userId.email}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        
+                        <h:commandLink action="#{adminActivityDataController.prepareView(item)}" value="#{admin.ListActivityDataViewLink}" />
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{adminActivityDataController.prepareEdit(item)}" value="#{admin.ListActivityDataEditLink}" />
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{adminActivityDataController.prepareDestroy(item)}" value="#{admin.ListActivityDataDestroyLink}" />
+                    </p:column>
+                </p:dataTable>
                 
                 <h:link outcome="/admin/index" value="#{admin.ListActivityDataIndexLink}"/>
             </h:form>
