@@ -69,10 +69,6 @@ public class User implements Serializable {
     @ManyToOne(optional = false)
     private UserRole userRoleId;
     
-    @JoinColumn(name = "userCredentialsId", referencedColumnName = "idUserCredentials")
-    @ManyToOne
-    private UserCredentials userCredentialsId;
-    
     @JoinColumn(name = "roleId", referencedColumnName = "idRole")
     @ManyToOne
     private Role roleId;
@@ -154,14 +150,6 @@ public class User implements Serializable {
 
     public void setUserRoleId(UserRole userRoleId) {
         this.userRoleId = userRoleId;
-    }
-
-    public UserCredentials getUserCredentialsId() {
-        return userCredentialsId;
-    }
-
-    public void setUserCredentialsId(UserCredentials userCredentialsId) {
-        this.userCredentialsId = userCredentialsId;
     }
 
     public Team getGroupId() {

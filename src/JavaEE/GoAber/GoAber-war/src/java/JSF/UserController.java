@@ -2,11 +2,9 @@ package JSF;
 
 import GoAberDatabase.Role;
 import GoAberDatabase.User;
-import GoAberDatabase.UserCredentials;
 import GoAberDatabase.UserRole;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
-import SessionBean.UserCredentialsFacade;
 import SessionBean.UserFacade;
 import SessionBean.UserRoleFacade;
 
@@ -44,10 +42,8 @@ public class UserController implements Serializable {
     
     private MessageDigest md;
     
-    private UserCredentials currentUC;
     private UserRole currentUR;
     
-    @EJB private SessionBean.UserCredentialsFacade ucEJBFacacde;
     @EJB private SessionBean.UserRoleFacade urEJBFacade;
     @EJB private SessionBean.RoleFacade rEJBFacade;
     
@@ -56,7 +52,6 @@ public class UserController implements Serializable {
     
     @PostConstruct
     public void Init() {
-        currentUC = new UserCredentials();
         currentUR = new UserRole();
     }
 
@@ -70,10 +65,6 @@ public class UserController implements Serializable {
 
     private UserFacade getFacade() {
         return ejbFacade;
-    }
-    
-    private UserCredentialsFacade getUCFacade() {
-        return ucEJBFacacde;
     }
     
     private UserRoleFacade getURFacade() {
@@ -114,10 +105,6 @@ public class UserController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
-    
-//    public UserCredentials getCurrentUC() {
-//        return this.currentUC;
-//    }
 
     public String create() {
         try {
@@ -127,11 +114,6 @@ public class UserController implements Serializable {
             String newPassword = current.getPassword();
             current.setPassword(encodePassword(newPassword));
             
-            // CG - Create the new 'UserCredentials' item.
-            currentUC.setUsername(current.getEmail());
-            currentUC.setPassword(current.getPassword());
-            getUCFacade().create(currentUC);
-            
             // CG - Create the new 'UserRole' item.
             currentUR.setRoleId(participantRole);
             currentUR.setEmail(current.getEmail());
@@ -140,7 +122,6 @@ public class UserController implements Serializable {
             // CG - Setup our new user.
             current.setRoleId(participantRole);
             current.setUserRoleId(currentUR);
-            current.setUserCredentialsId(currentUC);
             
             getFacade().create(current);
             

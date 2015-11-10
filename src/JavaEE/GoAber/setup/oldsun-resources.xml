@@ -12,3 +12,4 @@
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="GoAberDB" object-type="user" pool-name="mysql_goaber_rootPool"/>
 </resources>
+§
