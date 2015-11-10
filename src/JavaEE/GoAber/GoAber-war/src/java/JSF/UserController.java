@@ -109,7 +109,7 @@ public class UserController implements Serializable {
     public String create() {
         try {
             
-            Role participantRole = rEJBFacade.find("admin");
+            Role participantRole = rEJBFacade.find("participant");
             
             String newPassword = current.getPassword();
             current.setPassword(encodePassword(newPassword));
@@ -117,7 +117,9 @@ public class UserController implements Serializable {
             // CG - Create the new 'UserRole' item.
             currentUR.setRoleId(participantRole);
             currentUR.setEmail(current.getEmail());
-            getURFacade().create(currentUR);
+            
+            // CG - Don't need to do this anymore, as the cascade inside the 'User' EJB makes sure this is created.
+            //getURFacade().create(currentUR);
             
             // CG - Setup our new user.
             current.setRoleId(participantRole);
