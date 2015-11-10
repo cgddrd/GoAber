@@ -101,6 +101,10 @@ namespace GoAber.Migrations
             );
 
 
+            context.DeviceTypes.AddOrUpdate(x => x.Id,
+                new DeviceType() { name = "jawbone", tokenEndpoint = @"https://jawbone.com/auth/oauth2/auth", consumerSecret = "f0ca3e7da09288d18bc5b4053704f1a3e43d22da", clientId = "2mcFGghH9so",  authorizationEndpoint = @"https://jawbone.com/auth/oauth2/auth" }
+            );
+
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //

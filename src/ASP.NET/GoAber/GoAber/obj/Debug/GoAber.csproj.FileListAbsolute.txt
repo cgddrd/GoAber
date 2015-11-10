@@ -304,3 +304,7 @@ C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.Migra
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.csproj.GenerateResource.Cache
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.pdb
+C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber\bin\PagedList.dll
+C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber\bin\PagedList.Mvc.dll
+C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber\bin\PagedList.xml
+C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber\bin\PagedList.Mvc.xml

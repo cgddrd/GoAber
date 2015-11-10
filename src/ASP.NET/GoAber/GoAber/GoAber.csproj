@@ -280,6 +280,7 @@
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
+    <Compile Include="Controllers\JawboneController.cs" />
     <Compile Include="Controllers\FitBitController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -478,6 +479,11 @@
     <Content Include="Views\FitBit\GetHeartDay.cshtml" />
     <Content Include="Views\FitBit\Index.cshtml" />
     <Content Include="Views\FitBit\StartOAuth.cshtml" />
+    <Content Include="Views\Jawbone\Callback.cshtml" />
+    <Content Include="Views\Jawbone\getActivityDay.cshtml" />
+    <Content Include="Views\Jawbone\getHeartDay.cshtml" />
+    <Content Include="Views\Jawbone\Index.cshtml" />
+    <Content Include="Views\Jawbone\StartOAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
