@@ -14,6 +14,7 @@ using System.Web;
 using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.Diagnostics;
 
 namespace GoAber.Controllers
 {
@@ -222,27 +223,33 @@ namespace GoAber.Controllers
          */
         public ActivityData GetDayActivities(string ls_path, string userID, int day, int month, int year)
         {
-            string token = GetCurrentUserAccessToken(userID);
-            if (String.IsNullOrEmpty(token))
+            try {
+                string token = GetCurrentUserAccessToken(userID);
+                if (String.IsNullOrEmpty(token))
+                    return null;
+                //-----------------------------
+                string result = String.Empty;
+                HttpClient client = getAuthorisedClient(token);
+                ViewBag.RequestingUrl = String.Format(APIADDRESS + "{0}{1}-{2}-{3}.json", ls_path, year, month, day);
+                var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
+                if (apiResponse.IsSuccessStatusCode)
+                {
+                    result = apiResponse.Content.ReadAsStringAsync().Result;
+                    JToken jToken = JObject.Parse(result);
+                    JToken summary = jToken.SelectToken("summary");
+                    int categoryUnitID = 0;
+                    int steps = (int)summary.SelectToken("steps");
+                    DateTime date = new DateTime(year, month, day);
+                    ActivityData data = new ActivityData(categoryUnitID, userID, date, DateTime.Now, steps);
+                    return data;
+                }
+                ViewBag.Result = apiResponse.StatusCode;
                 return null;
-            //-----------------------------
-            string result = String.Empty;
-            HttpClient client = getAuthorisedClient(token);
-            ViewBag.RequestingUrl = String.Format(APIADDRESS + "{0}{1}-{2}-{3}.json", ls_path, year, month, day);
-            var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
-            if (apiResponse.IsSuccessStatusCode)
+            }catch (Exception ex)
             {
-                result = apiResponse.Content.ReadAsStringAsync().Result;
-                JToken jToken = JObject.Parse(result);
-                JToken summary = jToken.SelectToken("summary");
-                int categoryUnitID = 0;
-                int steps = (int)summary.SelectToken("steps");
-                DateTime date = new DateTime(year, month, day);
-                ActivityData data = new ActivityData(categoryUnitID, userID, date, DateTime.Now, steps);
-                return data;
+                Debug.WriteLine(ex.Message);
+                return null;
             }
-            ViewBag.Result = apiResponse.StatusCode;
-            return null;
         }
 
         public ActivityData GetDayHeart(string ls_path, string userID, int day, int month, int year)

@@ -276,4 +276,7 @@
   <data name="_LoginPartial_cshtml_Execute_Register" xml:space="preserve">
     <value>[WELSH]Register</value>
   </data>
+  <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
+    <value>[WELSH]FitBit</value>
+  </data>
 </root>

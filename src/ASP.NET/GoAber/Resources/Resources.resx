@@ -318,4 +318,7 @@
   <data name="AD_Index_cshtml_Execute_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
+    <value>FitBit</value>
+  </data>
 </root>

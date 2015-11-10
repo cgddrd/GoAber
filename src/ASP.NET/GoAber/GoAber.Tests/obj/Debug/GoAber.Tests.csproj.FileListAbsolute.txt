@@ -331,3 +331,15 @@ C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.csprojResolveAssemblyReference.cache
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.dll
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.pdb
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.Core.dll
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.dll
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Resources.dll
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\PagedList.dll
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.Core.xml
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.xml
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Resources.pdb
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\PagedList.xml
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\cy\Resources.resources.dll
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\es\Resources.resources.dll
