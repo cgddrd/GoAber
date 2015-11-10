@@ -1,14 +1,19 @@
-﻿@model IEnumerable<GoAber.ActivityData>
+﻿@model IEnumerable<GoAber.Models.ActivityData>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Activity Data";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
+
+@{Html.RenderPartial("_Filter");}
+
+<h3>Results</h3>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -27,7 +32,7 @@
             Unit
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.user.email)
+            @Html.DisplayNameFor(model => model.User.Email)
         </th>
         <th></th>
     </tr>
@@ -50,7 +55,7 @@
             @Html.DisplayFor(modelItem => item.categoryunit.unit.name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.user.email)
+            @Html.DisplayFor(modelItem => item.User.Email)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
@@ -59,5 +64,6 @@
         </td>
     </tr>
 }
-
 </table>
+
+@Html.Partial("_Pager", Model)

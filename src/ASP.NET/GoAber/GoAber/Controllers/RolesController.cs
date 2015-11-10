@@ -10,11 +10,16 @@ namespace GoAber.Controllers
 {
     public class RolesController : BaseController
     {
-
-        ApplicationDbContext context = new ApplicationDbContext();
-
+        ApplicationDbContext context;
         private ApplicationUserManager _userManager;
 
+        public RolesController()
+        {
+            context = new ApplicationDbContext();
+        }
+
+        // CG - We need to create our UserManager instance (copied from AccountController). 
+        // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
         public ApplicationUserManager UserManager
         {
             get
@@ -40,6 +45,7 @@ namespace GoAber.Controllers
             return View();
         }
 
+        
         // POST: /Roles/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
@@ -68,7 +74,6 @@ namespace GoAber.Controllers
             return RedirectToAction("Index");
         }
 
-        //
         // GET: /Roles/Edit/5
         public ActionResult Edit(string roleName)
         {
@@ -77,7 +82,6 @@ namespace GoAber.Controllers
             return View(thisRole);
         }
 
-        //
         // POST: /Roles/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -98,7 +102,10 @@ namespace GoAber.Controllers
 
         public ActionResult ManageUserRoles()
         {
-            var list = context.Roles.OrderBy(r => r.Name).ToList().Select(rr => new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
+            // prepopulat roles for the view dropdown
+            var list = context.Roles.OrderBy(r => r.Name).ToList().Select(rr =>
+
+new SelectListItem { Value = rr.Name.ToString(), Text = rr.Name }).ToList();
             ViewBag.Roles = list;
             return View();
         }

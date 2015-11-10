@@ -21,10 +21,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author helen
+ * @author connorgoddard
  */
 @Entity
-@Table(name = "groupchallenge")
+@Table(name = "GroupChallenge")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GroupChallenge.findAll", query = "SELECT g FROM GroupChallenge g"),
@@ -36,12 +36,12 @@ public class GroupChallenge implements Serializable {
     @Basic(optional = false)
     @Column(name = "idGroupChallenge")
     private Integer idGroupChallenge;
-    @JoinColumn(name = "challengeId", referencedColumnName = "idChallenge")
-    @ManyToOne(optional = false)
-    private Challenge challengeId;
     @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
     @ManyToOne(optional = false)
     private Team groupId;
+    @JoinColumn(name = "challengeId", referencedColumnName = "idChallenge")
+    @ManyToOne(optional = false)
+    private Challenge challengeId;
 
     public GroupChallenge() {
     }
@@ -58,20 +58,20 @@ public class GroupChallenge implements Serializable {
         this.idGroupChallenge = idGroupChallenge;
     }
 
-    public Challenge getChallengeId() {
-        return challengeId;
-    }
-
-    public void setChallengeId(Challenge challengeId) {
-        this.challengeId = challengeId;
-    }
-
     public Team getGroupId() {
         return groupId;
     }
 
     public void setGroupId(Team groupId) {
         this.groupId = groupId;
+    }
+
+    public Challenge getChallengeId() {
+        return challengeId;
+    }
+
+    public void setChallengeId(Challenge challengeId) {
+        this.challengeId = challengeId;
     }
 
     @Override

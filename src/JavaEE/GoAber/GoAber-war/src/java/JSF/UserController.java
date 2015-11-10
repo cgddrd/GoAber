@@ -1,12 +1,23 @@
 package JSF;
 
+import GoAberDatabase.Role;
 import GoAberDatabase.User;
+import GoAberDatabase.UserCredentials;
+import GoAberDatabase.UserRole;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
+import SessionBean.UserCredentialsFacade;
 import SessionBean.UserFacade;
+import SessionBean.UserRoleFacade;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,6 +28,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.xml.bind.DatatypeConverter;
 
 
 @ManagedBean(name="userController")
@@ -29,8 +41,23 @@ public class UserController implements Serializable {
     @EJB private SessionBean.UserFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    
+    private MessageDigest md;
+    
+    private UserCredentials currentUC;
+    private UserRole currentUR;
+    
+    @EJB private SessionBean.UserCredentialsFacade ucEJBFacacde;
+    @EJB private SessionBean.UserRoleFacade urEJBFacade;
+    @EJB private SessionBean.RoleFacade rEJBFacade;
+    
     public UserController() {
+    }
+    
+    @PostConstruct
+    public void Init() {
+        currentUC = new UserCredentials();
+        currentUR = new UserRole();
     }
 
     public User getSelected() {
@@ -44,6 +71,15 @@ public class UserController implements Serializable {
     private UserFacade getFacade() {
         return ejbFacade;
     }
+    
+    private UserCredentialsFacade getUCFacade() {
+        return ucEJBFacacde;
+    }
+    
+    private UserRoleFacade getURFacade() {
+        return urEJBFacade;
+    }
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -78,16 +114,60 @@ public class UserController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
+    
+//    public UserCredentials getCurrentUC() {
+//        return this.currentUC;
+//    }
 
     public String create() {
         try {
+            
+            Role participantRole = rEJBFacade.find("admin");
+            
+            String newPassword = current.getPassword();
+            current.setPassword(encodePassword(newPassword));
+            
+            // CG - Create the new 'UserCredentials' item.
+            currentUC.setUsername(current.getEmail());
+            currentUC.setPassword(current.getPassword());
+            getUCFacade().create(currentUC);
+            
+            // CG - Create the new 'UserRole' item.
+            currentUR.setRoleId(participantRole);
+            currentUR.setEmail(current.getEmail());
+            getURFacade().create(currentUR);
+            
+            // CG - Setup our new user.
+            current.setRoleId(participantRole);
+            current.setUserRoleId(currentUR);
+            current.setUserCredentialsId(currentUC);
+            
             getFacade().create(current);
+            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
+    }
+    
+    private String encodePassword(String password) {
+        if(md == null) {
+            try {
+                md = MessageDigest.getInstance("SHA-256");
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
+            md.update(password.getBytes("UTF-8"));
+            byte[] digest = md.digest();
+            return DatatypeConverter.printBase64Binary(digest).toString();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public String prepareEdit() {
@@ -189,7 +269,7 @@ public class UserController implements Serializable {
     }
 
 
-    @FacesConverter(forClass=User.class)
+    @FacesConverter(value="userConverter", forClass=User.class)
     public static class UserControllerConverter implements Converter {
 
         @Override

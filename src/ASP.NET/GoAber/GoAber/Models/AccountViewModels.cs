@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GoAber.Models
@@ -79,6 +80,15 @@ namespace GoAber.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string Name { get; set; }
+
+        [Display(Name = "Nickname")]
+        public string Nickname { get; set; }
+
+        [Display(Name = "DoB")]
+        [DataType(DataType.Date)]
+        public DateTime? DateOfBirth { get; set; }
     }
 
     public class ResetPasswordViewModel

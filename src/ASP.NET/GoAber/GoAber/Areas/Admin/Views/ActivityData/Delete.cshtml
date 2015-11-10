@@ -1,4 +1,4 @@
-﻿@model GoAber.ActivityData
+﻿@model GoAber.Models.ActivityData
 
 @{
     ViewBag.Title = "Delete";
@@ -52,11 +52,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.user.email)
+            @Html.DisplayNameFor(model => model.User.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.email)
+            @Html.DisplayFor(model => model.User.Email)
         </dd>
 
     </dl>

@@ -17,7 +17,7 @@ namespace GoAber
         // GET: ActivityDatas
         public ActionResult Index()
         {
-            var activityDatas = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.user);
+            var activityDatas = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
             return View(activityDatas.ToList());
         }
 
@@ -59,7 +59,7 @@ namespace GoAber
             }
 
             ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
             return View(activityData);
         }
 
@@ -76,7 +76,7 @@ namespace GoAber
                 return HttpNotFound();
             }
             ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
             return View(activityData);
         }
 
@@ -94,7 +94,7 @@ namespace GoAber
                 return RedirectToAction("Index");
             }
             ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id", activityData.categoryUnitId);
-            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.userId);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
             return View(activityData);
         }
 

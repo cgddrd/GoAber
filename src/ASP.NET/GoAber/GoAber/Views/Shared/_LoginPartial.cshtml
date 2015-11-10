@@ -3,7 +3,10 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+    
+    // CG - Removed temporarily to patch Fitbit initial request issues. 
+    // Action for CH to look into further (9/11/15)
+    //@Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
         <li>
