@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using GoAber.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using GoAber.Services;
 
 namespace GoAber
 {
@@ -16,7 +17,7 @@ namespace GoAber
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private CategoryUnitService categoryUnitService = new CategoryUnitService();
-
+        private ActivityDataService dataService = new ActivityDataService();
         private ApplicationUserManager _userManager;
 
         // CG - We need to create our UserManager instance (copied from AccountController). 
@@ -36,8 +37,7 @@ namespace GoAber
         // GET: ActivityDatas
         public ActionResult Index()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            var activityDatas = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User).Where(a => a.User.Id == user.Id);
+            var activityDatas = dataService.findActivityDataForUser(User.Identity.GetUserId());
             return View(activityDatas.ToList());
         }
 
@@ -72,14 +72,10 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,categoryUnitId,value,lastUpdated,date")] ActivityData activityData)
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
 
             if (ModelState.IsValid)
             {
-                activityData.ApplicationUserId = user.Id;
-                activityData.lastUpdated = DateTime.Now;
-                db.ActivityDatas.Add(activityData);
-                db.SaveChanges();
+                dataService.createActivityDataForUser(activityData, User.Identity.GetUserId());
                 return RedirectToAction("Index");
             }
 
@@ -96,7 +92,9 @@ namespace GoAber
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas.Find(id);
+
+            ActivityData activityData = dataService.getActivityDataById(id.Value);
+
             if (activityData == null)
             {
                 return HttpNotFound();
@@ -117,11 +115,7 @@ namespace GoAber
         {
             if (ModelState.IsValid)
             {
-                var user = UserManager.FindById(User.Identity.GetUserId());
-                activityData.ApplicationUserId = user.Id;
-                activityData.lastUpdated = DateTime.Now;
-                db.Entry(activityData).State = EntityState.Modified;
-                db.SaveChanges();
+                dataService.editActivityDataForUser(activityData, User.Identity.GetUserId());
                 return RedirectToAction("Index");
             }
 
@@ -138,7 +132,9 @@ namespace GoAber
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas.Find(id);
+
+            ActivityData activityData = db.ActivityDatas.Find(id.Value);
+
             if (activityData == null)
             {
                 return HttpNotFound();
@@ -151,9 +147,7 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ActivityData activityData = db.ActivityDatas.Find(id);
-            db.ActivityDatas.Remove(activityData);
-            db.SaveChanges();
+            dataService.deleteActivityData(id);
             return RedirectToAction("Index");
         }
 

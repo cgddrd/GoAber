@@ -1,10 +1,11 @@
-﻿using System;
+﻿using GoAber.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GoAber.Models
+namespace GoAber.Services
 {
     /// <summary>
     /// CategoryUnitService
