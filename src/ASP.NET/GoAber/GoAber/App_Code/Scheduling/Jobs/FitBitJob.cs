@@ -1,0 +1,56 @@
+﻿using GoAber.Controllers;
+using GoAber.Models;
+using GoAber.Scheduling.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Web;
+
+namespace GoAber.Scheduling.Jobs
+{
+    public class FitBitJob : IJob
+    {
+        ApplicationDbContext io_db;
+
+        public FitBitJob()
+        {
+            io_db = new ApplicationDbContext();
+        }
+        public string GetID()
+        {
+            return "fitbitjob";
+        }
+
+        public void Run()
+        {
+
+            FitBitController lo_fitbitcont = new FitBitController();
+            DateTime lda_today = DateTime.Today;
+
+
+            string[] ls_usernames = GetUserNames();
+            ActivityData lo_days;
+
+            for (int i = 0; i < ls_usernames.Length; i++)
+            {
+                lo_days = lo_fitbitcont.GetDayActivities("/activities/date/", ls_usernames[i], lda_today.Day, lda_today.Month, lda_today.Year);
+                if (lo_days != null)
+                {
+                    Debug.WriteLine(lo_days.value);
+                }
+                else
+                {
+                    Debug.WriteLine("Data is null");
+                }
+            }
+        }
+
+        private string[] GetUserNames()
+        {
+            var query = from d in io_db.Devices
+                        select d.ApplicationUserId;
+            return query.ToArray();
+        }
+    }
+}

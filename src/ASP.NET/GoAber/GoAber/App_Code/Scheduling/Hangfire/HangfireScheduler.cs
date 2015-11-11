@@ -1,4 +1,5 @@
-﻿using Hangfire;
+﻿using GoAber.Scheduling.Interfaces;
+using Hangfire;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -8,22 +9,9 @@ using System.Web;
 
 namespace GoAber.Scheduling.Hangfire
 {
-    public class HangfireScheduler : IScheduling
+    public class HangfireScheduler : IScheduler
     {
-        private static HangfireScheduler io_scheduler;
 
-        protected HangfireScheduler()
-        {
-        }
-
-        public static HangfireScheduler Instance()
-        {
-            if (io_scheduler == null)
-            {
-                io_scheduler = new HangfireScheduler();
-            }
-            return io_scheduler;
-        }
 
         public void CreateRecurringJob(string as_id, Expression<Action> am_methodcall, Func<string> ao_cronexp)
         {
@@ -33,6 +21,16 @@ namespace GoAber.Scheduling.Hangfire
         public void CreateRecurringJob(string as_id, Expression<Action> am_methodcall, string as_cronexp)
         {
             RecurringJob.AddOrUpdate(as_id, am_methodcall, as_cronexp);
+        }
+
+        public void EditRecurringJob(string as_id, Expression<Action> am_methodcall, Func<string> ao_cronexp)
+        {
+            CreateRecurringJob(as_id, am_methodcall, ao_cronexp);
+        }
+
+        public void EditRecurringJob(string as_id, Expression<Action> am_methodcall, string as_cronexp)
+        {
+            CreateRecurringJob(as_id, am_methodcall, as_cronexp);
         }
 
         public void Init(IAppBuilder ao_app)
@@ -47,6 +45,11 @@ namespace GoAber.Scheduling.Hangfire
 
             ao_app.UseHangfireDashboard();
             ao_app.UseHangfireServer();
+        }
+
+        public void RemoveJob(string as_id)
+        {
+            RecurringJob.RemoveIfExists(as_id);
         }
     }
 }

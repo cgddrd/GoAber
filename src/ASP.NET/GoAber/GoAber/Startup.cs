@@ -14,10 +14,9 @@ namespace GoAber
     {
         public void Configuration(IAppBuilder app)
         {
-            IScheduling lo_scheduler = HangfireScheduler.Instance();
-            lo_scheduler.Init(app, "Hangfire");
+            SchedulerFactory.Instance().GetScheduler().Init(app, "Hangfire");
 
-            ScheduleTasks.Execute(lo_scheduler);
+
             ConfigureAuth(app);
         }
     }

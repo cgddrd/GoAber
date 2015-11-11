@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoAber.Scheduling.Tasks
+namespace GoAber.Scheduling.Interfaces
 {
-    public interface ITask
+    public interface IJob
     {
         string GetID();
         void Run();
