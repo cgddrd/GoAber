@@ -312,4 +312,13 @@
   <data name="Save" xml:space="preserve">
     <value>[WELSH]Save</value>
   </data>
+  <data name="AdminControlPanelTitle" xml:space="preserve">
+    <value>[WELSH]Admin Control Panel</value>
+  </data>
+  <data name="ManageActivityData" xml:space="preserve">
+    <value>[WELSH]Manage Activity Data</value>
+  </data>
+  <data name="ManageCommunities" xml:space="preserve">
+    <value>[WELSH]Manage Communities</value>
+  </data>
 </root>

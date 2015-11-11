@@ -313,6 +313,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin Control Panel.
+        /// </summary>
+        public static string AdminControlPanelTitle {
+            get {
+                return ResourceManager.GetString("AdminControlPanelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string BackToList {
@@ -534,6 +543,24 @@ namespace Resources {
         public static string Manage_VerifyPhoneNumber_cshtml_Execute_Verify_Phone_Number {
             get {
                 return ResourceManager.GetString("Manage_VerifyPhoneNumber_cshtml_Execute_Verify_Phone_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Activity Data.
+        /// </summary>
+        public static string ManageActivityData {
+            get {
+                return ResourceManager.GetString("ManageActivityData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Communities.
+        /// </summary>
+        public static string ManageCommunities {
+            get {
+                return ResourceManager.GetString("ManageCommunities", resourceCulture);
             }
         }
         
