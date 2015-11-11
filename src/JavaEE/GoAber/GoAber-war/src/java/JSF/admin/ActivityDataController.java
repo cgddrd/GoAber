@@ -139,7 +139,7 @@ public class ActivityDataController implements Serializable {
     
     private void recreateItems() {
         items = getFacade().findAll();
-        //filteredItems = null;
+        filteredItems = null;
     }
     
     public SelectItem[] getItemsAvailableSelectMany() {
