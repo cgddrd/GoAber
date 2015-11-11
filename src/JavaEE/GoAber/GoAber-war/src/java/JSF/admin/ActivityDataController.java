@@ -2,6 +2,7 @@ package JSF.admin;
 
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.Category;
+import GoAberDatabase.Unit;
 import JSF.util.JsfUtil;
 import SessionBean.ActivityDataFacade;
 
@@ -13,19 +14,14 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@ManagedBean(name = "adminActivityDataController")
+@ManagedBean(name="adminActivityDataController")
 @SessionScoped
 public class ActivityDataController implements Serializable {
 
@@ -33,6 +29,8 @@ public class ActivityDataController implements Serializable {
     private SessionBean.ActivityDataFacade ejbFacade;
     @EJB
     private SessionBean.CategoryFacade categoryBean;
+    @EJB
+    private SessionBean.UnitFacade unitBean;
     private ActivityData current;
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
@@ -53,6 +51,15 @@ public class ActivityDataController implements Serializable {
         }
         return names;
     }
+    
+    public List<SelectItem> getUnits() {
+        List<SelectItem> names = new ArrayList<>();
+ 
+        for (Unit unit : unitBean.findAll()) {
+            names.add(new SelectItem(unit.getName()));
+        }
+        return names;
+    }
 
     public ActivityData getSelected() {
         if (getCurrent() == null) {
@@ -66,6 +73,7 @@ public class ActivityDataController implements Serializable {
     }
 
     public String prepareList() {
+        recreateItems();
         return "List";
     }
 
@@ -131,6 +139,7 @@ public class ActivityDataController implements Serializable {
     
     private void recreateItems() {
         items = getFacade().findAll();
+        //filteredItems = null;
     }
     
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -175,7 +184,6 @@ public class ActivityDataController implements Serializable {
     public void setCurrent(ActivityData current) {
         this.current = current;
     }
-
     
     @FacesConverter(forClass = ActivityData.class)
     public static class ActivityDataControllerConverter implements Converter {

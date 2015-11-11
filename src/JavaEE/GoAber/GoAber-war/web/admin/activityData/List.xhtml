@@ -4,7 +4,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
@@ -20,9 +19,11 @@
 
                 <div>
                     <h:commandLink action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
+                    <h:outputText value="&nbsp;"/>
+                    <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
                 </div>
                 
-                <p:dataTable class="table" value="#{adminActivityDataController.items}" 
+                <p:dataTable id="activityDataTable" class="table" value="#{adminActivityDataController.items}" 
                              emptyMessage="#{admin.ActivityDataNoItems}"
                              filteredValue="#{adminActivityDataController.filteredItems}" widgetVar="activityDataTable" var="item"
                              rows="100" paginator="true"
@@ -34,51 +35,56 @@
                         </f:facet>
                         <h:outputText value="#{item.idActivityData}"/>
                     </p:column>
+                    
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="#{admin.ListActivityDataTitle_value}"/>
                         </f:facet>
                         <h:outputText value="#{item.value}"/>
                     </p:column>
+                    
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="#{admin.ListActivityDataTitle_lastUpdated}"/>
                         </f:facet>
                         <h:outputText value="#{item.lastUpdated}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                     </p:column>
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="#{admin.ListActivityDataTitle_date}"/>
                         </f:facet>
                         <h:outputText value="#{item.date}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </p:column>
-
-                    <p:column filterBy="#{item.categoryUnitId.categoryId.name}" headerText="Category" filterMatchMode="exact">
+                    
+                    <p:column filterBy="#{item.categoryUnitId.categoryId.name}" headerText="#{admin.ListActivityDataTitle_category}" filterMatchMode="exact">
                         <f:facet name="filter">
                             <p:selectOneMenu onchange="PF('activityDataTable').filter()" >
-                                <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="#{admin.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItems value="#{adminActivityDataController.categories}"/>
                             </p:selectOneMenu>
                         </f:facet>
                         <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
                     </p:column>
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{admin.ListActivityDataTitle_unit}"/>
+                    
+                    <p:column filterBy="#{item.categoryUnitId.unitId.name}" headerText="#{admin.ListActivityDataTitle_unit}" filterMatchMode="exact">
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('activityDataTable').filter()" >
+                                <f:selectItem itemLabel="#{admin.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{adminActivityDataController.units}"/>
+                            </p:selectOneMenu>
                         </f:facet>
                         <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
                     </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{admin.ListActivityDataTitle_user}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.userId.email}"/>
+                    
+                    <p:column filterBy="#{item.userId.email}" headerText="#{admin.ListActivityDataTitle_user}" filterMatchMode="contains">
+                        <h:outputText value="#{item.userId.email}" />
                     </p:column>
+
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="&nbsp;"/>
