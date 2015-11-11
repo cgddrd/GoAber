@@ -1,4 +1,4 @@
-﻿@model GoAber.ActivityData
+﻿@model GoAber.Models.ActivityData
 
 @{
     ViewBag.Title = Resources.AD_Edit_cshtml_Execute_Edit;
@@ -18,22 +18,6 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.categoryUnitId, "categoryUnitId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("categoryUnitId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.categoryUnitId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.userId, "userId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("userId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.userId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.value, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.value, new { htmlAttributes = new { @class = "form-control" } })
@@ -42,10 +26,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.lastUpdated, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.categoryUnitId, "Unit", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.lastUpdated, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.lastUpdated, "", new { @class = "text-danger" })
+                @Html.DropDownList("categoryUnitId", (IEnumerable<SelectListItem>)ViewBag.categoryUnits, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.categoryUnitId, "", new { @class = "text-danger" })
             </div>
         </div>
 

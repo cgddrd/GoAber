@@ -303,6 +303,7 @@
     <Compile Include="Models\ActivityData.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryUnit.cs" />
+    <Compile Include="Models\CategoryUnitService.cs" />
     <Compile Include="Models\Challenge.cs" />
     <Compile Include="Models\Community.cs" />
     <Compile Include="Models\Device.cs" />
