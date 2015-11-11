@@ -14,11 +14,15 @@ using System.Web;
 using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.IO;
+using System.Web.Script.Serialization;
+using GoAber.OAuth;
 
 namespace GoAber.Controllers
 {
     public class JawboneController : Controller//, DeviceAPI
     {
+        /*
         private string AccessToken
         {
             get { return (string)Session["FitbitAccessToken"]; }
@@ -50,24 +54,40 @@ namespace GoAber.Controllers
 
             try
             {
-                IAuthorizationState authorisation = fitbit.ProcessUserAuthorization();
+                //IAuthorizationState authorisation = fitbit.ProcessUserAuthorization();
+
+                HttpWebRequest authorisation = (HttpWebRequest)WebRequest.Create("https://jawbone.com/auth/oauth2/token?grant_type=authorization_code&client_id=2mcFGghH9so&client_secret=f0ca3e7da09288d18bc5b4053704f1a3e43d22da&code="+code);
                 if (authorisation != null)
                 {
-                    ViewBag.Message += "Authorisation not null<br />";
-                    ViewBag.InitialAccessToken = authorisation.AccessToken;
-                    Session["InitialAccessToken"] = authorisation.AccessToken;
-                    ViewBag.InitialRefreshToken = authorisation.RefreshToken;
-                    Session["InitialRefreshToken"] = authorisation.RefreshToken;
+                    HttpWebResponse response = (HttpWebResponse)authorisation.GetResponse();
 
-                    if (authorisation.AccessTokenExpirationUtc.HasValue)
-                    {
-                        fitbit.RefreshAuthorization(authorisation, TimeSpan.FromMinutes(30));
-                        string token = authorisation.AccessToken;
+                    // Get the stream containing content returned by the server.
+                    Stream dataStream = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(dataStream);
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    var authorisationResponse = js.Deserialize<dynamic>(reader.ReadToEnd());
+                    ViewBag.Message += authorisationResponse["access_token"];              
+                    
+                    // Cleanup the streams and the response.
+                    reader.Close();
+                    dataStream.Close();
+                    response.Close();
+                    
+                    ViewBag.Message += "Authorisation not null<br />";
+                    ViewBag.InitialAccessToken = authorisationResponse["access_token"];
+                    Session["InitialAccessToken"] = authorisationResponse["access_token"];
+                    ViewBag.InitialRefreshToken = authorisationResponse["refresh_token"];
+                    Session["InitialRefreshToken"] = authorisationResponse["refresh_token"];
+                    
+                   // if (authorisationResponse["expires_in"].HasValue)
+                    //{
+                       // fitbit.RefreshAuthorization(authorisation, TimeSpan.FromMinutes(30));
+                        string token = authorisationResponse["access_token"];
                         ViewBag.ExtraAccessToken = token;
-                        ViewBag.ExtraRefreshToken = authorisation.RefreshToken;
-                        ViewBag.AccessTokenExpiration = authorisation.AccessTokenExpirationUtc;
+                        ViewBag.ExtraRefreshToken = authorisationResponse["refresh_token"];
+                        ViewBag.AccessTokenExpiration = authorisationResponse["expires_in"];
                         ViewBag.Message += "Got token<br />";
-                    }
+                  //  }
 
                     ViewBag.Message += "finished the callback.";
                 }
@@ -103,12 +123,12 @@ namespace GoAber.Controllers
             return View();
         }
 
+        */
 
 
 
-
-        /*  private const string DEVICENAME = "jawbone";
-          //private const string APIADDRESS = "https://jawbone.com/auth/oauth2/auth";
+          private const string DEVICENAME = "jawbone";
+          private const string APIADDRESS =  "https://jawbone.com/nudge/api/v.1.1/users/@me";
           private ApplicationDbContext db = new ApplicationDbContext();
           private ApplicationUserManager _userManager;
 
@@ -173,7 +193,7 @@ namespace GoAber.Controllers
           public ActionResult StartOAuth()
           {
               WebServerClient jawbone = getClient();
-              jawbone.ProcessUserAuthorization();
+             // jawbone.ProcessUserAuthorization();
               if (jawbone == null)
               {
                   ViewBag.Message = "Could not find jawbone connectivity settings!";
@@ -204,9 +224,53 @@ namespace GoAber.Controllers
               ViewBag.Message = String.Format("Started Callback with Code: {0}  ", code);
               try
               {
-                  ViewBag.Message += "Debug : before AuthorizationState  ";
-                  IAuthorizationState authorisation = jawbone.ProcessUserAuthorization();
-                  ViewBag.Message = "Debug : after IAuthorizationState";
+                List<String[]> formdata = new List<String[]>();
+                formdata.Add(new String[] { "client_id", "2mcFGghH9so" });
+                formdata.Add(new String[] { "client_secret", "f0ca3e7da09288d18bc5b4053704f1a3e43d22da" });
+                formdata.Add(new String[] { "grant_type", "authorization_code" });
+                formdata.Add(new String[] { "code", code });
+
+                HttpWebRequest request = ManualHttpRequest.CreateRequest(
+                    new Uri("https://jawbone.com/auth/oauth2/token"),
+                    "POST",
+                    "application/x-www-form-urlencoded",
+                    new List<String[]>(),
+                    formdata
+                    );
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                // Get the stream containing content returned by the server.
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                var authorisation = js.Deserialize<dynamic>(reader.ReadToEnd());
+                //ViewBag.Message += authorisationResponse["access_token"];
+
+                // Cleanup the streams and the response.
+                reader.Close();
+                dataStream.Close();
+                response.Close();
+
+                ViewBag.Message += "Authorisation not null<br />";
+                ViewBag.InitialAccessToken = authorisation["access_token"];
+                Session["InitialAccessToken"] = authorisation["access_token"];
+                ViewBag.InitialRefreshToken = authorisation["refresh_token"];
+                Session["InitialRefreshToken"] = authorisation["refresh_token"];
+
+                // if (authorisationResponse["expires_in"].HasValue)
+                //{
+                // fitbit.RefreshAuthorization(authorisation, TimeSpan.FromMinutes(30));
+                string token = authorisation["access_token"];
+                ViewBag.ExtraAccessToken = token;
+                ViewBag.ExtraRefreshToken = authorisation["refresh_token"];
+                ViewBag.AccessTokenExpiration = DateTime.Now.AddSeconds(authorisation["expires_in"]); //authorisation["expires_in"];
+                ViewBag.Message += "Got token<br />";
+                //  }
+
+                ViewBag.Message += "finished the callback.";
+
+
+
+                ViewBag.Message = "Debug : after IAuthorizationState";
                   if (authorisation == null)
                   {
                       ViewBag.Message = "Device not authorised!";
@@ -223,10 +287,10 @@ namespace GoAber.Controllers
                   Device device = new Device();
 
                   device.ConstructionFactory(
-                      authorisation.AccessToken,
-                      authorisation.RefreshToken,
+                      authorisation["access_token"],
+                      authorisation["refresh_token"],
                       deviceType.Id,
-                      authorisation.AccessTokenExpirationUtc,
+                      DateTime.Now.AddSeconds(authorisation["expires_in"]),
                       user.Id);
 
                   Device temp = FindDevice(user.Id); // mock user ID for now - should be getting this from session?
@@ -309,10 +373,10 @@ namespace GoAber.Controllers
           }
 
 
-           * ------------------------------------------
+          /* ------------------------------------------
            *  START API CALLS FOR VARIOUS METHODS HERE
            * ------------------------------------------
-           *
+           */
           public ActivityData GetDayActivities(string ls_path, string userID, int day, int month, int year)
           {
               string token = GetCurrentUserAccessToken(userID);
@@ -321,15 +385,16 @@ namespace GoAber.Controllers
               //-----------------------------
               string result = String.Empty;
               HttpClient client = getAuthorisedClient(token);
-              ViewBag.RequestingUrl = String.Format(APIADDRESS + "{0}{1}-{2}-{3}.json", ls_path, year, month, day);
+              ViewBag.RequestingUrl = String.Format(APIADDRESS + "/moves?date={0}{1}{2}", year, month, day);
               var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
               if (apiResponse.IsSuccessStatusCode)
               {
                   result = apiResponse.Content.ReadAsStringAsync().Result;
                   JToken jToken = JObject.Parse(result);
-                  JToken summary = jToken.SelectToken("summary");
-                  int categoryUnitID = 0;
-                  int steps = (int)summary.SelectToken("steps");
+                  JToken summary = jToken.SelectToken("data");
+                 // summary = summary.SelectToken("items");
+                int categoryUnitID = 0;
+                  int steps = (int)summary.SelectToken("items[0].details.steps");
                   DateTime date = new DateTime(year, month, day);
                   ActivityData data = new ActivityData(categoryUnitID, userID, date, DateTime.Now, steps);
                   return data;
@@ -346,7 +411,7 @@ namespace GoAber.Controllers
               //-----------------------------
               string result = String.Empty;
               HttpClient client = getAuthorisedClient(token);
-              ViewBag.RequestingUrl = String.Format(APIADDRESS + "{0}{1}-{2}-{3}/1d.json", ls_path, year, month, day);
+              ViewBag.RequestingUrl = String.Format(APIADDRESS + "/heartrates?date={0}{1}{2}", year, month, day);
               var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
               if (apiResponse.IsSuccessStatusCode)
               {
@@ -366,8 +431,8 @@ namespace GoAber.Controllers
 
           public ActionResult GetActivityDay()
           {
-              int day = 6;
-              int month = 11;
+              int day = 26;
+              int month = 10;
               int year = 2015;
 
               var user = UserManager.FindById(User.Identity.GetUserId());
@@ -394,12 +459,12 @@ namespace GoAber.Controllers
               }
               return View();
           }
-
+          
           private HttpClient getAuthorisedClient(string token)
           {
               HttpClient client = new HttpClient();
               client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
               return client;
-          }*/
+          }
     }
 }
