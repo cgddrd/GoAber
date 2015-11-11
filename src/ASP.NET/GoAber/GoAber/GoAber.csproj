@@ -277,6 +277,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
@@ -414,6 +415,11 @@
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\_Pager.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\_Filter.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
