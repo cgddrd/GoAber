@@ -327,4 +327,7 @@
   <data name="Unit" xml:space="preserve">
     <value>Unit</value>
   </data>
+  <data name="_Layout_cshtml_Execute_ActivityData" xml:space="preserve">
+    <value>Activity Data</value>
+  </data>
 </root>

@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_ActivityData {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_ActivityData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string _Layout_cshtml_Execute_Admin {
