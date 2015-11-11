@@ -268,6 +268,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Community.
+        /// </summary>
+        public static string AdminCommunitiesController_Create_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Create_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community.
+        /// </summary>
+        public static string AdminCommunitiesController_Delete_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Delete_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community.
+        /// </summary>
+        public static string AdminCommunitiesController_Details_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Details_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community.
+        /// </summary>
+        public static string AdminCommunitiesController_Edit_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Edit_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communities.
+        /// </summary>
+        public static string AdminCommunitiesController_Index_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Index_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to List.
+        /// </summary>
+        public static string BackToList {
+            get {
+                return ResourceManager.GetString("BackToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose your language!.
         /// </summary>
         public static string ChooseYourLanguage {
@@ -282,6 +336,51 @@ namespace Resources {
         public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New.
+        /// </summary>
+        public static string CreateNew {
+            get {
+                return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this?.
+        /// </summary>
+        public static string DeleteConfirmation {
+            get {
+                return ResourceManager.GetString("DeleteConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -660,6 +759,15 @@ namespace Resources {
         public static string RolesController_DeleteRoleForUser_user_doesnt_belong_role {
             get {
                 return ResourceManager.GetString("RolesController_DeleteRoleForUser_user_doesnt_belong_role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
     }

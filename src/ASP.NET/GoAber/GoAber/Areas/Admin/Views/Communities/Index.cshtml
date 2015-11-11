@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<GoAber.Models.Community>
 
 @{
-    ViewBag.Title = "Communities";
+    ViewBag.Title = Resources.Resources.AdminCommunitiesController_Index_Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@Html.ViewBag.title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(Resources.Resources.CreateNew, "Create")
 </p>
 <table class="table">
     <tr>
@@ -30,9 +30,9 @@
             @Html.DisplayFor(modelItem => item.endpointUrl)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink(Resources.Resources.Edit, "Edit", new { id=item.Id }) |
+            @Html.ActionLink(Resources.Resources.Details, "Details", new { id=item.Id }) |
+            @Html.ActionLink(Resources.Resources.Delete, "Delete", new { id=item.Id })
         </td>
     </tr>
 }
