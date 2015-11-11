@@ -318,4 +318,13 @@
   <data name="AD_Index_cshtml_Execute_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="AD_Subtitle" xml:space="preserve">
+    <value>Activity Data</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
 </root>
