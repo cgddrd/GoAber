@@ -38,8 +38,6 @@ namespace GoAber.Controllers
             }
         }
 
-
-
         protected WebServerClient getClient()
         {
             DeviceType deviceType = findDeviceTypeByName(DeviceName());
@@ -70,8 +68,6 @@ namespace GoAber.Controllers
             DeviceType deviceType = query.FirstOrDefault();
             return deviceType;
         }
-
-
 
         public ActionResult Index()
         {
@@ -167,7 +163,6 @@ namespace GoAber.Controllers
             }
             return View();
         }
-
 
 
         public virtual ActionResult Callback(string code)
@@ -282,8 +277,6 @@ namespace GoAber.Controllers
             ViewBag.Result = apiResponse.StatusCode;
             return null;
         }
-
-
 
         private HttpClient getAuthorisedClient(string token)
         {
