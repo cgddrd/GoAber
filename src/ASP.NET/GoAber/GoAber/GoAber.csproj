@@ -413,13 +413,13 @@
     <Content Include="Areas\Admin\Views\ActivityData\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ActivityData\_Pager.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\_Filter.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -488,7 +488,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

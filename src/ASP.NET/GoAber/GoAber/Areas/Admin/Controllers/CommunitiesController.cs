@@ -7,17 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GoAber.Models;
+using PagedList;
 
 namespace GoAber.Areas.Admin.Controllers
 {
     public class CommunitiesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private const int pageSize = 100;
 
         // GET: Admin/Communities
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Communities.ToList());
+            int pageNumber = (page ?? 1);
+            var communityData = db.Communities.OrderBy(a => a.name);
+            return View(communityData.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/Communities/Details/5
