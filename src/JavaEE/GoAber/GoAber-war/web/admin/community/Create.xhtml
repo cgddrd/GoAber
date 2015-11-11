@@ -14,22 +14,33 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateCommunityLabel_idCommunity}" for="idCommunity" />
-                    <h:inputText id="idCommunity" value="#{adminCommunityController.selected.idCommunity}" title="#{bundle.CreateCommunityTitle_idCommunity}" required="true" requiredMessage="#{bundle.CreateCommunityRequiredMessage_idCommunity}"/>
-                    <h:outputLabel value="#{bundle.CreateCommunityLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{adminCommunityController.selected.name}" title="#{bundle.CreateCommunityTitle_name}" required="true" requiredMessage="#{bundle.CreateCommunityRequiredMessage_name}"/>
-                    <h:outputLabel value="#{bundle.CreateCommunityLabel_endpointUrl}" for="endpointUrl" />
-                    <h:inputText id="endpointUrl" value="#{adminCommunityController.selected.endpointUrl}" title="#{bundle.CreateCommunityTitle_endpointUrl}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{adminCommunityController.create}" value="#{bundle.CreateCommunitySaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{adminCommunityController.prepareList}" value="#{bundle.CreateCommunityShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateCommunityIndexLink}"/>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateCommunityLabel_name}" for="value" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="name" value="#{adminCommunityController.selected.name}" title="#{bundle.CreateCommunityTitle_name}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateCommunityLabel_endpointUrl}" for="value" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="endpointUrl" value="#{adminCommunityController.selected.endpointUrl}" title="#{bundle.CreateCommunityTitle_endpointUrl}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <h:commandLink class="btn btn-default" action="#{adminCommunityController.create}" value="#{bundle.CreateCommunitySaveLink}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <h:commandLink action="#{adminCommunityController.prepareList}" value="#{bundle.CreateCommunityShowAllLink}" immediate="true"/>
+                        </div>
+                    </div>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>

@@ -2,11 +2,12 @@ package JSF.admin;
 
 import GoAberDatabase.Community;
 import JSF.util.JsfUtil;
-import JSF.util.PaginationHelper;
 import SessionBean.CommunityFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -14,91 +15,75 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
 @ManagedBean(name = "adminCommunityController")
 @SessionScoped
 public class CommunityController implements Serializable {
 
-    private Community current;
-    private DataModel items = null;
     @EJB
     private SessionBean.CommunityFacade ejbFacade;
-    private PaginationHelper pagination;
-    private int selectedItemIndex;
+    @EJB
+    private SessionBean.CategoryFacade categoryBean;
+    @EJB
+    private SessionBean.UnitFacade unitBean;
+    private Community current;
+    private List<Community> items = null;
+    private List<Community> filteredItems = null;
 
     public CommunityController() {
     }
+    
+    @PostConstruct
+    public void init() {
+        recreateItems();
+    }
 
     public Community getSelected() {
-        if (current == null) {
-            current = new Community();
-            selectedItemIndex = -1;
+        if (getCurrent() == null) {
+            setCurrent(new Community());
         }
-        return current;
+        return getCurrent();
     }
 
     private CommunityFacade getFacade() {
         return ejbFacade;
     }
 
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                }
-            };
-        }
-        return pagination;
-    }
-
     public String prepareList() {
-        recreateModel();
+        recreateItems();
         return "List";
     }
 
-    public String prepareView() {
-        current = (Community) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(Community item) {
+        current = item;
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Community();
-        selectedItemIndex = -1;
+        setCurrent(new Community());
         return "Create";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommunityCreated"));
+            getFacade().create(getCurrent());
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("CommunityCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String prepareEdit() {
-        current = (Community) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Community data) {
+        current = data;
         return "Edit";
     }
 
     public String update() {
         try {
-            getFacade().edit(current);
+            getFacade().edit(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommunityUpdated"));
             return "View";
         } catch (Exception e) {
@@ -107,79 +92,32 @@ public class CommunityController implements Serializable {
         }
     }
 
-    public String destroy() {
-        current = (Community) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreatePagination();
-        recreateModel();
-        return "List";
+    public String prepareDestroy(Community data) {
+        current = data;
+        return "Delete";
     }
-
-    public String destroyAndView() {
+        
+    public String destroy() {
         performDestroy();
-        recreateModel();
-        updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
-        }
+        // must recreate as something has been removed!
+        recreateItems();
+        return "List";
     }
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getFacade().remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommunityDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
-
-    private void updateCurrentItem() {
-        int count = getFacade().count();
-        if (selectedItemIndex >= count) {
-            // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
-            // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
-            }
-        }
-        if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
-        }
+    
+    private void recreateItems() {
+        items = getFacade().findAll();
+        filteredItems = null;
     }
-
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
-        return items;
-    }
-
-    private void recreateModel() {
-        items = null;
-    }
-
-    private void recreatePagination() {
-        pagination = null;
-    }
-
-    public String next() {
-        getPagination().nextPage();
-        recreateModel();
-        return "List";
-    }
-
-    public String previous() {
-        getPagination().previousPage();
-        recreateModel();
-        return "List";
-    }
-
+    
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
@@ -188,6 +126,41 @@ public class CommunityController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     * @return the filteredItems
+     */
+    public List<Community> getFilteredItems() {
+        return filteredItems;
+    }
+
+    /**
+     * @param filteredItems the filteredItems to set
+     */
+    public void setFilteredItems(List<Community> filteredItems) {
+        this.filteredItems = filteredItems;
+    }
+
+    /**
+     * @return the items
+     */
+    public List<Community> getItems() {
+        return items;
+    }
+
+    /**
+     * @return the current
+     */
+    public Community getCurrent() {
+        return current;
+    }
+
+    /**
+     * @param current the current to set
+     */
+    public void setCurrent(Community current) {
+        this.current = current;
+    }
+    
     @FacesConverter(forClass = Community.class)
     public static class CommunityControllerConverter implements Converter {
 
@@ -197,7 +170,7 @@ public class CommunityController implements Serializable {
                 return null;
             }
             CommunityController controller = (CommunityController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "communityController");
+                    getValue(facesContext.getELContext(), null, "ad");
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -225,7 +198,6 @@ public class CommunityController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Community.class.getName());
             }
         }
-
     }
 
 }
