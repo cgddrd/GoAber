@@ -23,10 +23,6 @@ public class CommunityController implements Serializable {
 
     @EJB
     private SessionBean.CommunityFacade ejbFacade;
-    @EJB
-    private SessionBean.CategoryFacade categoryBean;
-    @EJB
-    private SessionBean.UnitFacade unitBean;
     private Community current;
     private List<Community> items = null;
     private List<Community> filteredItems = null;

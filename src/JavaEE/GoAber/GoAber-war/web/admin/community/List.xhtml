@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -18,28 +19,33 @@
                     <h:commandLink action="#{adminCommunityController.prepareCreate}" value="#{bundle.ListCommunityCreateLink}"/>
                 </div>
                     
-                    <h:dataTable class="table" value="#{adminCommunityController.items}" var="item">
-                        <h:column>
+                <p:dataTable id="activityDataTable" class="table" value="#{adminCommunityController.items}" 
+                             emptyMessage="#{bundle.CommunityNoItems}"
+                             filteredValue="#{adminCommunityController.filteredItems}" widgetVar="communityTable" var="item"
+                             rows="100" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10, 100, 200">
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCommunityTitle_idCommunity}"/>
                             </f:facet>
                             <h:outputText value="#{item.idCommunity}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCommunityTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
-                        </h:column>
+                        </p:column>
                         
-                         <h:column>
+                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCommunityTitle_endpointUrl}"/>
                             </f:facet>
                              <h:outputText value="#{item.endpointUrl}"/>
-                        </h:column>
+                        </p:column>
                         
-                        <h:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
@@ -48,8 +54,8 @@
                             <h:commandLink action="#{adminCommunityController.prepareEdit(item)}" value="#{bundle.ListCommunityEditLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{adminCommunityController.prepareDestroy(item)}" value="#{bundle.ListCommunityDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
+                        </p:column>
+                    </p:dataTable>
                 
                 <h:link outcome="/admin/index" value="#{bundle.ListCommunityIndexLink}"/>
             </h:form>
