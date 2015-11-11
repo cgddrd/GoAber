@@ -20,6 +20,8 @@ namespace GoAber.Controllers
     {
         protected abstract string DeviceName();
         protected abstract string[] Scope();
+        public abstract ActivityData GetWalkingSteps(int year, int month, int day);
+        public abstract ActivityData GetHeartRate(int year, int month, int day);
 
         protected ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationUserManager _userManager;
@@ -167,7 +169,6 @@ namespace GoAber.Controllers
 
         public virtual ActionResult Callback(string code)
         {
-
             var user = UserManager.FindById(User.Identity.GetUserId());
 
             WebServerClient client = getClient();
@@ -225,6 +226,69 @@ namespace GoAber.Controllers
         }
 
 
+        public ActivityData GetWalkingSteps(string ls_path, string jsonPath, string userID, int day, int month, int year)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            CategoryUnit categoryUnit = GetCategoryUnit("Walking", "Steps");
+
+            ActivityData activityDay = GetDayActivity(ls_path, jsonPath, user.Id, day, month, year, categoryUnit);
+            return activityDay;
+        }
+
+        public ActivityData GetHeartRate(string ls_path, string jsonPath, string userID, int day, int month, int year)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            CategoryUnit categoryUnit = GetCategoryUnit("HeartRate", "Beats");
+
+            ActivityData activityDay = GetDayActivity(ls_path, jsonPath, user.Id, day, month, year, categoryUnit);
+            return activityDay;
+        }
+
+        //TODO this should be moved to somewhere related to the CategoryUnit
+        public CategoryUnit GetCategoryUnit(string category, string unit)
+        {
+            var query = from d in db.CategoryUnits
+                        where (d.category.name.Equals(category)
+                                && d.unit.name.Equals(unit)
+                                )
+                        select d;
+            CategoryUnit categoryUnit = query.FirstOrDefault();
+            return categoryUnit;
+        }
+
+        public ActivityData GetDayActivity(string ls_path, string jsonPath, string userID, int day, int month, int year, CategoryUnit categoryUnit )
+        {
+            string token = GetCurrentUserAccessToken(userID);
+            if (String.IsNullOrEmpty(token))
+            {
+                return null;
+            }
+            //-----------------------------
+            string result = String.Empty;
+            HttpClient client = getAuthorisedClient(token);
+
+            DeviceType deviceType = findDeviceTypeByName(DeviceName());
+            ViewBag.RequestingUrl = deviceType.apiEndpoint + ls_path;
+            var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
+            if (apiResponse.IsSuccessStatusCode)
+            {
+                result = apiResponse.Content.ReadAsStringAsync().Result;
+                JToken jToken = JObject.Parse(result);
+                int value = (int)jToken.SelectToken(jsonPath);
+                
+                DateTime date = new DateTime(year, month, day);
+                ActivityData data = new ActivityData(categoryUnit.categoryId, userID, date, DateTime.Now, value);
+                db.ActivityDatas.Add(data);
+                db.SaveChanges();
+                return data;
+            }
+            ViewBag.Result = apiResponse.StatusCode;
+            return null;
+        }
+
+        /*
         public ActivityData GetDayActivities(string ls_path, string jsonPath, string userID, int day, int month, int year)
         {
             string token = GetCurrentUserAccessToken(userID);
@@ -277,7 +341,7 @@ namespace GoAber.Controllers
             ViewBag.Result = apiResponse.StatusCode;
             return null;
         }
-
+     */
         private HttpClient getAuthorisedClient(string token)
         {
             HttpClient client = new HttpClient();

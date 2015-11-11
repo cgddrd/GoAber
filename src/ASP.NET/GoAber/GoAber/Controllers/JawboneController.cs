@@ -89,9 +89,7 @@ namespace GoAber.Controllers
                 string token = authorisation["access_token"];
                 ViewBag.ExtraAccessToken = token;
                 ViewBag.ExtraRefreshToken = authorisation["refresh_token"];
-                ViewBag.AccessTokenExpiration = DateTime.Now.AddSeconds(authorisation["expires_in"]); //authorisation["expires_in"];
-                ViewBag.Message += "Got token<br />";
-                ViewBag.Message += "finished the callback.";
+                ViewBag.AccessTokenExpiration = DateTime.Now.AddSeconds(authorisation["expires_in"]); 
 
                 
                   if (authorisation == null)
@@ -130,15 +128,34 @@ namespace GoAber.Controllers
           }
 
 
-          public ActionResult GetActivityDay()
+
+
+        public override ActivityData GetWalkingSteps(int year, int month, int day)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            ActivityData activityDay = GetWalkingSteps(String.Format("/moves?date={0}{1}{2}", year, month, day), "data.items[0].details.steps", user.Id, day, month, year);
+            return activityDay;
+        }
+
+        public override ActivityData GetHeartRate(int year, int month, int day)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            ActivityData activityHeart = GetHeartRate(String.Format("/heartrates?date={0}{1}{2}", year, month, day), "todo", user.Id, day, month, year);
+            
+            return activityHeart;
+        }
+
+        
+        /////////////////
+        //  Test code  //
+        public ActionResult GetActivityDay()
           {
               int day = 26;
               int month = 10;
               int year = 2015;
 
-              var user = UserManager.FindById(User.Identity.GetUserId());
-
-              ActivityData activityDay = GetDayActivities(String.Format("/moves?date={0}{1}{2}", year, month, day), "data.items[0].details.steps", user.Id, day, month, year);
+              ActivityData activityDay = GetWalkingSteps(year, month, day);
               if (activityDay != null)
               {
                   ViewBag.Result = activityDay.value;
@@ -151,10 +168,8 @@ namespace GoAber.Controllers
               int day = 6;
               int month = 11;
               int year = 2015;
-
-              var user = UserManager.FindById(User.Identity.GetUserId());
-
-              ActivityData activityHeart = GetDayHeart(String.Format("/heartrates?date={0}{1}{2}", year, month, day),"todo", user.Id, day, month, year);
+            
+              ActivityData activityHeart = GetHeartRate(year, month, day);
               if (activityHeart != null)
               {
                   ViewBag.Result = activityHeart.value;
