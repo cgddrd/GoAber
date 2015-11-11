@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewCommunityTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewCommunityLabel_idCommunity}"/>
+                    <h:outputText value="#{adminCommunityController.selected.idCommunity}" title="#{bundle.ViewCommunityTitle_idCommunity}"/>
+                    <h:outputText value="#{bundle.ViewCommunityLabel_name}"/>
+                    <h:outputText value="#{adminCommunityController.selected.name}" title="#{bundle.ViewCommunityTitle_name}"/>
+                    <h:outputText value="#{bundle.ViewCommunityLabel_endpointUrl}"/>
+                    <h:outputText value="#{adminCommunityController.selected.endpointUrl}" title="#{bundle.ViewCommunityTitle_endpointUrl}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{adminCommunityController.destroyAndView}" value="#{bundle.ViewCommunityDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewCommunityEditLink}"/>
+                <br />
+                <h:commandLink action="#{adminCommunityController.prepareCreate}" value="#{bundle.ViewCommunityCreateLink}" />
+                <br />
+                <h:commandLink action="#{adminCommunityController.prepareList}" value="#{bundle.ViewCommunityShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewCommunityIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
