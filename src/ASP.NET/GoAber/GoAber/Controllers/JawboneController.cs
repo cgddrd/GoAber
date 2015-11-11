@@ -22,11 +22,7 @@ namespace GoAber.Controllers
 {
     public class JawboneController : DeviceAPI
     {
-       // DEVICENAME = "Jawbone";
-      //    APIADDRESS = "https://jawbone.com/nudge/api/v.1.1/users/@me";
-        //  scope = new[] { "basic_read", "move_read" };
-        
-        protected override string DeviceName()
+       protected override string DeviceName()
         {
             return "Jawbone";
         }
@@ -35,17 +31,18 @@ namespace GoAber.Controllers
             return new[] { "basic_read", "move_read" };
         }
 
-
+        
          private HttpWebRequest GetRequest(String code)
          {
+            DeviceType deviceType = findDeviceTypeByName(DeviceName());
             List<String[]> formdata = new List<String[]>();
-            formdata.Add(new String[] { "client_id", "2mcFGghH9so" });
-            formdata.Add(new String[] { "client_secret", "f0ca3e7da09288d18bc5b4053704f1a3e43d22da" });
+            formdata.Add(new String[] { "client_id", deviceType.clientId });
+            formdata.Add(new String[] { "client_secret", deviceType.consumerSecret });
             formdata.Add(new String[] { "grant_type", "authorization_code" });
             formdata.Add(new String[] { "code", code });
 
             HttpWebRequest request = ManualHttpRequest.CreateRequest(
-                new Uri("https://jawbone.com/auth/oauth2/token"),
+                new Uri(deviceType.tokenEndpoint),
                 "POST",
                 "application/x-www-form-urlencoded",
                 new List<String[]>(),
@@ -54,7 +51,12 @@ namespace GoAber.Controllers
             return request;
         }
 
-          public override ActionResult Callback(string code)
+        /**
+         * Due to issues with the call to WebServerClient.ProcessUserAuthorization()
+         *  the Jawbone device must have its oven Callback function, rather than using DeviceAPI's.
+         *
+         */
+        public override ActionResult Callback(string code)
           {
               var user = UserManager.FindById(User.Identity.GetUserId());
 
