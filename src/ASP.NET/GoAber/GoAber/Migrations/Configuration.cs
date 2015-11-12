@@ -96,6 +96,10 @@ namespace GoAber.Migrations
                 new CategoryUnit() { category = new Category() { name = "Walking" }, unit = new Unit() {name = "Steps"} }
                 );
 
+            context.CategoryUnits.AddOrUpdate(x => x.Id,
+                new CategoryUnit() { category = new Category() { name = "HeartRate" }, unit = new Unit() { name = "Beats" } }
+                );
+
             context.DeviceTypes.AddOrUpdate(x => x.Id,
                 new DeviceType() { name = "Fitbit", tokenEndpoint = @"https://api.fitbit.com/oauth2/token", consumerKey = "e06d4e7dcbc6fc80c0d00b187b6fb2e1", consumerSecret = "bafe21eca0c10cfe54f21e9b685f041f", clientId = "229R69" , authorizationEndpoint = @"https://www.fitbit.com/oauth2/authorize", apiEndpoint = @"https://api.fitbit.com/1/user/-" }
             );

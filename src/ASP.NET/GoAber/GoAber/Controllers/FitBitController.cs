@@ -41,7 +41,7 @@ namespace GoAber.Controllers
         public override ActivityData GetHeartRate(int year, int month, int day)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            ActivityData activityHeart = GetHeartRate(String.Format("{0}{1}-{2}-{3}.json", "/activities/heart/date/", year, month, day), "activities-heart", user.Id, day, month, year);
+            ActivityData activityHeart = GetHeartRate(String.Format("{0}{1}-{2}-{3}.json", "/heart/date/", year, month, day), "average[0].heartRate", user.Id, day, month, year);
             return activityHeart;
         }
 

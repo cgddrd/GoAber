@@ -28,7 +28,7 @@ namespace GoAber.Controllers
         }
         protected override string[] Scope()
         {
-            return new[] { "basic_read", "move_read" };
+            return new[] { "basic_read", "move_read", "heartrate_read" };
         }
 
         
@@ -143,7 +143,7 @@ namespace GoAber.Controllers
         public override ActivityData GetHeartRate(int year, int month, int day)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            ActivityData activityHeart = GetHeartRate(String.Format("/heartrates?date={0}{1}{2}", year, month, day), "todo", user.Id, day, month, year);
+            ActivityData activityHeart = GetHeartRate(String.Format("/heartrates?date={0}{1}{2}", year, month, day), "data.items[0].resting_heartrate", user.Id, day, month, year);
             
             return activityHeart;
         }
