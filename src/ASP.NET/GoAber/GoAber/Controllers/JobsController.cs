@@ -11,8 +11,9 @@ using GoAber.Scheduling;
 
 namespace GoAber.Controllers
 {
-    public class JobsController : Controller
+    public class JobsController : BaseController
     {
+        protected static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Jobs

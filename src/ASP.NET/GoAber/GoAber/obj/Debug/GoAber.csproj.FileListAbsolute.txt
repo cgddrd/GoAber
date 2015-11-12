@@ -264,10 +264,6 @@ C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.Owin.Se
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.Owin.Security.OAuth.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.Owin.Security.Twitter.dll
-C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.SqlServer.ConnectionInfo.dll
-C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.SqlServer.Management.Sdk.Sfc.dll
-C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.SqlServer.Smo.dll
-C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.SqlServer.SqlEnum.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\MySql.Data.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\MySql.Data.Entity.EF6.dll
@@ -285,8 +281,6 @@ C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\System.Web.WebPag
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\System.Web.WebPages.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\System.Web.WebPages.Razor.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\WebGrease.dll
-C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.SqlServer.Dmf.dll
-C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Microsoft.SqlServer.ServiceBrokerEnum.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Resources.pdb
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Hangfire.Core.xml
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\Hangfire.SqlServer.xml
@@ -325,3 +319,6 @@ C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.Migr
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.csproj.GenerateResource.Cache
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.dll
 C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.pdb
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\log4net.dll
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\log4net.pdb
+C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\bin\log4net.xml
