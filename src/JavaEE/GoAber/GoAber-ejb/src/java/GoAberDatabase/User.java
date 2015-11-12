@@ -39,24 +39,27 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByNickname", query = "SELECT u FROM User u WHERE u.nickname = :nickname")})
 public class User implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idUser")
     private Integer idUser;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
-    
     
     @Size(max = 45)
     @Column(name = "nickname")
@@ -66,12 +69,8 @@ public class User implements Serializable {
     private Collection<ActivityData> activityDataCollection;
     
     @JoinColumn(name = "userRoleId", referencedColumnName = "idUserRole")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private UserRole userRoleId;
-    
-    @JoinColumn(name = "userCredentialsId", referencedColumnName = "idUserCredentials")
-    @ManyToOne
-    private UserCredentials userCredentialsId;
     
     @JoinColumn(name = "roleId", referencedColumnName = "idRole")
     @ManyToOne
@@ -83,6 +82,7 @@ public class User implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Device> deviceCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserChallenge> userChallengeCollection;
 
@@ -154,14 +154,6 @@ public class User implements Serializable {
 
     public void setUserRoleId(UserRole userRoleId) {
         this.userRoleId = userRoleId;
-    }
-
-    public UserCredentials getUserCredentialsId() {
-        return userCredentialsId;
-    }
-
-    public void setUserCredentialsId(UserCredentials userCredentialsId) {
-        this.userCredentialsId = userCredentialsId;
     }
 
     public Team getGroupId() {
