@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTeamTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateTeamLabel_name}" for="value" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="value" value="#{adminTeamController.selected.name}" title="#{bundle.CreateTeamTitle_name}" />
+                        </div>
+                    </div>
+                    
+                   <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateTeamLabel_communityId}" for="communityId" />
+                        <div class="col-md-10">
+                            <h:selectOneMenu class="form-control" id="communityId" value="#{adminTeamController.selected.communityId}" title="#{bundle.CreateTeamTitle_communityId}" required="true" requiredMessage="#{bundle.CreateTeamRequiredMessage_userId}" converter="communityConverter">
+                                <f:selectItems value="#{adminTeamController.communities}" var="community" itemLabel="#{community.name}" itemValue="#{community}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <h:commandLink class="btn btn-default" action="#{adminTeamController.create}" value="#{bundle.CreateTeamSaveLink}" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <h:commandLink action="#{adminTeamController.prepareList}" value="#{bundle.CreateTeamShowAllLink}" immediate="true"/>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
