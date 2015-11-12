@@ -7,18 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GoAber.Models;
+using PagedList;
 
 namespace GoAber.Areas.Admin.Controllers
 {
     public class TeamsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private const int pageSize = 100;
 
         // GET: Admin/Teams
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var groups = db.Groups.Include(t => t.community);
-            return View(groups.ToList());
+            int pageNumber = (page ?? 1);
+            var groups = db.Groups.Include(t => t.community).OrderBy(t => t.name);
+            return View(groups.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/Teams/Details/5
