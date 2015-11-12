@@ -8,19 +8,22 @@ using System.Web;
 using System.Web.Mvc;
 using GoAber.Models;
 using PagedList;
+using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
 {
     public class TeamsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private TeamsService teamService = new TeamsService();
+        private CommunitiesService communityService = new CommunitiesService();
+
         private const int pageSize = 100;
 
         // GET: Admin/Teams
         public ActionResult Index(int? page)
         {
             int pageNumber = (page ?? 1);
-            var groups = db.Groups.Include(t => t.community).OrderBy(t => t.name);
+            var groups = teamService.getAllTeams();
             return View(groups.ToPagedList(pageNumber, pageSize));
         }
 
@@ -31,7 +34,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Groups.Find(id);
+            Team team = teamService.findTeamById(id.Value);
             if (team == null)
             {
                 return HttpNotFound();
@@ -42,7 +45,7 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/Teams/Create
         public ActionResult Create()
         {
-            ViewBag.communityId = new SelectList(db.Communities, "Id", "name");
+            ViewBag.communityId = new SelectList(communityService.getAllCommunities(), "Id", "name");
             return View();
         }
 
@@ -55,12 +58,11 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Groups.Add(team);
-                db.SaveChanges();
+                teamService.createTeam(team);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.communityId = new SelectList(db.Communities, "Id", "name", team.communityId);
+            ViewBag.communityId = new SelectList(communityService.getAllCommunities(), "Id", "name", team.communityId);
             return View(team);
         }
 
@@ -71,12 +73,12 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Groups.Find(id);
+            Team team = teamService.findTeamById(id.Value);
             if (team == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.communityId = new SelectList(db.Communities, "Id", "name", team.communityId);
+            ViewBag.communityId = new SelectList(communityService.getAllCommunities(), "Id", "name", team.communityId);
             return View(team);
         }
 
@@ -89,11 +91,10 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(team).State = EntityState.Modified;
-                db.SaveChanges();
+                teamService.updateTeam(team);
                 return RedirectToAction("Index");
             }
-            ViewBag.communityId = new SelectList(db.Communities, "Id", "name", team.communityId);
+            ViewBag.communityId = new SelectList(communityService.getAllCommunities(), "Id", "name", team.communityId);
             return View(team);
         }
 
@@ -104,7 +105,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = db.Groups.Find(id);
+            Team team = teamService.findTeamById(id.Value);
             if (team == null)
             {
                 return HttpNotFound();
@@ -117,18 +118,12 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Team team = db.Groups.Find(id);
-            db.Groups.Remove(team);
-            db.SaveChanges();
+            teamService.deleteTeam(id);
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

@@ -315,6 +315,7 @@
     <Compile Include="Models\Unit.cs" />
     <Compile Include="Models\UserChallenge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CommunitiesService.cs" />
     <Compile Include="Services\TeamsService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
