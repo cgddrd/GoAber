@@ -276,4 +276,31 @@
   <data name="_LoginPartial_cshtml_Execute_Register" xml:space="preserve">
     <value>[WELSH]Register</value>
   </data>
+  <data name="AdminTeamsController_Index_Title" xml:space="preserve">
+    <value>[WELSH]Teams</value>
+  </data>
+  <data name="AdminTeamsController_Subtitle" xml:space="preserve">
+    <value>[WELSH]Teams</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>[WELSH]Back to List</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>[WELSH]Create New</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>[WELSH]Delete</value>
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>[WELSH]Are you sure you want to delete this?</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>[WELSH]Details</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>[WELSH]Edit</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>[WELSH]Save</value>
+  </data>
 </root>
