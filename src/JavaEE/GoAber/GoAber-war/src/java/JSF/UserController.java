@@ -66,7 +66,7 @@ public class UserController implements Serializable {
     private UserFacade getFacade() {
         return ejbFacade;
     }
-    
+        
     private UserRoleFacade getURFacade() {
         return urEJBFacade;
     }
@@ -105,7 +105,7 @@ public class UserController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
-
+    
     public String create() {
         try {
             

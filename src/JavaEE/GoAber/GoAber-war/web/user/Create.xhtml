@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,28 +15,50 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup> 
            <h:form>
-                <h:panelGrid columns="2">
-                    <!--<h:outputLabel value="#{bundle.CreateUserLabel_idUser}" for="idUser" />-->
-                    <!--<h:inputText id="idUser" value="#{userController.selected.idUser}" title="#{bundle.CreateUserTitle_idUser}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_idUser}"/>-->
-                    <h:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{userController.selected.email}" title="#{bundle.CreateUserTitle_email}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_email}"/>
-                    <h:outputLabel value="#{bundle.CreateUserLabel_nickname}" for="nickname" />
-                    <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.CreateUserTitle_nickname}" />
-                    <h:outputLabel value="#{bundle.CreateUserLabel_groupId}" for="groupId" />
-                    <h:selectOneMenu id="groupId" value="#{userController.selected.groupId}" title="#{bundle.CreateUserTitle_groupId}" >
-                        <f:selectItems value="#{teamController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateUserCredentialsLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{userController.selected.password}" title="#{bundle.CreateUserCredentialsTitle_password}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{userController.prepareList}" value="#{bundle.CreateUserShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateUserIndexLink}"/>
+                
+                    <div class="form-horizontal">
+                        
+                        <div class="form-group">
+                            <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserLabel_email}" for="email" />
+                            <div class="col-md-10">
+                                <h:inputText class="form-control" id="email" value="#{userController.selected.email}" title="#{bundle.CreateUserTitle_email}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_email}"/>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserLabel_nickname}" for="nickname" />
+                            <div class="col-md-10">
+                                <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.CreateUserTitle_nickname}" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserCredentialsLabel_password}" for="password" />
+                            <div class="col-md-10">
+                                <p:password id="password" value="#{userController.selected.password}" title="#{bundle.CreateUserCredentialsTitle_password}" match="confirm-password" label="#{bundle.CreateUserCredentialsTitle_password}" required="true" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserCredentialsLabel_password}" for="confirm-password" />
+                            <div class="col-md-10">
+                                <p:password id="confirm-password" title="#{bundle.CreateUserCredentialsTitle_confirmpassword}" label="#{bundle.CreateUserCredentialsTitle_confirmpassword}" required="true" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <h:commandLink class="btn btn-default" action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <h:commandLink action="#{userController.prepareList}" value="#{bundle.CreateUserShowAllLink}" immediate="true"/>
+                            </div>
+                        </div>
+                        
+                    </div>
             </h:form>
         </ui:define>
     </ui:composition>
