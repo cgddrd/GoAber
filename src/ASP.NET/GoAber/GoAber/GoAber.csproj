@@ -415,7 +415,6 @@
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\_Pager.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\_Filter.cshtml" />
-    <Content Include="Areas\Admin\Views\ActivityData\BatchDeleteConfirm.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\BatchDelete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
