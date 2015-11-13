@@ -13,6 +13,7 @@ using PagedList;
 using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using GoAber.ActionFilters;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -55,16 +56,19 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
+        [MultipleButton(Name = "action", Argument = "Filter")]
+        public ActionResult Index(int? page, string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
         {
             var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
             activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit, fromDate, toDate);
+            activityData = activityData.OrderBy(a => a.date);
 
+            int pageNumber = (page ?? 1);
             var categories = CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View(activityData.ToList());
+            return View("Index", activityData.ToPagedList(pageNumber, pageSize));
         }
+
 
         // GET: Admin/ActivityData/Details/5
         public ActionResult Details(int? id)
@@ -182,6 +186,38 @@ namespace GoAber.Areas.Admin.Controllers
         {
             ActivityData activityData = db.ActivityDatas.Find(id);
             db.ActivityDatas.Remove(activityData);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "BatchDelete")]
+        public ActionResult Index(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null) {
+            var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
+            activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit, fromDate, toDate);
+
+            ViewBag.Size = activityData.Count();
+            ViewBag.Email = email;
+            ViewBag.IdCategoryUnit = idCategoryUnit;
+            ViewBag.FromDate = fromDate;
+            ViewBag.toDate = toDate;
+
+            return View("BatchDelete", activityData);
+        }
+
+        // POST: Admin/ActivityData/BatchDelete
+        [HttpPost, ActionName("BatchDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult BatchDelete(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
+        {
+            var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
+            activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit, fromDate, toDate);
+
+            foreach (var item in activityData)
+            {
+                db.ActivityDatas.Remove(item);
+
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

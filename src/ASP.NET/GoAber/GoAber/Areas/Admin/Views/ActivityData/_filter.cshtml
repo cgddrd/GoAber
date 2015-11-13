@@ -25,13 +25,14 @@
         @Html.ValidationMessage("fromDate", "", new { @class = "text-danger" })
     </div>
 
-    @Html.Label("toDate", "Unit: ", htmlAttributes: new { @class = "control-label" })
+    @Html.Label("toDate", "To: ", htmlAttributes: new { @class = "control-label" })
     <div class="form-group">
         @Html.TextBox("toDate", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { type = "date", @class = "form-control" })
         @Html.ValidationMessage("toDate", "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        <input type="submit" value="Filter" class="btn btn-default" />
+        <input type="submit" name="action:Filter" value="Filter" class="btn btn-default" />
+        <input type="submit" name="action:BatchDelete" value="Batch Delete" class="btn btn-default" />
     </div>
 }

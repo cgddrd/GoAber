@@ -26,10 +26,10 @@
             @Html.DisplayNameFor(model => model.date)
         </th>
         <th>
-            Category
+            @Html.DisplayNameFor(model => model.categoryunit.category.name)
         </th>
         <th>
-            Unit
+            @Html.DisplayNameFor(model => model.categoryunit.unit.name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User.Email)

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Batch Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Are you sure you want to delete @ViewBag.Size records?</h3>
+<div>
+    @using (Html.BeginForm("BatchDelete", "ActivityData", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+
+        @Html.Hidden("email", (String)ViewBag.Email)
+        @Html.Hidden("idCategoryUnit", (String)ViewBag.IdCategoryUnit)
+        @Html.Hidden("toDate", (DateTime)ViewBag.toDate)
+        @Html.Hidden("fromDate", (DateTime)ViewBag.fromDate)
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+
