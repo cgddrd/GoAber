@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JSF;
+package JSF.device;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -50,16 +50,12 @@ public class FitBitCallbackServlet extends HttpServlet {
          return; 
       }
       
-        HttpSession sessiion = request.getSession();
-        OAuthService servioe = (OAuthService)sessiion.getAttribute("oauth2service");
+        HttpSession session = request.getSession();
+        OAuthService service = (OAuthService)session.getAttribute("oauth2service");
         String code = request.getParameter("code");
-        String authorizationUrl = servioe.getAuthorizationUrl(null);
-                System.out.println("cheese "+authorizationUrl);
-                
-                Verifier v = new Verifier(code);
-//Token tokenR = servioe.getRequestToken();
-        Token token = servioe.getAccessToken(null, v);
-        sessiion.setAttribute("token", token);
+       
+        Token token = service.getAccessToken(null, new Verifier(code));
+        session.setAttribute("token", token);
         
         System.err.println(token);
     }
