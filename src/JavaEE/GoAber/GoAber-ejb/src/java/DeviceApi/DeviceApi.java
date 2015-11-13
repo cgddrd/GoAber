@@ -75,6 +75,8 @@ public abstract class DeviceApi extends DefaultApi20
     
     public OAuthService getOAuthService()
     {
+        //em.createNamedQuery("DeviceType.findByName").setParameter("name", getType()).getSingleResult();
+        
        DeviceType deviceType = (DeviceType)em.createNamedQuery("DeviceType.findByName").setParameter("name", getType()).getSingleResult();
         
        String apiKey = deviceType.getClientId();//"mCZQ7V2DbgQ";
