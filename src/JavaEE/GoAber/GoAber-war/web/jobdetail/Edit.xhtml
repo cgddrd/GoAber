@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditJobdetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditJobdetailLabel_jobid}" for="jobid" />
+                    <h:inputText id="jobid" value="#{jobdetailController.selected.jobid}" title="#{bundle.EditJobdetailTitle_jobid}" required="true" requiredMessage="#{bundle.EditJobdetailRequiredMessage_jobid}"/>
+                    <h:outputLabel value="#{bundle.EditJobdetailLabel_tasktype}" for="tasktype" />
+                    <h:inputText id="tasktype" value="#{jobdetailController.selected.tasktype}" title="#{bundle.EditJobdetailTitle_tasktype}" required="true" requiredMessage="#{bundle.EditJobdetailRequiredMessage_tasktype}"/>
+                    <h:outputLabel value="#{bundle.EditJobdetailLabel_schedtype}" for="schedtype" />
+                    <h:inputText id="schedtype" value="#{jobdetailController.selected.schedtype}" title="#{bundle.EditJobdetailTitle_schedtype}" required="true" requiredMessage="#{bundle.EditJobdetailRequiredMessage_schedtype}"/>
+                    <h:outputLabel value="#{bundle.EditJobdetailLabel_shceddate}" for="shceddate" />
+                    <h:inputText id="shceddate" value="#{jobdetailController.selected.shceddate}" title="#{bundle.EditJobdetailTitle_shceddate}" required="true" requiredMessage="#{bundle.EditJobdetailRequiredMessage_shceddate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{jobdetailController.update}" value="#{bundle.EditJobdetailSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditJobdetailViewLink}"/>
+                <br />
+                <h:commandLink action="#{jobdetailController.prepareList}" value="#{bundle.EditJobdetailShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditJobdetailIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

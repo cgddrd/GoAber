@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewJobdetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewJobdetailLabel_jobid}"/>
+                    <h:outputText value="#{jobdetailController.selected.jobid}" title="#{bundle.ViewJobdetailTitle_jobid}"/>
+                    <h:outputText value="#{bundle.ViewJobdetailLabel_tasktype}"/>
+                    <h:outputText value="#{jobdetailController.selected.tasktype}" title="#{bundle.ViewJobdetailTitle_tasktype}"/>
+                    <h:outputText value="#{bundle.ViewJobdetailLabel_schedtype}"/>
+                    <h:outputText value="#{jobdetailController.selected.schedtype}" title="#{bundle.ViewJobdetailTitle_schedtype}"/>
+                    <h:outputText value="#{bundle.ViewJobdetailLabel_shceddate}"/>
+                    <h:outputText value="#{jobdetailController.selected.shceddate}" title="#{bundle.ViewJobdetailTitle_shceddate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{jobdetailController.destroyAndView}" value="#{bundle.ViewJobdetailDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewJobdetailEditLink}"/>
+                <br />
+                <h:commandLink action="#{jobdetailController.prepareCreate}" value="#{bundle.ViewJobdetailCreateLink}" />
+                <br />
+                <h:commandLink action="#{jobdetailController.prepareList}" value="#{bundle.ViewJobdetailShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewJobdetailIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
