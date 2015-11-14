@@ -5,10 +5,19 @@
  */
 package DeviceApi;
 
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.jws.WebService;
+
 /**
+ * 
  *
  * @author helen
  */
+@ManagedBean(name = "jawboneController")
+@SessionScoped
 public class JawboneApi extends DeviceApi{
 
     @Override
@@ -19,6 +28,11 @@ public class JawboneApi extends DeviceApi{
     @Override
     public String getScope() {
         return "basic_read move_read heartrate_read";
+    }
+
+    @Override
+    public Class getProviderClass() {
+        return JawboneApi.class;
     }
     
     

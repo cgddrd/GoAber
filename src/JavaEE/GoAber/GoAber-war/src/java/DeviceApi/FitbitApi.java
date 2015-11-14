@@ -5,10 +5,17 @@
  */
 package DeviceApi;
 
+import javax.ejb.Stateless;
+import javax.faces.bean.SessionScoped;
+import javax.jws.WebService;
+
 /**
  *
  * @author helen
  */
+//@Stateless
+//@WebService
+@SessionScoped
 public class FitbitApi {
     
 }

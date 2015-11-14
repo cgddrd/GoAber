@@ -5,7 +5,9 @@
  */
 package SessionBean;
 
+import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.DeviceType;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +30,9 @@ public class DeviceTypeFacade extends AbstractFacade<DeviceType> {
         super(DeviceType.class);
     }
     
+    public DeviceType findByName(String name) {
+        return (DeviceType)em.createNamedQuery("DeviceType.findByName").setParameter("name", name).getSingleResult();
+        
+        //return em.createNamedQuery("CategoryUnit.findByCategoryId").setParameter("categoryId", categoryId).getResultList();
+    }
 }
