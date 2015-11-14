@@ -6,6 +6,8 @@
 package JSF.device;
 
 import DeviceApi.DeviceApi;
+import DeviceApi.FitbitApi;
+import DeviceApi.JawboneApi;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -26,7 +28,7 @@ import org.scribe.oauth.OAuthService;
  *
  * @author connorgoddard
  */
-@WebServlet("/fitbit")
+@WebServlet("/Fitbit")
 public class FitBitServlet extends HttpServlet {
 
     /**
@@ -40,14 +42,24 @@ public class FitBitServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String apiKey = "22B2TQ";
-        OAuthService serviceBuilder = new ServiceBuilder()
+        //String apiKey = "22B2TQ";
+        /*OAuthService serviceBuilder = new ServiceBuilder()
                 .provider(DeviceApi.class)
                 .apiKey(apiKey).apiSecret("6f961c38f86be0a77f903ca9a2524865")
                 .callback("http://localhost:8080/GoAber-war/FitBitCallbackServlet")
                 .build();
-        HttpSession sess = request.getSession();
-        sess.setAttribute("oauth2service", serviceBuilder);
+        */
+        
+        DeviceApi deviceApi = new FitbitApi();
+        OAuthService serviceBuilder = deviceApi.getOAuthService();
+        /*String apiKey = "mCZQ7V2DbgQ";
+        OAuthService serviceBuilder = new ServiceBuilder()
+                .provider(DeviceApi.class)
+                .apiKey(apiKey).apiSecret("07e4083f111f1a44ccba1bf94d21c95f5486f8f1")
+                .callback("http://localhost:8080/GoAber-war/JawboneCallbackServlet")
+                .build();*/
+        HttpSession session = request.getSession();
+        session.setAttribute("DeviceApi", deviceApi);
         response.sendRedirect(serviceBuilder.getAuthorizationUrl(null));
     }
 

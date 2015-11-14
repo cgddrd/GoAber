@@ -61,6 +61,14 @@ public class Device implements Serializable {
 
     public Device() {
     }
+    
+    public Device(User userId, DeviceType deviceTypeId, String accessToken, String refreshToken, Date tokenExpiration) {
+        this.userId = userId;
+        this.deviceTypeId = deviceTypeId;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.tokenExpiration = tokenExpiration;
+    }
 
     public Device(Integer idDevice) {
         this.idDevice = idDevice;

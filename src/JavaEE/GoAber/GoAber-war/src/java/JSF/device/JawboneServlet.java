@@ -27,7 +27,7 @@ import org.scribe.oauth.OAuthService;
  *
  * @author connorgoddard
  */
-@WebServlet("/jawbone")
+@WebServlet("/JawboneAccess")
 public class JawboneServlet extends HttpServlet {
 
     /**
@@ -54,6 +54,8 @@ public class JawboneServlet extends HttpServlet {
         session.setAttribute("DeviceApi", deviceApi);
         response.sendRedirect(serviceBuilder.getAuthorizationUrl(null));
     }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -58,19 +58,6 @@ public class JawboneCallbackServlet extends HttpServlet {
         String code = request.getParameter("code");
         DeviceApi deviceApi = (DeviceApi)request.getSession().getAttribute("DeviceApi");
         deviceApi.getAndSaveTokens(code);
-        /*
-        String urlString = "https://jawbone.com/auth/oauth2/token?grant_type=authorization_code&client_id=mCZQ7V2DbgQ&client_secret=07e4083f111f1a44ccba1bf94d21c95f5486f8f1&code=" +code;
-        URL url = new URL(urlString);
-        URLConnection yc = url.openConnection();
-        BufferedReader in = new BufferedReader(
-                                new InputStreamReader(
-                                yc.getInputStream()));
-        String inputLine;
-
-        while ((inputLine = in.readLine()) != null) 
-            System.out.println(inputLine);
-        in.close();*/
-       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

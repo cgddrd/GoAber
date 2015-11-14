@@ -5,11 +5,17 @@
  */
 package DeviceApi;
 
+import GoAberDatabase.ActivityData;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.jws.WebService;
+import org.scribe.oauth.OAuthService;
 
 /**
  * 
@@ -19,7 +25,8 @@ import javax.jws.WebService;
 @ManagedBean(name = "jawboneController")
 @SessionScoped
 public class JawboneApi extends DeviceApi{
-
+    int steps;
+    
     @Override
     public String getType() {
         return "Jawbone";
@@ -35,7 +42,44 @@ public class JawboneApi extends DeviceApi{
         return JawboneApi.class;
     }
     
+    public ActivityData getWalkingSteps(int day, int month, int year)
+    {
+       String url = "/moves?date=" + year + month + day;
+       String jsonPath = "data.items[0].details.steps";
+       return getWalkingSteps(url, jsonPath, day, month, year);
+        
+    }
     
+    public String getWalkingSteps()
+    {
+        int day = 14;
+        int month = 11;
+        int year = 2015;
+        ActivityData activityData = getWalkingSteps(day, month, year);
+        this.steps = activityData.getValue();
+        return "ViewActivity";
+    }
+    
+    /*
+    public void connectToJawbone()
+    {
+        deviceApi = new JawboneApi();
+        
+        OAuthService serviceBuilder = deviceApi.getOAuthService();
+        try {
+        /*String apiKey = "mCZQ7V2DbgQ";
+        OAuthService serviceBuilder = new ServiceBuilder()
+        .provider(DeviceApi.class)
+        .apiKey(apiKey).apiSecret("07e4083f111f1a44ccba1bf94d21c95f5486f8f1")
+        .callback("http://localhost:8080/GoAber-war/JawboneCallbackServlet")
+        .build();*
+        //HttpSession session = request.getSession();
+        //session.setAttribute("DeviceApi", deviceApi);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(serviceBuilder.getAuthorizationUrl(null));
+        } catch (IOException ex) {
+            Logger.getLogger(JawboneApi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
     
     
 }

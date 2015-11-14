@@ -75,4 +75,10 @@
         <local>SessionBean.DeviceTypeFacade</local>
         <ejb-link>DeviceTypeFacade</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/DeviceFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.DeviceFacade</local>
+        <ejb-link>DeviceFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>

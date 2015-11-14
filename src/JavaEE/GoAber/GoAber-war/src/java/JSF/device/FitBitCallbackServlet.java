@@ -5,6 +5,7 @@
  */
 package JSF.device;
 
+import DeviceApi.DeviceApi;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,23 +42,17 @@ public class FitBitCallbackServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Check if the user have rejected 
-      String error = request.getParameter("error"); 
-      if ((null != error) && ("access_denied".equals(error.trim()))) { 
-         HttpSession sess = request.getSession(); 
-         sess.invalidate(); 
-         response.sendRedirect(request.getContextPath()); 
-         return; 
-      }
+        String error = request.getParameter("error"); 
+        if ((null != error) && ("access_denied".equals(error.trim()))) { 
+            HttpSession session = request.getSession(); 
+            session.invalidate(); 
+            response.sendRedirect(request.getContextPath()); 
+            return; 
+        }
       
-        HttpSession session = request.getSession();
-        OAuthService service = (OAuthService)session.getAttribute("oauth2service");
         String code = request.getParameter("code");
-       
-        Token token = service.getAccessToken(null, new Verifier(code));
-        session.setAttribute("token", token);
-        
-        System.err.println(token);
+        DeviceApi deviceApi = (DeviceApi)request.getSession().getAttribute("DeviceApi");
+        deviceApi.getAndSaveTokens(code);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
