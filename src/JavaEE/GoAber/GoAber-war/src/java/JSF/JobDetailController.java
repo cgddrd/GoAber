@@ -1,9 +1,10 @@
 package JSF;
 
-import GoAberDatabase.Jobdetail;
+import GoAberDatabase.JobDetail;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
-import SessionBean.JobdetailFacade;
+import SessionBean.JobDetailFacade;
+import SessionBean.SchedulerSessionBeanRemote;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -18,29 +19,36 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@Named("jobdetailController")
+@Named("jobDetailController")
 @SessionScoped
-public class JobdetailController implements Serializable {
+public class JobDetailController implements Serializable {
 
-    private Jobdetail current;
+    @EJB(name = "io_SchedSessBean")
+    private SchedulerSessionBeanRemote io_SchedSessBean;
+
+    private JobDetail current;
     private DataModel items = null;
     @EJB
-    private SessionBean.JobdetailFacade ejbFacade;
+    private SessionBean.JobDetailFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public JobdetailController() {
+    public JobDetailController() {
+    }
+    
+    public SchedulerSessionBeanRemote getScheduler() {
+        return io_SchedSessBean;
     }
 
-    public Jobdetail getSelected() {
+    public JobDetail getSelected() {
         if (current == null) {
-            current = new Jobdetail();
+            current = new JobDetail();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private JobdetailFacade getFacade() {
+    private JobDetailFacade getFacade() {
         return ejbFacade;
     }
 
@@ -68,21 +76,22 @@ public class JobdetailController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Jobdetail) getItems().getRowData();
+        current = (JobDetail) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Jobdetail();
+        current = new JobDetail();
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
         try {
+            getScheduler().AddJob(current);
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("JobdetailCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("JobDetailCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -91,15 +100,16 @@ public class JobdetailController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Jobdetail) getItems().getRowData();
+        current = (JobDetail) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
+            getScheduler().EditJob(current);
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("JobdetailUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("JobDetailUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -108,7 +118,7 @@ public class JobdetailController implements Serializable {
     }
 
     public String destroy() {
-        current = (Jobdetail) getItems().getRowData();
+        current = (JobDetail) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -131,8 +141,9 @@ public class JobdetailController implements Serializable {
 
     private void performDestroy() {
         try {
+            getScheduler().RemoveJob(current);
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("JobdetailDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("JobDetailDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -188,21 +199,21 @@ public class JobdetailController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Jobdetail getJobdetail(java.lang.String id) {
+    public JobDetail getJobDetail(java.lang.String id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Jobdetail.class)
-    public static class JobdetailControllerConverter implements Converter {
+    @FacesConverter(forClass = JobDetail.class)
+    public static class JobDetailControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            JobdetailController controller = (JobdetailController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "jobdetailController");
-            return controller.getJobdetail(getKey(value));
+            JobDetailController controller = (JobDetailController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "jobDetailController");
+            return controller.getJobDetail(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -222,11 +233,11 @@ public class JobdetailController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Jobdetail) {
-                Jobdetail o = (Jobdetail) object;
+            if (object instanceof JobDetail) {
+                JobDetail o = (JobDetail) object;
                 return getStringKey(o.getJobid());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Jobdetail.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + JobDetail.class.getName());
             }
         }
 

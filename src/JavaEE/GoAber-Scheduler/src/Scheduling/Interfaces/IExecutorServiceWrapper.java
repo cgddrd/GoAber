@@ -5,15 +5,13 @@
  */
 package Scheduling.Interfaces;
 
-import GoAberDatabase.Jobdetail;
-
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
  * @author Dan
  */
-public interface IScheduleJobs {
-    public boolean AddJob(Jobdetail ao_job);
-    public boolean RemoveJob(String as_id);
-    public boolean EditJob(Jobdetail ao_job);
+public interface IExecutorServiceWrapper {
+    public ScheduledFuture scheduleAtFixedRate(Runnable command, long initialDelay, long delay, TimeUnit unit);
 }

@@ -5,19 +5,19 @@
  */
 package Scheduling.Interfaces;
 
+import DTO.IJobDetail;
 import Scheduling.Jobs.AbstractJob;
-import java.util.Date;
 
 /**
  *
  * @author Dan
  */
 public interface IScheduler {
-       void Init();
+       void Init(Object[] args);
 
         void CreateRecurringJob(AbstractJob ao_job);
 
-        void RemoveJob(String as_id);
+        void RemoveJob(IJobDetail ao_jobdetail);
 
         void EditRecurringJob(AbstractJob ao_job);
 

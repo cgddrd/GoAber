@@ -5,44 +5,45 @@
  */
 package Scheduling;
 
-import GoAberDatabase.Jobdetail;
+import DTO.IJobDetail;
 import Scheduling.Enums.JobType;
+import Scheduling.Interfaces.IExecutorServiceWrapper;
 import Scheduling.Interfaces.IScheduler;
 import Scheduling.Jobs.AbstractJob;
 import Scheduling.Jobs.FitBitJob;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import javax.ejb.EJB;
-import javax.enterprise.concurrent.ManagedScheduledExecutorService;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  *
  * @author Dan
  */
-public class ManagedScheduler implements IScheduler {
 
+public class ManagedScheduler implements IScheduler {
+    
     InitialContext io_ctx;
-    ManagedScheduledExecutorService io_executor;
+    IExecutorServiceWrapper io_executor;
     Hashtable<String, ScheduledFuture> io_schedules;
     
-    @EJB
-    private SessionBean.JobdetailFacade ejbFacade;
     
-    public ManagedScheduler() throws NamingException {
-        this.io_ctx = new InitialContext();
-        this.io_executor = (ManagedScheduledExecutorService)io_ctx.lookup("java:comp/DefaultManagedScheduledExecutorService");
-        io_schedules = new Hashtable<String, ScheduledFuture>();
+    public ManagedScheduler(IExecutorServiceWrapper ao_executor) {
+        try {
+            this.io_executor = ao_executor;
+            io_schedules = new Hashtable<String, ScheduledFuture>();
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
     }
     
     @Override
-    public void Init() {
-        List<Jobdetail> lo_jobs = ejbFacade.findAll();
+    public void Init(Object[] args) {
+        try {
+        List<IJobDetail> lo_jobs = (List<IJobDetail>)args[0];
         AbstractJob lo_schedjob = null;
-        for (Jobdetail lo_job : lo_jobs) {
+        for (IJobDetail lo_job : lo_jobs) {
                 switch (JobType.values()[lo_job.getTasktype()]) {
                     case Email:
                     //lo_job = new EmailJob();
@@ -56,6 +57,9 @@ public class ManagedScheduler implements IScheduler {
                 }
             CreateRecurringJobImpl(lo_schedjob, false);
         }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
     }
 
     @Override
@@ -64,20 +68,24 @@ public class ManagedScheduler implements IScheduler {
     }
     
     private void CreateRecurringJobImpl(AbstractJob ao_job, boolean ao_db) {
-        io_schedules.put(ao_job.getID(), this.io_executor.scheduleAtFixedRate((Runnable)ao_job, ao_job.getDateInSeconds(), ao_job.getDateInSeconds(), TimeUnit.SECONDS));
-        if (ao_db) {
-            ejbFacade.create(ao_job.getJobDetails());
+        if (ao_job.getJobDetails().getStartnow()) {
+             io_schedules.put(ao_job.getID(), this.io_executor.scheduleAtFixedRate((Runnable)ao_job, 1, ao_job.getDateInSeconds(), TimeUnit.SECONDS));
+        } else {
+            io_schedules.put(ao_job.getID(), this.io_executor.scheduleAtFixedRate((Runnable)ao_job, ao_job.getDateInSeconds(), ao_job.getDateInSeconds(), TimeUnit.SECONDS));
         }
     }
 
     @Override
-    public void RemoveJob(String as_id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void RemoveJob(IJobDetail ao_jobdetail) {
+        io_schedules.get(ao_jobdetail.getJobid()).cancel(false);
+        
     }
 
     @Override
     public void EditRecurringJob(AbstractJob ao_job) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (io_schedules.containsKey(ao_job.getID())) {
+            CreateRecurringJob(ao_job);
+        }
     }
     
 }

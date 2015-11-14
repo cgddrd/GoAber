@@ -5,6 +5,7 @@
  */
 package Scheduling;
 
+import Scheduling.Interfaces.IExecutorServiceWrapper;
 import Scheduling.Interfaces.IScheduler;
 
 /**
@@ -15,19 +16,20 @@ public class SchedulerFactory {
         private static SchedulerFactory io_schedfactory;
         private IScheduler io_scheduler;
 
-        protected SchedulerFactory()
+        protected SchedulerFactory(Object[] args)
         {
             if (io_scheduler == null)
             {
-                //io_scheduler = new HangfireScheduler();
+                io_scheduler = new ManagedScheduler((IExecutorServiceWrapper)args[0]);
+                io_scheduler.Init(args);
             }
         }
 
-        public static SchedulerFactory Instance()
+        public static SchedulerFactory Instance(Object[] args)
         {
             if (io_schedfactory == null)
             {
-                io_schedfactory = new SchedulerFactory();
+                    io_schedfactory = new SchedulerFactory(args);
             }
             return io_schedfactory;
         }

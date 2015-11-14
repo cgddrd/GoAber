@@ -5,7 +5,7 @@
  */
 package Scheduling.Jobs;
 
-import GoAberDatabase.Jobdetail;
+import DTO.IJobDetail;
 import Scheduling.Interfaces.IJob;
 import java.util.Date;
 
@@ -14,17 +14,17 @@ import java.util.Date;
  * @author Dan
  */
 public abstract class AbstractJob implements IJob, Runnable{
-    private Jobdetail io_jobdetails;
-    public AbstractJob(Jobdetail ao_jobdetails) {
+    private final IJobDetail io_jobdetails;
+    public AbstractJob(IJobDetail ao_jobdetails) {
         this.io_jobdetails = ao_jobdetails;
     }
     
-    public Jobdetail getJobDetails() {
+    public IJobDetail getJobDetails() {
         return this.io_jobdetails;
     }
     
     public long getDateInSeconds() {
-        return (this.io_jobdetails.getShceddate().getTime()/1000);
+        return (this.io_jobdetails.getShcedtimemins()*60);
     }
     
     @Override

@@ -5,9 +5,8 @@
  */
 package Scheduling.Jobs;
 
-import GoAberDatabase.Jobdetail;
-import Scheduling.Interfaces.IJob;
-import java.util.Date;
+import DTO.IJobDetail;
+
 
 /**
  *
@@ -15,18 +14,18 @@ import java.util.Date;
  */
 public class FitBitJob extends AbstractJob {
 
-    public FitBitJob(Jobdetail ao_jobdetails) {
+    public FitBitJob(IJobDetail ao_jobdetails) {
         super(ao_jobdetails);
     }
 
     @Override
     public String getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return getJobDetails().getJobid();
     }
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("I HAVE BEEN CALLED! " + getJobDetails().getJobid());
     }
 
 

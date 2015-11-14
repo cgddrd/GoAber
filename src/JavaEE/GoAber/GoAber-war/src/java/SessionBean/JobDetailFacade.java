@@ -5,8 +5,7 @@
  */
 package SessionBean;
 
-import GoAberDatabase.Jobdetail;
-import SessionBean.AbstractFacade;
+import GoAberDatabase.JobDetail;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Dan
  */
 @Stateless
-public class JobdetailFacade extends AbstractFacade<Jobdetail> {
+public class JobDetailFacade extends AbstractFacade<JobDetail> {
 
     @PersistenceContext(unitName = "GoAber-warPU")
     private EntityManager em;
@@ -26,8 +25,8 @@ public class JobdetailFacade extends AbstractFacade<Jobdetail> {
         return em;
     }
 
-    public JobdetailFacade() {
-        super(Jobdetail.class);
+    public JobDetailFacade() {
+        super(JobDetail.class);
     }
     
 }

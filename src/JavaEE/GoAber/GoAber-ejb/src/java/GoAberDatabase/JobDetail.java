@@ -5,8 +5,10 @@
  */
 package GoAberDatabase;
 
+//From GoAber-Sheduler project.
+import DTO.IJobDetail;
+
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,12 +28,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "jobdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Jobdetail.findAll", query = "SELECT j FROM Jobdetail j"),
-    @NamedQuery(name = "Jobdetail.findByJobid", query = "SELECT j FROM Jobdetail j WHERE j.jobid = :jobid"),
-    @NamedQuery(name = "Jobdetail.findByTasktype", query = "SELECT j FROM Jobdetail j WHERE j.tasktype = :tasktype"),
-    @NamedQuery(name = "Jobdetail.findBySchedtype", query = "SELECT j FROM Jobdetail j WHERE j.schedtype = :schedtype"),
-    @NamedQuery(name = "Jobdetail.findByShceddate", query = "SELECT j FROM Jobdetail j WHERE j.shceddate = :shceddate")})
-public class Jobdetail implements Serializable {
+    @NamedQuery(name = "JobDetail.findAll", query = "SELECT j FROM JobDetail j"),
+    @NamedQuery(name = "JobDetail.findByJobid", query = "SELECT j FROM JobDetail j WHERE j.jobid = :jobid"),
+    @NamedQuery(name = "JobDetail.findByTasktype", query = "SELECT j FROM JobDetail j WHERE j.tasktype = :tasktype"),
+    @NamedQuery(name = "JobDetail.findBySchedtype", query = "SELECT j FROM JobDetail j WHERE j.schedtype = :schedtype"),
+    @NamedQuery(name = "JobDetail.findByShcedtimemins", query = "SELECT j FROM JobDetail j WHERE j.shcedtimemins = :shcedtimemins"),
+    @NamedQuery(name = "JobDetail.findByStartnow", query = "SELECT j FROM JobDetail j WHERE j.startnow = :startnow")})
+public class JobDetail implements Serializable, IJobDetail {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,22 +53,23 @@ public class Jobdetail implements Serializable {
     private int schedtype;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "shceddate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date shceddate;
+    @Column(name = "shcedtimemins")
+    private int shcedtimemins;
+    @Column(name = "startnow")
+    private Boolean startnow = false;
 
-    public Jobdetail() {
+    public JobDetail() {
     }
 
-    public Jobdetail(String jobid) {
+    public JobDetail(String jobid) {
         this.jobid = jobid;
     }
 
-    public Jobdetail(String jobid, int tasktype, int schedtype, Date shceddate) {
+    public JobDetail(String jobid, int tasktype, int schedtype, int shcedtimemins) {
         this.jobid = jobid;
         this.tasktype = tasktype;
         this.schedtype = schedtype;
-        this.shceddate = shceddate;
+        this.shcedtimemins = shcedtimemins;
     }
 
     public String getJobid() {
@@ -94,12 +96,20 @@ public class Jobdetail implements Serializable {
         this.schedtype = schedtype;
     }
 
-    public Date getShceddate() {
-        return shceddate;
+    public int getShcedtimemins() {
+        return shcedtimemins;
     }
 
-    public void setShceddate(Date shceddate) {
-        this.shceddate = shceddate;
+    public void setShcedtimemins(int shcedtimemins) {
+        this.shcedtimemins = shcedtimemins;
+    }
+
+    public Boolean getStartnow() {
+        return startnow;
+    }
+
+    public void setStartnow(Boolean startnow) {
+        this.startnow = startnow;
     }
 
     @Override
@@ -112,10 +122,10 @@ public class Jobdetail implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Jobdetail)) {
+        if (!(object instanceof JobDetail)) {
             return false;
         }
-        Jobdetail other = (Jobdetail) object;
+        JobDetail other = (JobDetail) object;
         if ((this.jobid == null && other.jobid != null) || (this.jobid != null && !this.jobid.equals(other.jobid))) {
             return false;
         }

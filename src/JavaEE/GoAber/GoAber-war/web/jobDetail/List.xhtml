@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListJobDetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListJobDetailEmpty}" rendered="#{jobDetailController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{jobDetailController.items.rowCount > 0}">
+                    <h:outputText value="#{jobDetailController.pagination.pageFirstItem + 1}..#{jobDetailController.pagination.pageLastItem + 1}/#{jobDetailController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{jobDetailController.previous}" value="#{bundle.Previous} #{jobDetailController.pagination.pageSize}" rendered="#{jobDetailController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{jobDetailController.next}" value="#{bundle.Next} #{jobDetailController.pagination.pageSize}" rendered="#{jobDetailController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{jobDetailController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListJobDetailTitle_jobid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jobid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListJobDetailTitle_tasktype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tasktype}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListJobDetailTitle_schedtype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.schedtype}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListJobDetailTitle_shcedtimemins}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.shcedtimemins}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListJobDetailTitle_startnow}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.startnow}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{jobDetailController.prepareView}" value="#{bundle.ListJobDetailViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{jobDetailController.prepareEdit}" value="#{bundle.ListJobDetailEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{jobDetailController.destroy}" value="#{bundle.ListJobDetailDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{jobDetailController.prepareCreate}" value="#{bundle.ListJobDetailCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListJobDetailIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

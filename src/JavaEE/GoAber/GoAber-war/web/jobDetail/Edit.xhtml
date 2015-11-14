@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditJobDetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditJobDetailLabel_jobid}" for="jobid" />
+                    <h:inputText id="jobid" value="#{jobDetailController.selected.jobid}" title="#{bundle.EditJobDetailTitle_jobid}" required="true" requiredMessage="#{bundle.EditJobDetailRequiredMessage_jobid}"/>
+                    <h:outputLabel value="#{bundle.EditJobDetailLabel_tasktype}" for="tasktype" />
+                    <h:inputText id="tasktype" value="#{jobDetailController.selected.tasktype}" title="#{bundle.EditJobDetailTitle_tasktype}" required="true" requiredMessage="#{bundle.EditJobDetailRequiredMessage_tasktype}"/>
+                    <h:outputLabel value="#{bundle.EditJobDetailLabel_schedtype}" for="schedtype" />
+                    <h:inputText id="schedtype" value="#{jobDetailController.selected.schedtype}" title="#{bundle.EditJobDetailTitle_schedtype}" required="true" requiredMessage="#{bundle.EditJobDetailRequiredMessage_schedtype}"/>
+                    <h:outputLabel value="#{bundle.EditJobDetailLabel_shcedtimemins}" for="shcedtimemins" />
+                    <h:inputText id="shcedtimemins" value="#{jobDetailController.selected.shcedtimemins}" title="#{bundle.EditJobDetailTitle_shcedtimemins}" required="true" requiredMessage="#{bundle.EditJobDetailRequiredMessage_shcedtimemins}"/>
+                    <h:outputLabel value="#{bundle.EditJobDetailLabel_startnow}" for="startnow" />
+                    <h:inputText id="startnow" value="#{jobDetailController.selected.startnow}" title="#{bundle.EditJobDetailTitle_startnow}" />
+                </h:panelGrid>
+                <h:commandLink action="#{jobDetailController.update}" value="#{bundle.EditJobDetailSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditJobDetailViewLink}"/>
+                <br />
+                <h:commandLink action="#{jobDetailController.prepareList}" value="#{bundle.EditJobDetailShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditJobDetailIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

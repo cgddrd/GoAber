@@ -5,23 +5,23 @@
  */
 package Scheduling;
 
-import GoAberDatabase.Jobdetail;
+import DTO.IJobDetail;
 import Scheduling.Enums.JobType;
-import Scheduling.Interfaces.IJob;
 import Scheduling.Interfaces.IScheduler;
 import Scheduling.Jobs.FitBitJob;
-import javax.ejb.Stateless;
-import Scheduling.Interfaces.IScheduleJobs;
 import Scheduling.Jobs.AbstractJob;
 
 /**
  *
  * @author Dan
  */
-@Stateless
-public class ScheduleJobs implements IScheduleJobs{
+public class ScheduleJobs {
 
-    public boolean AddJob(Jobdetail ao_jobdetails) {
+    public ScheduleJobs(Object[] args) {
+        SchedulerFactory.Instance(args);
+    }
+    
+    public boolean AddJob(IJobDetail ao_jobdetails) {
         try {
             AbstractJob lo_job = null;
                 switch (JobType.values()[ao_jobdetails.getTasktype()]) {
@@ -35,7 +35,7 @@ public class ScheduleJobs implements IScheduleJobs{
                         lo_job = new FitBitJob(ao_jobdetails);
                         break;
                 }
-            IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
+            IScheduler lo_scheduler = SchedulerFactory.Instance(null).GetScheduler();
             lo_scheduler.CreateRecurringJob(lo_job);
             return true;
         } catch (Exception e) {
@@ -44,17 +44,17 @@ public class ScheduleJobs implements IScheduleJobs{
         }
     }
 
-    public boolean RemoveJob(String as_id) {
+    public boolean RemoveJob(IJobDetail ao_jobdetails) {
         try {
-            IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
-            lo_scheduler.RemoveJob(as_id);
+            IScheduler lo_scheduler = SchedulerFactory.Instance(null).GetScheduler();
+            lo_scheduler.RemoveJob(ao_jobdetails);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    public boolean EditJob(Jobdetail ao_job) {
+    public boolean EditJob(IJobDetail ao_job) {
         return AddJob(ao_job);
     }
 
