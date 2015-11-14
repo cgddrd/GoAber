@@ -6,6 +6,7 @@
 package DeviceApi;
 
 import GoAberDatabase.ActivityData;
+import GoAberDatabase.User;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,14 +47,15 @@ public class JawboneApi extends DeviceApi{
     {
        String url = "/moves?date=" + year + month + day;
        String jsonPath = "data.items[0].details.steps";
-       return getWalkingSteps(url, jsonPath, day, month, year);
+       User userId = new User(); // TODO need CG stuff to get the user
+       return getWalkingSteps(url, jsonPath, day, month, year, userId);
         
     }
     
     public String getWalkingSteps()
     {
-        int day = 14;
-        int month = 11;
+        int day = 27;
+        int month = 10;
         int year = 2015;
         ActivityData activityData = getWalkingSteps(day, month, year);
         this.steps = activityData.getValue();

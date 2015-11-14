@@ -36,4 +36,10 @@ public class CategoryUnitFacade extends AbstractFacade<CategoryUnit> {
     public List<CategoryUnit> findByCategory(int categoryId) {
         return em.createNamedQuery("CategoryUnit.findByCategoryId").setParameter("categoryId", categoryId).getResultList();
     }
+    
+    
+    public CategoryUnit findByCategoryAndUnit(String categoryName, String unitName){
+        return (CategoryUnit)em.createNamedQuery("CategoryUnit.findByCategoryNameAndUnitName").setParameter("unitName", unitName).setParameter("categoryName", categoryName).getSingleResult();
+  
+    }
 }

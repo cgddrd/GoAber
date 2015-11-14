@@ -6,12 +6,16 @@
 package DeviceApi;
 
 import GoAberDatabase.ActivityData;
+import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.Device;
 import GoAberDatabase.DeviceType;
 import GoAberDatabase.User;
+import SessionBean.ActivityDataFacade;
+import SessionBean.CategoryUnitFacade;
 import SessionBean.DeviceFacade;
 import SessionBean.DeviceTypeFacade;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -40,6 +44,9 @@ import javax.persistence.Query;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.DefaultApi20;
 import org.scribe.model.OAuthConfig;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 import org.scribe.utils.OAuthEncoder;
@@ -53,6 +60,8 @@ public abstract class DeviceApi extends DefaultApi20
 {
     DeviceTypeFacade deviceTypeFacade = lookupDeviceTypeFacadeBean();
     DeviceFacade deviceFacade = lookupDeviceFacadeBean();
+    ActivityDataFacade activityDataFacade = lookupActivityDataFacadeBean();
+    CategoryUnitFacade categoryUnitFacade = lookupCategoryUnitFacadeBean();
     
     int steps;
     //@EJB
@@ -168,6 +177,42 @@ public abstract class DeviceApi extends DefaultApi20
         }
     }
     
+    
+    
+    public ActivityData getWalkingSteps(String requestUrl, String json, int day, int month, int year, User userId)
+    {
+        CategoryUnit categoryUnit = new CategoryUnit();//categoryUnitFacade.findByCategoryAndUnit("Walking", "Steps");
+        return getActivityData(requestUrl, json, day, month, year, userId, categoryUnit);
+    }
+    
+    public ActivityData getActivityData(String requestUrl, String jsonPath, int day, int month, int year, User userId, CategoryUnit categoryUnitId)
+    {
+        DeviceType deviceType = deviceTypeFacade.findByName(getType());
+        String accessToken = "DudD7GQwFndHxVmzLrCosqaNfvpKhnpei9CNJoIWGu4rfNK5-JnYRwe7lF3FqWj7kKMwPvEBJ55RAnYEZaPxlCzIBmUtBLpsaym2RYjpp5gDwoQTw2eSTw";//deviceFacade.findByUserAndDeviceType(userId, deviceType).getAccessToken();
+        //String fullUrl = deviceType.apiEndpoint + requestUrl; // TODO will be changed to this once apiEnpoint in DB
+        String fullUrl = "https://jawbone.com/nudge/api/v.1.1/users/@me" + requestUrl;
+        System.out.println(fullUrl);
+        OAuthRequest request = new OAuthRequest(Verb.GET, fullUrl); 
+        Token token = new Token(accessToken, deviceType.getConsumerSecret());
+        getOAuthService().signRequest(token, request); 
+        Response response = request.send();
+
+        System.out.println(response.getBody());
+    
+        JsonReader jsonReader = Json.createReader(new ByteArrayInputStream(response.getBody().getBytes()));
+        JsonObject jsonObject = jsonReader.readObject();
+        int value = jsonObject.getInt(jsonPath);
+        System.out.println("Value = " + value);
+        Date date = new Date(year, month, day);
+        ActivityData activityData = new ActivityData(value, new Date(), date, userId, categoryUnitId);
+        activityDataFacade.create(activityData);
+ 
+        return activityData;
+    }
+    
+    
+    
+    
     private DeviceFacade lookupDeviceFacadeBean() {
         try {
            // Context c = new InitialContext();
@@ -180,46 +225,30 @@ public abstract class DeviceApi extends DefaultApi20
             throw new RuntimeException(ne);
         }
     }
-    
-   
-    
-    
-    public ActivityData getWalkingSteps(String requestUrl, String json, int day, int month, int year)
-    {
-        //TODO get category unit from db
-        //TODO user should be passed in as parameter
-        
-        return getActivityData(requestUrl, json, day, month, year);
-    }
-    
-    public ActivityData getActivityData(String requestUrl, String jsonPath, int day, int month, int year)
-    {
-        //TODO category unit should be passed in as parameter
-        //TODO user should be passed in as parameter
-        
-        // TODO get users access token from db
-        
-        
-        //String fullUrl = deviceType.apiEndpoint + requestUrl; // TODO will be changed to this
-        String fullUrl = "https://jawbone.com/nudge/api/v.1.1/users/@me" + requestUrl;
+    private ActivityDataFacade lookupActivityDataFacadeBean() {
         try {
-            URL url = new URL(fullUrl);
-                    
-             // TODO   OAuthRequest .... see scribe's facebook example     
-            try (InputStream is = url.openStream(); 
-                JsonReader jsonReader = Json.createReader(is)) {
-
-                JsonObject jsonObject = jsonReader.readObject();
-                int value = jsonObject.getInt(jsonPath);
-                System.out.println("Value = " + value);
-                // TODO fill in activityData parameters and save to db
-                ActivityData activityData = new ActivityData();
-            }
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(DeviceApi.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DeviceApi.class.getName()).log(Level.SEVERE, null, ex);
+           // Context c = new InitialContext();
+            InitialContext iniCtx = new InitialContext();
+            Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
+            return(ActivityDataFacade) ejbCtx.lookup("ActivityDataFacade");
+           // return (DeviceTypeFacade) c.lookup("java:global/GoAber/GoAber-war/DeviceTypeFacade!SessionBean.DeviceTypeFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
         }
-        return null;
     }
+    
+   private CategoryUnitFacade lookupCategoryUnitFacadeBean() {
+        try {
+           // Context c = new InitialContext();
+            InitialContext iniCtx = new InitialContext();
+            Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
+            return(CategoryUnitFacade) ejbCtx.lookup("CategoryUnitFacade");
+           // return (DeviceTypeFacade) c.lookup("java:global/GoAber/GoAber-war/DeviceTypeFacade!SessionBean.DeviceTypeFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
 }

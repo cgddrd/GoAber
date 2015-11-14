@@ -81,4 +81,16 @@
         <local>SessionBean.DeviceFacade</local>
         <ejb-link>DeviceFacade</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/ActivityDataFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.ActivityDataFacade</local>
+        <ejb-link>ActivityDataFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/CategoryUnitFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.CategoryUnitFacade</local>
+        <ejb-link>CategoryUnitFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>
