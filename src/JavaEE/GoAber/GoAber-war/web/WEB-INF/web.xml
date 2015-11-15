@@ -69,7 +69,7 @@
     <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
     <error-page>
         <error-code>403</error-code>
-        <location>index.xhtml</location>
+        <location>/faces/index.xhtml</location>
     </error-page>
     
 </web-app>

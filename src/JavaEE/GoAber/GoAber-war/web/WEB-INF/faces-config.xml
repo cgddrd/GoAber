@@ -32,5 +32,12 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        
+        <!-- CG - Declare reference to new bundle file specifically for authentication-related content. -->
+        <resource-bundle>
+            <base-name>/AuthBundle</base-name>
+            <var>authBundle</var>
+        </resource-bundle>
+        
     </application>
 </faces-config>
