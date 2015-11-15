@@ -24,10 +24,15 @@ import javax.servlet.http.HttpServletRequest;
 @ManagedBean(name = "authController")
 @SessionScoped
 // We may want to change this to @ViewScoped. See: http://stackoverflow.com/a/2207147 for more information.
-public class AuthController {
+public class AuthController implements Serializable {
     
     private String username;
     private String password;
+    private User activeUser;
+
+    public User getActiveUser() {
+        return activeUser;
+    }
 
     public String getUsername() {
         return username;
@@ -77,6 +82,10 @@ public class AuthController {
         return (FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal() != null);
         
     }
+    
+    public boolean isAdmin() {     
+        return this.isLoggedIn() && this.activeUser.getRoleId().getIdRole().equals("admin");
+    }
    
     // CG - userController.loggedInUser
     public String getLoggedInUser() {
@@ -92,9 +101,10 @@ public class AuthController {
         try {
             
             request.login(this.username, this.password);
-            User currentUser = userFacade.connorFind(this.username);
             
-            externalContext.getSessionMap().put("loggedInUser", currentUser);
+            this.activeUser = userFacade.findUserByEmail(this.username);
+            
+            externalContext.getSessionMap().put("loggedInUser", this.activeUser);
             externalContext.redirect(forwardURL);
             
         } catch (ServletException e) {

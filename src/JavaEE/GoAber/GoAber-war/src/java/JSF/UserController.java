@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
@@ -39,14 +40,25 @@ public class UserController implements Serializable {
 
     private User current;
     private DataModel items = null;
+    
     @EJB 
     private SessionBean.UserFacade ejbFacade;
+    
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
     private MessageDigest md;
     
+    // CG - Here we are using dependency injection to grab a reference to the session-scoped 'authController' reference.
+    // See: http://www.mkyong.com/jsf2/injecting-managed-beans-in-jsf-2-0/ for more information.
+    @ManagedProperty(value="#{authController}")
     private AuthController authController;
+    
+    // CG - When using DI via '@ManagedProperty' we need to make sure the property setter is available.
+    // See: http://www.mkyong.com/jsf2/jsf-2-0-managed-bean-x-does-not-exist-check-that-appropriate-getter-andor-setter-methods-exist/ for more information.
+    public void setAuthController(AuthController authController) {
+        this.authController = authController;
+    }
     
     private UserRole currentUR;
     
@@ -61,8 +73,25 @@ public class UserController implements Serializable {
     
     @PostConstruct
     public void Init() {
+        
         currentUR = new UserRole();
-        authController = new AuthController();
+        //authController = new AuthController();
+        
+        try {
+            
+           User activeUser = authController.getActiveUser();
+        
+        if (activeUser != null) {
+            
+            current = activeUser;
+            
+        } 
+            
+        } catch (Exception ex) {
+            
+            current = new User();
+        }
+        
     }
 
     public User getSelected() {
@@ -102,6 +131,12 @@ public class UserController implements Serializable {
     public String prepareList() {
         recreateModel();
         return "List";
+    }
+    
+    public String prepareAccountView() {
+        current = authController.getActiveUser();
+        selectedItemIndex = -1;
+        return "/account/View";
     }
 
     public String prepareView() {
@@ -179,6 +214,12 @@ public class UserController implements Serializable {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public String prepareAccountEdit() {
+        current = authController.getActiveUser();
+        selectedItemIndex = -1;
+        return "/account/Edit";
     }
 
     public String prepareEdit() {

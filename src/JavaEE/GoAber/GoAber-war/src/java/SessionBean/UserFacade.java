@@ -29,7 +29,8 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
     
-    public User connorFind(String searchEmail) {
+    // CG - Convenience serach function using 'User' EJB named query.
+    public User findUserByEmail(String searchEmail) {
         
         Query queryEmployeesByFirstName = em.createNamedQuery("User.findByEmail");
         queryEmployeesByFirstName.setParameter("email", searchEmail);
@@ -37,7 +38,6 @@ public class UserFacade extends AbstractFacade<User> {
         User user = (User) queryEmployeesByFirstName.getSingleResult();
         
         return user;
-        //Collection employees = queryEmployessByFirstName.getResultList();
     }
     
 }
