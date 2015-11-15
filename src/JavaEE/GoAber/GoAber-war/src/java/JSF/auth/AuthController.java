@@ -92,18 +92,22 @@ public class AuthController {
         try {
             
             request.login(this.username, this.password);
-            User user = userFacade.connorFind(this.username);
+            User currentUser = userFacade.connorFind(this.username);
             
-            externalContext.getSessionMap().put("user", user);
+            externalContext.getSessionMap().put("loggedInUser", currentUser);
             externalContext.redirect(forwardURL);
             
         } catch (ServletException e) {
             
-            
             // Handle unknown username/password in request.login().
             // CG - We are going to display this message in the 'global' message list for the login page.
             // CG - See: http://stackoverflow.com/a/11029988 for more information.
-            context.addMessage(null, new FacesMessage("Unknown login"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error: Your login credentials are incorrect. Please try again.", null));
+        
+        } catch (Exception ex) {
+            
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login Error: An error has occured during authentication. Please try again later.", null));
+
         }
     }
     

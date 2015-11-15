@@ -44,16 +44,21 @@
                             <c:choose>
 
                                 <c:when test="#{authController.isLoggedIn()}">
-                                    <li><h:link outcome="/user/Edit" value="#{authBundle.AuthenticationNavbarUsername_Label} #{authController.loggedInUser}!"/></li>
+                                    
+                                    <!-- CG - Either use 'authController.loggedInUser' to get email address, or access 'loggedInUser' session object to access all user properties. -->
+                                    <li><h:link outcome="/user/Edit" value="#{authBundle.AuthenticationNavbarUsername_Label} #{loggedInUser.getNickname()}!"/></li>
 
                                     <li><h:commandLink action="#{authController.logoutUser()}" value="#{authBundle.AuthenticationLogoutButton_Label}"/></li>
+                                
                                 </c:when> 
 
                                 <c:otherwise>
+                                    
                                     <ul class="nav navbar-nav navbar-right">
                                         <li><h:link outcome="/user/Create" value="Register"/></li>
                                         <li><h:link outcome="/login/index" value="Login"/></li>
                                     </ul>
+                                    
                                 </c:otherwise>
 
                             </c:choose>

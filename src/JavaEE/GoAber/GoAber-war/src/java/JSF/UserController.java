@@ -3,10 +3,12 @@ package JSF;
 import GoAberDatabase.Role;
 import GoAberDatabase.User;
 import GoAberDatabase.UserRole;
+import JSF.auth.AuthController;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.UserFacade;
 import SessionBean.UserRoleFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -20,6 +22,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -36,16 +39,22 @@ public class UserController implements Serializable {
 
     private User current;
     private DataModel items = null;
-    @EJB private SessionBean.UserFacade ejbFacade;
+    @EJB 
+    private SessionBean.UserFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
     private MessageDigest md;
     
+    private AuthController authController;
+    
     private UserRole currentUR;
     
-    @EJB private SessionBean.UserRoleFacade urEJBFacade;
-    @EJB private SessionBean.RoleFacade rEJBFacade;
+    @EJB 
+    private SessionBean.UserRoleFacade urEJBFacade;
+    
+    @EJB 
+    private SessionBean.RoleFacade rEJBFacade;
     
     public UserController() {
     }
@@ -53,6 +62,7 @@ public class UserController implements Serializable {
     @PostConstruct
     public void Init() {
         currentUR = new UserRole();
+        authController = new AuthController();
     }
 
     public User getSelected() {
@@ -100,13 +110,29 @@ public class UserController implements Serializable {
         return "View";
     }
 
-    public String prepareCreate() {
+    public String prepareCreate() throws IOException {
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        
         current = new User();
         selectedItemIndex = -1;
-        return "Create";
+        
+        // CG - Make sure that the 'user registration success' message is displayed to the user in the login page.
+        // CG - WE MAY NEED TO TURN THIS OFF AGAIN?
+        // See: http://stackoverflow.com/a/12485381 for more information.
+        externalContext.getFlash().setKeepMessages(true);
+        
+        //externalContext.redirect(externalContext.getRequestContextPath() + "/faces/login/index.xhtml");
+        
+        // CG - Instead of re-directing via externalContext object, we can just add 'faces-redirect=true' as a URL param.
+        // See: http://stackoverflow.com/a/3642969 for more information.
+        return "/login/index?faces-redirect=true";
+        
     }
     
     public String create() {
+        
         try {
             
             Role participantRole = rEJBFacade.find("participant");
@@ -118,9 +144,6 @@ public class UserController implements Serializable {
             currentUR.setRoleId(participantRole);
             currentUR.setEmail(current.getEmail());
             
-            // CG - Don't need to do this anymore, as the cascade inside the 'User' EJB makes sure this is created.
-            //getURFacade().create(currentUR);
-            
             // CG - Setup our new user.
             current.setRoleId(participantRole);
             current.setUserRoleId(currentUR);
@@ -128,10 +151,15 @@ public class UserController implements Serializable {
             getFacade().create(current);
             
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
+            
+            authController.setUsername(current.getEmail());
+            authController.setPassword(current.getPassword());
+            
             return prepareCreate();
+            
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
+           return null;
         }
     }
     

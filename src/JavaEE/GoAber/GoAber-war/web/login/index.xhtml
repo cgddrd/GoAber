@@ -2,16 +2,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateUserTitle}"></h:outputText>
+            <h:outputText value="#{authBundle.AuthenticationLoginPage_Title}"></h:outputText>
         </ui:define>
         <ui:define name="body">
 
             <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                <p:messages autoUpdate="true" />
             </h:panelGroup> 
 
             <h:form>
@@ -21,14 +23,17 @@
                     <div class="form-group">
                         <h:outputLabel class="col-md-2 control-label" value="#{authBundle.AuthenticationUsername_Label}" for="username" />
                         <div class="col-md-10">
-                            <h:inputText class="form-control" id="username" value="#{authController.username}" title="#{authBundle.AuthenticationUsername_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredUsername_Message}"/>
+                            <p:inputText class="form-control" id="username" value="#{authController.username}" title="#{authBundle.AuthenticationUsername_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredUsername_Message}">
+                            </p:inputText>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <h:outputLabel class="col-md-2 control-label" value="#{authBundle.AuthenticationPassword_Label}" for="password" />
                         <div class="col-md-10">
-                            <h:inputText class="form-control" id="password" value="#{authController.password}" title="#{authBundle.AuthenticationPassword_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredPassword_Message}"/>
+                            <p:password class="form-control" id="password" value="#{authController.password}" title="#{authBundle.AuthenticationPassword_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredPassword_Message}">
+                            </p:password>
+                            
                         </div>
                     </div>
 
@@ -37,8 +42,6 @@
                             <h:commandButton class="btn btn-default" action="#{authController.loginUser}" value="#{authBundle.AuthenticationLoginButton_Label}"/>
                         </div>
                     </div>
-
-                    <h:messages globalOnly="true" />
 
                 </div>
 
