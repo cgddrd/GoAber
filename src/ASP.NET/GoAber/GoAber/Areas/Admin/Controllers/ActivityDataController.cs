@@ -13,6 +13,7 @@ using PagedList;
 using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -22,6 +23,8 @@ namespace GoAber.Areas.Admin.Controllers
 
         //private GoAberEntities db = new GoAberEntities();
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ActivityDataService dataService = new ActivityDataService();
+        private CategoryUnitService categoryUnitService = new CategoryUnitService();
 
         private ApplicationUserManager _userManager;
 
@@ -42,14 +45,11 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ActivityData
         public ActionResult Index(int? page)
         {
-            var activityData = db.ActivityDatas
-                                    .Include(a => a.categoryunit)
-                                    .Include(a => a.User)
-                                    .OrderBy(a => a.date);
+            var activityData = dataService.getAllActivityData();
 
             int pageNumber = (page ?? 1);
-            
-            var categories = CreateCategoryUnitList();
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             return View(activityData.ToPagedList(pageNumber, pageSize));
         }
@@ -58,10 +58,10 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
         {
-            var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
-            activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit, fromDate, toDate);
+            var activityData = dataService.getAllActivityData();
+            activityData = ApplyFiltersToActivityData((IQueryable<ActivityData>) activityData, email, idCategoryUnit, fromDate, toDate);
 
-            var categories = CreateCategoryUnitList();
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             return View(activityData.ToList());
         }
@@ -89,7 +89,7 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ActivityData/Create
         public ActionResult Create()
         {
-            var categories = CreateCategoryUnitList();
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
 
             // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
@@ -108,13 +108,11 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                activityData.lastUpdated = DateTime.Now;
-                db.ActivityDatas.Add(activityData);
-                db.SaveChanges();
+                dataService.createActivityData(activityData);
                 return RedirectToAction("Index");
             }
 
-            var categories = CreateCategoryUnitList();
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
             ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.ApplicationUserId);
             return View(activityData);
@@ -127,13 +125,13 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas.Find(id);
+            ActivityData activityData = dataService.getActivityDataById(id.Value);
             if (activityData == null)
             {
                 return HttpNotFound();
             }
 
-            var categories = CreateCategoryUnitList();
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
             ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.ApplicationUserId);
             return View(activityData);
@@ -148,13 +146,11 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                activityData.lastUpdated = DateTime.Now;
-                db.Entry(activityData).State = EntityState.Modified;
-                db.SaveChanges();
+                dataService.editActivityData(activityData);
                 return RedirectToAction("Index");
             }
 
-            var categories = CreateCategoryUnitList();
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
             ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.ApplicationUserId);
             return View(activityData);
@@ -180,9 +176,7 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ActivityData activityData = db.ActivityDatas.Find(id);
-            db.ActivityDatas.Remove(activityData);
-            db.SaveChanges();
+            dataService.deleteActivityData(id);
             return RedirectToAction("Index");
         }
 
@@ -193,19 +187,6 @@ namespace GoAber.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private IEnumerable CreateCategoryUnitList()
-        {
-            var categories = db.CategoryUnits.Select(c => new
-            {
-                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
-                idCategoryUnit = c.Id,
-                category = c.category.name,
-                unit = c.unit.name
-            }).ToList();
-
-            return categories;
         }
 
         private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, string email, int? categoryUnitId, DateTime? fromDate, DateTime? toDate)

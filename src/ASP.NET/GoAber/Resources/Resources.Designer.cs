@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_ActivityData {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_ActivityData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string _Layout_cshtml_Execute_Admin {
@@ -264,6 +273,24 @@ namespace Resources {
         public static string AD_Index_cshtml_Execute_Index {
             get {
                 return ResourceManager.GetString("AD_Index_cshtml_Execute_Index", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string AD_Subtitle {
+            get {
+                return ResourceManager.GetString("AD_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
             }
         }
         
@@ -660,6 +687,15 @@ namespace Resources {
         public static string RolesController_DeleteRoleForUser_user_doesnt_belong_role {
             get {
                 return ResourceManager.GetString("RolesController_DeleteRoleForUser_user_doesnt_belong_role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit.
+        /// </summary>
+        public static string Unit {
+            get {
+                return ResourceManager.GetString("Unit", resourceCulture);
             }
         }
     }
