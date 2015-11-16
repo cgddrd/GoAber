@@ -8,6 +8,11 @@
   </security-role-mapping>
   
   <security-role-mapping>
+    <role-name>coordinator</role-name>
+    <group-name>coordinator</group-name>
+  </security-role-mapping>
+  
+  <security-role-mapping>
     <role-name>participant</role-name>
     <group-name>participant</group-name>
   </security-role-mapping>

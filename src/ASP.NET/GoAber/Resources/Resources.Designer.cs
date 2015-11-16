@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_ActivityData {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_ActivityData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string _Layout_cshtml_Execute_Admin {
@@ -273,6 +282,15 @@ namespace Resources {
         public static string AdminCommunitiesController_Create_Title {
             get {
                 return ResourceManager.GetString("AdminCommunitiesController_Create_Title", resourceCulture);
+	   }
+	}
+
+        /// <summary>
+	///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string AD_Subtitle {
+            get {
+                return ResourceManager.GetString("AD_Subtitle", resourceCulture);
             }
         }
         
@@ -327,6 +345,15 @@ namespace Resources {
         public static string BackToList {
             get {
                 return ResourceManager.GetString("BackToList", resourceCulture);
+	   }
+	}
+	
+	/// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
             }
         }
         
@@ -795,6 +822,15 @@ namespace Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+	    }
+	}
+
+        /// <summary>
+	///   Looks up a localized string similar to Unit.
+        /// </summary>
+        public static string Unit {
+            get {
+                return ResourceManager.GetString("Unit", resourceCulture);
             }
         }
     }

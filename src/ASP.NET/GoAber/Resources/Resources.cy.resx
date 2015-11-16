@@ -320,5 +320,16 @@
   </data>
   <data name="ManageCommunities" xml:space="preserve">
     <value>[WELSH]Manage Communities</value>
+  <data name="AD_Subtitle" xml:space="preserve">
+    <value>[WELSH]Activity Data</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>[WELSH]Category</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>[WELSH]Unit</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_ActivityData" xml:space="preserve">
+    <value>[WELSH]Activity Data</value>
   </data>
 </root>
