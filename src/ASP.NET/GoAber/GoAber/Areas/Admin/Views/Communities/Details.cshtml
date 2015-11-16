@@ -1,0 +1,35 @@
+﻿@model GoAber.Models.Community
+
+@{
+    ViewBag.Title = Resources.Resources.Details;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.ViewBag.title</h2>
+
+<div>
+    <h4>@(Resources.Resources.AdminCommunitiesController_Details_Title)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.endpointUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.endpointUrl)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(Resources.Resources.Edit, "Edit", new { id = Model.Id }) |
+    @Html.ActionLink(Resources.Resources.BackToList, "Index")
+</p>
