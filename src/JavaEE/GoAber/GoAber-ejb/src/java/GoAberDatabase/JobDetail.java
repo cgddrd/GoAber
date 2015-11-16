@@ -61,6 +61,7 @@ public class JobDetail implements Serializable, IJobDetail {
     public JobDetail() {
     }
 
+    
     public JobDetail(String jobid) {
         this.jobid = jobid;
     }
@@ -70,6 +71,27 @@ public class JobDetail implements Serializable, IJobDetail {
         this.tasktype = tasktype;
         this.schedtype = schedtype;
         this.shcedtimemins = shcedtimemins;
+    }
+    
+    public String getSchedTypeString()
+    {
+        switch (schedtype) {
+            case 0:
+                return "Recurring";
+            default:
+                return "Once";
+        }
+    }
+    
+    public String getTaskTypeString() {
+        switch (tasktype) {
+            case 0:
+                return "FitBit";
+            case 1:
+                return "JawBone";
+            default:
+                return "Email";
+        }
     }
 
     public String getJobid() {

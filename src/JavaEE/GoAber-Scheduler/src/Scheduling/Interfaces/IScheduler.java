@@ -16,9 +16,15 @@ public interface IScheduler {
        void Init(Object[] args);
 
         void CreateRecurringJob(AbstractJob ao_job);
+        
+        void CreateOnceJob(AbstractJob ao_job);
 
-        void RemoveJob(IJobDetail ao_jobdetail);
+        void RemoveRecurringJob(IJobDetail ao_jobdetail);
+        
+        void RemoveOnceJob(IJobDetail ao_jobdetail);
 
         void EditRecurringJob(AbstractJob ao_job);
+        
+        void EditOnceJob(AbstractJob ao_job);
 
 }

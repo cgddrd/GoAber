@@ -39,7 +39,9 @@ public class SchedulerMain {
         public void Main(Object[] args) {
            List<JobDetail> lo_jobs = jobDetailFacade.findAll();
            for (int i = 0; i< lo_jobs.size(); i++) {
-               schedulerSessionBean.AddJob(lo_jobs.get(i));
+               if (lo_jobs.get(i).getSchedtype() == 0) {
+                    schedulerSessionBean.AddJob(lo_jobs.get(i));
+               }
            }
         }  
     }

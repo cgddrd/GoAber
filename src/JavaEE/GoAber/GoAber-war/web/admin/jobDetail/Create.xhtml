@@ -18,13 +18,13 @@
                     <h:outputLabel value="#{bundle.CreateJobDetailLabel_jobid}" for="jobid" />
                     <h:inputText id="jobid" value="#{jobDetailController.selected.jobid}" title="#{bundle.CreateJobDetailTitle_jobid}" required="true" requiredMessage="#{bundle.CreateJobDetailRequiredMessage_jobid}"/>
                     <h:outputLabel value="#{bundle.CreateJobDetailLabel_tasktype}" for="tasktype" />
-                    <h:selectOneMenu value="#{jobDetailController.selected.tasktype}">
+                    <h:selectOneMenu id="tasktype" value="#{jobDetailController.selected.tasktype}">
                         <f:selectItem itemValue="0" itemLabel="#{bundle.CreateJobDetailSelectTaskType_fitbit}" />
                         <f:selectItem itemValue="1" itemLabel="#{bundle.CreateJobDetailSelectTaskType_jawbone}" />	
                         <f:selectItem itemValue="2" itemLabel="#{bundle.CreateJobDetailSelectTaskType_email}" />	                        
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateJobDetailLabel_schedtype}" for="schedtype" />
-                    <h:selectOneMenu value="#{jobDetailController.selected.schedtype}">
+                    <h:selectOneMenu id="schedtype" value="#{jobDetailController.selected.schedtype}">
                         <f:selectItem itemValue="0" itemLabel="#{bundle.CreateJobDetailSelectSchedType_recurring}" />
                         <f:selectItem itemValue="1" itemLabel="#{bundle.CreateJobDetailSelectSchedType_once}" />		                        
                     </h:selectOneMenu>

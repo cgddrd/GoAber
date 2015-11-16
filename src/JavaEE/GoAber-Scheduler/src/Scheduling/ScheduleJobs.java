@@ -22,7 +22,12 @@ public class ScheduleJobs {
     public boolean AddJob(AbstractJob ao_job) {
         try {
             IScheduler lo_scheduler = SchedulerFactory.Instance(null).GetScheduler();
-            lo_scheduler.CreateRecurringJob(ao_job);
+                
+            if (ao_job.getJobDetails().getSchedtype() == 0) {
+                lo_scheduler.CreateRecurringJob(ao_job);
+            } else {
+                lo_scheduler.CreateOnceJob(ao_job);
+            }
             return true;
         } catch (Exception e) {
             //Debug.WriteLine(e.Message);
@@ -33,7 +38,11 @@ public class ScheduleJobs {
     public boolean RemoveJob(IJobDetail ao_jobdetails) {
         try {
             IScheduler lo_scheduler = SchedulerFactory.Instance(null).GetScheduler();
-            lo_scheduler.RemoveJob(ao_jobdetails);
+            if (ao_jobdetails.getSchedtype() == 0) {
+                lo_scheduler.RemoveRecurringJob(ao_jobdetails);
+            } else {
+              lo_scheduler.RemoveOnceJob(ao_jobdetails);
+            }
             return true;
         } catch (Exception e) {
             return false;

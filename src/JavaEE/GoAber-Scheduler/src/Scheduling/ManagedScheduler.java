@@ -47,22 +47,44 @@ public class ManagedScheduler implements IScheduler {
     
     private void CreateRecurringJobImpl(AbstractJob ao_job, boolean ao_db) {
         if (ao_job.getJobDetails().getStartnow()) {
-             io_schedules.put(ao_job.getJobDetails().getJobid(), this.io_executor.scheduleAtFixedRate((Runnable)ao_job, 1, ao_job.getDateInSeconds(), TimeUnit.SECONDS));
+             io_schedules.put(ao_job.getJobDetails().getJobid(), this.io_executor.scheduleAtFixedRate((Runnable)ao_job, 0, ao_job.getDateInSeconds(), TimeUnit.SECONDS));
         } else {
             io_schedules.put(ao_job.getJobDetails().getJobid(), this.io_executor.scheduleAtFixedRate((Runnable)ao_job, ao_job.getDateInSeconds(), ao_job.getDateInSeconds(), TimeUnit.SECONDS));
         }
     }
 
     @Override
-    public void RemoveJob(IJobDetail ao_jobdetail) {
-        io_schedules.get(ao_jobdetail.getJobid()).cancel(false);
-        
+    public void RemoveRecurringJob(IJobDetail ao_jobdetail) {
+        io_schedules.get(ao_jobdetail.getJobid()).cancel(true);
+        io_schedules.remove(ao_jobdetail.getJobid());
     }
 
     @Override
     public void EditRecurringJob(AbstractJob ao_job) {
         if (io_schedules.containsKey(ao_job.getJobType())) {
             CreateRecurringJob(ao_job);
+        }
+    }
+
+    @Override
+    public void CreateOnceJob(AbstractJob ao_job) {
+        if (ao_job.getJobDetails().getStartnow()) {
+             io_schedules.put(ao_job.getJobDetails().getJobid(), this.io_executor.scheduleOnce((Runnable)ao_job, 0, TimeUnit.SECONDS));
+        } else {
+             io_schedules.put(ao_job.getJobDetails().getJobid(), this.io_executor.scheduleOnce((Runnable)ao_job, ao_job.getDateInSeconds(), TimeUnit.SECONDS));
+        }
+    }
+
+
+    @Override
+    public void RemoveOnceJob(IJobDetail ao_jobdetail) {
+        RemoveRecurringJob(ao_jobdetail);
+    }
+
+    @Override
+    public void EditOnceJob(AbstractJob ao_job) {
+        if (io_schedules.containsKey(ao_job.getJobType())) {
+            CreateOnceJob(ao_job);
         }
     }
     

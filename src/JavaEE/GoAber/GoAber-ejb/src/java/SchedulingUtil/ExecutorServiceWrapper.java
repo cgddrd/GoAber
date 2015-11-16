@@ -30,5 +30,10 @@ public class ExecutorServiceWrapper implements IExecutorServiceWrapper {
         return this.io_executor.scheduleAtFixedRate(command, initialDelay, delay, unit);
     }
 
+    @Override
+    public ScheduledFuture scheduleOnce(Runnable command, long delay, TimeUnit unit) {
+        return this.io_executor.schedule(command, delay, unit);
+    }
+
     
 }

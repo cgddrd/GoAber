@@ -14,4 +14,5 @@ import java.util.concurrent.TimeUnit;
  */
 public interface IExecutorServiceWrapper {
     public ScheduledFuture scheduleAtFixedRate(Runnable command, long initialDelay, long delay, TimeUnit unit);
+    public ScheduledFuture scheduleOnce(Runnable command, long delay, TimeUnit unit);
 }

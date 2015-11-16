@@ -36,6 +36,7 @@ public class JobDetailController implements Serializable {
     public JobDetailController() {
     }
     
+    
     public SchedulerSessionBeanRemote getScheduler() {
         return io_SchedSessBean;
     }
