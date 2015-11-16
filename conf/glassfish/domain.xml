@@ -78,7 +78,6 @@
       <property name="serverName" value="localhost"></property>
       <property name="Password" value="password"></property>
     </jdbc-connection-pool>
-    <jdbc-resource pool-name="mysql_goaber_rootPool" jndi-name="GoAberDB"></jdbc-resource>
     <jdbc-connection-pool datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" name="SecurityConnectionPool" wrap-jdbc-objects="false" connection-validation-method="auto-commit" res-type="javax.sql.DataSource">
       <property name="URL" value="jdbc:mysql://localhost:3306/jdbcrealm?zeroDateTimeBehavior=convertToNull"></property>
       <property name="Password" value="password"></property>
@@ -100,7 +99,6 @@
       <resource-ref ref="concurrent/__defaultManagedScheduledExecutorService"></resource-ref>
       <resource-ref ref="concurrent/__defaultManagedThreadFactory"></resource-ref>
       <resource-ref ref="jdbc/worksheet2db"></resource-ref>
-      <resource-ref ref="GoAberDB"></resource-ref>
       <resource-ref ref="jdbc/securityDatasource"></resource-ref>
       <resource-ref ref="jdbc/GoAberDB"></resource-ref>
     </server>
@@ -183,11 +181,11 @@
           <property name="password-column" value="password"></property>
           <property name="datasource-jndi" value="jdbc/GoAberDB"></property>
           <property name="group-table" value="userrole"></property>
-          <property name="user-table" value="usercredentials"></property>
+          <property name="user-table" value="user"></property>
           <property name="group-name-column" value="roleid"></property>
           <property name="digestrealm-password-enc-algorithm" value="none"></property>
           <property name="digest-algorithm" value="SHA-256"></property>
-          <property name="user-name-column" value="username"></property>
+          <property name="user-name-column" value="email"></property>
           <property name="group-table-user-name-column" value="email"></property>
         </auth-realm>
         <jacc-provider policy-provider="com.sun.enterprise.security.provider.PolicyWrapper" name="default" policy-configuration-factory-provider="com.sun.enterprise.security.provider.PolicyConfigurationFactoryImpl">
@@ -519,10 +517,10 @@
   </secure-admin>
   <clusters></clusters>
   <applications>
-    <application context-root="/GoAber-war" object-type="user" directory-deployed="true" name="GoAber-war" location="file:/Users/connorgoddard/Desktop/GoAber/src/JavaEE/GoAber/GoAber-war/build/web/">
+    <application context-root="/GoAber-war" object-type="user" name="GoAber-war" directory-deployed="true" location="file:/Users/connorgoddard/Desktop/GoAber/src/JavaEE/GoAber/GoAber-war/build/web/">
       <property name="archiveType" value="war"></property>
       <property name="appLocation" value="file:/Users/connorgoddard/Desktop/GoAber/src/JavaEE/GoAber/GoAber-war/build/web/"></property>
-      <property name="org.glassfish.ejb.container.application_unique_id" value="94830896113647616"></property>
+      <property name="org.glassfish.ejb.container.application_unique_id" value="94840555488083968"></property>
       <property name="defaultAppName" value="web"></property>
       <module name="GoAber-war">
         <engine sniffer="ejb"></engine>

@@ -1,13 +1,29 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Secured page</title>
-    </h:head>
-    <h:body>
-        This is a secured page
-        <a href="/GoAber-war/logout">Logout</a>
-    </h:body>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            
+            This is a secured page!
+            
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup> 
+            <h:form>
+                
+                <h:commandButton class="btn btn-info" action="#{authController.loginUser}" value="Login" />
+                <h:commandButton class="btn btn-info" action="#{authController.logoutUser}" value="Log out" />
+                
+            </h:form>
+    
+        </ui:define>
+    </ui:composition>
+           
 </html>
 
