@@ -48,7 +48,7 @@ namespace GoAber.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,tasktype,schedtype,cronexp")] Job job)
+        public ActionResult Create([Bind(Include = "id,tasktype,schedtype,minutes")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace GoAber.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,tasktype,schedtype,cronexp")] Job job)
+        public ActionResult Edit([Bind(Include = "id,tasktype,schedtype,minutes")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -124,7 +124,7 @@ namespace GoAber.Controllers
         {
             Job job = db.Jobs.Find(id);
 
-            if (!ScheduleJobs.RemoveJob(id))
+            if (!ScheduleJobs.RemoveJob(job))
             {
                 return View(job);
             }

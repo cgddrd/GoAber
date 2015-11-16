@@ -323,6 +323,10 @@
     <Compile Include="Migrations\201511111533173_Jobs.Designer.cs">
       <DependentUpon>201511111533173_Jobs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511161607104_Jobs1.cs" />
+    <Compile Include="Migrations\201511161607104_Jobs1.Designer.cs">
+      <DependentUpon>201511161607104_Jobs1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -543,6 +547,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511111533173_Jobs.resx">
       <DependentUpon>201511111533173_Jobs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511161607104_Jobs1.resx">
+      <DependentUpon>201511161607104_Jobs1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

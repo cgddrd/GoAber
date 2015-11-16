@@ -13,17 +13,6 @@ namespace GoAber.Scheduling
 {
     public class ScheduleJobs
     {
-        [Obsolete("Testing purposes only")]
-        public static void Execute(IScheduler ao_scheduler)
-        {
-            List<IJob> lo_tasks = new List<IJob>();
-            lo_tasks.Add(new FitBitJob());
-
-            for (int i = 0; i < lo_tasks.Count; i++) {
-                ao_scheduler.CreateRecurringJob(lo_tasks[i].GetID(), () => lo_tasks[i].Run(), Cron.Minutely);
-            }
-        }
-
         public static bool AddJob(Job ao_job)
         {
             try
@@ -44,10 +33,10 @@ namespace GoAber.Scheduling
                 IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
                 if (ao_job.schedtype.Equals(ScheduleType.Repeating))
                 {
-                    lo_scheduler.CreateRecurringJob(ao_job.id, () => lo_job.Run(), ao_job.cronexp);
+                    lo_scheduler.CreateRecurringJob(ao_job.id, () => lo_job.Run(), ao_job.minutes);
                 } else
                 {
-                    lo_scheduler.CreateOnceJob(() => lo_job.Run(), ao_job.minutes);
+                    ao_job.secretid = lo_scheduler.CreateOnceJob(() => lo_job.Run(), ao_job.minutes);
                 }
                 return true;
             } catch (Exception e)
@@ -58,13 +47,19 @@ namespace GoAber.Scheduling
         }
 
 
-        public static bool RemoveJob(string as_id)
+        public static bool RemoveJob(Job ao_job)
         {
             try
             {
-                IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
 
-                lo_scheduler.RemoveRecurringJob(as_id);
+                IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
+                if (ao_job.schedtype.Equals(ScheduleType.Repeating))
+                {
+                    lo_scheduler.RemoveRecurringJob(ao_job.id);
+                } else
+                {
+                    lo_scheduler.RemoveOnceJob(ao_job.secretid);
+                }
                 return true;
             } catch (Exception e)
             {
@@ -75,7 +70,7 @@ namespace GoAber.Scheduling
 
         public static bool EditJob(Job ao_job)
         {
-            return AddJob(ao_job);
+                return AddJob(ao_job);
         }
     }
 }

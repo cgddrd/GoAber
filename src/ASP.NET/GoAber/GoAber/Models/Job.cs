@@ -24,8 +24,6 @@ namespace GoAber.Models
         public JobType tasktype { get; set; }
         [DisplayName("Schedule Type")]
         public ScheduleType schedtype { get; set; }
-        [DisplayName("CRON  Expression")]
-        public string cronexp { get; set; }
 
         [DisplayName("Minutes")]
         public int minutes { get; set; }

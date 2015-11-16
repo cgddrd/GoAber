@@ -412,3 +412,4 @@ C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.Migrations.Jo
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.csproj.GenerateResource.Cache
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.pdb
+C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber\obj\Debug\GoAber.Migrations.Jobs1.resources
