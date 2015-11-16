@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 
@@ -15,10 +16,15 @@ namespace GoAber.Scheduling.Interfaces
 
         void CreateRecurringJob(string as_id, System.Linq.Expressions.Expression<System.Action> am_methodcall, string as_cronexp);
         void CreateRecurringJob(string as_id, System.Linq.Expressions.Expression<System.Action> am_methodcall, Func<string> ao_cronexp);
+        string CreateOnceJob(Expression<Action> am_methodcall, int ai_minutes);
 
-        void RemoveJob(string as_id);
+        void RemoveRecurringJob(string as_id);
+
+        void RemoveOnceJob(string as_id);
 
         void EditRecurringJob(string as_id, System.Linq.Expressions.Expression<System.Action> am_methodcall, string as_cronexp);
         void EditRecurringJob(string as_id, System.Linq.Expressions.Expression<System.Action> am_methodcall, Func<string> ao_cronexp);
+
+        void EditOnceJob(string as_id, Expression<Action> am_methodcall, Func<string> ao_cronexp);
     }
 }

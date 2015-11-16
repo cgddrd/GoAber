@@ -42,7 +42,13 @@ namespace GoAber.Scheduling
                     lo_job = new EmailJob();
                 }
                 IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
-                lo_scheduler.CreateRecurringJob(ao_job.id, () => lo_job.Run(), ao_job.cronexp);
+                if (ao_job.schedtype.Equals(ScheduleType.Repeating))
+                {
+                    lo_scheduler.CreateRecurringJob(ao_job.id, () => lo_job.Run(), ao_job.cronexp);
+                } else
+                {
+                    lo_scheduler.CreateOnceJob(() => lo_job.Run(), ao_job.minutes);
+                }
                 return true;
             } catch (Exception e)
             {
@@ -57,7 +63,8 @@ namespace GoAber.Scheduling
             try
             {
                 IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
-                lo_scheduler.RemoveJob(as_id);
+
+                lo_scheduler.RemoveRecurringJob(as_id);
                 return true;
             } catch (Exception e)
             {
