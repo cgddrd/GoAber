@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jobs.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_Jobs {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_Jobs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in.
         /// </summary>
         public static string _LoginPartial_cshtml_Execute_Log_in {

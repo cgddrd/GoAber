@@ -15,11 +15,16 @@ namespace GoAber.Controllers
     {
         protected static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private ApplicationDbContext db = new ApplicationDbContext();
+        private IQueryable<Job> io_query;
 
         // GET: Jobs
         public ActionResult Index()
         {
-            return View(db.Jobs.ToList());
+            io_query = from j in db.Jobs
+                       where j.status_flag == true
+                       select j;
+            List<Job> lo_jobs = io_query.ToList();
+            return View(lo_jobs);
         }
 
         // GET: Jobs/Details/5

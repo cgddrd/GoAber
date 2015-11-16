@@ -13,16 +13,16 @@ namespace GoAber.Scheduling
 {
     public class ScheduleJobs
     {
-        public static bool AddJob(Job ao_job)
+        public static bool AddJob(Job ao_jobdetail)
         {
             try
             {
                 IJob lo_job;
-                if (ao_job.tasktype.Equals(JobType.FitBit))
+                if (ao_jobdetail.tasktype.Equals(JobType.FitBit))
                 {
-                    lo_job = new FitBitJob();
+                    lo_job = new FitBitJob(ao_jobdetail.id);
                 }
-                else if (ao_job.tasktype.Equals(JobType.JawBone))
+                else if (ao_jobdetail.tasktype.Equals(JobType.JawBone))
                 {
                     lo_job = new JawBoneJob();
                 }
@@ -31,12 +31,12 @@ namespace GoAber.Scheduling
                     lo_job = new EmailJob();
                 }
                 IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
-                if (ao_job.schedtype.Equals(ScheduleType.Repeating))
+                if (ao_jobdetail.schedtype.Equals(ScheduleType.Repeating))
                 {
-                    lo_scheduler.CreateRecurringJob(ao_job.id, () => lo_job.Run(), ao_job.minutes);
+                    lo_scheduler.CreateRecurringJob(ao_jobdetail.id, () => lo_job.Run(), ao_jobdetail.minutes);
                 } else
                 {
-                    ao_job.secretid = lo_scheduler.CreateOnceJob(() => lo_job.Run(), ao_job.minutes);
+                    ao_jobdetail.secretid = lo_scheduler.CreateOnceJob(() => lo_job.Run(), ao_jobdetail.minutes);
                 }
                 return true;
             } catch (Exception e)

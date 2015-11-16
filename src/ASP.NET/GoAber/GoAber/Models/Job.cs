@@ -13,7 +13,7 @@ namespace GoAber.Models
     {
         public Job()
         {
-
+            status_flag = true;
         }
         [MaxLength(100)]
         [DisplayName("Unique Name")]
@@ -27,5 +27,7 @@ namespace GoAber.Models
 
         [DisplayName("Minutes")]
         public int minutes { get; set; }
+
+        public bool status_flag { get; set; }
     }
 }

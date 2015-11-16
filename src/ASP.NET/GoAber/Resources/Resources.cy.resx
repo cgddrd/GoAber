@@ -279,4 +279,7 @@
   <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
     <value>[WELSH]FitBit</value>
   </data>
+  <data name="_Layout_cshtml_Execute_Jobs" xml:space="preserve">
+    <value>[WELSH]Jobs</value>
+  </data>
 </root>

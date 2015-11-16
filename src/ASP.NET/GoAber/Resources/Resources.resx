@@ -321,4 +321,7 @@
   <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
     <value>FitBit</value>
   </data>
+  <data name="_Layout_cshtml_Execute_Jobs" xml:space="preserve">
+    <value>Jobs</value>
+  </data>
 </root>

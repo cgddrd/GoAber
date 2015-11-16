@@ -18,6 +18,12 @@ namespace GoAber.Scheduling.Jobs
         {
             io_db = new ApplicationDbContext();
         }
+
+        public FitBitJob(string as_id)
+        {
+            is_id = as_id;
+        }
+
         public string GetID()
         {
             return is_id;
@@ -26,26 +32,26 @@ namespace GoAber.Scheduling.Jobs
         public void Run()
         {
            
-            Debug.WriteLine("CALLED " + GetID());
-            //FitBitController lo_fitbitcont = new FitBitController();
-            //DateTime lda_today = DateTime.Today;
+            Debug.WriteLine("CALLED FITBIT");
+            FitBitController lo_fitbitcont = new FitBitController();
+            DateTime lda_today = DateTime.Today;
 
 
-            //string[] ls_usernames = GetUserNames();
-            //ActivityData lo_days;
+            string[] ls_usernames = GetUserNames();
+            ActivityData lo_days;
 
-            //for (int i = 0; i < ls_usernames.Length; i++)
-            //{
-            //    lo_days = lo_fitbitcont.GetDayActivities("/activities/date/", ls_usernames[i], lda_today.Day, lda_today.Month, lda_today.Year);
-            //    if (lo_days != null)
-            //    {
-            //        Debug.WriteLine(lo_days.value);
-            //    }
-            //    else
-            //    {
-            //        Debug.WriteLine("Data is null");
-            //    }
-            //}
+            for (int i = 0; i < ls_usernames.Length; i++)
+            {
+                lo_days = lo_fitbitcont.GetDayActivities("/activities/date/", ls_usernames[i], lda_today.Day, lda_today.Month, lda_today.Year);
+                if (lo_days != null)
+                {
+                    Debug.WriteLine(lo_days.value);
+                }
+                else
+                {
+                    Debug.WriteLine("Data is null");
+                }
+            }
         }
 
         private string[] GetUserNames()
