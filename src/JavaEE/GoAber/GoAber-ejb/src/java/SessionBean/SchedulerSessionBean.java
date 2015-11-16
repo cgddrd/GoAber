@@ -7,6 +7,7 @@ package SessionBean;
 
 //From GoAber-Sheduler project.
 import DTO.IJobDetail;
+import Jobs.JobFactory;
 
 import SchedulingUtil.ExecutorServiceWrapper;
 import Scheduling.ScheduleJobs;
@@ -38,8 +39,8 @@ public class SchedulerSessionBean implements SchedulerSessionBeanRemote {
         }
     }
     @Override
-    public boolean AddJob(IJobDetail ao_job) {
-        return io_scheduler.AddJob(ao_job);
+    public boolean AddJob(DTO.IJobDetail ao_job) { 
+        return io_scheduler.AddJob(JobFactory.CreateJob(ao_job));
     }
 
     @Override
@@ -48,8 +49,8 @@ public class SchedulerSessionBean implements SchedulerSessionBeanRemote {
     }
 
     @Override
-    public boolean EditJob(IJobDetail ao_job) {
-        return io_scheduler.EditJob(ao_job);
+    public Boolean EditJob(DTO.IJobDetail ao_job) {
+        return io_scheduler.EditJob(JobFactory.CreateJob(ao_job));
     }
 
     @Override

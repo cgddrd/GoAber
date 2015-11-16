@@ -6,9 +6,7 @@
 package Scheduling;
 
 import DTO.IJobDetail;
-import Scheduling.Enums.JobType;
 import Scheduling.Interfaces.IScheduler;
-import Scheduling.Jobs.FitBitJob;
 import Scheduling.Jobs.AbstractJob;
 
 /**
@@ -21,22 +19,10 @@ public class ScheduleJobs {
         SchedulerFactory.Instance(args);
     }
     
-    public boolean AddJob(IJobDetail ao_jobdetails) {
+    public boolean AddJob(AbstractJob ao_job) {
         try {
-            AbstractJob lo_job = null;
-                switch (JobType.values()[ao_jobdetails.getTasktype()]) {
-                    case Email:
-                    //lo_job = new EmailJob();
-                        break;
-                    //lo_job = new JawBoneJob();
-                    case JawBone:
-                        break;
-                    default:
-                        lo_job = new FitBitJob(ao_jobdetails);
-                        break;
-                }
             IScheduler lo_scheduler = SchedulerFactory.Instance(null).GetScheduler();
-            lo_scheduler.CreateRecurringJob(lo_job);
+            lo_scheduler.CreateRecurringJob(ao_job);
             return true;
         } catch (Exception e) {
             //Debug.WriteLine(e.Message);
@@ -54,7 +40,7 @@ public class ScheduleJobs {
         }
     }
 
-    public boolean EditJob(IJobDetail ao_job) {
+    public boolean EditJob(AbstractJob ao_job) {
         return AddJob(ao_job);
     }
 

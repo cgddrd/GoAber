@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Scheduling.Jobs;
+package Jobs;
 
+import Scheduling.Jobs.AbstractJob;
 import DTO.IJobDetail;
 
 
@@ -19,8 +20,8 @@ public class FitBitJob extends AbstractJob {
     }
 
     @Override
-    public String getID() {
-       return getJobDetails().getJobid();
+    public Integer getJobType() {
+       return 0;
     }
 
     @Override

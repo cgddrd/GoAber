@@ -18,13 +18,22 @@
                     <h:outputLabel value="#{bundle.EditJobDetailLabel_jobid}" for="jobid" />
                     <h:inputText id="jobid" value="#{jobDetailController.selected.jobid}" title="#{bundle.EditJobDetailTitle_jobid}" required="true" requiredMessage="#{bundle.EditJobDetailRequiredMessage_jobid}"/>
                     <h:outputLabel value="#{bundle.EditJobDetailLabel_tasktype}" for="tasktype" />
-                    <h:inputText id="tasktype" value="#{jobDetailController.selected.tasktype}" title="#{bundle.EditJobDetailTitle_tasktype}" required="true" requiredMessage="#{bundle.EditJobDetailRequiredMessage_tasktype}"/>
+                    <h:selectOneMenu value="#{jobDetailController.selected.tasktype}">
+                        <f:selectItem itemValue="0" itemLabel="#{bundle.EditJobDetailSelectTaskType_fitbit}" />
+                        <f:selectItem itemValue="1" itemLabel="#{bundle.EditJobDetailSelectTaskType_jawbone}" />	
+                        <f:selectItem itemValue="2" itemLabel="#{bundle.EditJobDetailSelectTaskType_email}" />	                        
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditJobDetailLabel_schedtype}" for="schedtype" />
-                    <h:inputText id="schedtype" value="#{jobDetailController.selected.schedtype}" title="#{bundle.EditJobDetailTitle_schedtype}" required="true" requiredMessage="#{bundle.EditJobDetailRequiredMessage_schedtype}"/>
+                    <h:selectOneMenu value="#{jobDetailController.selected.schedtype}">
+                        <f:selectItem itemValue="0" itemLabel="#{bundle.EditJobDetailSelectSchedType_recurring}" />
+                        <f:selectItem itemValue="1" itemLabel="#{bundle.EditJobDetailSelectSchedType_once}" />		                        
+                    </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.EditJobDetailLabel_shcedtimemins}" for="shcedtimemins" />
-                    <h:inputText id="shcedtimemins" value="#{jobDetailController.selected.shcedtimemins}" title="#{bundle.EditJobDetailTitle_shcedtimemins}" required="true" requiredMessage="#{bundle.EditJobDetailRequiredMessage_shcedtimemins}"/>
+                    <h:inputText id="shcedtimemins" value="#{jobDetailController.selected.shcedtimemins}" title="#{bundle.EditJobDetailTitle_shcedtimemins}" required="true" requiredMessage="#{bundle.EditJobDetailRequiredMessage_shcedtimemins}">
+                        <f:convertNumber integerOnly="true" type="number" />
+                    </h:inputText>
                     <h:outputLabel value="#{bundle.EditJobDetailLabel_startnow}" for="startnow" />
-                    <h:inputText id="startnow" value="#{jobDetailController.selected.startnow}" title="#{bundle.EditJobDetailTitle_startnow}" />
+                    <h:selectBooleanCheckbox id="startnow" value="#{jobDetailController.selected.startnow}" title="#{bundle.EditJobDetailTitle_startnow}" />
                 </h:panelGrid>
                 <h:commandLink action="#{jobDetailController.update}" value="#{bundle.EditJobDetailSaveLink}"/>
                 <br />

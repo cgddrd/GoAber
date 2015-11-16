@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.27, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.23, for Win32 (x86)
 --
 -- Host: localhost    Database: goaber
 -- ------------------------------------------------------
--- Server version	5.6.27-log
+-- Server version	5.6.23-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -39,6 +39,15 @@ CREATE TABLE `activitydata` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `activitydata`
+--
+
+LOCK TABLES `activitydata` WRITE;
+/*!40000 ALTER TABLE `activitydata` DISABLE KEYS */;
+/*!40000 ALTER TABLE `activitydata` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `category`
 --
 
@@ -52,6 +61,15 @@ CREATE TABLE `category` (
   UNIQUE KEY `idCategory_UNIQUE` (`idCategory`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `categoryunit`
@@ -72,6 +90,15 @@ CREATE TABLE `categoryunit` (
   CONSTRAINT `unitId_categoryUnit` FOREIGN KEY (`unitId`) REFERENCES `unit` (`idUnit`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categoryunit`
+--
+
+LOCK TABLES `categoryunit` WRITE;
+/*!40000 ALTER TABLE `categoryunit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categoryunit` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `challenge`
@@ -95,6 +122,15 @@ CREATE TABLE `challenge` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `challenge`
+--
+
+LOCK TABLES `challenge` WRITE;
+/*!40000 ALTER TABLE `challenge` DISABLE KEYS */;
+/*!40000 ALTER TABLE `challenge` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `community`
 --
 
@@ -109,6 +145,15 @@ CREATE TABLE `community` (
   UNIQUE KEY `idCommunity_UNIQUE` (`idCommunity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `community`
+--
+
+LOCK TABLES `community` WRITE;
+/*!40000 ALTER TABLE `community` DISABLE KEYS */;
+/*!40000 ALTER TABLE `community` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `device`
@@ -134,6 +179,15 @@ CREATE TABLE `device` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `device`
+--
+
+LOCK TABLES `device` WRITE;
+/*!40000 ALTER TABLE `device` DISABLE KEYS */;
+/*!40000 ALTER TABLE `device` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `devicetype`
 --
 
@@ -150,8 +204,17 @@ CREATE TABLE `devicetype` (
   `authorizationEndpoint` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`idDeviceType`),
   UNIQUE KEY `idDeviceType_UNIQUE` (`idDeviceType`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `devicetype`
+--
+
+LOCK TABLES `devicetype` WRITE;
+/*!40000 ALTER TABLE `devicetype` DISABLE KEYS */;
+/*!40000 ALTER TABLE `devicetype` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `groupchallenge`
@@ -174,6 +237,42 @@ CREATE TABLE `groupchallenge` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `groupchallenge`
+--
+
+LOCK TABLES `groupchallenge` WRITE;
+/*!40000 ALTER TABLE `groupchallenge` DISABLE KEYS */;
+/*!40000 ALTER TABLE `groupchallenge` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jobdetail`
+--
+
+DROP TABLE IF EXISTS `jobdetail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jobdetail` (
+  `jobid` varchar(255) NOT NULL,
+  `schedtype` int(11) DEFAULT NULL,
+  `shcedtimemins` int(11) DEFAULT NULL,
+  `startnow` tinyint(1) DEFAULT '0',
+  `tasktype` int(11) DEFAULT NULL,
+  PRIMARY KEY (`jobid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jobdetail`
+--
+
+LOCK TABLES `jobdetail` WRITE;
+/*!40000 ALTER TABLE `jobdetail` DISABLE KEYS */;
+INSERT INTO `jobdetail` VALUES ('fitbit1',0,2,0,0),('fitbit2',0,1,0,0),('fitbit3',0,1,0,0),('fitbit4',0,1,0,0),('fitbit5',0,1,0,0),('fitbit6',0,1,0,0);
+/*!40000 ALTER TABLE `jobdetail` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `jobs`
 --
 
@@ -184,10 +283,20 @@ CREATE TABLE `jobs` (
   `jobid` varchar(100) NOT NULL,
   `tasktype` int(11) NOT NULL,
   `schedtype` int(11) NOT NULL,
-  `cronexp` varchar(45) NOT NULL,
+  `shcedtimemins` int(11) NOT NULL,
+  `startnow` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`jobid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jobs`
+--
+
+LOCK TABLES `jobs` WRITE;
+/*!40000 ALTER TABLE `jobs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `jobs` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `role`
@@ -197,10 +306,20 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role` (
-  `idRole` varchar(255) NOT NULL,
-  PRIMARY KEY (`idRole`)
+  `idRole` varchar(45) NOT NULL,
+  PRIMARY KEY (`idRole`),
+  UNIQUE KEY `roleid_UNIQUE` (`idRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `role`
+--
+
+LOCK TABLES `role` WRITE;
+/*!40000 ALTER TABLE `role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `team`
@@ -221,6 +340,15 @@ CREATE TABLE `team` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `team`
+--
+
+LOCK TABLES `team` WRITE;
+/*!40000 ALTER TABLE `team` DISABLE KEYS */;
+/*!40000 ALTER TABLE `team` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `unit`
 --
 
@@ -232,8 +360,17 @@ CREATE TABLE `unit` (
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`idUnit`),
   UNIQUE KEY `idUnit_UNIQUE` (`idUnit`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unit`
+--
+
+LOCK TABLES `unit` WRITE;
+/*!40000 ALTER TABLE `unit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `unit` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -244,11 +381,13 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `idUser` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `nickname` varchar(45) DEFAULT NULL,
   `userRoleId` int(11) NOT NULL,
   `userCredentialsId` int(11) DEFAULT NULL,
   `groupId` int(11) DEFAULT NULL,
+  `roleId` varchar(45) NOT NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE KEY `Email_UNIQUE` (`email`),
   UNIQUE KEY `idUser_UNIQUE` (`idUser`),
@@ -258,8 +397,17 @@ CREATE TABLE `user` (
   CONSTRAINT `group_user` FOREIGN KEY (`groupId`) REFERENCES `team` (`idGroup`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `userCredentials_user` FOREIGN KEY (`userCredentialsId`) REFERENCES `usercredentials` (`idUserCredentials`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `userRole_user` FOREIGN KEY (`userRoleId`) REFERENCES `userrole` (`idUserRole`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `userchallenge`
@@ -282,19 +430,13 @@ CREATE TABLE `userchallenge` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `usercredentials`
+-- Dumping data for table `userchallenge`
 --
 
-DROP TABLE IF EXISTS `usercredentials`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usercredentials` (
-  `idUserCredentials` int(11) NOT NULL AUTO_INCREMENT,
-  `password` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`idUserCredentials`),
-  UNIQUE KEY `idUserCredentials_UNIQUE` (`idUserCredentials`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `userchallenge` WRITE;
+/*!40000 ALTER TABLE `userchallenge` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userchallenge` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `userrole`
@@ -305,11 +447,21 @@ DROP TABLE IF EXISTS `userrole`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `userrole` (
   `idUserRole` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(45) NOT NULL,
+  `roleId` varchar(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
   PRIMARY KEY (`idUserRole`),
   UNIQUE KEY `idUserRole_UNIQUE` (`idUserRole`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userrole`
+--
+
+LOCK TABLES `userrole` WRITE;
+/*!40000 ALTER TABLE `userrole` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userrole` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -320,4 +472,4 @@ CREATE TABLE `userrole` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-12 23:29:50
+-- Dump completed on 2015-11-16 11:25:58

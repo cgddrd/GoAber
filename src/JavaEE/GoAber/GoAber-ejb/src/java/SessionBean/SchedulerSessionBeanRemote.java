@@ -15,11 +15,11 @@ import javax.ejb.Remote;
 @Remote
 public interface SchedulerSessionBeanRemote {
 
-    boolean AddJob(IJobDetail ao_job);
+    boolean AddJob(DTO.IJobDetail ao_job);
 
     boolean RemoveJob(IJobDetail ao_job);
 
-    boolean EditJob(IJobDetail ao_job);
+    Boolean EditJob(DTO.IJobDetail ao_job);
 
     String TestRemoteMethod();
     

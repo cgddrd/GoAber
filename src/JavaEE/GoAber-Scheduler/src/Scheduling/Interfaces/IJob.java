@@ -12,6 +12,6 @@ import java.util.Date;
  * @author Dan
  */
 public interface IJob {
-    String getID();
+    Integer getJobType();
     void run();
 }
