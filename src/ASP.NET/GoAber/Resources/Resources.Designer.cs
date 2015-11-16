@@ -277,20 +277,20 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string AD_Subtitle {
+            get {
+                return ResourceManager.GetString("AD_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community.
         /// </summary>
         public static string AdminCommunitiesController_Create_Title {
             get {
                 return ResourceManager.GetString("AdminCommunitiesController_Create_Title", resourceCulture);
-	   }
-	}
-
-        /// <summary>
-	///   Looks up a localized string similar to Activity Data.
-        /// </summary>
-        public static string AD_Subtitle {
-            get {
-                return ResourceManager.GetString("AD_Subtitle", resourceCulture);
             }
         }
         
@@ -345,10 +345,10 @@ namespace Resources {
         public static string BackToList {
             get {
                 return ResourceManager.GetString("BackToList", resourceCulture);
-	   }
-	}
-	
-	/// <summary>
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string Category {
@@ -822,11 +822,11 @@ namespace Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
-	    }
-	}
-
+            }
+        }
+        
         /// <summary>
-	///   Looks up a localized string similar to Unit.
+        ///   Looks up a localized string similar to Unit.
         /// </summary>
         public static string Unit {
             get {
