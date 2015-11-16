@@ -59,7 +59,8 @@ public class AuthController implements Serializable {
         
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         
-        forwardURL = (String) externalContext.getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
+        // CG - Removed this temporarily to prevent forwarding issues. - Need to look at this again.
+        //forwardURL = (String) externalContext.getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
 
         if (forwardURL == null) {
             forwardURL = externalContext.getRequestContextPath() + "/faces/index.xhtml";
@@ -83,8 +84,10 @@ public class AuthController implements Serializable {
         
     }
     
-    public boolean isAdmin() {     
+    public boolean isAdmin() {    
+        
         return this.isLoggedIn() && this.activeUser.getRoleId().getIdRole().equals("admin");
+
     }
    
     // CG - userController.loggedInUser
