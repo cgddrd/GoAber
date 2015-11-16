@@ -64,10 +64,10 @@ public class CommunityController implements Serializable {
     public String create() {
         try {
             getFacade().create(getCurrent());
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("CommunityCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommunityCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
