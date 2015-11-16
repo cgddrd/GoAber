@@ -6,7 +6,7 @@
 
 <ui:composition template="/template.xhtml">
     <ui:define name="title">
-        <h:outputText value="Administartor Control Panel"></h:outputText>
+        <h:outputText value="Administrator Control Panel"></h:outputText>
     </ui:define>
     <ui:define name="body">
         <h:panelGroup id="messagePanel" layout="block">
@@ -15,6 +15,8 @@
         <h:link outcome="/admin/activityData/List" value="Manage Activity Data"/>
         <br />
         <h:link outcome="/admin/community/List" value="Manage Communities"/>
+	<br />
+	<h:link outcome="/admin/user/List" value="Manage User Data"/>
         <br />
     </ui:define>
 </ui:composition>

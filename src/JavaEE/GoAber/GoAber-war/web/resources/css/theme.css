@@ -19,10 +19,17 @@ body {
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
-textarea {
+textarea,
+.datepicker {
     max-width: 280px;
 }
 
+.ui-calendar input {width: 280px;}
+
 .paginator {
     text-align: center;
+}
+
+.form-inline > * {
+   margin:5px 3px;
 }
