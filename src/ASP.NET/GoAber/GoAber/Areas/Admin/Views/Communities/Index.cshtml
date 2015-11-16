@@ -1,0 +1,42 @@
+﻿@model IEnumerable<GoAber.Models.Community>
+
+@{
+    ViewBag.Title = Resources.Resources.AdminCommunitiesController_Index_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.ViewBag.title</h2>
+
+<p>
+    @Html.ActionLink(Resources.Resources.CreateNew, "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.endpointUrl)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.endpointUrl)
+        </td>
+        <td>
+            @Html.ActionLink(Resources.Resources.Edit, "Edit", new { id=item.Id }) |
+            @Html.ActionLink(Resources.Resources.Details, "Details", new { id=item.Id }) |
+            @Html.ActionLink(Resources.Resources.Delete, "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.Partial("../Shared/_Pager", Model)

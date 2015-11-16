@@ -19,7 +19,7 @@ namespace GoAber.Areas.Admin
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
-                new { controller = "ControlPanel|ActivityData" },
+                new { controller = "ControlPanel|ActivityData|Communities" },
                 new[] { "GoAber.Areas.Admin.Controllers" }
             );
         }

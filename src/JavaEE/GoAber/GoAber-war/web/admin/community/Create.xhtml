@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateCommunityTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateCommunityLabel_name}" for="value" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="name" value="#{adminCommunityController.selected.name}" title="#{bundle.CreateCommunityTitle_name}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateCommunityLabel_endpointUrl}" for="value" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="endpointUrl" value="#{adminCommunityController.selected.endpointUrl}" title="#{bundle.CreateCommunityTitle_endpointUrl}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <h:commandLink class="btn btn-default" action="#{adminCommunityController.create}" value="#{bundle.CreateCommunitySaveLink}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <h:commandLink action="#{adminCommunityController.prepareList}" value="#{bundle.CreateCommunityShowAllLink}" immediate="true"/>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
