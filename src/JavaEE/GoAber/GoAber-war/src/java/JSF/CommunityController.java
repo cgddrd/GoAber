@@ -189,7 +189,7 @@ public class CommunityController implements Serializable {
     }
 
 
-    @FacesConverter(forClass=Community.class)
+    @FacesConverter(value="communityConverter", forClass=Community.class)
     public static class CommunityControllerConverter implements Converter {
 
         @Override

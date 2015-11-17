@@ -5,6 +5,7 @@
  */
 package JSF;
 
+import JSF.auth.AuthController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -33,6 +34,9 @@ public class LogoutServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        AuthController test = new AuthController();
+        
         
         request.logout();
         HttpSession session = request.getSession();

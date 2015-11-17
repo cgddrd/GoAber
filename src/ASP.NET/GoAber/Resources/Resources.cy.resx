@@ -276,4 +276,70 @@
   <data name="_LoginPartial_cshtml_Execute_Register" xml:space="preserve">
     <value>[WELSH]Register</value>
   </data>
+  <data name="AdminTeamsController_Index_Title" xml:space="preserve">
+    <value>[WELSH]Teams</value>
+  </data>
+  <data name="AdminTeamsController_Subtitle" xml:space="preserve">
+    <value>[WELSH]Teams</value>
+  </data>
+  <data name="AdminCommunitiesController_Create_Title" xml:space="preserve">
+    <value>[WELSH]Community</value>
+  </data>
+  <data name="AdminCommunitiesController_Delete_Title" xml:space="preserve">
+    <value>[WELSH]Community</value>
+  </data>
+  <data name="AdminCommunitiesController_Details_Title" xml:space="preserve">
+    <value>[WELSH]Community</value>
+  </data>
+  <data name="AdminCommunitiesController_Edit_Title" xml:space="preserve">
+    <value>[WELSH]Community</value>
+  </data>
+  <data name="AdminCommunitiesController_Index_Title" xml:space="preserve">
+    <value>[WELSH]Communities</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>[WELSH]Back to List</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>[WELSH]Create New</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>[WELSH]Delete</value>
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>[WELSH]Are you sure you want to delete this?</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>[WELSH]Details</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>[WELSH]Edit</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>[WELSH]Save</value>
+  </data>
+  <data name="AdminControlPanelTitle" xml:space="preserve">
+    <value>[WELSH]Admin Control Panel</value>
+  </data>
+  <data name="ManageActivityData" xml:space="preserve">
+    <value>[WELSH]Manage Activity Data</value>
+  </data>
+  <data name="ManageCommunities" xml:space="preserve">
+    <value>[WELSH]Manage Communities</value>
+  </data>
+  <data name="AD_Subtitle" xml:space="preserve">
+    <value>[WELSH]Activity Data</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>[WELSH]Category</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>[WELSH]Unit</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_ActivityData" xml:space="preserve">
+    <value>[WELSH]Activity Data</value>
+  </data>
+  <data name="ManageTeams" xml:space="preserve">
+    <value>[WELSH]ManageTeams</value>
+  </data>
 </root>
