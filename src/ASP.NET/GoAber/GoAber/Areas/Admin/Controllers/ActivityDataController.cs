@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GoAber.ActionFilters;
 using GoAber.Areas.Admin.Models;
+using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -24,6 +25,8 @@ namespace GoAber.Areas.Admin.Controllers
 
         //private GoAberEntities db = new GoAberEntities();
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ActivityDataService dataService = new ActivityDataService();
+        private CategoryUnitService categoryUnitService = new CategoryUnitService();
 
         private ApplicationUserManager _userManager;
 
@@ -44,14 +47,11 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ActivityData
         public ActionResult Index(int? page)
         {
-            var activityData = db.ActivityDatas
-                                    .Include(a => a.categoryunit)
-                                    .Include(a => a.User)
-                                    .OrderBy(a => a.date);
+            var activityData = dataService.getAllActivityData();
 
             int pageNumber = (page ?? 1);
-            
-            var categories = CreateCategoryUnitList();
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             return View(activityData.ToPagedList(pageNumber, pageSize));
         }
@@ -60,12 +60,11 @@ namespace GoAber.Areas.Admin.Controllers
         [MultipleButton(Name = "action", Argument = "Filter")]
         public ActionResult Index(int? page, FilterViewModel filterParams)
         {
-            var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
-            activityData = ApplyFiltersToActivityData(activityData, filterParams);
-            activityData = activityData.OrderBy(a => a.date);
-
             int pageNumber = (page ?? 1);
-            var categories = CreateCategoryUnitList();
+            var activityData = dataService.getAllActivityData();
+            activityData = ApplyFiltersToActivityData((IQueryable<ActivityData>) activityData, filterParams);
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             return View("Index", activityData.ToPagedList(pageNumber, pageSize));
         }
@@ -94,7 +93,7 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ActivityData/Create
         public ActionResult Create()
         {
-            var categories = CreateCategoryUnitList();
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
 
             // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
@@ -113,13 +112,11 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                activityData.lastUpdated = DateTime.Now;
-                db.ActivityDatas.Add(activityData);
-                db.SaveChanges();
+                dataService.createActivityData(activityData);
                 return RedirectToAction("Index");
             }
 
-            var categories = CreateCategoryUnitList();
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
             ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.ApplicationUserId);
             return View(activityData);
@@ -132,13 +129,13 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas.Find(id);
+            ActivityData activityData = dataService.getActivityDataById(id.Value);
             if (activityData == null)
             {
                 return HttpNotFound();
             }
 
-            var categories = CreateCategoryUnitList();
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
             ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.ApplicationUserId);
             return View(activityData);
@@ -153,13 +150,11 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                activityData.lastUpdated = DateTime.Now;
-                db.Entry(activityData).State = EntityState.Modified;
-                db.SaveChanges();
+                dataService.editActivityData(activityData);
                 return RedirectToAction("Index");
             }
 
-            var categories = CreateCategoryUnitList();
+            var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", activityData.categoryUnitId);
             ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.ApplicationUserId);
             return View(activityData);
@@ -185,9 +180,7 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ActivityData activityData = db.ActivityDatas.Find(id);
-            db.ActivityDatas.Remove(activityData);
-            db.SaveChanges();
+            dataService.deleteActivityData(id);
             return RedirectToAction("Index");
         }
 

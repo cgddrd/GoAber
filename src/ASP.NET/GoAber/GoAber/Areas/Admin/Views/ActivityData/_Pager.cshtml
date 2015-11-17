@@ -1,6 +1,0 @@
-﻿@using PagedList.Mvc;
-@model PagedList.IPagedList<GoAber.Models.ActivityData>
-
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))

@@ -6,7 +6,9 @@ import JSF.util.PaginationHelper;
 import SessionBean.RoleFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -28,10 +30,27 @@ public class RoleController implements Serializable {
     private SessionBean.RoleFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    // CG - In order to change the label in 'selectItems' components, we need to pass it a list of Role objects.
+    // See: http://stackoverflow.com/a/7641032 for more information.
+    private List<Role> availableRoles;
 
-    public RoleController() {
+    public List<Role> getAvailableRoles() {
+        return availableRoles;
     }
 
+    public void setAvailableRoles(List<Role> availableRoles) {
+        this.availableRoles = availableRoles;
+    }
+    
+    public RoleController() {
+    }
+    
+    @PostConstruct
+    public void init() {
+        availableRoles = ejbFacade.findAll();
+    }
+   
     public Role getSelected() {
         if (current == null) {
             current = new Role();

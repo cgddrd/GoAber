@@ -11,7 +11,8 @@ namespace GoAber.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Team
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +23,10 @@ namespace GoAber.Models
         }
     
         public int Id { get; set; }
+        [DisplayName("Name")]
         public string name { get; set; }
+        [DisplayName("Community")]
         public Nullable<int> communityId { get; set; }
-    
         public virtual Community community { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<User> users { get; set; }

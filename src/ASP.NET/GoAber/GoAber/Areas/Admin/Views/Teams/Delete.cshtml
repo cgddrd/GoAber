@@ -1,0 +1,41 @@
+﻿@model GoAber.Models.Team
+
+@{
+    ViewBag.Title = Resources.Resources.Delete;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@(Resources.Resources.DeleteConfirmation)</h3>
+<div>
+    <h4>@(Resources.Resources.AdminTeamsController_Subtitle)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.communityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.community.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@(Resources.Resources.Delete)" class="btn btn-default" /> |
+            @Html.ActionLink(Resources.Resources.BackToList, "Index")
+        </div>
+    }
+</div>
