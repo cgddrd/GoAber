@@ -3,7 +3,7 @@ namespace GoAber.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -193,17 +193,16 @@ namespace GoAber.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         deviceTypeId = c.Int(nullable: false),
-                        userId = c.Int(nullable: false),
                         accessToken = c.String(maxLength: 450),
                         refreshToken = c.String(maxLength: 450),
                         tokenExpiration = c.DateTime(),
-                        user_Id = c.String(maxLength: 128),
+                        ApplicationUserId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.DeviceTypes", t => t.deviceTypeId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.user_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
                 .Index(t => t.deviceTypeId)
-                .Index(t => t.user_Id);
+                .Index(t => t.ApplicationUserId);
             
             CreateTable(
                 "dbo.DeviceTypes",
@@ -216,8 +215,22 @@ namespace GoAber.Migrations
                         consumerSecret = c.String(),
                         clientId = c.String(),
                         authorizationEndpoint = c.String(),
+                        apiEndpoint = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Jobs",
+                c => new
+                    {
+                        id = c.String(nullable: false, maxLength: 100),
+                        secretid = c.String(),
+                        tasktype = c.Int(nullable: false),
+                        schedtype = c.Int(nullable: false),
+                        minutes = c.Int(nullable: false),
+                        status_flag = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -234,7 +247,7 @@ namespace GoAber.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Devices", "user_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Devices", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Devices", "deviceTypeId", "dbo.DeviceTypes");
             DropForeignKey("dbo.UserChallenges", "user_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.UserChallenges", "challengeId", "dbo.Challenges");
@@ -251,7 +264,7 @@ namespace GoAber.Migrations
             DropForeignKey("dbo.CategoryUnits", "categoryId", "dbo.Categories");
             DropForeignKey("dbo.ActivityDatas", "categoryUnitId", "dbo.CategoryUnits");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Devices", new[] { "user_Id" });
+            DropIndex("dbo.Devices", new[] { "ApplicationUserId" });
             DropIndex("dbo.Devices", new[] { "deviceTypeId" });
             DropIndex("dbo.UserChallenges", new[] { "user_Id" });
             DropIndex("dbo.UserChallenges", new[] { "challengeId" });
@@ -270,6 +283,7 @@ namespace GoAber.Migrations
             DropIndex("dbo.ActivityDatas", new[] { "ApplicationUserId" });
             DropIndex("dbo.ActivityDatas", new[] { "categoryUnitId" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Jobs");
             DropTable("dbo.DeviceTypes");
             DropTable("dbo.Devices");
             DropTable("dbo.UserChallenges");

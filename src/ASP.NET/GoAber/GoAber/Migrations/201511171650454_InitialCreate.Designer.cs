@@ -7,13 +7,13 @@ namespace GoAber.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AfterMerge : IMigrationMetadata
+    public sealed partial class InitialCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AfterMerge));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201511171451451_AfterMerge"; }
+            get { return "201511171650454_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
