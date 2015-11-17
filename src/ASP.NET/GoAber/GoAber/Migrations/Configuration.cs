@@ -96,10 +96,20 @@ namespace GoAber.Migrations
                 new CategoryUnit() { category = new Category() { name = "Walking" }, unit = new Unit() {name = "Steps"} }
                 );
 
+            context.CategoryUnits.AddOrUpdate(x => x.Id,
+                new CategoryUnit() { category = new Category() { name = "HeartRate" }, unit = new Unit() { name = "Beats" } }
+                );
+
             context.DeviceTypes.AddOrUpdate(x => x.Id,
-                new DeviceType() { name = "fitbit", tokenEndpoint = @"https://api.fitbit.com/oauth2/token", consumerKey = "e06d4e7dcbc6fc80c0d00b187b6fb2e1", consumerSecret = "bafe21eca0c10cfe54f21e9b685f041f", clientId = "229R69" , authorizationEndpoint = @"https://www.fitbit.com/oauth2/authorize" }
+                new DeviceType() { name = "Fitbit", tokenEndpoint = @"https://api.fitbit.com/oauth2/token", consumerKey = "e06d4e7dcbc6fc80c0d00b187b6fb2e1", consumerSecret = "bafe21eca0c10cfe54f21e9b685f041f", clientId = "229R69" , authorizationEndpoint = @"https://www.fitbit.com/oauth2/authorize", apiEndpoint = @"https://api.fitbit.com/1/user/-" }
             );
 
+
+            context.DeviceTypes.AddOrUpdate(x => x.Id,
+                new DeviceType() { name = "Jawbone", tokenEndpoint = @"https://jawbone.com/auth/oauth2/token", consumerSecret = "f0ca3e7da09288d18bc5b4053704f1a3e43d22da", clientId = "2mcFGghH9so",  authorizationEndpoint = @"https://jawbone.com/auth/oauth2/auth", apiEndpoint= @"https://jawbone.com/nudge/api/v.1.1/users/@me" }
+            );
+
+            
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.

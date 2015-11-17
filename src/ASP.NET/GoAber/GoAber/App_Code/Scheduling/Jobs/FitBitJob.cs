@@ -33,25 +33,25 @@ namespace GoAber.Scheduling.Jobs
         {
            
             Debug.WriteLine("CALLED FITBIT");
-            FitBitController lo_fitbitcont = new FitBitController();
-            DateTime lda_today = DateTime.Today;
+            //FitBitController lo_fitbitcont = new FitBitController();
+            //DateTime lda_today = DateTime.Today;
 
 
-            string[] ls_usernames = GetUserNames();
-            ActivityData lo_days;
+            //string[] ls_usernames = GetUserNames();
+            //ActivityData lo_days;
 
-            for (int i = 0; i < ls_usernames.Length; i++)
-            {
-                lo_days = lo_fitbitcont.GetDayActivities("/activities/date/", ls_usernames[i], lda_today.Day, lda_today.Month, lda_today.Year);
-                if (lo_days != null)
-                {
-                    Debug.WriteLine(lo_days.value);
-                }
-                else
-                {
-                    Debug.WriteLine("Data is null");
-                }
-            }
+            //for (int i = 0; i < ls_usernames.Length; i++)
+            //{
+            //    lo_days = lo_fitbitcont.GetDayActivities("/activities/date/", ls_usernames[i], lda_today.Day, lda_today.Month, lda_today.Year);
+            //    if (lo_days != null)
+            //    {
+            //        Debug.WriteLine(lo_days.value);
+            //    }
+            //    else
+            //    {
+            //        Debug.WriteLine("Data is null");
+            //    }
+            //}
         }
 
         private string[] GetUserNames()

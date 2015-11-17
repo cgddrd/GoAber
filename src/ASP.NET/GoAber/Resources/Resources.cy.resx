@@ -279,8 +279,14 @@
  <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
     <value>[WELSH]FitBit</value>
   </data>
+  <data name="AdminTeamsController_Index_Title" xml:space="preserve">
+    <value>[WELSH]Teams</value>
+  </data>
   <data name="_Layout_cshtml_Execute_Jobs" xml:space="preserve">
     <value>[WELSH]Jobs</value>
+  </data>
+  <data name="AdminTeamsController_Subtitle" xml:space="preserve">
+    <value>[WELSH]Teams</value>
   </data>
   <data name="AdminCommunitiesController_Create_Title" xml:space="preserve">
     <value>[WELSH]Community</value>
@@ -338,5 +344,8 @@
   </data>
   <data name="_Layout_cshtml_Execute_ActivityData" xml:space="preserve">
     <value>[WELSH]Activity Data</value>
-  </data>s
+  </data>
+  <data name="ManageTeams" xml:space="preserve">
+    <value>[WELSH]ManageTeams</value>
+  </data>
 </root>

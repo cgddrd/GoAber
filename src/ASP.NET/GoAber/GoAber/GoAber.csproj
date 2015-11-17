@@ -298,6 +298,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
@@ -312,6 +313,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ManualHttpRequest.cs" />
     <Compile Include="Migrations\201511091350555_Init.cs" />
     <Compile Include="Migrations\201511091350555_Init.Designer.cs">
       <DependentUpon>201511091350555_Init.cs</DependentUpon>
@@ -324,6 +326,10 @@
     <Compile Include="Migrations\201511111533173_Jobs.Designer.cs">
       <DependentUpon>201511111533173_Jobs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511111040466_Init.cs" />
+    <Compile Include="Migrations\201511111040466_Init.Designer.cs">
+      <DependentUpon>201511111040466_Init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201511161607104_Jobs1.cs" />
     <Compile Include="Migrations\201511161607104_Jobs1.Designer.cs">
       <DependentUpon>201511161607104_Jobs1.cs</DependentUpon>
@@ -331,6 +337,10 @@
     <Compile Include="Migrations\201511162221451_Jobs2.cs" />
     <Compile Include="Migrations\201511162221451_Jobs2.Designer.cs">
       <DependentUpon>201511162221451_Jobs2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511171451451_AfterMerge.cs" />
+    <Compile Include="Migrations\201511171451451_AfterMerge.Designer.cs">
+      <DependentUpon>201511171451451_AfterMerge.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
@@ -352,6 +362,8 @@
     <Compile Include="Models\Unit.cs" />
     <Compile Include="Models\UserChallenge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CommunitiesService.cs" />
+    <Compile Include="Services\TeamsService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -450,8 +462,13 @@
     <Content Include="Areas\Admin\Views\ActivityData\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ActivityData\_Pager.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\_Filter.cshtml" />
+    <Content Include="Areas\Admin\Views\Teams\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Teams\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Teams\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Teams\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Teams\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -530,7 +547,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -560,11 +576,17 @@
     <EmbeddedResource Include="Migrations\201511111533173_Jobs.resx">
       <DependentUpon>201511111533173_Jobs.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111040466_Init.resx">
+      <DependentUpon>201511111040466_Init.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511161607104_Jobs1.resx">
       <DependentUpon>201511161607104_Jobs1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511162221451_Jobs2.resx">
       <DependentUpon>201511162221451_Jobs2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511171451451_AfterMerge.resx">
+      <DependentUpon>201511171451451_AfterMerge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
