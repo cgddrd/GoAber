@@ -339,4 +339,7 @@
   <data name="_Layout_cshtml_Execute_ActivityData" xml:space="preserve">
     <value>[WELSH]Activity Data</value>
   </data>
+  <data name="ManageTeams" xml:space="preserve">
+    <value>[WELSH]ManageTeams</value>
+  </data>
 </root>
