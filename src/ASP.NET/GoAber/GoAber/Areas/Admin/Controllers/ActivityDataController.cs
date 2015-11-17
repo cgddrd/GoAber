@@ -14,6 +14,7 @@ using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GoAber.ActionFilters;
+using GoAber.Areas.Admin.Models;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -57,10 +58,10 @@ namespace GoAber.Areas.Admin.Controllers
 
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "Filter")]
-        public ActionResult Index(int? page, string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
+        public ActionResult Index(int? page, FilterViewModel filterParams)
         {
             var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
-            activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit, fromDate, toDate);
+            activityData = ApplyFiltersToActivityData(activityData, filterParams);
             activityData = activityData.OrderBy(a => a.date);
 
             int pageNumber = (page ?? 1);
@@ -192,26 +193,20 @@ namespace GoAber.Areas.Admin.Controllers
 
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "BatchDelete")]
-        public ActionResult Index(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null) {
+        public ActionResult Index(FilterViewModel filterParams) {
             var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
-            activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit, fromDate, toDate);
-
-            ViewBag.Size = activityData.Count();
-            ViewBag.Email = email;
-            ViewBag.IdCategoryUnit = idCategoryUnit;
-            ViewBag.FromDate = fromDate;
-            ViewBag.toDate = toDate;
-
-            return View("BatchDelete", activityData);
+            activityData = ApplyFiltersToActivityData(activityData, filterParams);
+            filterParams.Size = activityData.Count();
+            return View("BatchDelete", filterParams);
         }
 
         // POST: Admin/ActivityData/BatchDelete
         [HttpPost, ActionName("BatchDelete")]
         [ValidateAntiForgeryToken]
-        public ActionResult BatchDelete(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
+        public ActionResult BatchDelete(FilterViewModel filterParams)
         {
             var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
-            activityData = ApplyFiltersToActivityData(activityData, email, idCategoryUnit, fromDate, toDate);
+            activityData = ApplyFiltersToActivityData(activityData, filterParams);
 
             foreach (var item in activityData)
             {
@@ -244,26 +239,26 @@ namespace GoAber.Areas.Admin.Controllers
             return categories;
         }
 
-        private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, string email, int? categoryUnitId, DateTime? fromDate, DateTime? toDate)
+        private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, FilterViewModel filterParams)
         {
-            if (!String.IsNullOrEmpty(email))
+            if (!String.IsNullOrEmpty(filterParams.Email))
             {
-                activityData = activityData.Where(a => a.User.Email.Contains(email));
+                activityData = activityData.Where(a => a.User.Email.Contains(filterParams.Email));
             }
 
-            if (categoryUnitId.HasValue)
+            if (filterParams.CategoryUnitId > 0)
             {
-                activityData = activityData.Where(a => a.categoryunit.Id == categoryUnitId);
+                activityData = activityData.Where(a => a.categoryunit.Id == filterParams.CategoryUnitId);
             }
 
-            if (fromDate.HasValue)
+            if (filterParams.FromDate != null)
             {
-                activityData = activityData.Where(a => a.date >= fromDate);
+                activityData = activityData.Where(a => a.date >= filterParams.FromDate);
             }
 
-            if (toDate.HasValue)
+            if (filterParams.ToDate != null)
             {
-                activityData = activityData.Where(a => a.date <= toDate);
+                activityData = activityData.Where(a => a.date <= filterParams.ToDate);
             }
 
             return activityData;
