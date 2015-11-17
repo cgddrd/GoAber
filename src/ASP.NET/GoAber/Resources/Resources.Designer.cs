@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_ActivityData {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_ActivityData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string _Layout_cshtml_Execute_Admin {
@@ -273,6 +282,15 @@ namespace Resources {
         public static string AdminTeamsController_Index_Title {
             get {
                 return ResourceManager.GetString("AdminTeamsController_Index_Title", resourceCulture);
+	    }
+	}
+
+	/// <summary>
+        ///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string AD_Subtitle {
+            get {
+                return ResourceManager.GetString("AD_Subtitle", resourceCulture);
             }
         }
         
@@ -282,6 +300,60 @@ namespace Resources {
         public static string AdminTeamsController_Subtitle {
             get {
                 return ResourceManager.GetString("AdminTeamsController_Subtitle", resourceCulture);
+	    }
+	}
+        
+	/// <summary>
+	///   Looks up a localized string similar to Community.
+        /// </summary>
+        public static string AdminCommunitiesController_Create_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Create_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community.
+        /// </summary>
+        public static string AdminCommunitiesController_Delete_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Delete_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community.
+        /// </summary>
+        public static string AdminCommunitiesController_Details_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Details_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community.
+        /// </summary>
+        public static string AdminCommunitiesController_Edit_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Edit_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communities.
+        /// </summary>
+        public static string AdminCommunitiesController_Index_Title {
+            get {
+                return ResourceManager.GetString("AdminCommunitiesController_Index_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin Control Panel.
+        /// </summary>
+        public static string AdminControlPanelTitle {
+            get {
+                return ResourceManager.GetString("AdminControlPanelTitle", resourceCulture);
             }
         }
         
@@ -291,6 +363,15 @@ namespace Resources {
         public static string BackToList {
             get {
                 return ResourceManager.GetString("BackToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
             }
         }
         
@@ -507,6 +588,24 @@ namespace Resources {
         public static string Manage_VerifyPhoneNumber_cshtml_Execute_Verify_Phone_Number {
             get {
                 return ResourceManager.GetString("Manage_VerifyPhoneNumber_cshtml_Execute_Verify_Phone_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Activity Data.
+        /// </summary>
+        public static string ManageActivityData {
+            get {
+                return ResourceManager.GetString("ManageActivityData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Communities.
+        /// </summary>
+        public static string ManageCommunities {
+            get {
+                return ResourceManager.GetString("ManageCommunities", resourceCulture);
             }
         }
         
@@ -741,6 +840,15 @@ namespace Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit.
+        /// </summary>
+        public static string Unit {
+            get {
+                return ResourceManager.GetString("Unit", resourceCulture);
             }
         }
     }
