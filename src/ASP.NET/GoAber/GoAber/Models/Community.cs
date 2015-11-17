@@ -11,7 +11,8 @@ namespace GoAber.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Community
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +23,9 @@ namespace GoAber.Models
         }
     
         public int Id { get; set; }
+        [DisplayName("Name")]
         public string name { get; set; }
+        [DisplayName("Endpoint URL")]
         public string endpointUrl { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

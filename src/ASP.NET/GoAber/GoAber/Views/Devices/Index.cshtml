@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Device connections</h2>
+
+<p>
+    <ul>
+        <li>
+        @if (ViewBag.FitBitConnected != true)
+        {
+            <h3>FitBit not connected</h3>
+            @Html.ActionLink("Create connection", "StartOAuth", "FitBit")
+        }
+        else
+        {
+            <h3>FitBit is Connected</h3>
+            <ul>
+                <li>@Html.ActionLink("Manage connection", "Index", "FitBit")</li>
+                <li>@Html.ActionLink("Delete connection", "Delete", "Devices", new { deviceID = ViewBag.FitBitDeviceID }, null)</li>
+            </ul>
+        }
+        </li>
+        <li>
+        @if (ViewBag.JawBoneConnected != true)
+        {
+            <h3>JawBone is not connected</h3>
+            @Html.ActionLink("Create connection", "StartOAuth", "JawBone")
+        }
+        else
+        {
+            <h3>JawBone is Connected</h3>
+            <ul>
+                <li>@Html.ActionLink("Manage connection", "Index", "JawBone")</li>
+                <li>@Html.ActionLink("Delete connection", "Delete", "Devices", new { deviceID = ViewBag.JawBoneDeviceID }, null)</li>
+            </ul>
+            }
+       </li>
+    </ul>
+</p>

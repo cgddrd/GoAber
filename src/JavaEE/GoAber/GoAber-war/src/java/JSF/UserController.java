@@ -3,10 +3,12 @@ package JSF;
 import GoAberDatabase.Role;
 import GoAberDatabase.User;
 import GoAberDatabase.UserRole;
+import JSF.auth.AuthController;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.UserFacade;
 import SessionBean.UserRoleFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -18,8 +20,10 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -36,23 +40,58 @@ public class UserController implements Serializable {
 
     private User current;
     private DataModel items = null;
-    @EJB private SessionBean.UserFacade ejbFacade;
+    
+    @EJB 
+    private SessionBean.UserFacade ejbFacade;
+    
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
     private MessageDigest md;
     
+    // CG - Here we are using dependency injection to grab a reference to the session-scoped 'authController' reference.
+    // See: http://www.mkyong.com/jsf2/injecting-managed-beans-in-jsf-2-0/ for more information.
+    @ManagedProperty(value="#{authController}")
+    private AuthController authController;
+    
+    // CG - When using DI via '@ManagedProperty' we need to make sure the property setter is available.
+    // See: http://www.mkyong.com/jsf2/jsf-2-0-managed-bean-x-does-not-exist-check-that-appropriate-getter-andor-setter-methods-exist/ for more information.
+    public void setAuthController(AuthController authController) {
+        this.authController = authController;
+    }
+    
     private UserRole currentUR;
     
-    @EJB private SessionBean.UserRoleFacade urEJBFacade;
-    @EJB private SessionBean.RoleFacade rEJBFacade;
+    @EJB 
+    private SessionBean.UserRoleFacade urEJBFacade;
+    
+    @EJB 
+    private SessionBean.RoleFacade rEJBFacade;
     
     public UserController() {
     }
     
     @PostConstruct
     public void Init() {
+        
         currentUR = new UserRole();
+        //authController = new AuthController();
+        
+        try {
+            
+           User activeUser = authController.getActiveUser();
+        
+        if (activeUser != null) {
+            
+            current = activeUser;
+            
+        } 
+            
+        } catch (Exception ex) {
+            
+            current = new User();
+        }
+        
     }
 
     public User getSelected() {
@@ -66,7 +105,7 @@ public class UserController implements Serializable {
     private UserFacade getFacade() {
         return ejbFacade;
     }
-    
+        
     private UserRoleFacade getURFacade() {
         return urEJBFacade;
     }
@@ -93,6 +132,12 @@ public class UserController implements Serializable {
         recreateModel();
         return "List";
     }
+    
+    public String prepareAccountView() {
+        current = authController.getActiveUser();
+        selectedItemIndex = -1;
+        return "/account/View";
+    }
 
     public String prepareView() {
         current = (User)getItems().getRowData();
@@ -100,13 +145,29 @@ public class UserController implements Serializable {
         return "View";
     }
 
-    public String prepareCreate() {
+    public String prepareCreate() throws IOException {
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        
         current = new User();
         selectedItemIndex = -1;
-        return "Create";
+        
+        // CG - Make sure that the 'user registration success' message is displayed to the user in the login page.
+        // CG - WE MAY NEED TO TURN THIS OFF AGAIN?
+        // See: http://stackoverflow.com/a/12485381 for more information.
+        externalContext.getFlash().setKeepMessages(true);
+        
+        //externalContext.redirect(externalContext.getRequestContextPath() + "/faces/login/index.xhtml");
+        
+        // CG - Instead of re-directing via externalContext object, we can just add 'faces-redirect=true' as a URL param.
+        // See: http://stackoverflow.com/a/3642969 for more information.
+        return "/login/index?faces-redirect=true";
+        
     }
-
+    
     public String create() {
+        
         try {
             
             Role participantRole = rEJBFacade.find("participant");
@@ -118,9 +179,6 @@ public class UserController implements Serializable {
             currentUR.setRoleId(participantRole);
             currentUR.setEmail(current.getEmail());
             
-            // CG - Don't need to do this anymore, as the cascade inside the 'User' EJB makes sure this is created.
-            //getURFacade().create(currentUR);
-            
             // CG - Setup our new user.
             current.setRoleId(participantRole);
             current.setUserRoleId(currentUR);
@@ -128,10 +186,15 @@ public class UserController implements Serializable {
             getFacade().create(current);
             
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
+            
+            authController.setUsername(current.getEmail());
+            authController.setPassword(current.getPassword());
+            
             return prepareCreate();
+            
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
+           return null;
         }
     }
     
@@ -151,6 +214,12 @@ public class UserController implements Serializable {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public String prepareAccountEdit() {
+        current = authController.getActiveUser();
+        selectedItemIndex = -1;
+        return "/account/Edit";
     }
 
     public String prepareEdit() {

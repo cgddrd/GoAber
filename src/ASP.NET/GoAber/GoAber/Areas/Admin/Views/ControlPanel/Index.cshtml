@@ -1,12 +1,13 @@
 ﻿
 @{
-    ViewBag.Title = "Admin Control Panel";
+    ViewBag.Title = Resources.Resources.AdminControlPanelTitle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <ul>
-    <li>@Html.ActionLink("Manage Activity Data", "Index", "ActivityData")</li>
+    <li>@Html.ActionLink(Resources.Resources.ManageActivityData, "Index", "ActivityData")</li>
+    <li>@Html.ActionLink(Resources.Resources.ManageCommunities, "Index", "Communities")</li>
 </ul>
 

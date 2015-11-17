@@ -137,6 +137,13 @@ public class User implements Serializable {
 
     public void setRoleId(Role roleId) {
         this.roleId = roleId;
+        
+        // CG - When we update the 'Role' property for a user, we will always want to cascade this update  to the UserRole property as well.
+        //this.userRoleId.setRoleId(roleId);
+        this.userRoleId = new UserRole();
+        this.userRoleId.setEmail(email);
+        this.userRoleId.setRoleId(roleId);
+        
     }
 
     @XmlTransient
