@@ -58,6 +58,8 @@ public class JawboneCallbackServlet extends HttpServlet {
         String code = request.getParameter("code");
         DeviceApi deviceApi = (DeviceApi)request.getSession().getAttribute("DeviceApi");
         deviceApi.getAndSaveTokens(code);
+        
+        response.sendRedirect("faces/Jawbone/Test.xhtml");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -64,6 +64,8 @@ public abstract class DeviceApi extends DefaultApi20
     CategoryUnitFacade categoryUnitFacade = lookupCategoryUnitFacadeBean();
     
     int steps;
+    
+    
     //@EJB
     //private SessionBean.DeviceTypeFacade deviceTypeFacade;
     //@Resource(name="GoAber-warPU") 
@@ -188,16 +190,30 @@ public abstract class DeviceApi extends DefaultApi20
     public ActivityData getActivityData(String requestUrl, String jsonPath, int day, int month, int year, User userId, CategoryUnit categoryUnitId)
     {
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
-        String accessToken = "DudD7GQwFndHxVmzLrCosqaNfvpKhnpei9CNJoIWGu4rfNK5-JnYRwe7lF3FqWj7kKMwPvEBJ55RAnYEZaPxlCzIBmUtBLpsaym2RYjpp5gDwoQTw2eSTw";//deviceFacade.findByUserAndDeviceType(userId, deviceType).getAccessToken();
+        String accessToken = "DudD7GQwFndHxVmzLrCosqaNfvpKhnpei9CNJoIWGu7B-9H82ApHNbiJqgN0BxeIkKMwPvEBJ55RAnYEZaPxlCzIBmUtBLpsaym2RYjpp5gDwoQTw2eSTw";//"DudD7GQwFndHxVmzLrCosqaNfvpKhnpei9CNJoIWGu4rfNK5-JnYRwe7lF3FqWj7kKMwPvEBJ55RAnYEZaPxlCzIBmUtBLpsaym2RYjpp5gDwoQTw2eSTw";//deviceFacade.findByUserAndDeviceType(userId, deviceType).getAccessToken();
         //String fullUrl = deviceType.apiEndpoint + requestUrl; // TODO will be changed to this once apiEnpoint in DB
         String fullUrl = "https://jawbone.com/nudge/api/v.1.1/users/@me" + requestUrl;
         System.out.println(fullUrl);
         OAuthRequest request = new OAuthRequest(Verb.GET, fullUrl); 
         Token token = new Token(accessToken, deviceType.getConsumerSecret());
         getOAuthService().signRequest(token, request); 
+        
+        
+        
+        //request.addHeader("", "GET /nudge/api/users/@me HTTP/1.1");
+        request.addHeader("Host", "http://localhost:8080");
+        request.addHeader("Authorization", "Bearer " + accessToken);
+        
         Response response = request.send();
 
+        System.out.println("request ");
+        System.out.println(request.getHeaders().toString());
+        System.out.println(request.getBodyContents());
+        
+        System.out.println("response ");
+        System.out.println(getOAuthService().getVersion());
         System.out.println(response.getBody());
+        System.out.println(response.getHeaders().toString());
     
         JsonReader jsonReader = Json.createReader(new ByteArrayInputStream(response.getBody().getBytes()));
         JsonObject jsonObject = jsonReader.readObject();
