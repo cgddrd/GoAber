@@ -14,6 +14,7 @@ using System.Web;
 using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.Diagnostics;
 
 namespace GoAber.Controllers
 {
@@ -43,6 +44,7 @@ namespace GoAber.Controllers
             var user = UserManager.FindById(User.Identity.GetUserId());
             ActivityData activityHeart = GetHeartRate(String.Format("{0}{1}-{2}-{3}.json", "/heart/date/", year, month, day), "average[0].heartRate", user.Id, day, month, year);
             return activityHeart;
+
         }
 
 

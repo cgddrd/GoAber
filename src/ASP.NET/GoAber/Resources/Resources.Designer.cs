@@ -106,11 +106,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FitBit.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_FitBit {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_FitBit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string _Layout_cshtml_Execute_Home {
             get {
                 return ResourceManager.GetString("_Layout_cshtml_Execute_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jobs.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_Jobs {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_Jobs", resourceCulture);
             }
         }
         
