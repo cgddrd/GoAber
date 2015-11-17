@@ -27,7 +27,8 @@ namespace GoAber.Models
         public string consumerSecret { get; set; }
         public string clientId { get; set; }
         public string authorizationEndpoint { get; set; }
-    
+        public string apiEndpoint { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Device> devices { get; set; }
     }

@@ -106,11 +106,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FitBit.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_FitBit {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_FitBit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string _Layout_cshtml_Execute_Home {
             get {
                 return ResourceManager.GetString("_Layout_cshtml_Execute_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jobs.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_Jobs {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_Jobs", resourceCulture);
             }
         }
         
@@ -336,6 +354,24 @@ namespace Resources {
         public static string AdminControlPanelTitle {
             get {
                 return ResourceManager.GetString("AdminControlPanelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teams.
+        /// </summary>
+        public static string AdminTeamsController_Index_Title {
+            get {
+                return ResourceManager.GetString("AdminTeamsController_Index_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teams.
+        /// </summary>
+        public static string AdminTeamsController_Subtitle {
+            get {
+                return ResourceManager.GetString("AdminTeamsController_Subtitle", resourceCulture);
             }
         }
         
@@ -678,6 +714,15 @@ namespace Resources {
         public static string ManageController_VerifyPhoneNumber_Failed_verify_phone {
             get {
                 return ResourceManager.GetString("ManageController_VerifyPhoneNumber_Failed_verify_phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Teams.
+        /// </summary>
+        public static string ManageTeams {
+            get {
+                return ResourceManager.GetString("ManageTeams", resourceCulture);
             }
         }
         

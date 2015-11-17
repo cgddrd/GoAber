@@ -318,12 +318,25 @@
   <data name="AD_Index_cshtml_Execute_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
+    <value>FitBit</value>
+  </data>
+  <data name="AdminTeamsController_Index_Title" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_Jobs" xml:space="preserve">
+    <value>Jobs</value>
+  </data>
+  <data name="AdminTeamsController_Subtitle" xml:space="preserve">
+    <value>Teams</value>
+  </data>
   <data name="AdminCommunitiesController_Create_Title" xml:space="preserve">
     <value>Community</value>
   </data>
   <data name="AdminCommunitiesController_Delete_Title" xml:space="preserve">
     <value>Community</value>
   </data>
+
   <data name="AdminCommunitiesController_Details_Title" xml:space="preserve">
     <value>Community</value>
   </data>
@@ -354,14 +367,14 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="ManageActivityData" xml:space="preserve">
     <value>Manage Activity Data</value>
   </data>
   <data name="ManageCommunities" xml:space="preserve">
     <value>Manage Communities</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
   </data>
   <data name="AD_Subtitle" xml:space="preserve">
     <value>Activity Data</value>
@@ -374,5 +387,8 @@
   </data>
   <data name="_Layout_cshtml_Execute_ActivityData" xml:space="preserve">
     <value>Activity Data</value>
+  </data>
+  <data name="ManageTeams" xml:space="preserve">
+    <value>Manage Teams</value>
   </data>
 </root>
