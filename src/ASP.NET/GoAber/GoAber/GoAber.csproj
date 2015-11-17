@@ -291,6 +291,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ManualHttpRequest.cs" />
     <Compile Include="Migrations\201511091350555_Init.cs" />
     <Compile Include="Migrations\201511091350555_Init.Designer.cs">
       <DependentUpon>201511091350555_Init.cs</DependentUpon>
@@ -298,6 +299,10 @@
     <Compile Include="Migrations\201511091500468_Init1.cs" />
     <Compile Include="Migrations\201511091500468_Init1.Designer.cs">
       <DependentUpon>201511091500468_Init1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511111040466_Init.cs" />
+    <Compile Include="Migrations\201511111040466_Init.Designer.cs">
+      <DependentUpon>201511111040466_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
@@ -520,6 +525,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511091500468_Init1.resx">
       <DependentUpon>201511091500468_Init1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511111040466_Init.resx">
+      <DependentUpon>201511111040466_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
