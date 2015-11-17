@@ -251,14 +251,14 @@ namespace GoAber.Areas.Admin.Controllers
                 activityData = activityData.Where(a => a.categoryunit.Id == filterParams.CategoryUnitId);
             }
 
-            if (filterParams.FromDate != null)
+            if (filterParams.FromDate.HasValue)
             {
-                activityData = activityData.Where(a => a.date >= filterParams.FromDate);
+                activityData = activityData.Where(a => a.date >= filterParams.FromDate.Value);
             }
 
-            if (filterParams.ToDate != null)
+            if (filterParams.ToDate.HasValue)
             {
-                activityData = activityData.Where(a => a.date <= filterParams.ToDate);
+                activityData = activityData.Where(a => a.date <= filterParams.ToDate.Value);
             }
 
             return activityData;
