@@ -340,6 +340,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teams.
+        /// </summary>
+        public static string AdminTeamsController_Index_Title {
+            get {
+                return ResourceManager.GetString("AdminTeamsController_Index_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teams.
+        /// </summary>
+        public static string AdminTeamsController_Subtitle {
+            get {
+                return ResourceManager.GetString("AdminTeamsController_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string BackToList {
@@ -678,6 +696,15 @@ namespace Resources {
         public static string ManageController_VerifyPhoneNumber_Failed_verify_phone {
             get {
                 return ResourceManager.GetString("ManageController_VerifyPhoneNumber_Failed_verify_phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Teams.
+        /// </summary>
+        public static string ManageTeams {
+            get {
+                return ResourceManager.GetString("ManageTeams", resourceCulture);
             }
         }
         
