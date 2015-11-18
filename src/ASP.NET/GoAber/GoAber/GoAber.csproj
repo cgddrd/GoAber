@@ -314,9 +314,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
-    <Compile Include="Migrations\201511171650454_InitialCreate.cs" />
-    <Compile Include="Migrations\201511171650454_InitialCreate.Designer.cs">
-      <DependentUpon>201511171650454_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201511180821416_Init.cs" />
+    <Compile Include="Migrations\201511180821416_Init.Designer.cs">
+      <DependentUpon>201511180821416_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
@@ -543,8 +543,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511171650454_InitialCreate.resx">
-      <DependentUpon>201511171650454_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511180821416_Init.resx">
+      <DependentUpon>201511180821416_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
