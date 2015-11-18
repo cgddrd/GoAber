@@ -25,6 +25,7 @@ QualityAssurance/staticCodeAnalysis/output/
 
 # Package Files #
 *.jar
+!/src/JavaEE/GoAber/lib/*.jar
 *.war
 *.ear
 
