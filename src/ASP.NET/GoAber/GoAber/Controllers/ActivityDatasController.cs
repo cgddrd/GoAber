@@ -7,17 +7,37 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GoAber.Models;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using GoAber.Services;
 
 namespace GoAber
 {
     public class ActivityDatasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private CategoryUnitService categoryUnitService = new CategoryUnitService();
+        private ActivityDataService dataService = new ActivityDataService();
+        private ApplicationUserManager _userManager;
+
+        // CG - We need to create our UserManager instance (copied from AccountController). 
+        // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
 
         // GET: ActivityDatas
         public ActionResult Index()
         {
-            var activityDatas = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
+            var activityDatas = dataService.findActivityDataForUser(User.Identity.GetUserId());
             return View(activityDatas.ToList());
         }
 
@@ -39,7 +59,8 @@ namespace GoAber
         // GET: ActivityDatas/Create
         public ActionResult Create()
         {
-            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id");
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             ViewBag.userId = new SelectList(db.Users, "Id", "email");
             return View();
         }
@@ -49,16 +70,17 @@ namespace GoAber
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
+        public ActionResult Create([Bind(Include = "Id,categoryUnitId,value,lastUpdated,date")] ActivityData activityData)
         {
+
             if (ModelState.IsValid)
             {
-                db.ActivityDatas.Add(activityData);
-                db.SaveChanges();
+                dataService.createActivityDataForUser(activityData, User.Identity.GetUserId());
                 return RedirectToAction("Index");
             }
 
-            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id", activityData.categoryUnitId);
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
             return View(activityData);
         }
@@ -70,12 +92,16 @@ namespace GoAber
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas.Find(id);
+
+            ActivityData activityData = dataService.getActivityDataById(id.Value);
+
             if (activityData == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id", activityData.categoryUnitId);
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
             return View(activityData);
         }
@@ -85,15 +111,16 @@ namespace GoAber
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
+        public ActionResult Edit([Bind(Include = "Id,categoryUnitId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(activityData).State = EntityState.Modified;
-                db.SaveChanges();
+                dataService.editActivityDataForUser(activityData, User.Identity.GetUserId());
                 return RedirectToAction("Index");
             }
-            ViewBag.categoryUnitId = new SelectList(db.CategoryUnits, "Id", "Id", activityData.categoryUnitId);
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
             return View(activityData);
         }
@@ -105,7 +132,9 @@ namespace GoAber
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas.Find(id);
+
+            ActivityData activityData = db.ActivityDatas.Find(id.Value);
+
             if (activityData == null)
             {
                 return HttpNotFound();
@@ -118,9 +147,7 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ActivityData activityData = db.ActivityDatas.Find(id);
-            db.ActivityDatas.Remove(activityData);
-            db.SaveChanges();
+            dataService.deleteActivityData(id);
             return RedirectToAction("Index");
         }
 

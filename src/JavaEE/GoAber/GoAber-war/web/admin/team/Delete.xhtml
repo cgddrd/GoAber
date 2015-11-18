@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.DestroyTeamTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <dl class="dl-horizontal">
+                    
+                    <dt>
+                        <h:outputText value="#{bundle.ViewTeamLabel_idGroup}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{adminTeamController.selected.idGroup}" title="#{bundle.ViewTeamTitle_idGroup}"/>
+                    </dd>
+                                     
+                    
+                    <dt>
+                        <h:outputText value="#{bundle.ViewTeamLabel_name}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{adminTeamController.selected.name}" title="#{bundle.ViewTeamTitle_name}"/>
+                    </dd>
+                    
+                    <dt>
+                        <h:outputText value="#{bundle.ViewTeamLabel_communityId}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{adminTeamController.selected.communityId.name}" title="#{bundle.ViewTeamTitle_communityId}"/>
+                    </dd>
+                </dl>
+
+                <div class="form-actions no-color">
+                    <h:commandLink class="btn btn-default" action="#{adminTeamController.destroy}" value="#{bundle.DestroyTeamLink}" /> |
+                    <h:commandLink action="#{adminTeamController.prepareList}" value="#{bundle.ViewTeamShowAllLink}"/>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

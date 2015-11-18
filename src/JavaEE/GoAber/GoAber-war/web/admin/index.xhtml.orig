@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/template.xhtml">
+    <ui:define name="title">
+        <h:outputText value="Administrator Control Panel"></h:outputText>
+    </ui:define>
+    <ui:define name="body">
+        <h:panelGroup id="messagePanel" layout="block">
+            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+        </h:panelGroup>
+        <h:link outcome="/admin/activityData/List" value="Manage Activity Data"/>
+        <br />
+<<<<<<< HEAD
+        <h:link outcome="/admin/jobDetail/List" value="Manage Scheduled Jobs"/>
+=======
+        <h:link outcome="/admin/team/List" value="Manage Teams"/>
+        <br />
+	<h:link outcome="/admin/community/List" value="Manage Communities"/>
+	<br />
+	<h:link outcome="/admin/user/List" value="Manage User Data"/>
+        <br />
+        <h:link outcome="/admin/role/List" value="Manage Roles"/>
+>>>>>>> develop
+        <br />
+    </ui:define>
+</ui:composition>
+</html>
+
