@@ -46,6 +46,8 @@ INSERT INTO `UserRole` VALUES (6,'admin','admin@test.com'),(7,'coordinator','coo
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+INSERT INTO `DeviceTypes` (name, tokenEndpoint, consumerKey, consumerSecret, clientId, authorizationEndpoint) values ('fitbit', 'https://api.fitbit.com/oauth2/token', 'e06d4e7dcbc6fc80c0d00b187b6fb2e1', 'bafe21eca0c10cfe54f21e9b685f041f', '229R69', 'https://www.fitbit.com/oauth2/authorize');
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

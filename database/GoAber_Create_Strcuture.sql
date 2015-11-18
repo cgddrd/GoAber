@@ -207,6 +207,21 @@ CREATE TABLE `Team` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+DROP TABLE IF EXISTS `jobdetail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jobdetail` (
+  `jobid` varchar(255) NOT NULL,
+  `schedtype` int(11) DEFAULT NULL,
+  `shcedtimemins` int(11) DEFAULT NULL,
+  `startnow` tinyint(1) DEFAULT '0',
+  `tasktype` int(11) DEFAULT NULL,
+  PRIMARY KEY (`jobid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
 --
 -- Table structure for table `Unit`
 --
@@ -247,7 +262,7 @@ CREATE TABLE `User` (
   CONSTRAINT `group_user` FOREIGN KEY (`groupId`) REFERENCES `Team` (`idGroup`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `userCredentials_user` FOREIGN KEY (`userCredentialsId`) REFERENCES `UserCredentials` (`idUserCredentials`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `userRole_user` FOREIGN KEY (`userRoleId`) REFERENCES `UserRole` (`idUserRole`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,22 +286,6 @@ CREATE TABLE `UserChallenge` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `UserCredentials`
---
-
-DROP TABLE IF EXISTS `UserCredentials`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `UserCredentials` (
-  `idUserCredentials` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  PRIMARY KEY (`idUserCredentials`),
-  UNIQUE KEY `idUserCredentials_UNIQUE` (`idUserCredentials`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `UserRole`
 --
 
@@ -299,7 +298,7 @@ CREATE TABLE `UserRole` (
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`idUserRole`),
   UNIQUE KEY `idUserRole_UNIQUE` (`idUserRole`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -311,4 +310,4 @@ CREATE TABLE `UserRole` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-08 19:05:54
+-- Dump completed on 2015-11-10 11:47:44

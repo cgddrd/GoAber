@@ -1,0 +1,26 @@
+Installation Instructions - GF Domain File
+------------------------------------------
+
+1) Find the domains folder for your Glassfish instance.
+ - In Netbeans:
+	- Goto: ‘Services’ tab -> Servers -> Glassfish (Right-click)
+	- Click ‘Properties’
+	- Observe ‘Domains Folder’ file path location
+
+2) Go to this folder on Mac or Windows.
+
+3) Open the domain instance folder (in most cases, this will be called ‘domain1’)
+
+4) Backup the existing ‘domain.xml’ file (rename to ‘domain-old.xml’)
+
+5) Go to GoAber Repo/conf/glassfish and copy the ‘domain.xml’ file into the GF domain folder currently open.
+
+6) Make sure to STOP and RESTART the Glassfish Server via Netbeans.
+
+TO TEST:
+
+1) Open up the GF admin console (via Netbeans)
+
+2) Navigate to: ‘server-config’ -> ‘Security’ -> ‘Realms’
+
+3) In the list of realms, there should now be a realm called ‘GoAberRealm’. If this realm is not in the list, the configuration file has not been updated correctly.
