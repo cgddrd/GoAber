@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateJobDetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateJobDetailLabel_jobid}" for="jobid" />
+                    <h:inputText id="jobid" value="#{jobDetailController.selected.jobid}" title="#{bundle.CreateJobDetailTitle_jobid}" required="true" requiredMessage="#{bundle.CreateJobDetailRequiredMessage_jobid}"/>
+                    <h:outputLabel value="#{bundle.CreateJobDetailLabel_tasktype}" for="tasktype" />
+                    <h:selectOneMenu id="tasktype" value="#{jobDetailController.selected.tasktype}">
+                        <f:selectItem itemValue="0" itemLabel="#{bundle.CreateJobDetailSelectTaskType_fitbit}" />
+                        <f:selectItem itemValue="1" itemLabel="#{bundle.CreateJobDetailSelectTaskType_jawbone}" />	
+                        <f:selectItem itemValue="2" itemLabel="#{bundle.CreateJobDetailSelectTaskType_email}" />	                        
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateJobDetailLabel_schedtype}" for="schedtype" />
+                    <h:selectOneMenu id="schedtype" value="#{jobDetailController.selected.schedtype}">
+                        <f:selectItem itemValue="0" itemLabel="#{bundle.CreateJobDetailSelectSchedType_recurring}" />
+                        <f:selectItem itemValue="1" itemLabel="#{bundle.CreateJobDetailSelectSchedType_once}" />		                        
+                    </h:selectOneMenu>
+                     <h:outputLabel value="#{bundle.CreateJobDetailLabel_shcedtimemins}" for="shcedtimemins" />
+                    <h:inputText id="shcedtimemins" value="#{jobDetailController.selected.shcedtimemins}" title="#{bundle.CreateJobDetailTitle_shcedtimemins}" required="true" requiredMessage="#{bundle.CreateJobDetailRequiredMessage_shcedtimemins}">
+                        <f:convertNumber integerOnly="true" type="number" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateJobDetailLabel_startnow}" for="startnow" />
+                    <h:selectBooleanCheckbox id="startnow" value="#{jobDetailController.selected.startnow}" title="#{bundle.CreateJobDetailTitle_startnow}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{jobDetailController.create}" value="#{bundle.CreateJobDetailSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{jobDetailController.prepareList}" value="#{bundle.CreateJobDetailShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateJobDetailIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

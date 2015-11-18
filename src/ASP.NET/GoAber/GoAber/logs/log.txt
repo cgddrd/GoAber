@@ -1,0 +1,8 @@
+2015-11-12 00:17:34,574 [7] FATAL GoAber.Controllers.BaseController - Fatal error logging
+System.IO.FileNotFoundException: Unable to find the specified file.
+   at GoAber.Controllers.JobsController.Index() in C:\Users\Dan\Source\Repos\GoAber\src\ASP.NET\GoAber\GoAber\Controllers\JobsController.cs:line 23
+2015-11-16 16:37:12,348 [Worker #c116313c] FATAL GoAber.Scheduling.Jobs.FitBitJob - CALLED!
+2015-11-16 16:43:13,551 [Worker #d07e3d6f] FATAL GoAber.Scheduling.Jobs.FitBitJob - CALLED!
+2015-11-16 16:53:20,464 [Worker #ce911d30] FATAL GoAber.Scheduling.Jobs.FitBitJob - CALLED!
+2015-11-16 16:54:02,462 [Worker #d0a53072] FATAL GoAber.Scheduling.Jobs.FitBitJob - CALLED!
+2015-11-16 16:54:02,806 [Worker #8c4ad3f3] FATAL GoAber.Scheduling.Jobs.FitBitJob - CALLED!

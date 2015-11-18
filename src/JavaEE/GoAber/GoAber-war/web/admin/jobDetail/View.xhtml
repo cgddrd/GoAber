@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewJobDetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewJobDetailLabel_jobid}"/>
+                    <h:outputText value="#{jobDetailController.selected.jobid}" title="#{bundle.ViewJobDetailTitle_jobid}"/>
+                    <h:outputText value="#{bundle.ViewJobDetailLabel_tasktype}"/>
+                    <h:outputText value="#{jobDetailController.selected.taskTypeString}" title="#{bundle.ViewJobDetailTitle_tasktype}"/>
+                    <h:outputText value="#{bundle.ViewJobDetailLabel_schedtype}"/>
+                    <h:outputText value="#{jobDetailController.selected.schedTypeString}" title="#{bundle.ViewJobDetailTitle_schedtype}"/>
+                    <h:outputText value="#{bundle.ViewJobDetailLabel_shcedtimemins}"/>
+                    <h:outputText value="#{jobDetailController.selected.shcedtimemins}" title="#{bundle.ViewJobDetailTitle_shcedtimemins}"/>
+                    <h:outputText value="#{bundle.ViewJobDetailLabel_startnow}"/>
+                    <h:outputText value="#{jobDetailController.selected.startnow}" title="#{bundle.ViewJobDetailTitle_startnow}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{jobDetailController.destroyAndView}" value="#{bundle.ViewJobDetailDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewJobDetailEditLink}"/>
+                <br />
+                <h:commandLink action="#{jobDetailController.prepareCreate}" value="#{bundle.ViewJobDetailCreateLink}" />
+                <br />
+                <h:commandLink action="#{jobDetailController.prepareList}" value="#{bundle.ViewJobDetailShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewJobDetailIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -4,6 +4,12 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>bootstrap</param-value>
+    </context-param>
+    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -31,15 +37,18 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-    <!--CG - Setting up of the form-based user authentication.-->
+    
+    <!--CG - Setting up of the form-based user authentication.-->    
+
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>GoAberRealm</realm-name>
         <form-login-config>
-            <form-login-page>/faces/login.xhtml</form-login-page>
-            <form-error-page>/faces/loginerror.xhtml</form-error-page>
+            <form-login-page>/faces/login/index.xhtml</form-login-page>
+            <form-error-page>/faces/login/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
+
     <!--
     CG - Use this approach if we want to perform basic authentication.
     
@@ -49,20 +58,43 @@
     </login-config>
     
     -->
+    
     <security-constraint>
-        <display-name>Constraint1</display-name>
+        <display-name>UserAccountAuth</display-name>
         <web-resource-collection>
-            <web-resource-name>secure-page</web-resource-name>
-            <description/>
-            <url-pattern>/secure.xhtml</url-pattern>
+            <web-resource-name>UserAccountPages</web-resource-name>
+            <url-pattern>/account/*</url-pattern>
+            <url-pattern>/faces/account/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <description/>
+            <role-name>admin</role-name>
+            <role-name>coordinator</role-name>
+            <role-name>participant</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <display-name>AdminAreaAuth</display-name>
+        <web-resource-collection>
+            <web-resource-name>AdminPages</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/faces/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
             <role-name>admin</role-name>
         </auth-constraint>
-        <user-data-constraint>
-            <transport-guarantee>NONE</transport-guarantee>
-        </user-data-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <display-name>SecureTestAuthConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>secure-page</web-resource-name>
+            <url-pattern>/secure.xhtml</url-pattern>
+            <url-pattern>/faces/secure.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
     </security-constraint>
     <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
     <error-page>
