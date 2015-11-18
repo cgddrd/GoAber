@@ -190,7 +190,7 @@ public abstract class DeviceApi extends DefaultApi20
         return getActivityData(requestUrl, json, day, month, year, userId, categoryUnit);
     }*/
     
-    public JsonObject getActivityData(String requestUrl, String jsonPath, int day, int month, int year, User userId)//, CategoryUnit categoryUnitId
+    public JsonObject getActivityData(String requestUrl, int day, int month, int year, User userId)//, CategoryUnit categoryUnitId
     {
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
         String accessToken = "DudD7GQwFndHxVmzLrCosqaNfvpKhnpei9CNJoIWGu5tREChD9Baw981oDgHq61eQvHJd8YC72FNr1_-D3B68FECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP";//deviceFacade.findByUserAndDeviceType(userId, deviceType).getAccessToken();

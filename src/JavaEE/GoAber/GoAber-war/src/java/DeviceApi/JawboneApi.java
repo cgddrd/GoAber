@@ -54,10 +54,10 @@ public class JawboneApi extends DeviceApi{
     public ActivityData getWalkingSteps(int day, int month, int year)
     {
        String url = "/moves?date=" + year + month + day;
-       String jsonPath = "data.items[0].details.steps";
+       //String jsonPath = "data.items[0].details.steps";
        User userId = new User(); // TODO need CG stuff to get the user
         
-       JsonObject jsonObject = getActivityData(url, jsonPath, day, month, year, userId);
+       JsonObject jsonObject = getActivityData(url, day, month, year, userId);
        steps = jsonObject.getJsonObject("data").getJsonArray("items").getJsonObject(0).getJsonObject("details").getInt("steps");
        System.out.println("Value = " + steps);
        
