@@ -14,34 +14,7 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateDeviceLabel_idDevice}" for="idDevice" />
-                    <h:inputText id="idDevice" value="#{deviceController.selected.idDevice}" title="#{bundle.CreateDeviceTitle_idDevice}" required="true" requiredMessage="#{bundle.CreateDeviceRequiredMessage_idDevice}"/>
-                    <h:outputLabel value="#{bundle.CreateDeviceLabel_accessToken}" for="accessToken" />
-                    <h:inputText id="accessToken" value="#{deviceController.selected.accessToken}" title="#{bundle.CreateDeviceTitle_accessToken}" />
-                    <h:outputLabel value="#{bundle.CreateDeviceLabel_refreshToken}" for="refreshToken" />
-                    <h:inputText id="refreshToken" value="#{deviceController.selected.refreshToken}" title="#{bundle.CreateDeviceTitle_refreshToken}" />
-                    <h:outputLabel value="#{bundle.CreateDeviceLabel_tokenExpiration}" for="tokenExpiration" />
-                    <h:inputText id="tokenExpiration" value="#{deviceController.selected.tokenExpiration}" title="#{bundle.CreateDeviceTitle_tokenExpiration}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateDeviceLabel_deviceTypeId}" for="deviceTypeId" />
-                    <h:selectOneMenu id="deviceTypeId" value="#{deviceController.selected.deviceTypeId}" title="#{bundle.CreateDeviceTitle_deviceTypeId}" required="true" requiredMessage="#{bundle.CreateDeviceRequiredMessage_deviceTypeId}">
-                        <f:selectItems value="#{deviceTypeController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateDeviceLabel_userId}" for="userId" />
-                    <h:selectOneMenu id="userId" value="#{deviceController.selected.userId}" title="#{bundle.CreateDeviceTitle_userId}" required="true" requiredMessage="#{bundle.CreateDeviceRequiredMessage_userId}">
-                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{deviceController.create}" value="#{bundle.CreateDeviceSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{deviceController.prepareList}" value="#{bundle.CreateDeviceShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateDeviceIndexLink}"/>
+                <h:outputLabel value="Number of steps : " ></h:outputLabel><h:outputText value="#{jawboneController.steps}"></h:outputText>
             </h:form>
         </ui:define>
     </ui:composition>

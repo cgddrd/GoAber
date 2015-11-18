@@ -6,8 +6,10 @@
 package DeviceApi;
 
 import GoAberDatabase.ActivityData;
+import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.User;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -15,6 +17,7 @@ import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.json.JsonObject;
 import javax.jws.WebService;
 import org.scribe.oauth.OAuthService;
 
@@ -28,6 +31,11 @@ import org.scribe.oauth.OAuthService;
 public class JawboneApi extends DeviceApi{
     int steps;
     
+    public int getSteps()
+    {
+        return steps;
+    }
+    
     @Override
     public String getType() {
         return "Jawbone";
@@ -35,7 +43,7 @@ public class JawboneApi extends DeviceApi{
 
     @Override
     public String getScope() {
-        return "basic_read move_read heartrate_read";
+        return "move_read basic_read heartrate_read";
     }
 
     @Override
@@ -48,13 +56,21 @@ public class JawboneApi extends DeviceApi{
        String url = "/moves?date=" + year + month + day;
        String jsonPath = "data.items[0].details.steps";
        User userId = new User(); // TODO need CG stuff to get the user
-       return getWalkingSteps(url, jsonPath, day, month, year, userId);
         
+       JsonObject jsonObject = getActivityData(url, jsonPath, day, month, year, userId);
+       steps = jsonObject.getJsonObject("data").getJsonArray("items").getJsonObject(0).getJsonObject("details").getInt("steps");
+       System.out.println("Value = " + steps);
+       
+       Date date = new Date(year, month, day);
+       CategoryUnit categoryUnitId = new CategoryUnit();//categoryUnitFacade.findByCategoryAndUnit("Walking", "Steps");
+       ActivityData activityData = new ActivityData(steps, new Date(), date, userId, categoryUnitId);
+        //activityDataFacade.create(activityData);
+       return activityData;
     }
     
     public String getWalkingSteps()
     {
-        int day = 27;
+        int day = 26;
         int month = 10;
         int year = 2015;
         ActivityData activityData = getWalkingSteps(day, month, year);

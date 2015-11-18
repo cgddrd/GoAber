@@ -32,8 +32,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.SessionScoped;
 import javax.json.Json;
+//import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+//import javax.json.JsonStructure;
+//import javax.json.stream.JsonParser;
 import javax.jws.WebService;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -110,7 +113,7 @@ public abstract class DeviceApi extends DefaultApi20
         //private static final String AUTHORIZE_URL = "https://jawbone.com/auth/oauth2/auth?client_id=%s&redirect_uri=%s&scope=move_read&response_type=code";
         //DeviceType deviceType = (DeviceType)em.createNamedQuery("DeviceType.findByName").setParameter("name", getType()).getSingleResult();
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
-        return String.format("%s?response_type=code&client_id=%s&redirect_uri=%s", deviceType.getAuthorizationEndpoint(), deviceType.getClientId(), getCallbackUrl());
+        return String.format("%s?response_type=code&client_id=%s&redirect_uri=%s&scope=%s", deviceType.getAuthorizationEndpoint(), deviceType.getClientId(), getCallbackUrl(), getScope());
        
         //return String.format(AUTHORIZE_URL, config.getApiKey(), OAuthEncoder.encode(config.getCallback()));        
     }
@@ -180,53 +183,42 @@ public abstract class DeviceApi extends DefaultApi20
     }
     
     
-    
+    /*
     public ActivityData getWalkingSteps(String requestUrl, String json, int day, int month, int year, User userId)
     {
         CategoryUnit categoryUnit = new CategoryUnit();//categoryUnitFacade.findByCategoryAndUnit("Walking", "Steps");
         return getActivityData(requestUrl, json, day, month, year, userId, categoryUnit);
-    }
+    }*/
     
-    public ActivityData getActivityData(String requestUrl, String jsonPath, int day, int month, int year, User userId, CategoryUnit categoryUnitId)
+    public JsonObject getActivityData(String requestUrl, String jsonPath, int day, int month, int year, User userId)//, CategoryUnit categoryUnitId
     {
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
-        String accessToken = "DudD7GQwFndHxVmzLrCosqaNfvpKhnpei9CNJoIWGu7B-9H82ApHNbiJqgN0BxeIkKMwPvEBJ55RAnYEZaPxlCzIBmUtBLpsaym2RYjpp5gDwoQTw2eSTw";//"DudD7GQwFndHxVmzLrCosqaNfvpKhnpei9CNJoIWGu4rfNK5-JnYRwe7lF3FqWj7kKMwPvEBJ55RAnYEZaPxlCzIBmUtBLpsaym2RYjpp5gDwoQTw2eSTw";//deviceFacade.findByUserAndDeviceType(userId, deviceType).getAccessToken();
+        String accessToken = "DudD7GQwFndHxVmzLrCosqaNfvpKhnpei9CNJoIWGu5tREChD9Baw981oDgHq61eQvHJd8YC72FNr1_-D3B68FECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP";//deviceFacade.findByUserAndDeviceType(userId, deviceType).getAccessToken();
         //String fullUrl = deviceType.apiEndpoint + requestUrl; // TODO will be changed to this once apiEnpoint in DB
         String fullUrl = "https://jawbone.com/nudge/api/v.1.1/users/@me" + requestUrl;
-        System.out.println(fullUrl);
+        
         OAuthRequest request = new OAuthRequest(Verb.GET, fullUrl); 
         Token token = new Token(accessToken, deviceType.getConsumerSecret());
         getOAuthService().signRequest(token, request); 
         
-        
-        
-        //request.addHeader("", "GET /nudge/api/users/@me HTTP/1.1");
         request.addHeader("Host", "http://localhost:8080");
         request.addHeader("Authorization", "Bearer " + accessToken);
         
         Response response = request.send();
 
-        System.out.println("request ");
-        System.out.println(request.getHeaders().toString());
-        System.out.println(request.getBodyContents());
-        
-        System.out.println("response ");
-        System.out.println(getOAuthService().getVersion());
-        System.out.println(response.getBody());
-        System.out.println(response.getHeaders().toString());
-    
-        JsonReader jsonReader = Json.createReader(new ByteArrayInputStream(response.getBody().getBytes()));
-        JsonObject jsonObject = jsonReader.readObject();
-        int value = jsonObject.getInt(jsonPath);
-        System.out.println("Value = " + value);
-        Date date = new Date(year, month, day);
-        ActivityData activityData = new ActivityData(value, new Date(), date, userId, categoryUnitId);
-        activityDataFacade.create(activityData);
- 
-        return activityData;
-    }
-    
-    
+        try{
+            try (InputStream is = new ByteArrayInputStream(response.getBody().getBytes()); 
+                    JsonReader jsonReader = Json.createReader(is)) {
+
+                JsonObject jsonObject = jsonReader.readObject();
+                jsonReader.close();
+                return jsonObject;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(DeviceApi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    } 
     
     
     private DeviceFacade lookupDeviceFacadeBean() {
