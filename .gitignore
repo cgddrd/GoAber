@@ -257,6 +257,10 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
+# Migrations
+src/ASP.NET/GoAber/GoAber/Migrations/*
+!src/ASP.NET/GoAber/GoAber/Migrations/Configuration.cs
+
 # Paket dependency manager
 .paket/paket.exe
 
