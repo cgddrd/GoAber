@@ -5,6 +5,7 @@ import GoAberDatabase.Category;
 import GoAberDatabase.Unit;
 import GoAberDatabase.User;
 import JSF.auth.AuthController;
+import JSF.services.ActivityDataService;
 import JSF.util.JsfUtil;
 import SessionBean.ActivityDataFacade;
 
@@ -29,11 +30,11 @@ import javax.faces.model.SelectItem;
 public class ActivityDataController implements Serializable {
 
     @EJB
-    private SessionBean.ActivityDataFacade ejbFacade;
-    @EJB
     private SessionBean.CategoryFacade categoryBean;
     @EJB
     private SessionBean.UnitFacade unitBean;
+    @EJB
+    private ActivityDataService dataService;
     
     @ManagedProperty(value="#{authController}")
     private AuthController authController;
@@ -75,10 +76,6 @@ public class ActivityDataController implements Serializable {
         return getCurrent();
     }
 
-    private ActivityDataFacade getFacade() {
-        return ejbFacade;
-    }
-
     public String prepareList() {
         recreateItems();
         return "List";
@@ -96,9 +93,8 @@ public class ActivityDataController implements Serializable {
 
     public String create() {
         try {
-            getCurrent().setUserId(authController.getActiveUser());
-            getCurrent().setLastUpdated(new Date());
-            getFacade().create(getCurrent());
+            User user = authController.getActiveUser();
+            dataService.createForUser(current, user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -114,8 +110,8 @@ public class ActivityDataController implements Serializable {
 
     public String update() {
         try {
-            getCurrent().setLastUpdated(new Date());
-            getFacade().edit(getCurrent());
+            User user = authController.getActiveUser();
+            dataService.updateForUser(current, user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataUpdated"));
             return "View";
         } catch (Exception e) {
@@ -138,7 +134,7 @@ public class ActivityDataController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(getCurrent());
+            dataService.remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -147,18 +143,10 @@ public class ActivityDataController implements Serializable {
     
     private void recreateItems() {
         User user = authController.getActiveUser();
-        items = getFacade().getAllForUser(user.getIdUser());
+        items = dataService.findAllForUser(user);
         filteredItems = null;
     }
     
-    public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
-    }
-
-    public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
-    }
-
     /**
      * @return the filteredItems
      */
@@ -209,7 +197,7 @@ public class ActivityDataController implements Serializable {
             }
             ActivityDataController controller = (ActivityDataController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "activityDataController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.dataService.findById(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
