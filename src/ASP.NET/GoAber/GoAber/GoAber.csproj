@@ -281,6 +281,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\MultipleButtonAttribute.cs" />
     <Compile Include="App_Code\Scheduling\Interfaces\IScheduler.cs" />
     <Compile Include="App_Code\Scheduling\Hangfire\HangfireScheduler.cs" />
     <Compile Include="App_Code\Scheduling\Jobs\JawBoneJob.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Areas\Admin\Models\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
@@ -440,6 +442,7 @@
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\_Filter.cshtml" />
+    <Content Include="Areas\Admin\Views\ActivityData\BatchDelete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Details.cshtml" />
@@ -522,6 +525,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
