@@ -521,6 +521,8 @@
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Devices\Index.cshtml" />
     <Content Include="Views\Devices\Delete.cshtml" />
+    <Content Include="Views\ActivityDatas\_ActivityDataLayout.cshtml" />
+    <Content Include="Views\ActivityDatas\WeeklySummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

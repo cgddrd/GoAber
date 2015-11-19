@@ -336,7 +336,6 @@
   <data name="AdminCommunitiesController_Delete_Title" xml:space="preserve">
     <value>Community</value>
   </data>
-
   <data name="AdminCommunitiesController_Details_Title" xml:space="preserve">
     <value>Community</value>
   </data>
@@ -390,5 +389,23 @@
   </data>
   <data name="ManageTeams" xml:space="preserve">
     <value>Manage Teams</value>
+  </data>
+  <data name="ActivityData" xml:space="preserve">
+    <value>Activity Data</value>
+  </data>
+  <data name="MonthlySummary" xml:space="preserve">
+    <value>Monthly Summary</value>
+  </data>
+  <data name="WeeklySummary" xml:space="preserve">
+    <value>Weekly Summary</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="WeeklySummaryTitle_TotalBeats" xml:space="preserve">
+    <value>Total Beats This Week</value>
+  </data>
+  <data name="WeeklySummaryTitle_TotalSteps" xml:space="preserve">
+    <value>Total Steps This Week</value>
   </data>
 </root>

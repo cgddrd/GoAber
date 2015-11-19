@@ -169,6 +169,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string ActivityData {
+            get {
+                return ResourceManager.GetString("ActivityData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string AD_Create_cshtml_Execute_Back_to_List {
@@ -529,6 +538,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage.
+        /// </summary>
+        public static string Manage {
+            get {
+                return ResourceManager.GetString("Manage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddPhoneNumber.
         /// </summary>
         public static string Manage_AddPhoneNumber_cshtml_Execute_AddPhoneNumber {
@@ -727,6 +745,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly Summary.
+        /// </summary>
+        public static string MonthlySummary {
+            get {
+                return ResourceManager.GetString("MonthlySummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Roles_Create_cshtml_Execute_Create {
@@ -876,6 +903,33 @@ namespace Resources {
         public static string Unit {
             get {
                 return ResourceManager.GetString("Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weekly Summary.
+        /// </summary>
+        public static string WeeklySummary {
+            get {
+                return ResourceManager.GetString("WeeklySummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Beats This Week.
+        /// </summary>
+        public static string WeeklySummaryTitle_TotalBeats {
+            get {
+                return ResourceManager.GetString("WeeklySummaryTitle_TotalBeats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Steps This Week.
+        /// </summary>
+        public static string WeeklySummaryTitle_TotalSteps {
+            get {
+                return ResourceManager.GetString("WeeklySummaryTitle_TotalSteps", resourceCulture);
             }
         }
     }

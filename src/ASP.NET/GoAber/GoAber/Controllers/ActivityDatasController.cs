@@ -35,10 +35,9 @@ namespace GoAber
         }
 
         // GET: ActivityDatas
-        public ActionResult Index()
+        public ActionResult WeeklySummary()
         {
-            var activityDatas = dataService.findActivityDataForUser(User.Identity.GetUserId());
-            return View(activityDatas.ToList());
+            return View();
         }
 
         // GET: ActivityDatas/Details/5
