@@ -300,6 +300,7 @@
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
+    <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
@@ -309,7 +310,7 @@
     <Compile Include="Controllers\DeviceAPI.cs" />
     <Compile Include="Controllers\JawboneController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Areas\MyAccount\Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="App_Code\Scheduling\Hangfire\HangfireContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -336,7 +337,7 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\GroupChallenge.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Areas\MyAccount\Models\ManageViewModels.cs" />
     <Compile Include="Models\Unit.cs" />
     <Compile Include="Models\UserChallenge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -452,6 +453,8 @@
     <Content Include="Areas\Admin\Views\Communities\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Index.cshtml" />
+    <Content Include="Areas\MyAccount\Views\web.config" />
+    <Content Include="Areas\MyAccount\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -494,12 +497,12 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\SetPassword.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
@@ -530,6 +533,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\MyAccount\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

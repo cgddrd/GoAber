@@ -22,13 +22,6 @@ namespace GoAber.Areas.Admin
                 new { controller = "ControlPanel|ActivityData|Communities|Teams" },
                 new[] { "GoAber.Areas.Admin.Controllers" }
             );
-
-            context.MapRoute(
-                name: "Default_Admin_Area_Redirect",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "GoAber.Controllers" }
-            );
         }
     }
 }
