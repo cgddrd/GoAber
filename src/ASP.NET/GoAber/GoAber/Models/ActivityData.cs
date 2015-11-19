@@ -12,10 +12,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace GoAber.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using System.Data.Entity;
 
     public class ActivityData
     {

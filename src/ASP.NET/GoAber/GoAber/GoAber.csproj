@@ -299,6 +299,7 @@
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\WebServiceAuthsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
@@ -313,11 +314,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511191557050_Initial.cs" />
+    <Compile Include="Migrations\201511191557050_Initial.Designer.cs">
+      <DependentUpon>201511191557050_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ActivityData.cs" />
+    <Compile Include="Models\WebServiceAuth.cs" />
+    <Compile Include="WebService\ActivityData.cs" />
+    <Compile Include="WebService\AuthHeader.cs" />
+    <Compile Include="WebService\GoAberWS.asmx.cs">
+      <DependentUpon>GoAberWS.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ManualHttpRequest.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ActivityData.cs" />
     <Compile Include="Services\ActivityDataService.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryUnit.cs" />
@@ -424,6 +436,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="WebService\GoAberWS.asmx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -441,6 +454,10 @@
     <Content Include="Areas\Admin\Views\Teams\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\WebServiceAuths\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\WebServiceAuths\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\WebServiceAuths\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\WebServiceAuths\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -537,6 +554,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511191557050_Initial.resx">
+      <DependentUpon>201511191557050_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

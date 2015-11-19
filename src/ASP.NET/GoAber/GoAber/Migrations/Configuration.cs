@@ -92,6 +92,20 @@ namespace GoAber.Migrations
                 userManager.AddToRole(normalUser.Id, "Participant");
             }
 
+            if (!context.Users.Any(u => u.UserName == "dam44@aber.ac.uk"))
+            {
+                var normalUser = new ApplicationUser
+                {
+                    UserName = "dam44@aber.ac.uk",
+                    Email = "dam44@aber.ac.uk",
+                    Nickname = "Dan",
+                    DateOfBirth = DateTime.Now
+                };
+
+                userManager.Create(normalUser, "Juddy123!");
+                userManager.AddToRole(normalUser.Id, "Administrator");
+            }
+
             context.CategoryUnits.AddOrUpdate(x => x.Id,
                 new CategoryUnit() { category = new Category() { name = "Walking" }, unit = new Unit() {name = "Steps"} }
                 );
