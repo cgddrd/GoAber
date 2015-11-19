@@ -33,6 +33,10 @@ namespace GoAber
             }
         }
 
+        /// <summary>
+        /// Saves a users actions to the database
+        /// </summary>
+        /// <param name="filterContext"></param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var request = filterContext.HttpContext.Request;

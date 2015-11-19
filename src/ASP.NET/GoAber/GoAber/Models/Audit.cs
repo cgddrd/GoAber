@@ -14,8 +14,11 @@ namespace GoAber.Models
     public class Audit
     {
         public Guid AuditId { get; set; }
+        [DisplayName("IP Address")]
         public string IpAddress { get; set; }
+        [DisplayName("URL Accessed")]
         public string UrlAccessed { get; set; }
+        [DisplayName("Request Parameters")]
         public string RequestParams { get; set; }
         public DateTime Timestamp { get; set; }
 
