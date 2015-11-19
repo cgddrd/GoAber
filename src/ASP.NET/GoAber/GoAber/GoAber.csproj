@@ -455,6 +455,7 @@
     <Content Include="Areas\Admin\Views\Communities\Index.cshtml" />
     <Content Include="Areas\MyAccount\Views\web.config" />
     <Content Include="Areas\MyAccount\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -499,7 +500,7 @@
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Areas\MyAccount\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\EditAccount.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\ManageLogins.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\SetPassword.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\VerifyPhoneNumber.cshtml" />

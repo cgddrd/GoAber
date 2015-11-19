@@ -32,7 +32,7 @@ using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, n
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink(Resources._LoginPartial_cshtml_Execute_Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink(Resources._LoginPartial_cshtml_Execute_Log_in, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink(Resources._LoginPartial_cshtml_Execute_Register, "Register", "Account", new { Area = "" }, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink(Resources._LoginPartial_cshtml_Execute_Log_in, "Login", "Account", new { Area = "" }, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

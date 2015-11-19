@@ -637,6 +637,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Account Details.
+        /// </summary>
+        public static string ManageController_EditAccount_Manage {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_Manage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of Birth.
+        /// </summary>
+        public static string ManageController_EditAccount_ManagManageController_EditAccount_DateOfBirth {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_ManagManageController_EditAccount_DateOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email Address.
+        /// </summary>
+        public static string ManageController_EditAccount_ManagManageController_EditAccount_EmailAddress {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_ManagManageController_EditAccount_EmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        public static string ManageController_EditAccount_ManagManageController_EditAccount_Nickname {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_ManagManageController_EditAccount_Nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred..
         /// </summary>
         public static string ManageController_Index_error {
@@ -646,7 +682,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage.
+        ///   Looks up a localized string similar to Your Account Details.
         /// </summary>
         public static string ManageController_Index_Manage {
             get {

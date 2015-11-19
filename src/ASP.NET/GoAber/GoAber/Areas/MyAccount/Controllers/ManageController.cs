@@ -52,11 +52,33 @@ namespace GoAber.Areas.MyAccount.Controllers
             }
         }
 
-        //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public ActionResult Index()
         {
+
             ViewBag.Title = Resources.Resources.ManageController_Index_Manage;
+
+            var userId = User.Identity.GetUserId();
+
+            var model = new IndexViewModel
+            {
+                EmailAddress = UserManager.FindById(userId).Email,
+                Nickname = UserManager.FindById(userId).Nickname,
+                DateOfBirth = UserManager.FindById(userId).DateOfBirth.Value
+
+            };
+
+            return View(model);
+
+
+        }
+
+        //
+        // GET: /Manage/EditAccount
+        public async Task<ActionResult> EditAccount(ManageMessageId? message)
+        {
+            ViewBag.Title = Resources.Resources.ManageController_EditAccount_Manage;
+
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? Resources.Resources.ManageController_Index_password_changed
                 : message == ManageMessageId.SetPasswordSuccess ? Resources.Resources.ManageController_Index_password_set
@@ -67,7 +89,7 @@ namespace GoAber.Areas.MyAccount.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var model = new EditAccountViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
@@ -145,7 +167,7 @@ namespace GoAber.Areas.MyAccount.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("EditAccount", "Manage");
         }
 
         //
@@ -160,7 +182,7 @@ namespace GoAber.Areas.MyAccount.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("EditAccount", "Manage");
         }
 
         //
@@ -190,7 +212,7 @@ namespace GoAber.Areas.MyAccount.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+                return RedirectToAction("EditAccount", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", Resources.Resources.ManageController_VerifyPhoneNumber_Failed_verify_phone);
@@ -204,14 +226,14 @@ namespace GoAber.Areas.MyAccount.Controllers
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
             {
-                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+                return RedirectToAction("EditAccount", new { Message = ManageMessageId.Error });
             }
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+            return RedirectToAction("EditAccount", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
         //
@@ -239,7 +261,7 @@ namespace GoAber.Areas.MyAccount.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("EditAccount", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);
             return View(model);
@@ -268,7 +290,7 @@ namespace GoAber.Areas.MyAccount.Controllers
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
-                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
+                    return RedirectToAction("EditAccount", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
                 AddErrors(result);
             }

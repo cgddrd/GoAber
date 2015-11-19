@@ -1,11 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
 namespace GoAber.Areas.MyAccount.Models
 {
+
     public class IndexViewModel
+    {
+        public string Nickname { get; set; }
+        public string EmailAddress { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+    }
+
+    public class EditAccountViewModel
     {
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
