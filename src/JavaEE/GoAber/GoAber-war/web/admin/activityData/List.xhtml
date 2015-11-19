@@ -17,12 +17,12 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
 
-                <div>
-                    <h:commandLink action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
+                <div class="btn-group" role="group" >
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
                     <h:outputText value="&nbsp;"/>
-                    <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
                 </div>
-                
+
                 <p:dataTable id="activityDataTable" class="table" value="#{adminActivityDataController.items}" 
                              emptyMessage="#{admin.ActivityDataNoItems}"
                              filteredValue="#{adminActivityDataController.filteredItems}" widgetVar="activityDataTable" var="item"
@@ -60,11 +60,11 @@
                       <f:facet name="header">
                         <p:outputLabel value="#{admin.ListActivityDataTitle_date}" />
                         <br />
-                        <p:calendar id="from" pattern="dd/MM/yyyy">
+                        <p:calendar placeholder="From Date" class="filter-date" id="from" pattern="dd/MM/yyyy">
                           <p:ajax event="dateSelect" onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
                                   oncomplete="PF('activityDataTable').filter()" />
                         </p:calendar>
-                        <p:calendar id="to" pattern="dd/MM/yyyy">
+                        <p:calendar placeholder="To Date" class="filter-date" id="to" pattern="dd/MM/yyyy">
                           <p:ajax event="dateSelect" onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
                                   oncomplete="PF('activityDataTable').filter()" />
                         </p:calendar>
