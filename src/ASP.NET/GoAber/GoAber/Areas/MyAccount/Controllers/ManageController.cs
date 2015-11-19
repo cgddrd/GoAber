@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,6 +18,8 @@ namespace GoAber.Areas.MyAccount.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -95,10 +98,39 @@ namespace GoAber.Areas.MyAccount.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Nickname = UserManager.FindById(userId).Nickname,
+                Id = UserManager.FindById(userId).Id
             };
+
             return View(model);
         }
+
+        //
+        // POST: /Manage/EditAccount
+        [HttpPost]
+        public async Task<ActionResult> EditAccount(EditAccountViewModel editModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+
+                var currentUser = db.Users.Find(userId);
+
+                if (currentUser != null)
+                {
+                    currentUser.Nickname = editModel.Nickname;
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return View(editModel);
+        }
+
+
 
         //
         // POST: /Manage/RemoveLogin

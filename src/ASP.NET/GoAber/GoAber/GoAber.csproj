@@ -297,6 +297,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
@@ -456,6 +457,11 @@
     <Content Include="Areas\MyAccount\Views\web.config" />
     <Content Include="Areas\MyAccount\Views\_ViewStart.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -530,6 +536,11 @@
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Devices\Index.cshtml" />
     <Content Include="Views\Devices\Delete.cshtml" />
+    <Content Include="Views\Jawbone\Callback.cshtml" />
+    <Content Include="Views\Jawbone\getActivityDay.cshtml" />
+    <Content Include="Views\Jawbone\getHeartDay.cshtml" />
+    <Content Include="Views\Jawbone\Index.cshtml" />
+    <Content Include="Views\Jawbone\StartOAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -21,6 +22,8 @@ namespace GoAber.Areas.MyAccount.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public string Nickname { get; set; }
+        public string Id { get; set; }
     }
 
     public class ManageLoginsViewModel
