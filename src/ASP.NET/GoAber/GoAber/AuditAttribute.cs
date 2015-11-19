@@ -14,6 +14,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Host.SystemWeb;
 
+// based on : http://rion.io/2013/03/03/implementing-audit-trails-using-asp-net-mvc-actionfilters/
 namespace GoAber
 {
     public class AuditAttribute : ActionFilterAttribute
