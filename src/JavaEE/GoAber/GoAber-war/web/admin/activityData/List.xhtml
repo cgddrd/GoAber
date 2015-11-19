@@ -26,7 +26,9 @@
                 <p:dataTable id="activityDataTable" class="table" value="#{adminActivityDataController.items}" 
                              emptyMessage="#{admin.ActivityDataNoItems}"
                              filteredValue="#{adminActivityDataController.filteredItems}" widgetVar="activityDataTable" var="item"
->
+                             rows="100" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10, 100, 200">
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="#{admin.ListActivityDataTitle_idActivityData}"/>
@@ -50,7 +52,8 @@
                         </h:outputText>
                     </p:column>
                     
-                    <p:column headerText="#{admin.ListActivityDataTitle_date}" sortBy="#{item.date}" filterBy="#{item.date}" filterFunction="#{dateRangeFilter.filterByDate}">
+                    <!-- Date range filter based on http://stackoverflow.com/questions/23791039/primefaces-datatable-date-range-filter-with-filterfunction -->
+                    <p:column headerText="#{admin.ListActivityDataTitle_date}" filterBy="#{item.date}" filterFunction="#{dateRangeFilter.filterByDate}">
                       <f:facet name="filter">
                         <h:inputHidden id="filter" />
                       </f:facet>
