@@ -43,6 +43,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData
+        [Audit]
         public ActionResult Index(int? page)
         {
             var activityData = dataService.getAllActivityData();
@@ -56,6 +57,7 @@ namespace GoAber.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Index(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
         {
             var activityData = dataService.getAllActivityData();
@@ -67,6 +69,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Details/5
+        [Audit]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -87,6 +90,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Create
+        [Audit]
         public ActionResult Create()
         {
             var categories = categoryUnitService.CreateCategoryUnitList();
@@ -104,6 +108,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Create([Bind(Include = "ApplicationUserId,idActivityData,categoryUnitId,userId,value,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
@@ -119,6 +124,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Edit/5
+        [Audit]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -142,6 +148,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Edit([Bind(Include = "ApplicationUserId,Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
@@ -157,6 +164,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Delete/5
+        [Audit]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -174,12 +182,14 @@ namespace GoAber.Areas.Admin.Controllers
         // POST: Admin/ActivityData/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult DeleteConfirmed(int id)
         {
             dataService.deleteActivityData(id);
             return RedirectToAction("Index");
         }
 
+        [Audit]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -189,6 +199,7 @@ namespace GoAber.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
+        [Audit]
         private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, string email, int? categoryUnitId, DateTime? fromDate, DateTime? toDate)
         {
             if (!String.IsNullOrEmpty(email))
@@ -214,6 +225,7 @@ namespace GoAber.Areas.Admin.Controllers
             return activityData;
         }
 
+        [Audit]
         private IEnumerable CreateUserList()
         {
             var users = db.Users.Select(c => new

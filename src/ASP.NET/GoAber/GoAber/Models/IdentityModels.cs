@@ -58,5 +58,7 @@ namespace GoAber.Models
         public DbSet<UserChallenge> UserChallenges { get; set; }
 
         public System.Data.Entity.DbSet<GoAber.Models.Job> Jobs { get; set; }
+
+        public DbSet<Audit> Audit { get; set; }
     }
 }

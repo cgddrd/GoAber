@@ -1,0 +1,58 @@
+﻿@model GoAber.Models.Audit
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Audit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.user.Nickname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.Nickname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IpAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IpAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlAccessed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlAccessed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestBody)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestBody)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Timestamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Timestamp)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AuditId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
