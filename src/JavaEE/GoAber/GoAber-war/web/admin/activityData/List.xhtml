@@ -19,8 +19,8 @@
 
                 <div class="btn-group" role="group" >
                     <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
-                    <h:outputText value="&nbsp;"/>
                     <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareBatchDestroy}" value="#{admin.ListActivityDataBatchDeleteLink}"/>
                 </div>
 
                 <p:dataTable id="activityDataTable" class="table" value="#{adminActivityDataController.items}" 
