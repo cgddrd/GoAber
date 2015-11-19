@@ -26,9 +26,7 @@
                 <p:dataTable id="activityDataTable" class="table" value="#{adminActivityDataController.items}" 
                              emptyMessage="#{admin.ActivityDataNoItems}"
                              filteredValue="#{adminActivityDataController.filteredItems}" widgetVar="activityDataTable" var="item"
-                             rows="100" paginator="true"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="10, 100, 200">
+>
                     <p:column>
                         <f:facet name="header">
                             <h:outputText value="#{admin.ListActivityDataTitle_idActivityData}"/>
@@ -52,15 +50,27 @@
                         </h:outputText>
                     </p:column>
                     
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{admin.ListActivityDataTitle_date}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.date}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
+                    <p:column headerText="#{admin.ListActivityDataTitle_date}" sortBy="#{item.date}" filterBy="#{item.date}" filterFunction="#{dateRangeFilter.filterByDate}">
+                      <f:facet name="filter">
+                        <h:inputHidden id="filter" />
+                      </f:facet>
+                      <f:facet name="header">
+                        <p:outputLabel value="#{admin.ListActivityDataTitle_date}" />
+                        <br />
+                        <p:calendar id="from" pattern="dd/MM/yyyy">
+                          <p:ajax event="dateSelect" onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
+                                  oncomplete="PF('activityDataTable').filter()" />
+                        </p:calendar>
+                        <p:calendar id="to" pattern="dd/MM/yyyy">
+                          <p:ajax event="dateSelect" onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
+                                  oncomplete="PF('activityDataTable').filter()" />
+                        </p:calendar>
+                      </f:facet>
+                      <h:outputText value="#{item.date}">
+                        <f:convertDateTime type="date" dateStyle="medium" />
+                      </h:outputText>
                     </p:column>
-                    
+
                     <p:column filterBy="#{item.categoryUnitId.categoryId.name}" headerText="#{admin.ListActivityDataTitle_category}" filterMatchMode="exact">
                         <f:facet name="filter">
                             <p:selectOneMenu onchange="PF('activityDataTable').filter()" >
