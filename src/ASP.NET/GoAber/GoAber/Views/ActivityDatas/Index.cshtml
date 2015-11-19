@@ -9,7 +9,24 @@
 <p>
     @Html.ActionLink(Resources.AD_Index_cshtml_Execute_Create_New, "Create")
 </p>
-<table class="table">
+
+<h3>Summary of Total Steps</h3>
+<div class="chart">
+    <div class="ajax-loading"><img src="~/Images/ajax-loader.gif" /></div>
+    <div id="chart-container"></div>
+</div>
+
+
+@Scripts.Render("~/Scripts/Charts.js")
+<script type="text/javascript">
+    $(function () {
+        initiliseAjax();
+        requestData("@(Url.Action("WeeklySummary", "API"))", { "unit": "Steps"}, function (data) {
+            createBarChart(data, "#chart-container");
+        });
+    });
+</script>
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.categoryunit.Id)
@@ -54,4 +71,4 @@
     </tr>
 }
 
-</table>
+</table>*@

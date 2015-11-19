@@ -30,6 +30,18 @@ namespace GoAber.Services
                       .OrderBy(a => a.date);
         }
 
+        public IEnumerable<ActivityData> getUserActivityDataByDateRange(string userId, DateTime fromDate, DateTime toDate)
+        {
+            return db.ActivityDatas
+                      .Include(a => a.categoryunit)
+                      .Include(a => a.categoryunit.category)
+                      .Include(a => a.categoryunit.unit)
+                      .Include(a => a.User)
+                      .OrderBy(a => a.date)
+                      .Where(a => a.date >= fromDate && a.date <= toDate)
+                      .Where(a => a.User.Id == userId);
+        }
+
         public IEnumerable<ActivityData> findActivityDataForUser(string userId)
         {
             return db.ActivityDatas

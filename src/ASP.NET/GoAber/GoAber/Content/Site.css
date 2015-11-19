@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.ajax-loading {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
