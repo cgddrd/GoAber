@@ -88,12 +88,30 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nickname,DateOfBirth,TeamId,Email,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,Nickname,DateOfBirth,TeamId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
+            var currentUser = db.Users.Find(applicationUser.Id);
+
             if (ModelState.IsValid)
             {
-                db.Entry(applicationUser).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(applicationUser).State = EntityState.Modified;
+                //db.SaveChanges();
+
+                // CG - Because we are not wanting to update all values for an ApplicationUser, we need to specifically set only the properties we want to update.
+                // We therefore don't want to use the commented code above.
+                // Note: As we are not updating all values of the ApplicationUser, we should really use a custom view model to hold the returned form values, rather than using the ApplicationUser model.
+                if (currentUser != null)
+                {
+                    currentUser.DateOfBirth = applicationUser.DateOfBirth;
+                    currentUser.Nickname = applicationUser.Nickname;
+                    currentUser.Email = applicationUser.Email;
+                    currentUser.TeamId = applicationUser.TeamId;
+                    currentUser.UserName = applicationUser.UserName;
+
+
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
 
