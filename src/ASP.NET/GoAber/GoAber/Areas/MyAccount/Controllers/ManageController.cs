@@ -129,8 +129,6 @@ namespace GoAber.Areas.MyAccount.Controllers
             {
                 var userId = User.Identity.GetUserId();
 
-                //var currentUser = db.Users.Find(userId);
-
                 ApplicationUser model = UserManager.FindById(userId);
 
                 if (model != null)
@@ -140,20 +138,15 @@ namespace GoAber.Areas.MyAccount.Controllers
                     model.Email = editModel.Email;
                     model.UserName = editModel.Email;
 
-                    //db.SaveChanges();
-
                     IdentityResult result = await UserManager.UpdateAsync(model);
-                }
 
-                //if (currentUser != null)
-                //{
-                //    currentUser.Nickname = editModel.Nickname;
-                //    currentUser.DateOfBirth = editModel.DateOfBirth;
-                //    currentUser.Email = editModel.Email;
-                //    currentUser.UserName = editModel.Email;
-                    
-                //    db.SaveChanges();
-                //}
+                    // CG - If the nickname has been updated, make sure that we update the nickname value for the _LoginPartial.cshtml page
+                    if (!ViewBag.ApplicationUserNickname.Equals(model.Nickname))
+                    {
+                        ViewBag.ApplicationUserNickname = model.Nickname;
+                    }
+
+                }
 
                 return RedirectToAction("Index");
             }

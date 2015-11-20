@@ -329,6 +329,7 @@
     <Compile Include="Services\ActivityDataService.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryUnit.cs" />
+    <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Services\CategoryUnitService.cs" />
     <Compile Include="Models\Challenge.cs" />
     <Compile Include="Models\Community.cs" />

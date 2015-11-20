@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GoAber.Models;
+using GoAber.Services;
 
 namespace GoAber.Controllers
 {
@@ -79,11 +80,17 @@ namespace GoAber.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = SignInManager.PasswordSignIn(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+
+                    // CG - Once the user has logged in successfully, we need to set the Viewbag nickname property so we can display this in the _LoginPartial.cshtml view.
+                    //ApplicationUserService applicationUserService = new ApplicationUserService();
+                    //ViewBag.ApplicationUserNickname = applicationUserService.getNickname(User.Identity.GetUserId());
+
                     return RedirectToLocal(returnUrl);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
