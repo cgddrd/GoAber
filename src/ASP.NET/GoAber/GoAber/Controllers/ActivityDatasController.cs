@@ -10,6 +10,7 @@ using GoAber.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using GoAber.Services;
+using PagedList;
 
 namespace GoAber
 {
@@ -19,6 +20,7 @@ namespace GoAber
         private CategoryUnitService categoryUnitService = new CategoryUnitService();
         private ActivityDataService dataService = new ActivityDataService();
         private ApplicationUserManager _userManager;
+        private const int pageSize = 100;
 
         // CG - We need to create our UserManager instance (copied from AccountController). 
         // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
@@ -46,19 +48,28 @@ namespace GoAber
             return View(categoryUnitService.GetAllCategories());
         }
 
-        // GET: ActivityDatas/Details/5
-        public ActionResult Details(int? id)
+        // GET: ActivityDatas/Manage
+        public ActionResult Manage(int? page)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ActivityData activityData = db.ActivityDatas.Find(id);
-            if (activityData == null)
-            {
-                return HttpNotFound();
-            }
-            return View(activityData);
+            int pageNumber = (page ?? 1);
+            string userId = User.Identity.GetUserId();
+            var data = dataService.findActivityDataForUser(userId);
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
+            return View(data.ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Manage(int? page, string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
+        {
+            var activityData = dataService.Filter(email, idCategoryUnit, fromDate, toDate);
+            int pageNumber = (page ?? 1);
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
+            return View(activityData.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ActivityDatas/Create

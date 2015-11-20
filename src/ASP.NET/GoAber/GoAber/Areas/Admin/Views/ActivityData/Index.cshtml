@@ -6,7 +6,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@{Html.RenderPartial("_Filter");}
+@{Html.RenderPartial("_Filter", null,  new ViewDataDictionary { { "Controller", "ActivityData" }, { "Action", "Index" }, { "CategoryUnits", ViewBag.categoryUnits } });}
 
 <h3>Results</h3>
 
@@ -66,4 +66,4 @@
 }
 </table>
 
-@Html.Partial("../Shared/_Pager", Model)
+@Html.Partial("_Pager", Model)

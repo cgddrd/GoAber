@@ -440,8 +440,8 @@
     <Content Include="Areas\Admin\Views\ActivityData\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
-    <Content Include="Areas\Admin\Views\ActivityData\_Filter.cshtml" />
+    <Content Include="Views\Shared\_Pager.cshtml" />
+    <Content Include="Views\Shared\_Filter.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Details.cshtml" />
@@ -510,9 +510,8 @@
     <Content Include="Views\Roles\ManageUserRoles.cshtml" />
     <Content Include="Views\ActivityDatas\Create.cshtml" />
     <Content Include="Views\ActivityDatas\Delete.cshtml" />
-    <Content Include="Views\ActivityDatas\Details.cshtml" />
     <Content Include="Views\ActivityDatas\Edit.cshtml" />
-    <Content Include="Views\ActivityDatas\Index.cshtml" />
+    <Content Include="Views\ActivityDatas\Manage.cshtml" />
     <Content Include="Views\FitBit\Callback.cshtml" />
     <Content Include="Views\FitBit\GetActivityDay.cshtml" />
     <Content Include="Views\FitBit\GetHeartDay.cshtml" />
@@ -535,6 +534,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\API\" />
     <Folder Include="Views\BaseAPI\" />
     <Folder Include="Views\Base\" />

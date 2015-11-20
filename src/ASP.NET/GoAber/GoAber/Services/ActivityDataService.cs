@@ -67,36 +67,57 @@ namespace GoAber.Services
             return data.Where(a => a.categoryunit.unit.name == unit);
         }
 
+        public IQueryable<ActivityData> Filter(string email, int? categoryUnitId, DateTime? fromDate, DateTime? toDate)
+        {
+            var activityData = getAllActivityData();
+            if (!String.IsNullOrEmpty(email))
+            {
+                activityData = activityData.Where(a => a.User.Email.Contains(email));
+            }
+
+            if (categoryUnitId.HasValue)
+            {
+                activityData = activityData.Where(a => a.categoryunit.Id == categoryUnitId);
+            }
+
+            if (fromDate.HasValue)
+            {
+                activityData = activityData.Where(a => a.date >= fromDate);
+            }
+
+            if (toDate.HasValue)
+            {
+                activityData = activityData.Where(a => a.date <= toDate);
+            }
+
+            return activityData;
+        }
+
         public ActivityData getActivityDataById(int id)
         {
             return db.ActivityDatas.Find(id);
         }
 
-        public IEnumerable<ActivityData> getAllActivityData()
+        public IQueryable<ActivityData> getAllActivityData()
         {
            return db.ActivityDatas
                       .Include(a => a.categoryunit)
+                      .Include(a => a.categoryunit.category)
+                      .Include(a => a.categoryunit.unit)
                       .Include(a => a.User)
                       .OrderBy(a => a.date);
         }
 
         public IEnumerable<ActivityData> getUserActivityDataByDateRange(string userId, DateTime fromDate, DateTime toDate)
         {
-            return db.ActivityDatas
-                      .Include(a => a.categoryunit)
-                      .Include(a => a.categoryunit.category)
-                      .Include(a => a.categoryunit.unit)
-                      .Include(a => a.User)
-                      .OrderBy(a => a.date)
+            return getAllActivityData()
                       .Where(a => a.date >= fromDate && a.date <= toDate)
                       .Where(a => a.User.Id == userId);
         }
 
         public IEnumerable<ActivityData> findActivityDataForUser(string userId)
         {
-            return db.ActivityDatas
-                       .Include(a => a.categoryunit)
-                       .Include(a => a.User)
+            return getAllActivityData()
                        .Where(a => a.User.Id == userId)
                        .OrderBy(a => a.date);
         }

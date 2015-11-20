@@ -3,7 +3,7 @@
 
 @Html.ActionLink("Clear", "Index")
 
-@using (Html.BeginForm("Index", "ActivityData", FormMethod.Post, new { @class = "form-inline" }))
+@using (Html.BeginForm(this.ViewData["Action"].ToString(), this.ViewData["Controller"].ToString(), FormMethod.Post, new { @class = "form-inline" }))
 {
     @Html.AntiForgeryToken()
 
@@ -15,7 +15,7 @@
 
     @Html.Label("idCategoryUnit", "Unit: ", htmlAttributes: new { @class = "control-label" })
     <div class="form-group">
-        @Html.DropDownList("idCategoryUnit", (IEnumerable<SelectListItem>)ViewBag.categoryUnits, string.Empty, htmlAttributes: new { @class = "form-control" })
+        @Html.DropDownList("idCategoryUnit", (IEnumerable<SelectListItem>) this.ViewData["CategoryUnits"], string.Empty, htmlAttributes: new { @class = "form-control" })
         @Html.ValidationMessage("idCategoryUnit", "", new { @class = "text-danger" })
     </div>
 

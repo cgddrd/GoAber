@@ -56,14 +56,14 @@ namespace GoAber.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
+        public ActionResult Index(int? page, string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
         {
-            var activityData = dataService.getAllActivityData();
-            activityData = ApplyFiltersToActivityData((IQueryable<ActivityData>) activityData, email, idCategoryUnit, fromDate, toDate);
+            var activityData = dataService.Filter(email, idCategoryUnit, fromDate, toDate);
+            int pageNumber = (page ?? 1);
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View(activityData.ToList());
+            return View(activityData.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/ActivityData/Details/5
@@ -73,11 +73,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas
-                                            .Include(a => a.categoryunit)
-                                            .Include(a => a.categoryunit.category)
-                                            .Include(a => a.categoryunit.unit)
-                                            .SingleOrDefault(d => d.Id == id);
+            ActivityData activityData = dataService.getActivityDataById(id.Value);
 
             if (activityData == null)
             {

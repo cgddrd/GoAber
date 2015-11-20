@@ -1,0 +1,65 @@
+﻿@model IEnumerable<GoAber.Models.ActivityData>
+
+@{
+    ViewBag.Title = "Manage Activity Data";
+    Layout = "~/Views/ActivityDatas/_ActivityDataLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{Html.RenderPartial("_Filter", null, new ViewDataDictionary { { "Controller", "ActivityDatas" }, { "Action", "Manage" }, { "CategoryUnits", ViewBag.categoryUnits } });}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastUpdated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Unit
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastUpdated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoryunit.category.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoryunit.unit.name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.Partial("_Pager", Model)
