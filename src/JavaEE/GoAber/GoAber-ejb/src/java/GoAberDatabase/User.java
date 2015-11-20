@@ -85,6 +85,9 @@ public class User implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserChallenge> userChallengeCollection;
+    
+    @OneToMany(mappedBy = "userId")
+    private Collection<Audit> auditCollection;
 
     public User() {
     }
@@ -187,6 +190,15 @@ public class User implements Serializable {
 
     public void setUserChallengeCollection(Collection<UserChallenge> userChallengeCollection) {
         this.userChallengeCollection = userChallengeCollection;
+    }
+    
+    @XmlTransient
+    public Collection<Audit> getAuditCollection() {
+        return auditCollection;
+    }
+
+    public void setAuditCollection(Collection<Audit> auditCollection) {
+        this.auditCollection = auditCollection;
     }
 
     @Override

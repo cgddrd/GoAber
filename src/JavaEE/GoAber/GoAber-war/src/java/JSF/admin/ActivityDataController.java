@@ -3,6 +3,7 @@ package JSF.admin;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.Category;
 import GoAberDatabase.Unit;
+import JSF.AuditController;
 import JSF.util.JsfUtil;
 import SessionBean.ActivityDataFacade;
 
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,6 +36,9 @@ public class ActivityDataController implements Serializable {
     private ActivityData current;
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
+    
+    @ManagedProperty(value="#{auditController}")
+    AuditController audit;
 
     public ActivityDataController() {
     }
@@ -73,16 +78,19 @@ public class ActivityDataController implements Serializable {
     }
 
     public String prepareList() {
+        audit.createAudit("activityData/List", "");
         recreateItems();
         return "List";
     }
 
     public String prepareView(ActivityData item) {
+        audit.createAudit("activityData/View", "IdActivityData=" + item.getIdActivityData());
         current = item;
         return "View";
     }
 
     public String prepareCreate() {
+        audit.createAudit("activityData/Create", "");
         setCurrent(new ActivityData());
         return "Create";
     }
@@ -92,6 +100,7 @@ public class ActivityDataController implements Serializable {
             getCurrent().setLastUpdated(new Date());
             getFacade().create(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataCreated"));
+            audit.createAudit("activityData/Create", "Created : IdActivityData="+getCurrent().getIdActivityData());
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
@@ -100,6 +109,7 @@ public class ActivityDataController implements Serializable {
     }
 
     public String prepareEdit(ActivityData data) {
+        audit.createAudit("activityData/Edit", "IdActivityData=" + data.getIdActivityData());
         current = data;
         return "Edit";
     }
@@ -109,6 +119,7 @@ public class ActivityDataController implements Serializable {
             getCurrent().setLastUpdated(new Date());
             getFacade().edit(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataUpdated"));
+            audit.createAudit("activityData/View", "Updated : IdActivityData=" + getCurrent().getIdActivityData());
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
@@ -117,6 +128,7 @@ public class ActivityDataController implements Serializable {
     }
 
     public String prepareDestroy(ActivityData data) {
+        audit.createAudit("activityData/Delete", "Viewed delete : IdActivityData="+data.getIdActivityData());
         current = data;
         return "Delete";
     }
@@ -132,7 +144,9 @@ public class ActivityDataController implements Serializable {
         try {
             getFacade().remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
+            audit.createAudit("activityData/List", "Deleted : IdActivityData="+getCurrent().getIdActivityData());
         } catch (Exception e) {
+            audit.createAudit("activityData/List", "Failed to deleted : IdActivityData="+getCurrent().getIdActivityData());
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
         }
     }
@@ -222,6 +236,13 @@ public class ActivityDataController implements Serializable {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + ActivityData.class.getName());
             }
         }
+    }
+    
+    public AuditController getAudit() {    
+        return audit;
+    }
+    public void setAudit(AuditController audit) {    
+        this.audit = audit;    
     }
 
 }
