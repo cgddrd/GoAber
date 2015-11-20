@@ -13,6 +13,7 @@ namespace GoAber.Areas.MyAccount.Models
         public string Nickname { get; set; }
         public string EmailAddress { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public Team Team { get; set; }
     }
 
     public class EditAccountViewModel
@@ -24,6 +25,7 @@ namespace GoAber.Areas.MyAccount.Models
         public bool BrowserRemembered { get; set; }
         public string Nickname { get; set; }
         public string Id { get; set; }
+        public Team Team { get; set; }
     }
 
     public class ManageLoginsViewModel

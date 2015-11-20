@@ -92,8 +92,6 @@ namespace GoAber.Areas.Admin.Controllers
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
 
-            // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
-            // CG TODO: Add remaining properties to ApplicationUser so that we can get rid of 'GoAber.User' model.
             ViewBag.userId = new SelectList(db.Users, "Id", "email");
 
             return View();
@@ -218,7 +216,6 @@ namespace GoAber.Areas.Admin.Controllers
         {
             var users = db.Users.Select(c => new
             {
-                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
                 idUser = c.Id,
                 email = c.Email
             }).ToList();

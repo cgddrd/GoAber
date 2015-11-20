@@ -393,13 +393,16 @@
   <data name="ManageController_EditAccount_Manage" xml:space="preserve">
     <value>Manage Account Details</value>
   </data>
-  <data name="ManageController_EditAccount_ManagManageController_EditAccount_DateOfBirth" xml:space="preserve">
+  <data name="ManageController_EditAccount_ManageController_EditAccount_DateOfBirth" xml:space="preserve">
     <value>Date of Birth</value>
   </data>
-  <data name="ManageController_EditAccount_ManagManageController_EditAccount_EmailAddress" xml:space="preserve">
+  <data name="ManageController_EditAccount_ManageController_EditAccount_EmailAddress" xml:space="preserve">
     <value>Email Address</value>
   </data>
-  <data name="ManageController_EditAccount_ManagManageController_EditAccount_Nickname" xml:space="preserve">
+  <data name="ManageController_EditAccount_ManageController_EditAccount_Nickname" xml:space="preserve">
     <value>Nickname</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_Team" xml:space="preserve">
+    <value>Team</value>
   </data>
 </root>

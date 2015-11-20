@@ -648,27 +648,36 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Date of Birth.
         /// </summary>
-        public static string ManageController_EditAccount_ManagManageController_EditAccount_DateOfBirth {
+        public static string ManageController_EditAccount_ManageController_EditAccount_DateOfBirth {
             get {
-                return ResourceManager.GetString("ManageController_EditAccount_ManagManageController_EditAccount_DateOfBirth", resourceCulture);
+                return ResourceManager.GetString("ManageController_EditAccount_ManageController_EditAccount_DateOfBirth", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Email Address.
         /// </summary>
-        public static string ManageController_EditAccount_ManagManageController_EditAccount_EmailAddress {
+        public static string ManageController_EditAccount_ManageController_EditAccount_EmailAddress {
             get {
-                return ResourceManager.GetString("ManageController_EditAccount_ManagManageController_EditAccount_EmailAddress", resourceCulture);
+                return ResourceManager.GetString("ManageController_EditAccount_ManageController_EditAccount_EmailAddress", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Nickname.
         /// </summary>
-        public static string ManageController_EditAccount_ManagManageController_EditAccount_Nickname {
+        public static string ManageController_EditAccount_ManageController_EditAccount_Nickname {
             get {
-                return ResourceManager.GetString("ManageController_EditAccount_ManagManageController_EditAccount_Nickname", resourceCulture);
+                return ResourceManager.GetString("ManageController_EditAccount_ManageController_EditAccount_Nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string ManageController_EditAccount_ManageController_EditAccount_Team {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_ManageController_EditAccount_Team", resourceCulture);
             }
         }
         

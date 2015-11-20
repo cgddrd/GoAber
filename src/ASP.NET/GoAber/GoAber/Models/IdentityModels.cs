@@ -19,6 +19,10 @@ namespace GoAber.Models
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 
+        [Display(Name = "Team")]
+        public int TeamId { get; set; }
+        public virtual Team Team { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -41,24 +45,20 @@ namespace GoAber.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<GoAber.Models.ActivityData> ActivityDatas { get; set; }
-
-        public System.Data.Entity.DbSet<GoAber.Models.CategoryUnit> CategoryUnits { get; set; }
-
-        public GoAber.Models.Team Group { get; set; }
-
+        public DbSet<ActivityData> ActivityDatas { get; set; }
+        public DbSet<CategoryUnit> CategoryUnits { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Challenge> Challenges { get; set; }
         public DbSet<Community> Communities { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<DeviceType> DeviceTypes { get; set; }
-        public DbSet<Team> Groups { get; set; }
+        public DbSet<Team> Teams { get; set; }
         public DbSet<GroupChallenge> GroupChallenges { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<UserChallenge> UserChallenges { get; set; }
-
-        public System.Data.Entity.DbSet<GoAber.Models.Job> Jobs { get; set; }
+        public DbSet<Job> Jobs { get; set; }
 
         //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
+        //public GoAber.Models.Team Group { get; set; }
     }
 }

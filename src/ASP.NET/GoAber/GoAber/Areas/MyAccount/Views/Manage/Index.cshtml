@@ -9,14 +9,14 @@
     <h4>View Your Account Details</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>@Resources.ManageController_EditAccount_ManagManageController_EditAccount_EmailAddress:</dt>
+        <dt>@Resources.ManageController_EditAccount_ManageController_EditAccount_EmailAddress:</dt>
         <dd>
 
             @Model.EmailAddress
 
         </dd>
 
-        <dt>@Resources.ManageController_EditAccount_ManagManageController_EditAccount_Nickname:</dt>
+        <dt>@Resources.ManageController_EditAccount_ManageController_EditAccount_Nickname:</dt>
         <dd>
 
             @Model.Nickname
@@ -26,10 +26,20 @@
         @if (Model.DateOfBirth != null)
             {
 
-            <dt>@Resources.ManageController_EditAccount_ManagManageController_EditAccount_DateOfBirth:</dt>
+            <dt>@Resources.ManageController_EditAccount_ManageController_EditAccount_DateOfBirth:</dt>
 
             <dd>
                 @Model.DateOfBirth.Value.ToShortDateString()
+            </dd>
+        }
+
+        @if (Model.Team != null)
+            {
+
+            <dt>@Resources.ManageController_EditAccount_ManageController_EditAccount_Team:</dt>
+
+            <dd>
+                @Model.Team.name
             </dd>
 
         }

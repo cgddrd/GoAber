@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GoAber.Models;
+using GoAber.Services;
 
 namespace GoAber.Areas.MyAccount.Controllers
 {
@@ -20,6 +21,8 @@ namespace GoAber.Areas.MyAccount.Controllers
         private ApplicationUserManager _userManager;
 
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        private TeamsService teamsService = new TeamsService();
 
         public ManageController()
         {
@@ -63,12 +66,20 @@ namespace GoAber.Areas.MyAccount.Controllers
 
             var userId = User.Identity.GetUserId();
 
+            var user = UserManager.FindById(userId);
+            //user.Team = db.Teams.Find(user.TeamId);
+
+            //if (!db.Entry(user).Reference(x => x.Team).IsLoaded)
+            //{
+            //    db.Entry(user).Reference(x => x.Team).Load();
+            //}
+
             var model = new IndexViewModel
             {
                 EmailAddress = UserManager.FindById(userId).Email,
                 Nickname = UserManager.FindById(userId).Nickname,
-                DateOfBirth = UserManager.FindById(userId).DateOfBirth.Value
-
+                DateOfBirth = UserManager.FindById(userId).DateOfBirth.Value,
+                Team = user.Team
             };
 
             return View(model);
@@ -92,6 +103,11 @@ namespace GoAber.Areas.MyAccount.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
+            var teams = teamsService.getAllTeams();
+
+            ViewBag.teamList = new SelectList(teams, "Id", "name");
+
             var model = new EditAccountViewModel
             {
                 HasPassword = HasPassword(),
@@ -121,6 +137,8 @@ namespace GoAber.Areas.MyAccount.Controllers
                 if (currentUser != null)
                 {
                     currentUser.Nickname = editModel.Nickname;
+                    currentUser.Team = editModel.Team;
+
                     db.SaveChanges();
                 }
 

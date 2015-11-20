@@ -13,19 +13,19 @@ namespace GoAber.Services
 
         public IEnumerable<Team> getAllTeams()
         {
-            return db.Groups
+            return db.Teams
                         .Include(t => t.community)
                         .OrderBy(t => t.name);
         }
 
         public Team findTeamById(int id)
         {
-            return db.Groups.Find(id);
+            return db.Teams.Find(id);
         }
 
         public void createTeam(Team team)
         {
-            db.Groups.Add(team);
+            db.Teams.Add(team);
             db.SaveChanges();
         }
 
@@ -38,7 +38,7 @@ namespace GoAber.Services
         public void deleteTeam(int id)
         {
             Team team = findTeamById(id);
-            db.Groups.Remove(team);
+            db.Teams.Remove(team);
             db.SaveChanges();
         }
     }
