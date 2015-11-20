@@ -67,12 +67,6 @@ namespace GoAber.Areas.MyAccount.Controllers
             var userId = User.Identity.GetUserId();
 
             var user = UserManager.FindById(userId);
-            //user.Team = db.Teams.Find(user.TeamId);
-
-            //if (!db.Entry(user).Reference(x => x.Team).IsLoaded)
-            //{
-            //    db.Entry(user).Reference(x => x.Team).Load();
-            //}
 
             var model = new IndexViewModel
             {
@@ -103,10 +97,12 @@ namespace GoAber.Areas.MyAccount.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-
+            var user = UserManager.FindById(userId);
+            // CG - Get all of the teams for the user's community and pass them via ViewBag through to the model.
             var teams = teamsService.getAllTeams();
 
-            ViewBag.teamList = new SelectList(teams, "Id", "name");
+            var selectTeams = teamsService.getTeamsByCommunity(user.Team.community);
+            ViewBag.teamList = new SelectList(selectTeams, "Id", "name");
 
             var model = new EditAccountViewModel
             {
@@ -116,7 +112,8 @@ namespace GoAber.Areas.MyAccount.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 Nickname = UserManager.FindById(userId).Nickname,
-                Id = UserManager.FindById(userId).Id
+                Id = UserManager.FindById(userId).Id,
+                TeamId = UserManager.FindById(userId).Team.Id
             };
 
             return View(model);
@@ -134,11 +131,17 @@ namespace GoAber.Areas.MyAccount.Controllers
 
                 var currentUser = db.Users.Find(userId);
 
+                var newTeam = db.Teams.Find(editModel.TeamId);
+
                 if (currentUser != null)
                 {
                     currentUser.Nickname = editModel.Nickname;
-                    currentUser.Team = editModel.Team;
 
+                    if (newTeam != null)
+                    {
+                        currentUser.Team = newTeam;
+                    }
+                    
                     db.SaveChanges();
                 }
 

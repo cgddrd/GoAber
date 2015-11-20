@@ -18,6 +18,15 @@ namespace GoAber.Services
                         .OrderBy(t => t.name);
         }
 
+        public IEnumerable<Team> getTeamsByCommunity(Community currentCommunity)
+        {
+
+            return db.Teams.Where(t => t.communityId == currentCommunity.Id)
+                           .Include(t => t.community)
+                           .OrderBy(t => t.name);
+
+        } 
+
         public Team findTeamById(int id)
         {
             return db.Teams.Find(id);
