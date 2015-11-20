@@ -301,7 +301,7 @@
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
-    <Compile Include="Controllers\APIController.cs" />
+    <Compile Include="Controllers\ActivityDatasAPIController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\FitBitController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -523,6 +523,7 @@
     <Content Include="Views\Devices\Delete.cshtml" />
     <Content Include="Views\ActivityDatas\_ActivityDataLayout.cshtml" />
     <Content Include="Views\ActivityDatas\WeeklySummary.cshtml" />
+    <Content Include="Views\ActivityDatas\MonthlySummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

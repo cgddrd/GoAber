@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = Resources.MonthlySummary;
+    Layout = "~/Views/ActivityDatas/_ActivityDataLayout.cshtml";
+}
+
+<h2>@(Resources.MonthlySummary)</h2>
+
+<h3>@(Resources.MonthlySummaryTitle_TotalSteps)</h3>
+<div class="chart">
+    <div class="ajax-loading"><img src="~/Images/ajax-loader.gif" /></div>
+    <div id="steps-chart"></div>
+</div>
+
+
+<h3>@(Resources.MonthlySummaryTitle_TotalBeats)</h3>
+<div class="chart">
+    <div class="ajax-loading"><img src="~/Images/ajax-loader.gif" /></div>
+    <div id="beats-chart"></div>
+</div>
+
+
+@Scripts.Render("~/Scripts/Charts.js")
+<script type="text/javascript">
+    $(function () {
+        initiliseAjax();
+        requestData("@(Url.Action("MonthlySummary", "ActivityDatasAPI"))", { "unit": "Steps"}, function (data) {
+            createBarChart(data, "#steps-chart", "month");
+        });
+
+        requestData("@(Url.Action("MonthlySummary", "ActivityDatasAPI"))", { "unit": "Beats"}, function (data) {
+            createBarChart(data, "#beats-chart", "month");
+        });
+    });
+</script>
+

@@ -34,8 +34,14 @@ namespace GoAber
             }
         }
 
-        // GET: ActivityDatas
+        // GET: ActivityDatas/WeeklySummary
         public ActionResult WeeklySummary()
+        {
+            return View();
+        }
+
+        // GET: ActivityDatas/MonthlySummary
+        public ActionResult MonthlySummary()
         {
             return View();
         }

@@ -17,6 +17,24 @@ namespace GoAber.Services
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public IEnumerable<ActivityData> WeeklySummary(string userId, string unit)
+        {
+            DateTime toDate = DateTime.Today;
+            DateTime fromDate = DateTime.Today.AddDays(-7);
+
+            var data = getUserActivityDataByDateRange(userId, fromDate, toDate);
+            return data.Where(a => a.categoryunit.unit.name == unit);
+        }
+
+        public IEnumerable<ActivityData> MonthlySummary(string userId, string unit)
+        {
+            DateTime toDate = DateTime.Today;
+            DateTime fromDate = DateTime.Today.AddMonths(-1);
+
+            var data = getUserActivityDataByDateRange(userId, fromDate, toDate);
+            return data.Where(a => a.categoryunit.unit.name == unit);
+        }
+
         public ActivityData getActivityDataById(int id)
         {
             return db.ActivityDatas.Find(id);

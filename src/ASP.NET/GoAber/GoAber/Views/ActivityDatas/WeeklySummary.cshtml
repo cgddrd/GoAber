@@ -24,11 +24,11 @@
 <script type="text/javascript">
     $(function () {
         initiliseAjax();
-        requestData("@(Url.Action("WeeklySummary", "API"))", { "unit": "Steps"}, function (data) {
+        requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "Steps"}, function (data) {
             createBarChart(data, "#steps-chart");
         });
 
-        requestData("@(Url.Action("WeeklySummary", "API"))", { "unit": "Beats"}, function (data) {
+        requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "Beats"}, function (data) {
             createBarChart(data, "#beats-chart");
         });
     });

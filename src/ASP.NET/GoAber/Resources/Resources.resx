@@ -408,4 +408,10 @@
   <data name="WeeklySummaryTitle_TotalSteps" xml:space="preserve">
     <value>Total Steps This Week</value>
   </data>
+  <data name="MonthlySummaryTitle_TotalBeats" xml:space="preserve">
+    <value>Total BeatsThis Month</value>
+  </data>
+  <data name="MonthlySummaryTitle_TotalSteps" xml:space="preserve">
+    <value>Total Steps This Month</value>
+  </data>
 </root>

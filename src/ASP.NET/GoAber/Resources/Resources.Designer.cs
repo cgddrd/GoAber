@@ -754,6 +754,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total BeatsThis Month.
+        /// </summary>
+        public static string MonthlySummaryTitle_TotalBeats {
+            get {
+                return ResourceManager.GetString("MonthlySummaryTitle_TotalBeats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Steps This Month.
+        /// </summary>
+        public static string MonthlySummaryTitle_TotalSteps {
+            get {
+                return ResourceManager.GetString("MonthlySummaryTitle_TotalSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Roles_Create_cshtml_Execute_Create {

@@ -2,6 +2,7 @@
 using GoAber.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
-namespace GoAber.Controllers
+namespace GoAber
 {
-    public class APIController : Controller
+    public class ActivityDatasAPIController : Controller
     {
         private ActivityDataService dataService = new ActivityDataService();
         private JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -33,25 +34,22 @@ namespace GoAber.Controllers
             }
         }
 
-        // GET: API
-        public ActionResult Index()
+        //GET: ActivityDatasAPI/WeeklySummary
+        public ActionResult WeeklySummary(string unit)
         {
-            return View();
+            string userId = User.Identity.GetUserId();
+            var data = dataService.WeeklySummary(userId, unit);
+            var formattedData = FormatActivityData(data);
+            return ToJson(formattedData);
         }
 
-        //GET: API/WeeklySummary
-        public string WeeklySummary(string unit)
+        //GET: ActivityDatasAPI/MonthlySummary
+        public ActionResult MonthlySummary(string unit)
         {
-            DateTime toDate = DateTime.Today;
-            DateTime fromDate = DateTime.Today.AddDays(-7);
             string userId = User.Identity.GetUserId();
-
-            var data = dataService.getUserActivityDataByDateRange(userId, fromDate, toDate);
-            data = data.Where(a => a.categoryunit.unit.name == unit);
-
+            var data = dataService.MonthlySummary(userId, unit);
             var formattedData = FormatActivityData(data);
-            var json = serializer.Serialize(formattedData);
-            return json;
+            return ToJson(formattedData);
         }
 
         private IEnumerable FormatActivityData(IEnumerable<ActivityData> data)
@@ -66,6 +64,11 @@ namespace GoAber.Controllers
                 lastUpdated = a.lastUpdated.ToString(),
                 user = a.User.Nickname
             }).ToList();
+        }
+
+        private ActionResult ToJson(Object obj)
+        {
+            return Content(JsonConvert.SerializeObject(obj), "text/javascript");
         }
     }
 }
