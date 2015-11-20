@@ -6,27 +6,15 @@
 package JSF.device;
 
 import DeviceApi.DeviceApi;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
+import GoAberDatabase.User;
+import JSF.auth.AuthController;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Scanner;
-import javax.json.Json;
-import javax.json.JsonReader;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Token;
-import org.scribe.model.Verb;
-import org.scribe.model.Verifier;
-import org.scribe.oauth.OAuthService;
 
 /**
  *
@@ -57,9 +45,11 @@ public class JawboneCallbackServlet extends HttpServlet {
       
         String code = request.getParameter("code");
         DeviceApi deviceApi = (DeviceApi)request.getSession().getAttribute("DeviceApi");
-        deviceApi.getAndSaveTokens(code);
+        AuthController authController = (AuthController) request.getSession().getAttribute("authController");
+        User user = authController.getActiveUser();
+        deviceApi.getAndSaveTokens(code, user);
         
-        response.sendRedirect("faces/Jawbone/Test.xhtml");
+        response.sendRedirect("faces/Jawbone/index.xhtml");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

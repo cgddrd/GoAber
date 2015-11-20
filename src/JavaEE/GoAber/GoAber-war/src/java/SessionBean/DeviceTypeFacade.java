@@ -32,7 +32,5 @@ public class DeviceTypeFacade extends AbstractFacade<DeviceType> {
     
     public DeviceType findByName(String name) {
         return (DeviceType)em.createNamedQuery("DeviceType.findByName").setParameter("name", name).getSingleResult();
-        
-        //return em.createNamedQuery("CategoryUnit.findByCategoryId").setParameter("categoryId", categoryId).getResultList();
     }
 }

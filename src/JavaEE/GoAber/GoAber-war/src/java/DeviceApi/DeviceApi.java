@@ -5,45 +5,33 @@
  */
 package DeviceApi;
 
-import GoAberDatabase.ActivityData;
-import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.Device;
 import GoAberDatabase.DeviceType;
 import GoAberDatabase.User;
+import JSF.auth.AuthController;
 import SessionBean.ActivityDataFacade;
 import SessionBean.CategoryUnitFacade;
 import SessionBean.DeviceFacade;
 import SessionBean.DeviceTypeFacade;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.activation.DataSource;
-import javax.annotation.ManagedBean;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.json.Json;
 //import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 //import javax.json.JsonStructure;
 //import javax.json.stream.JsonParser;
-import javax.jws.WebService;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.DefaultApi20;
 import org.scribe.model.OAuthConfig;
@@ -52,7 +40,6 @@ import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
-import org.scribe.utils.OAuthEncoder;
 import org.scribe.utils.Preconditions;
 
 /**
@@ -65,10 +52,11 @@ public abstract class DeviceApi extends DefaultApi20
     DeviceFacade deviceFacade = lookupDeviceFacadeBean();
     ActivityDataFacade activityDataFacade = lookupActivityDataFacadeBean();
     CategoryUnitFacade categoryUnitFacade = lookupCategoryUnitFacadeBean();
-    
+    @EJB 
+    SessionBean.UserFacade userFacade;
+    @ManagedProperty(value="#{authController}")
+    AuthController authController;
     int steps;
-    
-    
     //@EJB
     //private SessionBean.DeviceTypeFacade deviceTypeFacade;
     //@Resource(name="GoAber-warPU") 
@@ -81,17 +69,13 @@ public abstract class DeviceApi extends DefaultApi20
     public abstract String getType();
     public abstract String getScope();
     public abstract Class getProviderClass();
-    
-   // private static final String AUTHORIZE_URL = "https://www.fitbit.com/oauth2/authorize/oauth?client_id=%s&redirect_uri=%s&scope=activity&response_type=code";
-   
+       
     @Override
     public String getAccessTokenEndpoint() {
         
-        //DeviceType deviceType = (DeviceType)em.createNamedQuery("DeviceType.findByName").setParameter("name", getType()).getSingleResult();
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
         
         return String.format("%s?grant_type=authorization_code&client_id=%s&client_secret=%s", deviceType.getTokenEndpoint(), deviceType.getClientId(), deviceType.getConsumerSecret());
-       // return "https://jawbone.com/auth/oauth2/token?grant_type=authorization_code&client_id=mCZQ7V2DbgQ&client_secret=07e4083f111f1a44ccba1bf94d21c95f5486f8f1";
     }
     
     public String getAccessTokenEndpoint(String code) {
@@ -110,39 +94,30 @@ public abstract class DeviceApi extends DefaultApi20
         
         Preconditions.checkValidUrl(config.getCallback(), "Must provide a valid url as callback. Facebook does not support OOB");
         
-        //private static final String AUTHORIZE_URL = "https://jawbone.com/auth/oauth2/auth?client_id=%s&redirect_uri=%s&scope=move_read&response_type=code";
-        //DeviceType deviceType = (DeviceType)em.createNamedQuery("DeviceType.findByName").setParameter("name", getType()).getSingleResult();
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
         return String.format("%s?response_type=code&client_id=%s&redirect_uri=%s&scope=%s", deviceType.getAuthorizationEndpoint(), deviceType.getClientId(), getCallbackUrl(), getScope());
-       
-        //return String.format(AUTHORIZE_URL, config.getApiKey(), OAuthEncoder.encode(config.getCallback()));        
     }
     
     
     public OAuthService getOAuthService()
     {
-        DeviceType deviceType = deviceTypeFacade.findByName(getType());
-       /* deviceTypeFacade.
-        //em.createNamedQuery("DeviceType.findByName").setParameter("name", getType()).getSingleResult();
-       Query q =  em.createNamedQuery("DeviceType.findByName");
-       DeviceType deviceType = (DeviceType)q.setParameter("name", getType()).getSingleResult();
-        */
-       String apiKey = deviceType.getClientId();//"mCZQ7V2DbgQ";
-       String apiSecret = deviceType.getConsumerSecret();//"07e4083f111f1a44ccba1bf94d21c95f5486f8f1";
+       DeviceType deviceType = deviceTypeFacade.findByName(getType());
+       String apiKey = deviceType.getClientId();
+       String apiSecret = deviceType.getConsumerSecret();
        
        OAuthService service =  new ServiceBuilder()
                 .provider(getProviderClass())
                 .apiKey(apiKey).apiSecret(apiSecret)
-                .callback(getCallbackUrl())//"http://localhost:8080/GoAber-war/JawboneCallbackServlet")
+                .callback(getCallbackUrl())
                 .build();
        return service;
     }
     
     
-    public void getAndSaveTokens(String code)//TODO we will probably pass the user in
+    public void getAndSaveTokens(String code, User user)
     {
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
-        String urlString = getAccessTokenEndpoint(code);//"https://jawbone.com/auth/oauth2/token?grant_type=authorization_code&client_id=mCZQ7V2DbgQ&client_secret=07e4083f111f1a44ccba1bf94d21c95f5486f8f1&code=" +code;
+        String urlString = getAccessTokenEndpoint(code);
         URL url;
         try {
             url = new URL(urlString);
@@ -155,8 +130,8 @@ public abstract class DeviceApi extends DefaultApi20
                 int expiresIn = jsonObject.getInt("expires_in");
                 Date date = new Date();
                 date.setSeconds(date.getSeconds() + expiresIn);
-                Device device = new Device(new User(0), deviceType, accessToken, refreshToken, date);
-                //deviceFacade.create(device); //TODO need connor's user stuff
+                Device device = new Device(user, deviceType, accessToken, refreshToken, date);
+                deviceFacade.create(device);
                 System.out.println("access_token " + accessToken);
                 System.out.println("refreshToken " + refreshToken);
                 System.out.println("expiresIn " + expiresIn);
@@ -171,17 +146,14 @@ public abstract class DeviceApi extends DefaultApi20
 
     private DeviceTypeFacade lookupDeviceTypeFacadeBean() {
         try {
-           // Context c = new InitialContext();
             InitialContext iniCtx = new InitialContext();
             Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
             return(DeviceTypeFacade) ejbCtx.lookup("DeviceTypeFacade");
-           // return (DeviceTypeFacade) c.lookup("java:global/GoAber/GoAber-war/DeviceTypeFacade!SessionBean.DeviceTypeFacade");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
-    }
-    
+    }   
     
     /*
     public ActivityData getWalkingSteps(String requestUrl, String json, int day, int month, int year, User userId)
@@ -193,18 +165,26 @@ public abstract class DeviceApi extends DefaultApi20
     public JsonObject getActivityData(String requestUrl, int day, int month, int year, User userId)//, CategoryUnit categoryUnitId
     {
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
-        String accessToken = "DudD7GQwFndHxVmzLrCosqaNfvpKhnpei9CNJoIWGu5tREChD9Baw981oDgHq61eQvHJd8YC72FNr1_-D3B68FECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP";//deviceFacade.findByUserAndDeviceType(userId, deviceType).getAccessToken();
-        //String fullUrl = deviceType.apiEndpoint + requestUrl; // TODO will be changed to this once apiEnpoint in DB
-        String fullUrl = "https://jawbone.com/nudge/api/v.1.1/users/@me" + requestUrl;
-        
-        OAuthRequest request = new OAuthRequest(Verb.GET, fullUrl); 
-        Token token = new Token(accessToken, deviceType.getConsumerSecret());
-        getOAuthService().signRequest(token, request); 
-        
-        request.addHeader("Host", "http://localhost:8080");
-        request.addHeader("Authorization", "Bearer " + accessToken);
-        
-        Response response = request.send();
+        Device device = deviceFacade.findByUserAndDeviceType(authController.getActiveUser(), deviceType);
+        if(device == null)
+            return null;
+        String accessToken = device.getAccessToken();
+        if(device.getTokenExpiration().before(new Date()))
+        {
+            accessToken = refreshToken();
+            if(accessToken.isEmpty())
+                return null;
+        } 
+        String fullUrl = deviceType.getApiEndpoint() + requestUrl;
+
+         OAuthRequest request = new OAuthRequest(Verb.GET, fullUrl); 
+         Token token = new Token(accessToken, deviceType.getConsumerSecret());
+         getOAuthService().signRequest(token, request); 
+
+         request.addHeader("Host", "http://localhost:8080");
+         request.addHeader("Authorization", "Bearer " + accessToken);
+
+         Response response = request.send();
 
         try{
             try (InputStream is = new ByteArrayInputStream(response.getBody().getBytes()); 
@@ -223,11 +203,9 @@ public abstract class DeviceApi extends DefaultApi20
     
     private DeviceFacade lookupDeviceFacadeBean() {
         try {
-           // Context c = new InitialContext();
             InitialContext iniCtx = new InitialContext();
             Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
             return(DeviceFacade) ejbCtx.lookup("DeviceFacade");
-           // return (DeviceTypeFacade) c.lookup("java:global/GoAber/GoAber-war/DeviceTypeFacade!SessionBean.DeviceTypeFacade");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -235,11 +213,9 @@ public abstract class DeviceApi extends DefaultApi20
     }
     private ActivityDataFacade lookupActivityDataFacadeBean() {
         try {
-           // Context c = new InitialContext();
             InitialContext iniCtx = new InitialContext();
             Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
             return(ActivityDataFacade) ejbCtx.lookup("ActivityDataFacade");
-           // return (DeviceTypeFacade) c.lookup("java:global/GoAber/GoAber-war/DeviceTypeFacade!SessionBean.DeviceTypeFacade");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -248,15 +224,47 @@ public abstract class DeviceApi extends DefaultApi20
     
    private CategoryUnitFacade lookupCategoryUnitFacadeBean() {
         try {
-           // Context c = new InitialContext();
             InitialContext iniCtx = new InitialContext();
             Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
             return(CategoryUnitFacade) ejbCtx.lookup("CategoryUnitFacade");
-           // return (DeviceTypeFacade) c.lookup("java:global/GoAber/GoAber-war/DeviceTypeFacade!SessionBean.DeviceTypeFacade");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
+    }
+   
+   public boolean isConnected(){
+       User currentUser = authController.getActiveUser();
+       DeviceType deviceType = deviceTypeFacade.findByName(getType());
+       if(currentUser == null || deviceType == null)
+           return false;
+       Device device = deviceFacade.findByUserAndDeviceType(currentUser, deviceType);
+       if(device == null)
+           return false;
+       return true;
+   }
+   
+   public void deleteDevice(){
+       User currentUser = authController.getActiveUser();
+       DeviceType deviceType = deviceTypeFacade.findByName(getType());
+       if(currentUser == null || deviceType == null)
+           return;
+       Device device = deviceFacade.findByUserAndDeviceType(currentUser, deviceType);
+       if(device != null)
+           deviceFacade.remove(device);
+   }
+   
+   public void setAuthController(AuthController authController){
+       this.authController = authController;
+   }
+   
+   public AuthController getAuthController(){
+       return this.authController;
+   }
+
+    private String refreshToken() {
+        String refreshToken = "";
+        return refreshToken;
     }
     
 }

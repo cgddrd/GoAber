@@ -44,10 +44,10 @@ public class Device implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDevice")
     private Integer idDevice;
-    @Size(max = 45)
+    @Size(max = 250)
     @Column(name = "accessToken")
     private String accessToken;
-    @Size(max = 45)
+    @Size(max = 250)
     @Column(name = "refreshToken")
     private String refreshToken;
     @Column(name = "tokenExpiration")

@@ -46,7 +46,8 @@ INSERT INTO `UserRole` VALUES (6,'admin','admin@test.com'),(7,'coordinator','coo
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-INSERT INTO `DeviceTypes` (name, tokenEndpoint, consumerKey, consumerSecret, clientId, authorizationEndpoint) values ('fitbit', 'https://api.fitbit.com/oauth2/token', 'e06d4e7dcbc6fc80c0d00b187b6fb2e1', 'bafe21eca0c10cfe54f21e9b685f041f', '229R69', 'https://www.fitbit.com/oauth2/authorize');
+INSERT INTO `devicetype` (`name`,`tokenEndpoint`,`consumerKey`,`consumerSecret`,`clientId`,`authorizationEndpoint`, `apiEndpoint`) VALUES ('Jawbone','https://jawbone.com/auth/oauth2/token','','07e4083f111f1a44ccba1bf94d21c95f5486f8f1','mCZQ7V2DbgQ','https://jawbone.com/auth/oauth2/auth', 'https://jawbone.com/nudge/api/v.1.1/users/@me');
+INSERT INTO `devicetype` (`name`,`tokenEndpoint`,`consumerKey`,`consumerSecret`,`clientId`,`authorizationEndpoint`, `apiEndpoint`) VALUES ('Fitbit','https://api.fitbit.com/oauth2/token',NULL,'6f961c38f86be0a77f903ca9a2524865','22B2TQ','https://www.fitbit.com/oauth2/authorize ', 'https://jawbone.com/nudge/api/v.1.1/users/@me');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

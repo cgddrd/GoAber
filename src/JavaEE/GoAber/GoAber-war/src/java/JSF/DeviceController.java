@@ -81,9 +81,9 @@ public class DeviceController implements Serializable {
         return "Create";
     }
 
-    public String create() {
+    public String create(Device device) {
         try {
-            getFacade().create(current);
+            getFacade().create(device);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DeviceCreated"));
             return prepareCreate();
         } catch (Exception e) {

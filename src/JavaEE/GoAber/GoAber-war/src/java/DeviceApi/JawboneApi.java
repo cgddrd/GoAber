@@ -51,20 +51,19 @@ public class JawboneApi extends DeviceApi{
         return JawboneApi.class;
     }
     
-    public ActivityData getWalkingSteps(int day, int month, int year)
+    public ActivityData getWalkingSteps(int day, int month, int year, int userID)
     {
        String url = "/moves?date=" + year + month + day;
-       //String jsonPath = "data.items[0].details.steps";
-       User userId = new User(); // TODO need CG stuff to get the user
-        
-       JsonObject jsonObject = getActivityData(url, day, month, year, userId);
+       User user = userFacade.findUserById(userID);
+       if(user == null)
+           return null;
+       JsonObject jsonObject = getActivityData(url, day, month, year, user);
        steps = jsonObject.getJsonObject("data").getJsonArray("items").getJsonObject(0).getJsonObject("details").getInt("steps");
        System.out.println("Value = " + steps);
        
        Date date = new Date(year, month, day);
-       CategoryUnit categoryUnitId = new CategoryUnit();//categoryUnitFacade.findByCategoryAndUnit("Walking", "Steps");
-       ActivityData activityData = new ActivityData(steps, new Date(), date, userId, categoryUnitId);
-        //activityDataFacade.create(activityData);
+       CategoryUnit categoryUnitId = new CategoryUnit();
+       ActivityData activityData = new ActivityData(steps, new Date(), date, user, categoryUnitId);
        return activityData;
     }
     
@@ -73,11 +72,15 @@ public class JawboneApi extends DeviceApi{
         int day = 26;
         int month = 10;
         int year = 2015;
-        ActivityData activityData = getWalkingSteps(day, month, year);
+        User user = authController.getActiveUser();
+        if(user == null)
+            return "index";
+        int userID = user.getIdUser();
+        ActivityData activityData = getWalkingSteps(day, month, year, userID);
         this.steps = activityData.getValue();
         return "ViewActivity";
     }
-    
+        
     /*
     public void connectToJawbone()
     {

@@ -7,28 +7,20 @@ package JSF.device;
 
 import DeviceApi.DeviceApi;
 import DeviceApi.FitbitApi;
-import DeviceApi.JawboneApi;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.scribe.builder.ServiceBuilder;
-import org.scribe.model.OAuthRequest;
-import org.scribe.model.Token;
-import org.scribe.model.Verifier;
-import org.scribe.oauth.OAuth10aServiceImpl;
 import org.scribe.oauth.OAuthService;
 
 /**
  *
  * @author connorgoddard
  */
-@WebServlet("/Fitbit")
+@WebServlet("/FitbitAccess")
 public class FitBitServlet extends HttpServlet {
 
     /**

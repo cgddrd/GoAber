@@ -11,6 +11,7 @@ import GoAberDatabase.DeviceType;
 import GoAberDatabase.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -32,7 +33,10 @@ public class DeviceFacade extends AbstractFacade<Device> {
     }
     
     public Device findByUserAndDeviceType(User userId, DeviceType deviceTypeId){
-        return (Device)em.createNamedQuery("Device.findByUserAndDeviceType").setParameter("userId", userId).setParameter("deviceTypeId", deviceTypeId).getSingleResult();
-  
+        try {
+          return (Device)em.createNamedQuery("Device.findByUserAndDeviceType").setParameter("deviceTypeId", deviceTypeId).setParameter("userId", userId).getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
     }
 }

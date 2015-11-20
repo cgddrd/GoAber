@@ -6,6 +6,8 @@
 package JSF.device;
 
 import DeviceApi.DeviceApi;
+import GoAberDatabase.User;
+import JSF.auth.AuthController;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,14 +47,16 @@ public class FitBitCallbackServlet extends HttpServlet {
         String error = request.getParameter("error"); 
         if ((null != error) && ("access_denied".equals(error.trim()))) { 
             HttpSession session = request.getSession(); 
-            session.invalidate(); 
+            session.invalidate();
             response.sendRedirect(request.getContextPath()); 
             return; 
         }
       
         String code = request.getParameter("code");
         DeviceApi deviceApi = (DeviceApi)request.getSession().getAttribute("DeviceApi");
-        deviceApi.getAndSaveTokens(code);
+        AuthController authController = (AuthController) request.getSession().getAttribute("authController");
+        User user = authController.getActiveUser();
+        deviceApi.getAndSaveTokens(code, user);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
