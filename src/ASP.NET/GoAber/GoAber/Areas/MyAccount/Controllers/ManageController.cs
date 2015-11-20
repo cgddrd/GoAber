@@ -98,11 +98,10 @@ namespace GoAber.Areas.MyAccount.Controllers
 
             var userId = User.Identity.GetUserId();
             var user = UserManager.FindById(userId);
-            // CG - Get all of the teams for the user's community and pass them via ViewBag through to the model.
-            var teams = teamsService.getAllTeams();
 
-            var selectTeams = teamsService.getTeamsByCommunity(user.Team.community);
-            ViewBag.teamList = new SelectList(selectTeams, "Id", "name");
+            // CG - Get all of the teams for the user's community and pass them via ViewBag through to the model.
+            //var selectTeams = teamsService.GetTeamsByCommunity(user.Team.community);
+            //ViewBag.teamList = new SelectList(selectTeams, "Id", "name");
 
             var model = new EditAccountViewModel
             {
@@ -112,8 +111,7 @@ namespace GoAber.Areas.MyAccount.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 Nickname = UserManager.FindById(userId).Nickname,
-                Id = UserManager.FindById(userId).Id,
-                TeamId = UserManager.FindById(userId).Team.Id
+                Id = UserManager.FindById(userId).Id
             };
 
             return View(model);
@@ -131,16 +129,16 @@ namespace GoAber.Areas.MyAccount.Controllers
 
                 var currentUser = db.Users.Find(userId);
 
-                var newTeam = db.Teams.Find(editModel.TeamId);
+                //var newTeam = db.Teams.Find(editModel.TeamId);
 
                 if (currentUser != null)
                 {
                     currentUser.Nickname = editModel.Nickname;
 
-                    if (newTeam != null)
-                    {
-                        currentUser.Team = newTeam;
-                    }
+                    //if (newTeam != null)
+                    //{
+                    //    currentUser.Team = newTeam;
+                    //}
                     
                     db.SaveChanges();
                 }

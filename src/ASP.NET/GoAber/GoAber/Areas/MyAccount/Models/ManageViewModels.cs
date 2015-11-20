@@ -26,7 +26,6 @@ namespace GoAber.Areas.MyAccount.Models
         public bool BrowserRemembered { get; set; }
         public string Nickname { get; set; }
         public string Id { get; set; }
-        public int TeamId { get; set; }
     }
 
     public class ManageLoginsViewModel

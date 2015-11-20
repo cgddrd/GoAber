@@ -376,6 +376,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Users.
+        /// </summary>
+        public static string ApplicationUsersController_Index_Title {
+            get {
+                return ResourceManager.GetString("ApplicationUsersController_Index_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string ApplicationUsersController_Teamname {
+            get {
+                return ResourceManager.GetString("ApplicationUsersController_Teamname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string BackToList {

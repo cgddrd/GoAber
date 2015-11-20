@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GoAber.Models;
+using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -17,7 +18,8 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ApplicationUsers
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var applicationUsers = db.Users.Include(a => a.Team);
+            return View(applicationUsers.ToList());
         }
 
         // GET: Admin/ApplicationUsers/Details/5
@@ -38,6 +40,7 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ApplicationUsers/Create
         public ActionResult Create()
         {
+            ViewBag.TeamId = new SelectList(db.Teams, "Id", "name");
             return View();
         }
 
@@ -46,7 +49,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nickname,DateOfBirth,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Create([Bind(Include = "Id,Nickname,DateOfBirth,TeamId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +58,7 @@ namespace GoAber.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.TeamId = new SelectList(db.Teams, "Id", "name", applicationUser.TeamId);
             return View(applicationUser);
         }
 
@@ -70,6 +74,12 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+
+            TeamsService teamsService = new TeamsService();
+            var teamList = teamsService.CreateTeamList();
+
+            ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+
             return View(applicationUser);
         }
 
@@ -78,7 +88,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nickname,DateOfBirth,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,Nickname,DateOfBirth,TeamId,Email,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +96,13 @@ namespace GoAber.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            TeamsService teamsService = new TeamsService();
+            var teamList = teamsService.CreateTeamList();
+
+            ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+
+            // ViewBag.TeamId = new SelectList(db.Teams, "Id", "name", applicationUser.TeamId);
             return View(applicationUser);
         }
 

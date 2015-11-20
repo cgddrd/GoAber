@@ -17,6 +17,7 @@ namespace GoAber.Models
 
         [Display(Name = "DoB")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateOfBirth { get; set; }
 
         [Display(Name = "Team")]
@@ -57,6 +58,8 @@ namespace GoAber.Models
         public DbSet<Unit> Units { get; set; }
         public DbSet<UserChallenge> UserChallenges { get; set; }
         public DbSet<Job> Jobs { get; set; }
+
+        //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
 
         //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
         //public GoAber.Models.Team Group { get; set; }
