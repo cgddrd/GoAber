@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<GoAber.Models.ViewModels.CategoryViewModel>
 @{
     ViewBag.Title = Resources.WeeklySummary;
     Layout = "~/Views/ActivityDatas/_ActivityDataLayout.cshtml";
@@ -6,36 +6,45 @@
 
 <h2>@(Resources.WeeklySummary)</h2>
 
-<h3>@(Resources.WeeklySummaryTitle_TotalSteps)</h3>
-<div class="chart">
-    <div class="ajax-loading"><img src="~/Images/ajax-loader.gif" /></div>
-    <div id="steps-chart"></div>
-</div>
-
-
-<h3>@(Resources.WeeklySummaryTitle_TotalBeats)</h3>
-<div class="chart">
-    <div class="ajax-loading"><img src="~/Images/ajax-loader.gif" /></div>
-    <div id="beats-chart"></div>
-</div>
-
-
+@Scripts.Render("~/Scripts/moment.min.js")
 @Scripts.Render("~/Scripts/Charts.js")
-<script type="text/javascript">
-    $(function () {
-        initiliseAjax();
-        requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "Steps"}, function (data) {
-            createBarChartSummary(data, {
-                "tagname": "#steps-chart",
-                "rangeType": "week"
-            });
-        });
 
-        requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "Beats"}, function (data) {
-            createBarChartSummary(data, {
-                "tagname": "#beats-chart",
-                "rangeType": "week"
+@foreach (var category in Model)
+{
+    foreach (var unit in category.units)
+    {
+        <h3>@(unit) Per Day</h3>
+        <div class="chart">
+            <div class="ajax-loading"><img src="~/Images/ajax-loader.gif" /></div>
+            <div id="@(unit)-chart"></div>
+        </div>
+
+        <h4>@(unit)  Summary</h4>
+        <div class="data-summary">
+            <ul>
+                <li>Total number of @(unit) this week: <span class="statistic" id="@(unit)-total"></span></li>
+                <li>Average number of @(unit) this week: <span class="statistic" id="@(unit)-average"></span></li>
+                <li>Your best day was <span class="statistic" id="@(unit)-max-date"></span> with <span class="statistic" id="@(unit)-max-value"></span> @(unit).</li>
+                <li>Your worst day was <span class="statistic" id="@(unit)-min-date"></span> with <span class="statistic" id="@(unit)-min-value"></span> @(unit).</li>
+            </ul>
+        </div>
+
+
+        <script type="text/javascript">
+            $(function () {
+                initiliseAjax();
+                requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "@(unit)"}, function (data) {
+                    createBarChartSummary(data, {
+                        "tagname": "#@(unit)-chart",
+                        "rangeType": "week"
+                    });
+                });
+
+                requestData("@(Url.Action("WeeklyStatistics", "ActivityDatasAPI"))", { "unit": "@(unit)" }, function (data) {
+                    setSummaryValues(data, "@(unit)");
+                });
             });
-        });
-    });
-</script>
+        </script>
+
+    }
+}

@@ -43,3 +43,11 @@ textarea {
   .bar {
     fill: steelblue;
   }
+
+  rect:hover {
+      fill: orange;
+  }
+
+  .statistic {
+      font-weight: bold;
+  }

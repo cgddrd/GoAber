@@ -30,6 +30,16 @@ function requestData(endpoint, parameters, callback) {
     });
 }
 
+function setSummaryValues(data, prefix) {
+    $("#" + prefix + "-total").text(data.Total);
+    $("#" + prefix + "-average").text(parseFloat(Math.round(data.Average * 100) / 100).toFixed(2));
+    $("#" + prefix + "-min-date").text(moment(data.MinDate).format('MMMM Do'));
+    $("#" + prefix + "-min-value").text(data.Min);
+    $("#" + prefix + "-max-date").text(moment(data.MaxDate).format('MMMM Do'));
+    $("#" + prefix + "-max-value").text(data.Max);
+}
+
+
 /* Create a bar chart of activity data
  Based on tutorial at:
  http://www.d3noob.org/2014/02/making-bar-chart-in-d3js.html
@@ -39,7 +49,7 @@ function createBarChartSummary(data, params) {
     var selection = d3.select(params.tagname);
     var width = selection[0][0].clientWidth - margin.left - margin.right;
     var height = 300 - margin.top - margin.bottom;
-
+     
     var dateRange = createDateRange(params.rangeType);
     data = formatResponseData(data);
 
@@ -50,6 +60,8 @@ function createBarChartSummary(data, params) {
     var y = d3.scale.linear()
         .domain([0, d3.max(data, function (d) { return d.value; })])
         .range([height - margin.top - margin.bottom, 0]);
+
+    var barWidth = (width / (dateDiffInDays(dateRange.startDate, dateRange.endDate)));
 
     var xAxis = d3.svg.axis()
         .scale(x)
@@ -76,15 +88,26 @@ function createBarChartSummary(data, params) {
         .attr('class', 'bar')
         .attr('x', function (d) { return x(new Date(d.date)); })
         .attr('y', function (d) { return height - margin.top - margin.bottom - (height - margin.top - margin.bottom - y(d.value)) })
-        .attr('width', dateRange.barWidth)
+        .attr('width', barWidth -10)
         .attr('height', function (d) { return height - margin.top - margin.bottom - y(d.value) });
 
-    svg.selectAll(".bar").append("text")
-        .attr("dy", ".75em")
-        .attr("y", 6)
-        .attr("x", dateRange.barWidth / 2)
-        .attr("text-anchor", "middle")
-        .text(function (d) { return d.value; });
+   var emptyOffset = dateDiffInDays(dateRange.startDate, d3.min(data, function (d) { return d.date; }));
+
+   svg.selectAll("text")
+        .data(data)
+      .enter()
+        .append("text")
+        .text(function (d) {
+          return d.value;
+        })
+        .attr("x", function (d, i) { return x(new Date(d.date)) + (barWidth/2) - 13; })
+        .attr("y", function (d) {
+            return y(d.value) + 15;
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "11px")
+        .attr("fill", "white")
+        .attr("text-anchor", "left");
 
     svg.append('g')
         .attr('class', 'x axis')
@@ -126,13 +149,23 @@ function createDateRange(rangeType) {
 
     if (rangeType == "month") {
         // create a date range for one month ago
-        dateRange.barWidth = 20;
         dateRange.startDate.setMonth(dateRange.startDate.getMonth() - 1);
     } else {
         // create a date range for one week ago
-        dateRange.barWidth = 140;
         dateRange.startDate = new Date(dateRange.startDate.setDate(dateRange.startDate.getDate() - 7));
     }
 
     return dateRange;
+}
+
+var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+// Calculate the difference between two dates
+// Solution from: http://stackoverflow.com/questions/3224834
+function dateDiffInDays(a, b) {
+    // Discard the time and time-zone information.
+    var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 }

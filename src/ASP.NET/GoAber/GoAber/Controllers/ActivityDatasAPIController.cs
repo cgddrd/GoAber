@@ -1,4 +1,5 @@
 ﻿using GoAber.Models;
+using GoAber.Models.ViewModels;
 using GoAber.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -11,9 +12,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
-namespace GoAber
+namespace GoAber.Controllers
 {
-    public class ActivityDatasAPIController : Controller
+    public class ActivityDatasAPIController : BaseAPIController
     {
         private ActivityDataService dataService = new ActivityDataService();
         private JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -43,6 +44,14 @@ namespace GoAber
             return ToJson(formattedData);
         }
 
+        //GET: ActivityDatasAPI/WeeklyStatistics
+        public ActionResult WeeklyStatistics(string unit)
+        {
+            string userId = User.Identity.GetUserId();
+            var data = dataService.WeeklyStatistics(userId, unit);
+            return ToJson(data);
+        }
+
         //GET: ActivityDatasAPI/MonthlySummary
         public ActionResult MonthlySummary(string unit)
         {
@@ -50,6 +59,14 @@ namespace GoAber
             var data = dataService.MonthlySummary(userId, unit);
             var formattedData = FormatActivityData(data);
             return ToJson(formattedData);
+        }
+
+        //GET: ActivityDatasAPI/MonthlyStatistics
+        public ActionResult MonthlyStatistics(string unit)
+        {
+            string userId = User.Identity.GetUserId();
+            var data = dataService.MonthlyStatistics(userId, unit);
+            return ToJson(data);
         }
 
         private IEnumerable FormatActivityData(IEnumerable<ActivityData> data)
@@ -64,11 +81,6 @@ namespace GoAber
                 lastUpdated = a.lastUpdated.ToString(),
                 user = a.User.Nickname
             }).ToList();
-        }
-
-        private ActionResult ToJson(Object obj)
-        {
-            return Content(JsonConvert.SerializeObject(obj), "text/javascript");
         }
     }
 }

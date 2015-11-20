@@ -37,13 +37,13 @@ namespace GoAber
         // GET: ActivityDatas/WeeklySummary
         public ActionResult WeeklySummary()
         {
-            return View();
+            return View(categoryUnitService.GetAllCategories());
         }
 
         // GET: ActivityDatas/MonthlySummary
         public ActionResult MonthlySummary()
         {
-            return View();
+            return View(categoryUnitService.GetAllCategories());
         }
 
         // GET: ActivityDatas/Details/5

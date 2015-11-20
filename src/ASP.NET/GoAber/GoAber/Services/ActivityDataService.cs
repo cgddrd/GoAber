@@ -1,4 +1,5 @@
 ﻿using GoAber.Models;
+using GoAber.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,6 +17,37 @@ namespace GoAber.Services
     public class ActivityDataService
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public ActivityDataStatisticsViewModel WeeklyStatistics(string userId, string unit)
+        {
+            var weekData = WeeklySummary(userId, unit);
+            var summaryStats = computeStatistics(weekData);
+            return summaryStats;
+        }
+
+        public ActivityDataStatisticsViewModel MonthlyStatistics(string userId, string unit)
+        {
+            var monthData = MonthlySummary(userId, unit);
+            var summaryStats = computeStatistics(monthData);
+            return summaryStats;
+        }
+
+        private ActivityDataStatisticsViewModel computeStatistics(IEnumerable<ActivityData> data)
+        {
+            ActivityDataStatisticsViewModel summaryStats = new ActivityDataStatisticsViewModel();
+            var values = data.Select(a => a.value);
+            summaryStats.Average = values.Average().GetValueOrDefault(0);
+            summaryStats.Total = values.Sum().GetValueOrDefault(0);
+
+            ActivityData minItem = data.Aggregate((c, d) => c.value < d.value ? c : d);
+            summaryStats.Min = minItem.value.GetValueOrDefault(0);
+            summaryStats.MinDate = minItem.date.GetValueOrDefault(new DateTime());
+
+            ActivityData maxItem = data.Aggregate((c, d) => c.value > d.value ? c : d);
+            summaryStats.Max = maxItem.value.GetValueOrDefault(0);
+            summaryStats.MaxDate = maxItem.date.GetValueOrDefault(new DateTime());
+            return summaryStats;
+        }
 
         public IEnumerable<ActivityData> WeeklySummary(string userId, string unit)
         {
