@@ -25,11 +25,17 @@
     $(function () {
         initiliseAjax();
         requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "Steps"}, function (data) {
-            createBarChart(data, "#steps-chart");
+            createBarChartSummary(data, {
+                "tagname": "#steps-chart",
+                "rangeType": "week"
+            });
         });
 
         requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "Beats"}, function (data) {
-            createBarChart(data, "#beats-chart");
+            createBarChartSummary(data, {
+                "tagname": "#beats-chart",
+                "rangeType": "week"
+            });
         });
     });
 </script>

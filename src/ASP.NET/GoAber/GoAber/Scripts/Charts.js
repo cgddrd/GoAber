@@ -34,33 +34,17 @@ function requestData(endpoint, parameters, callback) {
  Based on tutorial at:
  http://www.d3noob.org/2014/02/making-bar-chart-in-d3js.html
 */
-function createBarChart(data, tagname, range) {
+function createBarChartSummary(data, params) {
     var margin = { top: 20, right: 20, bottom: 70, left: 40 };
-    var selection = d3.select(tagname);
+    var selection = d3.select(params.tagname);
     var width = selection[0][0].clientWidth - margin.left - margin.right;
     var height = 300 - margin.top - margin.bottom;
 
-    // Parse the date / time
-    var parseDate = d3.time.format("%d/%m/%Y %H:%M:%S").parse;
-    data.forEach(function (d) {
-        d.date = parseDate(d.activityDate);
-        d.value = +d.value;
-    });
-
-    if (range == "month") {
-        var today = new Date();
-        var lastMonth = new Date();
-        var barWidth = 20;
-        lastMonth.setMonth(lastMonth.getMonth() - 1);
-    } else {
-        var today = new Date();
-        var lastMonth = new Date();
-        var barWidth = 140;
-        lastMonth = new Date(lastMonth.setDate(lastMonth.getDate() - 7));
-    }
+    var dateRange = createDateRange(params.rangeType);
+    data = formatResponseData(data);
 
     var x = d3.time.scale()
-        .domain([lastMonth, today])
+        .domain([dateRange.startDate, dateRange.endDate])
         .rangeRound([0, width - margin.left - margin.right]);
 
     var y = d3.scale.linear()
@@ -79,7 +63,7 @@ function createBarChart(data, tagname, range) {
         .orient('left')
         .tickPadding(8);
 
-    var svg = d3.select(tagname).append('svg')
+    var svg = d3.select(params.tagname).append('svg')
         .attr('class', 'chart')
         .attr('width', width)
         .attr('height', height)
@@ -92,24 +76,63 @@ function createBarChart(data, tagname, range) {
         .attr('class', 'bar')
         .attr('x', function (d) { return x(new Date(d.date)); })
         .attr('y', function (d) { return height - margin.top - margin.bottom - (height - margin.top - margin.bottom - y(d.value)) })
-        .attr('width', barWidth)
+        .attr('width', dateRange.barWidth)
         .attr('height', function (d) { return height - margin.top - margin.bottom - y(d.value) });
 
     svg.selectAll(".bar").append("text")
         .attr("dy", ".75em")
         .attr("y", 6)
-        .attr("x", barWidth / 2)
+        .attr("x", dateRange.barWidth / 2)
         .attr("text-anchor", "middle")
         .text(function (d) { return d.value; });
 
     svg.append('g')
         .attr('class', 'x axis')
-        .attr('transform', 'translate(-5, ' + (height - margin.top - margin.bottom) + ')')
+        .attr('transform', 'translate(0, ' + (height - margin.top - margin.bottom) + ')')
         .call(xAxis);
 
     svg.append('g')
       .attr('class', 'y axis')
-      .attr('transform', 'translate(-5, 0)')
+      .attr('transform', 'translate(0, 0)')
       .call(yAxis);
 
+}
+
+/* Parse the reaw JSON response returned from the API.
+*/
+function formatResponseData(data) {
+    // Parse the date / time
+    var parseDate = d3.time.format("%d/%m/%Y %H:%M:%S").parse;
+
+    data.forEach(function (d) {
+        d.date = parseDate(d.activityDate);
+        d.value = +d.value;
+    });
+
+    return data;
+}
+
+/* Create an object representing a date range form 
+   for either a week or a month
+*/
+function createDateRange(rangeType) {
+    var dateRange = new Object();
+
+    dateRange.endDate = new Date();
+    dateRange.startDate = new Date();
+
+    dateRange.startDate.setHours(0, 0, 0, 0);
+    dateRange.endDate.setHours(0, 0, 0, 0);
+
+    if (rangeType == "month") {
+        // create a date range for one month ago
+        dateRange.barWidth = 20;
+        dateRange.startDate.setMonth(dateRange.startDate.getMonth() - 1);
+    } else {
+        // create a date range for one week ago
+        dateRange.barWidth = 140;
+        dateRange.startDate = new Date(dateRange.startDate.setDate(dateRange.startDate.getDate() - 7));
+    }
+
+    return dateRange;
 }

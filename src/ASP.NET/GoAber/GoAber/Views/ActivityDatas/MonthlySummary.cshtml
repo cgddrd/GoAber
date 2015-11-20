@@ -25,11 +25,17 @@
     $(function () {
         initiliseAjax();
         requestData("@(Url.Action("MonthlySummary", "ActivityDatasAPI"))", { "unit": "Steps"}, function (data) {
-            createBarChart(data, "#steps-chart", "month");
+            createBarChartSummary(data, {
+                "tagname": "#steps-chart",
+                "rangeType": "month"
+            });
         });
 
         requestData("@(Url.Action("MonthlySummary", "ActivityDatasAPI"))", { "unit": "Beats"}, function (data) {
-            createBarChart(data, "#beats-chart", "month");
+            createBarChartSummary(data, {
+                "tagname": "#beats-chart",
+                "rangeType": "month"
+            });
         });
     });
 </script>
