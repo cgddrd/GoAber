@@ -45,7 +45,7 @@ namespace GoAber.Areas.Admin.Controllers
         // GET: Admin/ActivityData
         public ActionResult Index(int? page)
         {
-            var activityData = dataService.getAllActivityData();
+            var activityData = dataService.GetAllActivityData();
 
             int pageNumber = (page ?? 1);
 
@@ -73,7 +73,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = dataService.getActivityDataById(id.Value);
+            ActivityData activityData = dataService.GetActivityDataById(id.Value);
 
             if (activityData == null)
             {
@@ -104,7 +104,7 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                dataService.createActivityData(activityData);
+                dataService.CreateActivityData(activityData);
                 return RedirectToAction("Index");
             }
 
@@ -121,7 +121,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = dataService.getActivityDataById(id.Value);
+            ActivityData activityData = dataService.GetActivityDataById(id.Value);
             if (activityData == null)
             {
                 return HttpNotFound();
@@ -142,7 +142,7 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                dataService.editActivityData(activityData);
+                dataService.EditActivityData(activityData);
                 return RedirectToAction("Index");
             }
 
@@ -172,7 +172,7 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            dataService.deleteActivityData(id);
+            dataService.DeleteActivityData(id);
             return RedirectToAction("Index");
         }
 

@@ -21,39 +21,22 @@ namespace GoAber.Services
         public ActivityDataStatisticsViewModel WeeklyStatistics(string userId, string unit)
         {
             var weekData = WeeklySummary(userId, unit);
-            var summaryStats = computeStatistics(weekData);
+            var summaryStats = ComputeStatistics(weekData);
             return summaryStats;
         }
 
         public ActivityDataStatisticsViewModel MonthlyStatistics(string userId, string unit)
         {
             var monthData = MonthlySummary(userId, unit);
-            var summaryStats = computeStatistics(monthData);
+            var summaryStats = ComputeStatistics(monthData);
             return summaryStats;
         }
 
         public ActivityDataStatisticsViewModel AllTimeStatistics(string userId, string unit)
         {
-            var data = findActivityDataForUser(userId);
+            var data = FindActivityDataForUser(userId);
             data = data.Where(a => a.categoryunit.unit.name == unit);
-            var summaryStats = computeStatistics(data);
-            return summaryStats;
-        }
-
-        private ActivityDataStatisticsViewModel computeStatistics(IEnumerable<ActivityData> data)
-        {
-            ActivityDataStatisticsViewModel summaryStats = new ActivityDataStatisticsViewModel();
-            var values = data.Select(a => a.value);
-            summaryStats.Average = values.Average().GetValueOrDefault(0);
-            summaryStats.Total = values.Sum().GetValueOrDefault(0);
-
-            ActivityData minItem = data.Aggregate((c, d) => c.value < d.value ? c : d);
-            summaryStats.Min = minItem.value.GetValueOrDefault(0);
-            summaryStats.MinDate = minItem.date.GetValueOrDefault(new DateTime());
-
-            ActivityData maxItem = data.Aggregate((c, d) => c.value > d.value ? c : d);
-            summaryStats.Max = maxItem.value.GetValueOrDefault(0);
-            summaryStats.MaxDate = maxItem.date.GetValueOrDefault(new DateTime());
+            var summaryStats = ComputeStatistics(data);
             return summaryStats;
         }
 
@@ -62,7 +45,7 @@ namespace GoAber.Services
             DateTime toDate = DateTime.Today;
             DateTime fromDate = DateTime.Today.AddDays(-7);
 
-            var data = getUserActivityDataByDateRange(userId, fromDate, toDate);
+            var data = GetUserActivityDataByDateRange(userId, fromDate, toDate);
             return data.Where(a => a.categoryunit.unit.name == unit);
         }
 
@@ -71,13 +54,13 @@ namespace GoAber.Services
             DateTime toDate = DateTime.Today;
             DateTime fromDate = DateTime.Today.AddMonths(-1);
 
-            var data = getUserActivityDataByDateRange(userId, fromDate, toDate);
+            var data = GetUserActivityDataByDateRange(userId, fromDate, toDate);
             return data.Where(a => a.categoryunit.unit.name == unit);
         }
 
         public IQueryable<ActivityData> Filter(string email, int? categoryUnitId, DateTime? fromDate, DateTime? toDate)
         {
-            var activityData = getAllActivityData();
+            var activityData = GetAllActivityData();
             if (!String.IsNullOrEmpty(email))
             {
                 activityData = activityData.Where(a => a.User.Email.Contains(email));
@@ -101,12 +84,12 @@ namespace GoAber.Services
             return activityData;
         }
 
-        public ActivityData getActivityDataById(int id)
+        public ActivityData GetActivityDataById(int id)
         {
             return db.ActivityDatas.Find(id);
         }
 
-        public IQueryable<ActivityData> getAllActivityData()
+        public IQueryable<ActivityData> GetAllActivityData()
         {
            return db.ActivityDatas
                       .Include(a => a.categoryunit)
@@ -116,27 +99,27 @@ namespace GoAber.Services
                       .OrderBy(a => a.date);
         }
 
-        public IEnumerable<ActivityData> getUserActivityDataByDateRange(string userId, DateTime fromDate, DateTime toDate)
+        public IEnumerable<ActivityData> GetUserActivityDataByDateRange(string userId, DateTime fromDate, DateTime toDate)
         {
-            return getAllActivityData()
+            return GetAllActivityData()
                       .Where(a => a.date >= fromDate && a.date <= toDate)
                       .Where(a => a.User.Id == userId);
         }
 
-        public IEnumerable<ActivityData> findActivityDataForUser(string userId)
+        public IEnumerable<ActivityData> FindActivityDataForUser(string userId)
         {
-            return getAllActivityData()
+            return GetAllActivityData()
                        .Where(a => a.User.Id == userId)
                        .OrderBy(a => a.date);
         }
 
-        public void createActivityDataForUser(ActivityData activityData, string userId)
+        public void CreateActivityDataForUser(ActivityData activityData, string userId)
         {
             activityData.ApplicationUserId = userId;
-            createActivityData(activityData);
+            CreateActivityData(activityData);
         }
 
-        public void createActivityData(ActivityData activityData)
+        public void CreateActivityData(ActivityData activityData)
         {
             activityData.lastUpdated = DateTime.Now;
             db.ActivityDatas.Add(activityData);
@@ -144,24 +127,41 @@ namespace GoAber.Services
         }
 
 
-        public void editActivityDataForUser(ActivityData activityData, string userId)
+        public void EditActivityDataForUser(ActivityData activityData, string userId)
         {
             activityData.ApplicationUserId = userId;
-            editActivityData(activityData);
+            EditActivityData(activityData);
         }
 
-        public void editActivityData(ActivityData activityData)
+        public void EditActivityData(ActivityData activityData)
         {
             activityData.lastUpdated = DateTime.Now;
             db.Entry(activityData).State = EntityState.Modified;
             db.SaveChanges();
         }
 
-        public void deleteActivityData(int id)
+        public void DeleteActivityData(int id)
         {
             ActivityData activityData = db.ActivityDatas.Find(id);
             db.ActivityDatas.Remove(activityData);
             db.SaveChanges();
+        }
+
+        private ActivityDataStatisticsViewModel ComputeStatistics(IEnumerable<ActivityData> data)
+        {
+            ActivityDataStatisticsViewModel summaryStats = new ActivityDataStatisticsViewModel();
+            var values = data.Select(a => a.value);
+            summaryStats.Average = values.Average().GetValueOrDefault(0);
+            summaryStats.Total = values.Sum().GetValueOrDefault(0);
+
+            ActivityData minItem = data.Aggregate((c, d) => c.value < d.value ? c : d);
+            summaryStats.Min = minItem.value.GetValueOrDefault(0);
+            summaryStats.MinDate = minItem.date.GetValueOrDefault(new DateTime());
+
+            ActivityData maxItem = data.Aggregate((c, d) => c.value > d.value ? c : d);
+            summaryStats.Max = maxItem.value.GetValueOrDefault(0);
+            summaryStats.MaxDate = maxItem.date.GetValueOrDefault(new DateTime());
+            return summaryStats;
         }
 
         ~ActivityDataService()
