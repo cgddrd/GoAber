@@ -20,7 +20,7 @@ namespace GoAber.Models
         // CG - In order for browser-rendered HTML5 date selectors to work properly, we need to use a date format that conforms with RFC-3339.
         // See: http://stackoverflow.com/a/12634470 for more information.
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Display(Name = "Team")]
         public int TeamId { get; set; }

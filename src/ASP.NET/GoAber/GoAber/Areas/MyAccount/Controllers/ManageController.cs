@@ -72,7 +72,7 @@ namespace GoAber.Areas.MyAccount.Controllers
             {
                 EmailAddress = UserManager.FindById(userId).Email,
                 Nickname = UserManager.FindById(userId).Nickname,
-                DateOfBirth = UserManager.FindById(userId).DateOfBirth.Value,
+                DateOfBirth = UserManager.FindById(userId).DateOfBirth,
                 Team = user.Team
             };
 
@@ -97,7 +97,7 @@ namespace GoAber.Areas.MyAccount.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var user = UserManager.FindById(userId);
+            var currentUser = UserManager.FindById(userId);
 
             // CG - Get all of the teams for the user's community and pass them via ViewBag through to the model.
             //var selectTeams = teamsService.GetTeamsByCommunity(user.Team.community);
@@ -110,8 +110,10 @@ namespace GoAber.Areas.MyAccount.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                Nickname = UserManager.FindById(userId).Nickname,
-                Id = UserManager.FindById(userId).Id
+                Nickname = currentUser.Nickname,
+                Id = currentUser.Id,
+                Email = currentUser.Email,
+                DateOfBirth = currentUser.DateOfBirth
             };
 
             return View(model);
@@ -127,21 +129,31 @@ namespace GoAber.Areas.MyAccount.Controllers
             {
                 var userId = User.Identity.GetUserId();
 
-                var currentUser = db.Users.Find(userId);
+                //var currentUser = db.Users.Find(userId);
 
-                //var newTeam = db.Teams.Find(editModel.TeamId);
+                ApplicationUser model = UserManager.FindById(userId);
 
-                if (currentUser != null)
+                if (model != null)
                 {
-                    currentUser.Nickname = editModel.Nickname;
+                    model.Nickname = editModel.Nickname;
+                    model.DateOfBirth = editModel.DateOfBirth;
+                    model.Email = editModel.Email;
+                    model.UserName = editModel.Email;
 
-                    //if (newTeam != null)
-                    //{
-                    //    currentUser.Team = newTeam;
-                    //}
-                    
-                    db.SaveChanges();
+                    //db.SaveChanges();
+
+                    IdentityResult result = await UserManager.UpdateAsync(model);
                 }
+
+                //if (currentUser != null)
+                //{
+                //    currentUser.Nickname = editModel.Nickname;
+                //    currentUser.DateOfBirth = editModel.DateOfBirth;
+                //    currentUser.Email = editModel.Email;
+                //    currentUser.UserName = editModel.Email;
+                    
+                //    db.SaveChanges();
+                //}
 
                 return RedirectToAction("Index");
             }
