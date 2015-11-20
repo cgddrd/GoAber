@@ -1,8 +1,6 @@
 ﻿
 <h3>Filter</h3>
 
-@Html.ActionLink("Clear", "Index")
-
 @using (Html.BeginForm(this.ViewData["Action"].ToString(), this.ViewData["Controller"].ToString(), FormMethod.Post, new { @class = "form-inline" }))
 {
     @Html.AntiForgeryToken()
@@ -31,7 +29,8 @@
         @Html.ValidationMessage("toDate", "", new { @class = "text-danger" })
     </div>
 
-    <div class="form-group">
+    <div class="btn-group form-group" role="group">
         <input type="submit" value="Filter" class="btn btn-default" />
+        @Html.ActionLink("Clear", this.ViewData["Action"].ToString(), null, new { @class = "btn btn-default" })
     </div>
 }

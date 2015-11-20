@@ -92,7 +92,7 @@ namespace GoAber
             if (ModelState.IsValid)
             {
                 dataService.createActivityDataForUser(activityData, User.Identity.GetUserId());
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
 
             var categories = categoryUnitService.CreateCategoryUnitList();
@@ -132,7 +132,7 @@ namespace GoAber
             if (ModelState.IsValid)
             {
                 dataService.editActivityDataForUser(activityData, User.Identity.GetUserId());
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
 
             var categories = categoryUnitService.CreateCategoryUnitList();
@@ -164,7 +164,7 @@ namespace GoAber
         public ActionResult DeleteConfirmed(int id)
         {
             dataService.deleteActivityData(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Manage");
         }
 
         protected override void Dispose(bool disposing)
