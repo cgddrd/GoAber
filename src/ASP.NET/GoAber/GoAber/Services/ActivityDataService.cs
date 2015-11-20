@@ -32,6 +32,14 @@ namespace GoAber.Services
             return summaryStats;
         }
 
+        public ActivityDataStatisticsViewModel AllTimeStatistics(string userId, string unit)
+        {
+            var data = findActivityDataForUser(userId);
+            data = data.Where(a => a.categoryunit.unit.name == unit);
+            var summaryStats = computeStatistics(data);
+            return summaryStats;
+        }
+
         private ActivityDataStatisticsViewModel computeStatistics(IEnumerable<ActivityData> data)
         {
             ActivityDataStatisticsViewModel summaryStats = new ActivityDataStatisticsViewModel();

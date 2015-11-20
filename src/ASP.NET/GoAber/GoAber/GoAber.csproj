@@ -530,6 +530,7 @@
     <Content Include="Views\ActivityDatas\_ActivityDataLayout.cshtml" />
     <Content Include="Views\ActivityDatas\WeeklySummary.cshtml" />
     <Content Include="Views\ActivityDatas\MonthlySummary.cshtml" />
+    <Content Include="Views\ActivityDatas\AllTimeSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

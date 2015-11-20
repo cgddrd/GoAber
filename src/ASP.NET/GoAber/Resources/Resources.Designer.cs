@@ -385,6 +385,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Time Summary.
+        /// </summary>
+        public static string AllTimeSummary {
+            get {
+                return ResourceManager.GetString("AllTimeSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string BackToList {

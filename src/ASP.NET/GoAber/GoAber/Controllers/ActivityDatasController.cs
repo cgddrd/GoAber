@@ -48,6 +48,12 @@ namespace GoAber
             return View(categoryUnitService.GetAllCategories());
         }
 
+        // GET: ActivityDatas/AllTime
+        public ActionResult AllTimeSummary()
+        {
+            return View(categoryUnitService.GetAllCategories());
+        }
+
         // GET: ActivityDatas/Manage
         public ActionResult Manage(int? page)
         {

@@ -30,12 +30,13 @@ function requestData(endpoint, parameters, callback) {
     });
 }
 
-function setSummaryValues(data, prefix) {
+function setSummaryValues(data, prefix, dateFormat) {
+    if (typeof (dateFormat) === 'undefined') dateFormat = 'MMMM Do';
     $("#" + prefix + "-total").text(data.Total);
     $("#" + prefix + "-average").text(parseFloat(Math.round(data.Average * 100) / 100).toFixed(2));
-    $("#" + prefix + "-min-date").text(moment(data.MinDate).format('MMMM Do'));
+    $("#" + prefix + "-min-date").text(moment(data.MinDate).format(dateFormat));
     $("#" + prefix + "-min-value").text(data.Min);
-    $("#" + prefix + "-max-date").text(moment(data.MaxDate).format('MMMM Do'));
+    $("#" + prefix + "-max-date").text(moment(data.MaxDate).format(dateFormat));
     $("#" + prefix + "-max-value").text(data.Max);
 }
 

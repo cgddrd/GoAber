@@ -69,6 +69,15 @@ namespace GoAber.Controllers
             return ToJson(data);
         }
 
+        //GET: ActivityDatasAPI/AllTimeStatistics
+        public ActionResult AllTimeStatistics(string unit)
+        {
+            string userId = User.Identity.GetUserId();
+            var data = dataService.AllTimeStatistics(userId, unit);
+            return ToJson(data);
+        }
+
+
         private IEnumerable FormatActivityData(IEnumerable<ActivityData> data)
         {
             return data.Select(a => new

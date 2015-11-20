@@ -5,11 +5,15 @@
 {
     @Html.AntiForgeryToken()
 
-    @Html.Label("email", "Email: ", htmlAttributes: new { @class = "control-label" })
-    <div class="form-group">
-        @Html.Editor("email", new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessage("email", "", new { @class = "text-danger" })
-    </div>
+    // Slight hack to hide email for non-admins
+    if (this.ViewData["Action"].ToString() == "Index")
+    {
+        @Html.Label("email", "Email: ", htmlAttributes: new { @class = "control-label" })
+        <div class="form-group">
+            @Html.Editor("email", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessage("email", "", new { @class = "text-danger" })
+        </div>
+    }
 
     @Html.Label("idCategoryUnit", "Unit: ", htmlAttributes: new { @class = "control-label" })
     <div class="form-group">

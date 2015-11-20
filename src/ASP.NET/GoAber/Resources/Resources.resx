@@ -414,4 +414,7 @@
   <data name="MonthlySummaryTitle_TotalSteps" xml:space="preserve">
     <value>Total Steps This Month</value>
   </data>
+  <data name="AllTimeSummary" xml:space="preserve">
+    <value>All Time Summary</value>
+  </data>
 </root>
