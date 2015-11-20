@@ -314,9 +314,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
+    <Compile Include="Migrations\201511201713029_GoAberDBMigration.cs" />
+    <Compile Include="Migrations\201511201713029_GoAberDBMigration.Designer.cs">
+      <DependentUpon>201511201713029_GoAberDBMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511201802499_GoAberDBMigration1.cs" />
+    <Compile Include="Migrations\201511201802499_GoAberDBMigration1.Designer.cs">
+      <DependentUpon>201511201802499_GoAberDBMigration1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DataRemovalAudit.cs" />
     <Compile Include="Models\ActivityData.cs" />
     <Compile Include="Services\ActivityDataService.cs" />
     <Compile Include="Models\Category.cs" />
@@ -337,6 +346,7 @@
     <Compile Include="Services\CommunitiesService.cs" />
     <Compile Include="Services\TeamsService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Controllers\DataRemovalAuditsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Shared\Extensions.cs" />
@@ -515,6 +525,8 @@
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Devices\Index.cshtml" />
     <Content Include="Views\Devices\Delete.cshtml" />
+    <Content Include="Views\DataRemovalAudits\Details.cshtml" />
+    <Content Include="Views\DataRemovalAudits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -537,6 +549,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511201713029_GoAberDBMigration.resx">
+      <DependentUpon>201511201713029_GoAberDBMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511201802499_GoAberDBMigration1.resx">
+      <DependentUpon>201511201802499_GoAberDBMigration1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

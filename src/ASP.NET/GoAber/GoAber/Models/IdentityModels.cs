@@ -55,7 +55,7 @@ namespace GoAber.Models
         public DbSet<Team> Groups { get; set; }
         public DbSet<GroupChallenge> GroupChallenges { get; set; }
         public DbSet<Unit> Units { get; set; }
-        public DbSet<UserChallenge> UserChallenges { get; set; }
+        public DbSet<DataRemovalAudit> DataRemovalAudits { get; set; }
 
         public System.Data.Entity.DbSet<GoAber.Models.Job> Jobs { get; set; }
     }
