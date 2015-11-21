@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using GoAber.Services;
 using PagedList;
+using GoAber.Models.ViewModels;
 
 namespace GoAber
 {
@@ -180,6 +181,30 @@ namespace GoAber
         {
             dataService.DeleteActivityData(id);
             return RedirectToAction("Manage");
+        }
+
+        // GET: ActivityDatas/ViewUser/<userid>
+        public ActionResult ViewUser(string id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            //find user 
+            ApplicationDbContext db = new ApplicationDbContext();
+            ApplicationUser user = db.Users.Where(u => u.Id.Equals(id)).Single();
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            // create view data
+            ViewUserSummary summary = new ViewUserSummary();
+            summary.User = user;
+            summary.CategoryViews = categoryUnitService.GetAllCategories();
+            return View(summary);
         }
 
         protected override void Dispose(bool disposing)
