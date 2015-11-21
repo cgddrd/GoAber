@@ -17,6 +17,7 @@ namespace GoAber.Areas.Admin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         private ApplicationUserService applicationUserService = new ApplicationUserService();
+        private TeamsService teamsService = new TeamsService();
 
         private const int pageSize = 100;
 
@@ -27,24 +28,30 @@ namespace GoAber.Areas.Admin.Controllers
 
             int pageNumber = (page ?? 1);
 
+           // var teams = categoryUnitService.CreateCategoryUnitList();
+           // ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
+
+            var teamList = teamsService.CreateTeamList();
+            ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
+
             return View(applicationUsers.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string email, string nickname)
+        public ActionResult Index(string email, string nickname, int? teamId)
         {
             var applicationUsers = applicationUserService.GetAllApplicationUsers();
 
-            applicationUsers = ApplyFiltersToApplicationUsers((IQueryable<ApplicationUser>)applicationUsers, email, nickname);
+            applicationUsers = ApplyFiltersToApplicationUsers((IQueryable<ApplicationUser>)applicationUsers, email, nickname, teamId);
 
-            //var categories = categoryUnitService.CreateCategoryUnitList();
-            //ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
+            var teamList = teamsService.CreateTeamList();
+            ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
 
             return View(applicationUsers.ToPagedList(1, pageSize));
         }
 
-        private IQueryable<ApplicationUser> ApplyFiltersToApplicationUsers(IQueryable<ApplicationUser> applicationUsers, string email, string nickname)
+        private IQueryable<ApplicationUser> ApplyFiltersToApplicationUsers(IQueryable<ApplicationUser> applicationUsers, string email, string nickname, int? teamId)
         {
             if (!String.IsNullOrEmpty(email))
             {
@@ -54,6 +61,11 @@ namespace GoAber.Areas.Admin.Controllers
             if (!String.IsNullOrEmpty(nickname))
             {
                 applicationUsers = applicationUsers.Where(u => u.Nickname.Contains(nickname));
+            }
+
+            if (teamId.HasValue)
+            {
+                applicationUsers = applicationUsers.Where(u => u.Team.Id == teamId);
             }
 
             return applicationUsers;
@@ -112,9 +124,7 @@ namespace GoAber.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            TeamsService teamsService = new TeamsService();
             var teamList = teamsService.CreateTeamList();
-
             ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
 
             return View(applicationUser);
@@ -152,7 +162,7 @@ namespace GoAber.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            TeamsService teamsService = new TeamsService();
+            
             var teamList = teamsService.CreateTeamList();
 
             ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
