@@ -25,7 +25,7 @@ function requestData(endpoint, parameters, callback) {
         dataType: "json",
         success: callback,
         error: function (msg) { 
-            $("#result").text(msg);
+            $("#"+ parameters.tagname +"-loading-fails").text(msg);
         }
     });
 }
