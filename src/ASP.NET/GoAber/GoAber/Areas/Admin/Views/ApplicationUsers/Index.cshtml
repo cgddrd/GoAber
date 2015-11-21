@@ -13,6 +13,10 @@
     @Html.ActionLink(Resources.Resources.CreateNew, "Create")
 </p> *@
 
+@{Html.RenderPartial("_Filter");}
+
+<h3>Results</h3>
+
 <table class="table">
     <tr>
         <th>
@@ -33,30 +37,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Nickname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Team.name)
-        </td>
-        <td>
-            @Html.ActionLink(Resources.Resources.Edit, "Edit", new {id = item.Id}) |
-            @Html.ActionLink(Resources.Resources.Details, "Details", new {id = item.Id}) |
-            @Html.ActionLink(Resources.Resources.Delete, "Delete", new {id = item.Id})
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Nickname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team.name)
+            </td>
+            <td>
+                @Html.ActionLink(Resources.Resources.Edit, "Edit", new {id = item.Id}) |
+                @Html.ActionLink(Resources.Resources.Details, "Details", new {id = item.Id}) |
+                @Html.ActionLink(Resources.Resources.Delete, "Delete", new {id = item.Id})
+            </td>
+        </tr>
+    }
 
 </table>
+
+@Html.Partial("../Shared/_Pager", Model)

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using GoAber.Models;
 using GoAber.Services;
+using PagedList;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -15,11 +16,47 @@ namespace GoAber.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        private ApplicationUserService applicationUserService = new ApplicationUserService();
+
+        private const int pageSize = 100;
+
         // GET: Admin/ApplicationUsers
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var applicationUsers = db.Users.Include(a => a.Team);
-            return View(applicationUsers.ToList());
+            var applicationUsers = applicationUserService.GetAllApplicationUsers();
+
+            int pageNumber = (page ?? 1);
+
+            return View(applicationUsers.ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string email, string nickname)
+        {
+            var applicationUsers = applicationUserService.GetAllApplicationUsers();
+
+            applicationUsers = ApplyFiltersToApplicationUsers((IQueryable<ApplicationUser>)applicationUsers, email, nickname);
+
+            //var categories = categoryUnitService.CreateCategoryUnitList();
+            //ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
+
+            return View(applicationUsers.ToPagedList(1, pageSize));
+        }
+
+        private IQueryable<ApplicationUser> ApplyFiltersToApplicationUsers(IQueryable<ApplicationUser> applicationUsers, string email, string nickname)
+        {
+            if (!String.IsNullOrEmpty(email))
+            {
+                applicationUsers = applicationUsers.Where(u => u.Email.Contains(email));
+            }
+
+            if (!String.IsNullOrEmpty(nickname))
+            {
+                applicationUsers = applicationUsers.Where(u => u.Nickname.Contains(nickname));
+            }
+
+            return applicationUsers;
         }
 
         // GET: Admin/ApplicationUsers/Details/5
