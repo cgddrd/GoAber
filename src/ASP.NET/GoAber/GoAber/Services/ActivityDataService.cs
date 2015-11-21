@@ -1,4 +1,5 @@
-﻿using GoAber.Models;
+﻿using GoAber.Areas.Admin.Models;
+using GoAber.Models;
 using GoAber.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -58,27 +59,27 @@ namespace GoAber.Services
             return data.Where(a => a.categoryunit.unit.name == unit);
         }
 
-        public IQueryable<ActivityData> Filter(string email, int? categoryUnitId, DateTime? fromDate, DateTime? toDate)
+        public IQueryable<ActivityData> Filter(FilterViewModel filterParams)
         {
             var activityData = GetAllActivityData();
-            if (!String.IsNullOrEmpty(email))
+            if (!String.IsNullOrEmpty(filterParams.Email))
             {
-                activityData = activityData.Where(a => a.User.Email.Contains(email));
+                activityData = activityData.Where(a => a.User.Email.Contains(filterParams.Email));
             }
 
-            if (categoryUnitId.HasValue)
+            if (filterParams.CategoryUnitId > 0)
             {
-                activityData = activityData.Where(a => a.categoryunit.Id == categoryUnitId);
+                activityData = activityData.Where(a => a.categoryunit.Id == filterParams.CategoryUnitId);
             }
 
-            if (fromDate.HasValue)
+            if (filterParams.FromDate.HasValue)
             {
-                activityData = activityData.Where(a => a.date >= fromDate);
+                activityData = activityData.Where(a => a.date >= filterParams.FromDate.Value);
             }
 
-            if (toDate.HasValue)
+            if (filterParams.ToDate.HasValue)
             {
-                activityData = activityData.Where(a => a.date <= toDate);
+                activityData = activityData.Where(a => a.date <= filterParams.ToDate.Value);
             }
 
             return activityData;

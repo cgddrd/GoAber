@@ -12,6 +12,8 @@ using Microsoft.AspNet.Identity;
 using GoAber.Services;
 using PagedList;
 using GoAber.Models.ViewModels;
+using GoAber.ActionFilters;
+using GoAber.Areas.Admin.Models;
 
 namespace GoAber
 {
@@ -68,15 +70,16 @@ namespace GoAber
         }
 
         [HttpPost]
+        [MultipleButton(Name = "action", Argument = "Filter")]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage(int? page, string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
+        public ActionResult Manage(int? page, FilterViewModel filterParams)
         {
-            var activityData = dataService.Filter(email, idCategoryUnit, fromDate, toDate);
+            var activityData = dataService.Filter(filterParams);
             int pageNumber = (page ?? 1);
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View(activityData.ToPagedList(pageNumber, pageSize));
+            return View("Manage", activityData.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ActivityDatas/Create

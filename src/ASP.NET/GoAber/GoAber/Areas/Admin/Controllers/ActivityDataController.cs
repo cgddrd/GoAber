@@ -13,6 +13,8 @@ using PagedList;
 using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using GoAber.ActionFilters;
+using GoAber.Areas.Admin.Models;
 using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
@@ -55,16 +57,18 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [MultipleButton(Name = "action", Argument = "Filter")]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(int? page, string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
+        public ActionResult Index(int? page, FilterViewModel filterParams)
         {
-            var activityData = dataService.Filter(email, idCategoryUnit, fromDate, toDate);
+            var activityData = dataService.Filter(filterParams);
             int pageNumber = (page ?? 1);
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
             return View(activityData.ToPagedList(pageNumber, pageSize));
         }
+
 
         // GET: Admin/ActivityData/Details/5
         public ActionResult Details(int? id)
@@ -186,6 +190,30 @@ namespace GoAber.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "BatchDelete")]
+        public ActionResult Index(FilterViewModel filterParams) {
+            var activityData = dataService.Filter(filterParams);
+            filterParams.Size = activityData.Count();
+            return View("BatchDelete", filterParams);
+        }
+
+        // POST: Admin/ActivityData/BatchDelete
+        [HttpPost, ActionName("BatchDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult BatchDelete(FilterViewModel filterParams)
+        {
+            var activityData = dataService.Filter(filterParams);
+
+            foreach (var item in activityData)
+            {
+                db.ActivityDatas.Remove(item);
+
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -195,29 +223,17 @@ namespace GoAber.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
-        private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, string email, int? categoryUnitId, DateTime? fromDate, DateTime? toDate)
+        private IEnumerable CreateCategoryUnitList()
         {
-            if (!String.IsNullOrEmpty(email))
+            var categories = db.CategoryUnits.Select(c => new
             {
-                activityData = activityData.Where(a => a.User.Email.Contains(email));
-            }
+                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
+                idCategoryUnit = c.Id,
+                category = c.category.name,
+                unit = c.unit.name
+            }).ToList();
 
-            if (categoryUnitId.HasValue)
-            {
-                activityData = activityData.Where(a => a.categoryunit.Id == categoryUnitId);
-            }
-
-            if (fromDate.HasValue)
-            {
-                activityData = activityData.Where(a => a.date >= fromDate);
-            }
-
-            if (toDate.HasValue)
-            {
-                activityData = activityData.Where(a => a.date <= toDate);
-            }
-
-            return activityData;
+            return categories;
         }
 
         private IEnumerable CreateUserList()

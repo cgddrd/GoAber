@@ -281,6 +281,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\MultipleButtonAttribute.cs" />
     <Compile Include="App_Code\Scheduling\Interfaces\IScheduler.cs" />
     <Compile Include="App_Code\Scheduling\Hangfire\HangfireScheduler.cs" />
     <Compile Include="App_Code\Scheduling\Jobs\JawBoneJob.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Areas\Admin\Models\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
@@ -316,6 +318,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
+    <Compile Include="Migrations\201511211344571_Init.cs" />
+    <Compile Include="Migrations\201511211344571_Init.Designer.cs">
+      <DependentUpon>201511211344571_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511211347362_Init1.cs" />
+    <Compile Include="Migrations\201511211347362_Init1.Designer.cs">
+      <DependentUpon>201511211347362_Init1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -443,6 +453,7 @@
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
     <Content Include="Views\Shared\_Pager.cshtml" />
     <Content Include="Views\Shared\_Filter.cshtml" />
+    <Content Include="Areas\Admin\Views\ActivityData\BatchDelete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Details.cshtml" />
@@ -536,7 +547,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\API\" />
     <Folder Include="Views\BaseAPI\" />
@@ -559,6 +569,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511211344571_Init.resx">
+      <DependentUpon>201511211344571_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511211347362_Init1.resx">
+      <DependentUpon>201511211347362_Init1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
