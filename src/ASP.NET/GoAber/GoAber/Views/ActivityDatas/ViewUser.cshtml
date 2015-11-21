@@ -1,6 +1,7 @@
-﻿@model GoAber.Models.ViewModels.ViewUserSummary
+﻿@using GoAber.Helpers;
+@model GoAber.Models.ViewModels.ViewUserSummary
 @{
-    ViewBag.Title = "View User";
+    ViewBag.Title = Resources.ViewUser;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,16 +13,14 @@
 
 @foreach (var category in Model.CategoryViews)
 {
-    <h3>@(category.name) Summary</h3>
+    <h3>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, category.name))</h3>
 
     <div class="well data-summary">
         @foreach (var unit in category.units)
         {
-            <h4>@(unit) Summary</h4>
+            <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, unit))</h4>
                 <ul>
-                    <li>Total number of @(unit): <span class="statistic" id="@(unit)-total"></span></li>
-                    <li>Their best day was <span class="statistic" id="@(unit)-max-date"></span> with <span class="statistic" id="@(unit)-max-value"></span> @(unit).</li>
-                    <li>Their worst day was <span class="statistic" id="@(unit)-min-date"></span> with <span class="statistic" id="@(unit)-min-value"></span> @(unit).</li>
+                    @Html.Raw(Html.ConvertResource(Resources.AD_ViewUserStatistics, unit))
                 </ul>
                 <script type="text/javascript">
                 $(function () {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using System.Web.Mvc;
 
 namespace GoAber.Helpers
 {
@@ -75,6 +76,12 @@ namespace GoAber.Helpers
             if (!name.Contains("-")) return name;
 
             return name.Split('-')[0]; // Read first part only. E.g. "en", "es"
+        }
+
+        public static IHtmlString ConvertResource(this HtmlHelper htmlHelper, string message, params object[] args)
+        {
+            var parameters = args.Select(x => htmlHelper.Encode(x)).ToArray();
+            return new HtmlString(string.Format(message, parameters));
         }
     }
 }

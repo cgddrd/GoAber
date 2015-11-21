@@ -178,6 +178,26 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Total number of {0}: &lt;span class=&quot;statistic&quot; id=&quot;{0}-total&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///                    &lt;li&gt;Your best day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+        ///                    &lt;li&gt;Your worst day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;.
+        /// </summary>
+        public static string AD_AllTimeSummaryStatistics {
+            get {
+                return ResourceManager.GetString("AD_AllTimeSummaryStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string AD_Category {
+            get {
+                return ResourceManager.GetString("AD_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string AD_Create_cshtml_Execute_Back_to_List {
@@ -192,6 +212,15 @@ namespace Resources {
         public static string AD_Create_cshtml_Execute_Create {
             get {
                 return ResourceManager.GetString("AD_Create_cshtml_Execute_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string AD_Date {
+            get {
+                return ResourceManager.GetString("AD_Date", resourceCulture);
             }
         }
         
@@ -304,11 +333,91 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Updated.
+        /// </summary>
+        public static string AD_LastUpdated {
+            get {
+                return ResourceManager.GetString("AD_LastUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Total number of {0} this month: &lt;span class=&quot;statistic&quot; id=&quot;{0}-total&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///      &lt;li&gt;Average number of {0} this month: &lt;span class=&quot;statistic&quot; id=&quot;{0}-average&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///      &lt;li&gt;Your best day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+        ///      &lt;li&gt;Your worst day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;.
+        /// </summary>
+        public static string AD_MonthlySummaryStatistics {
+            get {
+                return ResourceManager.GetString("AD_MonthlySummaryStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity Data.
         /// </summary>
         public static string AD_Subtitle {
             get {
                 return ResourceManager.GetString("AD_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit.
+        /// </summary>
+        public static string AD_Unit {
+            get {
+                return ResourceManager.GetString("AD_Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Per Day.
+        /// </summary>
+        public static string AD_UnitsPerDaySummary {
+            get {
+                return ResourceManager.GetString("AD_UnitsPerDaySummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Summary.
+        /// </summary>
+        public static string AD_UnitSummary {
+            get {
+                return ResourceManager.GetString("AD_UnitSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string AD_Value {
+            get {
+                return ResourceManager.GetString("AD_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Total number of {0}: &lt;span class=&quot;statistic&quot; id=&quot;{0}-total&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///                    &lt;li&gt;Their best day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+        ///                    &lt;li&gt;Their worst day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;.
+        /// </summary>
+        public static string AD_ViewUserStatistics {
+            get {
+                return ResourceManager.GetString("AD_ViewUserStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Total number of {0} this week: &lt;span class=&quot;statistic&quot; id=&quot;{0}-total&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///      &lt;li&gt;Average number of {0} this week: &lt;span class=&quot;statistic&quot; id=&quot;{0}-average&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///      &lt;li&gt;Your best day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+        ///      &lt;li&gt;Your worst day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;.
+        /// </summary>
+        public static string AD_WeeklySummaryStatistics {
+            get {
+                return ResourceManager.GetString("AD_WeeklySummaryStatistics", resourceCulture);
             }
         }
         
@@ -930,6 +1039,15 @@ namespace Resources {
         public static string Unit {
             get {
                 return ResourceManager.GetString("Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View User.
+        /// </summary>
+        public static string ViewUser {
+            get {
+                return ResourceManager.GetString("ViewUser", resourceCulture);
             }
         }
         

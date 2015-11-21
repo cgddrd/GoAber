@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GoAber.Models.ViewModels.CategoryViewModel>
+﻿@using GoAber.Helpers;
+@model IEnumerable<GoAber.Models.ViewModels.CategoryViewModel>
 @{
     ViewBag.Title = Resources.WeeklySummary;
     Layout = "~/Views/ActivityDatas/_ActivityDataLayout.cshtml";
@@ -11,22 +12,21 @@
 
 @foreach (var category in Model)
 {
+    <h3>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, category.name))</h3>
+
     foreach (var unit in category.units)
     {
-        <h3>@(unit) Per Day</h3>
+        <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitsPerDaySummary, unit))</h4>
         <div class="chart">
             <div class="ajax-loading"><img src="~/Images/ajax-loader.gif" /></div>
             <div id="@(unit)-loading-fails"></div>
             <div id="@(unit)-chart"></div>
         </div>
 
-        <h4>@(unit)  Summary</h4>
+        <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, unit))</h4>
         <div class="well data-summary">
             <ul>
-                <li>Total number of @(unit) this week: <span class="statistic" id="@(unit)-total"></span></li>
-                <li>Average number of @(unit) this week: <span class="statistic" id="@(unit)-average"></span></li>
-                <li>Your best day was <span class="statistic" id="@(unit)-max-date"></span> with <span class="statistic" id="@(unit)-max-value"></span> @(unit).</li>
-                <li>Your worst day was <span class="statistic" id="@(unit)-min-date"></span> with <span class="statistic" id="@(unit)-min-value"></span> @(unit).</li>
+                @Html.Raw(Html.ConvertResource(Resources.AD_WeeklySummaryStatistics, unit))
             </ul>
         </div>
 

@@ -417,4 +417,50 @@
   <data name="AllTimeSummary" xml:space="preserve">
     <value>All Time Summary</value>
   </data>
+  <data name="AD_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="AD_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="AD_LastUpdated" xml:space="preserve">
+    <value>Last Updated</value>
+  </data>
+  <data name="AD_Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="AD_Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="AD_WeeklySummaryStatistics" xml:space="preserve">
+    <value>&lt;li&gt;Total number of {0} this week: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Average number of {0} this week: &lt;span class="statistic" id="{0}-average"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Your best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+      &lt;li&gt;Your worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AD_AllTimeSummaryStatistics" xml:space="preserve">
+    <value>&lt;li&gt;Total number of {0}: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;Your best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+                    &lt;li&gt;Your worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AD_MonthlySummaryStatistics" xml:space="preserve">
+    <value>&lt;li&gt;Total number of {0} this month: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Average number of {0} this month: &lt;span class="statistic" id="{0}-average"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Your best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+      &lt;li&gt;Your worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AD_UnitsPerDaySummary" xml:space="preserve">
+    <value>{0} Per Day</value>
+  </data>
+  <data name="AD_UnitSummary" xml:space="preserve">
+    <value>{0} Summary</value>
+  </data>
+  <data name="ViewUser" xml:space="preserve">
+    <value>View User</value>
+  </data>
+  <data name="AD_ViewUserStatistics" xml:space="preserve">
+    <value>&lt;li&gt;Total number of {0}: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;Their best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+                    &lt;li&gt;Their worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
 </root>
