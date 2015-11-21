@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.Entity;
 using GoAber.Models;
 using System.Linq;
+using System.Xml.Schema;
+using WebGrease.Css.Extensions;
 
 namespace GoAber.Services
 {
@@ -48,6 +50,12 @@ namespace GoAber.Services
         public void DeleteTeam(int id)
         {
             Team team = FindTeamById(id);
+
+            foreach (var user in team.users.ToList())
+            {
+                team.users.Remove(user);
+            }
+
             db.Teams.Remove(team);
             db.SaveChanges();
         }
