@@ -140,12 +140,6 @@ namespace GoAber.Areas.MyAccount.Controllers
 
                     IdentityResult result = await UserManager.UpdateAsync(model);
 
-                    // CG - If the nickname has been updated, make sure that we update the nickname value for the _LoginPartial.cshtml page
-                    if (!ViewBag.ApplicationUserNickname.Equals(model.Nickname))
-                    {
-                        ViewBag.ApplicationUserNickname = model.Nickname;
-                    }
-
                 }
 
                 return RedirectToAction("Index");
