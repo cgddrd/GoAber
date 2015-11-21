@@ -23,13 +23,13 @@
 
     @Html.Label("fromDate", "From: ", htmlAttributes: new { @class = "control-label" })
     <div class="form-group">
-        @Html.TextBox("fromDate", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { type = "date", @class = "form-control" })
+        @Html.TextBox("fromDate", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { type = "date", @class = "form-control date-picker" })
         @Html.ValidationMessage("fromDate", "", new { @class = "text-danger" })
     </div>
 
     @Html.Label("toDate", "Unit: ", htmlAttributes: new { @class = "control-label" })
     <div class="form-group">
-        @Html.TextBox("toDate", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { type = "date", @class = "form-control" })
+        @Html.TextBox("toDate", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { type = "date", @class = "form-control date-picker" })
         @Html.ValidationMessage("toDate", "", new { @class = "text-danger" })
     </div>
 

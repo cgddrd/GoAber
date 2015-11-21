@@ -94,6 +94,10 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,categoryUnitId,value,lastUpdated,date")] ActivityData activityData)
         {
+            if (activityData.date.Value > DateTime.Today)
+            {
+                ModelState.AddModelError("date", "Date must be in the past or present.");
+            }
 
             if (ModelState.IsValid)
             {
@@ -135,6 +139,11 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,categoryUnitId,value,lastUpdated,date")] ActivityData activityData)
         {
+            if (activityData.date.Value > DateTime.Today)
+            {
+                ModelState.AddModelError("date", "Date must be in the past or present.");
+            }
+
             if (ModelState.IsValid)
             {
                 dataService.EditActivityDataForUser(activityData, User.Identity.GetUserId());

@@ -102,6 +102,11 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ApplicationUserId,idActivityData,categoryUnitId,userId,value,date")] ActivityData activityData)
         {
+            if (activityData.date.Value > DateTime.Today)
+            {
+                ModelState.AddModelError("date", "Date must be in the past or present.");
+            }
+
             if (ModelState.IsValid)
             {
                 dataService.CreateActivityData(activityData);
@@ -140,6 +145,11 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ApplicationUserId,Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
+            if (activityData.date.Value > DateTime.Today)
+            {
+                ModelState.AddModelError("date", "Date must be in the past or present.");
+            }
+
             if (ModelState.IsValid)
             {
                 dataService.EditActivityData(activityData);
