@@ -790,6 +790,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Users.
+        /// </summary>
+        public static string ManageUsers {
+            get {
+                return ResourceManager.GetString("ManageUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Roles_Create_cshtml_Execute_Create {

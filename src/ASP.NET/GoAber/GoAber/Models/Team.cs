@@ -23,10 +23,10 @@ namespace GoAber.Models
         }
     
         public int Id { get; set; }
-        [DisplayName("Name")]
+        [DisplayName("Team Name")]
         public string name { get; set; }
 
-        [DisplayName("Community")]
+        [DisplayName("Parent Community")]
         public Nullable<int> communityId { get; set; }
         public virtual Community community { get; set; }
 

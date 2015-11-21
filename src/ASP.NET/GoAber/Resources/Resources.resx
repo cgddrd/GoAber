@@ -411,4 +411,7 @@
   <data name="ApplicationUsersController_Teamname" xml:space="preserve">
     <value>Team</value>
   </data>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>Manage Users</value>
+  </data>
 </root>
