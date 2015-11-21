@@ -92,13 +92,19 @@ namespace GoAber.Migrations
                 userManager.AddToRole(normalUser.Id, "Participant");
             }
 
-            context.CategoryUnits.AddOrUpdate(x => x.Id,
-                new CategoryUnit() { category = new Category() { name = "Walking" }, unit = new Unit() {name = "Steps"} }
-                );
+            CategoryUnit walking = new CategoryUnit()
+            {
+                category = new Category() { name = "Walking" },
+                unit = new Unit() { name = "Steps" }
+            };
 
-            context.CategoryUnits.AddOrUpdate(x => x.Id,
-                new CategoryUnit() { category = new Category() { name = "HeartRate" }, unit = new Unit() { name = "Beats" } }
-                );
+            CategoryUnit heartbeat = new CategoryUnit() {
+                category = new Category() { name = "HeartRate" },
+                unit = new Unit() { name = "Beats" }
+            };
+
+            context.CategoryUnits.AddOrUpdate(x => x.Id, walking);
+            context.CategoryUnits.AddOrUpdate(x => x.Id, heartbeat);
 
             context.DeviceTypes.AddOrUpdate(x => x.Id,
                 new DeviceType() { name = "Fitbit", tokenEndpoint = @"https://api.fitbit.com/oauth2/token", consumerKey = "e06d4e7dcbc6fc80c0d00b187b6fb2e1", consumerSecret = "bafe21eca0c10cfe54f21e9b685f041f", clientId = "229R69" , authorizationEndpoint = @"https://www.fitbit.com/oauth2/authorize", apiEndpoint = @"https://api.fitbit.com/1/user/-" }
@@ -112,27 +118,27 @@ namespace GoAber.Migrations
             var user = context.Users.Where(x => x.Email == "admin@aber.ac.uk").SingleOrDefault();
             Random rnd = new Random();
             context.ActivityDatas.AddOrUpdate(x => x.Id,
-                new ActivityData { date = DateTime.Today, lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 1},
-                new ActivityData { date = DateTime.Today.AddDays(-1), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 1, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-2), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 1, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-3), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 1, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-4), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 1, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-5), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 1, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-6), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 1, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-7), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 1, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-8), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 1, User = user }
+                new ActivityData { date = DateTime.Today, lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking},
+                new ActivityData { date = DateTime.Today.AddDays(-1), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-2), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-3), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-4), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-5), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-6), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-7), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-8), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user }
             );
 
             context.ActivityDatas.AddOrUpdate(x => x.Id,
-                new ActivityData { date = DateTime.Today, lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 2 },
-                new ActivityData { date = DateTime.Today.AddDays(-1), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 2, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-2), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 2, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-3), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 2, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-4), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 2, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-5), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 2, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-6), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 2, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-7), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 2, User = user },
-                new ActivityData { date = DateTime.Today.AddDays(-8), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryUnitId = 2, User = user }
+                new ActivityData { date = DateTime.Today, lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat },
+                new ActivityData { date = DateTime.Today.AddDays(-1), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-2), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-3), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-4), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-5), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-6), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-7), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
+                new ActivityData { date = DateTime.Today.AddDays(-8), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user }
             );
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
