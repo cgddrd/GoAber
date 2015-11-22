@@ -463,4 +463,10 @@
                     &lt;li&gt;Their best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
                     &lt;li&gt;Their worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
   </data>
+  <data name="AreYouSureDelete" xml:space="preserve">
+    <value>Are you sure you want to delete {0} records</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
 </root>

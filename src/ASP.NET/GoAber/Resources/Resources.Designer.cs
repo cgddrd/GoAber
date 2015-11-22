@@ -503,6 +503,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete {0} records.
+        /// </summary>
+        public static string AreYouSureDelete {
+            get {
+                return ResourceManager.GetString("AreYouSureDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string BackToList {
@@ -526,6 +535,15 @@ namespace Resources {
         public static string ChooseYourLanguage {
             get {
                 return ResourceManager.GetString("ChooseYourLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string Clear {
+            get {
+                return ResourceManager.GetString("Clear", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GoAber.Models.ActivityData>
+﻿@using GoAber.Models.ViewModels;
+@model IEnumerable<GoAber.Models.ActivityData>
 
 @{
     ViewBag.Title = "Manage Activity Data";
@@ -7,7 +8,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-@{Html.RenderPartial("_Filter", new GoAber.Areas.Admin.Models.FilterViewModel(), new ViewDataDictionary { { "Controller", "ActivityDatas" }, { "Action", "Manage" }, { "CategoryUnits", ViewBag.categoryUnits } });}
+@{Html.RenderPartial("_Filter", new GoAber.Models.ViewModels.FilterViewModel(), new ViewDataDictionary { { "Controller", "ActivityDatas" }, { "Action", "Manage" }, { "CategoryUnits", ViewBag.categoryUnits } });}
 
 
 <div class="btn-group btn-bar" role="group">

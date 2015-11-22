@@ -14,7 +14,7 @@ using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GoAber.ActionFilters;
-using GoAber.Areas.Admin.Models;
+using GoAber.Models.ViewModels;
 using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
@@ -66,7 +66,7 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View(activityData.ToPagedList(pageNumber, pageSize));
+            return View("Index", activityData.ToPagedList(pageNumber, pageSize));
         }
 
 
@@ -192,7 +192,9 @@ namespace GoAber.Areas.Admin.Controllers
 
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "BatchDelete")]
-        public ActionResult Index(FilterViewModel filterParams) {
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmBatchDelete(int? page, FilterViewModel filterParams)
+        {
             var activityData = dataService.Filter(filterParams);
             filterParams.Size = activityData.Count();
             return View("BatchDelete", filterParams);
@@ -204,13 +206,7 @@ namespace GoAber.Areas.Admin.Controllers
         public ActionResult BatchDelete(FilterViewModel filterParams)
         {
             var activityData = dataService.Filter(filterParams);
-
-            foreach (var item in activityData)
-            {
-                db.ActivityDatas.Remove(item);
-
-            }
-            db.SaveChanges();
+            dataService.BatchDelete(activityData);
             return RedirectToAction("Index");
         }
 
@@ -221,19 +217,6 @@ namespace GoAber.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private IEnumerable CreateCategoryUnitList()
-        {
-            var categories = db.CategoryUnits.Select(c => new
-            {
-                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
-                idCategoryUnit = c.Id,
-                category = c.category.name,
-                unit = c.unit.name
-            }).ToList();
-
-            return categories;
         }
 
         private IEnumerable CreateUserList()

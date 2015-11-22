@@ -1,5 +1,4 @@
-﻿using GoAber.Areas.Admin.Models;
-using GoAber.Models;
+﻿using GoAber.Models;
 using GoAber.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -146,6 +145,14 @@ namespace GoAber.Services
             ActivityData activityData = db.ActivityDatas.Find(id);
             db.ActivityDatas.Remove(activityData);
             db.SaveChanges();
+        }
+
+        public void BatchDelete(IQueryable<ActivityData> activityData)
+        {
+            foreach (ActivityData item in activityData.ToList())
+            {
+                DeleteActivityData(item.Id);
+            }
         }
 
         private ActivityDataStatisticsViewModel ComputeStatistics(IEnumerable<ActivityData> data)

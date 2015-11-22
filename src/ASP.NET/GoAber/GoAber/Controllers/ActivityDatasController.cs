@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -13,7 +11,6 @@ using GoAber.Services;
 using PagedList;
 using GoAber.Models.ViewModels;
 using GoAber.ActionFilters;
-using GoAber.Areas.Admin.Models;
 
 namespace GoAber
 {
@@ -74,6 +71,15 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult Manage(int? page, FilterViewModel filterParams)
         {
+            string userId = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Where(u => u.Id.Equals(userId)).Single();
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            filterParams.Email = user.Email;
             var activityData = dataService.Filter(filterParams);
             int pageNumber = (page ?? 1);
 
@@ -110,8 +116,9 @@ namespace GoAber
             }
 
             var categories = categoryUnitService.CreateCategoryUnitList();
+            string userId = User.Identity.GetUserId();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", userId);
             return View(activityData);
         }
 
@@ -155,8 +162,9 @@ namespace GoAber
             }
 
             var categories = categoryUnitService.CreateCategoryUnitList();
+            string userId = User.Identity.GetUserId();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", userId);
             return View(activityData);
         }
 
@@ -186,6 +194,44 @@ namespace GoAber
             return RedirectToAction("Manage");
         }
 
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "BatchDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmBatchDelete(int? page, FilterViewModel filterParams)
+        {
+            string userId = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Where(u => u.Id.Equals(userId)).Single();
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            filterParams.Email = user.Email;
+            var activityData = dataService.Filter(filterParams);
+            filterParams.Size = activityData.Count();
+            return View("BatchDelete", filterParams);
+        }
+
+        // POST: Admin/ActivityData/BatchDelete
+        [HttpPost, ActionName("BatchDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult BatchDelete(FilterViewModel filterParams)
+        {
+            string userId = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Where(u => u.Id.Equals(userId)).Single();
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            filterParams.Email = user.Email;
+            var activityData = dataService.Filter(filterParams);
+            dataService.BatchDelete(activityData);
+            return RedirectToAction("Manage");
+        }
+
         // GET: ActivityDatas/ViewUser/<userid>
         public ActionResult ViewUser(string id)
         {
@@ -196,7 +242,7 @@ namespace GoAber
 
             //find user 
             ApplicationDbContext db = new ApplicationDbContext();
-            ApplicationUser user = db.Users.Where(u => u.Id.Equals(id)).Single();
+            ApplicationUser user = db.Users.Where(u => u.Id.Equals(id)).SingleOrDefault();
 
             if (user == null)
             {
