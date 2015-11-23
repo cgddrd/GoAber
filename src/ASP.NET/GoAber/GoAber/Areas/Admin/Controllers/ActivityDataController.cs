@@ -182,12 +182,12 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // POST: Admin/ActivityData/Delete/5
+		[Audit]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Audit]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            dataService.deleteActivityData(id);
+        public ActionResult DeleteConfirmed(int id, string message)
+        { 
+            dataService.deleteActivityData(id, message, User.Identity.GetUserId());
             return RedirectToAction("Index");
         }
 
