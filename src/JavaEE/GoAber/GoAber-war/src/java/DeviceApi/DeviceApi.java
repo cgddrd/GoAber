@@ -14,10 +14,12 @@ import SessionBean.CategoryUnitFacade;
 import SessionBean.DeviceFacade;
 import SessionBean.DeviceTypeFacade;
 import java.io.ByteArrayInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Base64;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +34,7 @@ import javax.json.JsonReader;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.net.ssl.HttpsURLConnection;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.DefaultApi20;
 import org.scribe.model.OAuthConfig;
@@ -39,6 +42,7 @@ import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
+import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 import org.scribe.utils.Preconditions;
 
@@ -83,10 +87,11 @@ public abstract class DeviceApi extends DefaultApi20
     }
 
     
-    private String getCallbackUrl()
+    public String getCallbackUrl()
     {
         String CALLBACK_URL = "http://localhost:8080/GoAber-war/%sCallbackServlet";
-        return String.format(CALLBACK_URL, getType());
+        CALLBACK_URL =  String.format(CALLBACK_URL, getType());
+        return CALLBACK_URL;
     }
     
     @Override
@@ -111,6 +116,55 @@ public abstract class DeviceApi extends DefaultApi20
                 .callback(getCallbackUrl())
                 .build();
        return service;
+    }
+    
+    public void getAndSaveTokensFitbit(String code, User user)
+    {
+        DeviceType deviceType = deviceTypeFacade.findByName(getType());
+        String urlString = getAccessTokenEndpoint();//code);
+        URL url;
+        try {
+            url = new URL(urlString);
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            String auth = deviceType.getClientId() + ":"+ deviceType.getConsumerSecret();
+            byte[] encodedBytes = Base64.getEncoder().encode(auth.getBytes());
+            String s = new String(encodedBytes);
+            String authBytes = "Basic "+s;
+	    con.setRequestProperty("Authorization", authBytes);
+            con.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            String param = String.format("client_id=%s&grant_type=authorization_code&redirect_uri=%s&code=%s", deviceType.getClientId(), getCallbackUrl(), code);
+            con.addRequestProperty("client_id", deviceType.getClientId());
+            con.addRequestProperty("grant_type", "authorization_code");
+            con.addRequestProperty("redirect_uri", getCallbackUrl());
+            con.addRequestProperty("code", code);
+            con.setUseCaches(false);
+            con.setDoInput(true);
+            con.setDoOutput(true);
+            int responseCode = con.getResponseCode();
+            String err = con.getResponseMessage();
+            System.out.println("Craig "+ responseCode);
+            try (InputStream is = url.openStream(); 
+                    JsonReader jsonReader = Json.createReader(is)) {
+ 
+                JsonObject jsonObject = jsonReader.readObject();
+                String accessToken = jsonObject.getString("access_token");
+                String refreshToken = jsonObject.getString("refresh_token");
+                int expiresIn = jsonObject.getInt("expires_in");
+                Date date = new Date();
+                date.setSeconds(date.getSeconds() + expiresIn);
+                Device device = new Device(user, deviceType, accessToken, refreshToken, date);
+                deviceFacade.create(device);
+                System.out.println("access_token " + accessToken);
+                System.out.println("refreshToken " + refreshToken);
+                System.out.println("expiresIn " + expiresIn);
+            }
+           
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(DeviceApi.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DeviceApi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     

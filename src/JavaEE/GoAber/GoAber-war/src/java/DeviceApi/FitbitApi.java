@@ -9,14 +9,13 @@ import GoAberDatabase.ActivityData;
 import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.DeviceType;
 import GoAberDatabase.User;
-import JSF.auth.AuthController;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.json.JsonObject;
-import org.scribe.model.OAuthConfig;
-import org.scribe.utils.Preconditions;
 
 /**
  *
@@ -39,6 +38,12 @@ public class FitbitApi extends DeviceApi{
     @Override
     public Class getProviderClass() {
         return FitbitApi.class;
+    }
+    
+    @Override
+    public String getAccessTokenEndpoint() {
+        DeviceType deviceType = deviceTypeFacade.findByName(getType());
+        return deviceType.getTokenEndpoint();
     }
     
     public ActivityData getWalkingSteps(int day, int month, int year, int userID)

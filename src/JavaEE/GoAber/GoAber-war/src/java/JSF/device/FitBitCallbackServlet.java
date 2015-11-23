@@ -30,7 +30,7 @@ import org.scribe.oauth.OAuthService;
  *
  * @author Craig
  */
-@WebServlet(name = "FitBitCallbackServlet", urlPatterns = {"/FitBitCallbackServlet"})
+@WebServlet(name = "FitbitCallbackServlet", urlPatterns = {"/FitbitCallbackServlet"})
 public class FitBitCallbackServlet extends HttpServlet {
 
     /**
@@ -56,7 +56,7 @@ public class FitBitCallbackServlet extends HttpServlet {
         DeviceApi deviceApi = (DeviceApi)request.getSession().getAttribute("DeviceApi");
         AuthController authController = (AuthController) request.getSession().getAttribute("authController");
         User user = authController.getActiveUser();
-        deviceApi.getAndSaveTokens(code, user);
+        deviceApi.getAndSaveTokensFitbit(code, user);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
