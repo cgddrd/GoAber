@@ -132,6 +132,34 @@ public class ActivityDataController implements Serializable {
         }
     }
     
+    public String prepareBatchDestroy() {
+        if (filteredItems == null) {
+            filteredItems = items;
+        }
+        return "BatchDelete";
+    }
+    
+    public String batchDestory() {
+        performBatchDestroy();
+        recreateItems();
+        return "List";
+    }
+    
+    private void performBatchDestroy() {
+        if (filteredItems == null) {
+            return;
+        }
+        
+        for (ActivityData item : filteredItems) {
+            try {
+                getFacade().remove(item);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
+            } catch (Exception e) {
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+    
     private void recreateItems() {
         items = dataService.findAll();
         filteredItems = null;
