@@ -63,7 +63,13 @@ namespace GoAber.Models
 
         //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
 
+
+       // public System.Data.Entity.DbSet<GoAber.Models.Job> Jobs { get; set; }
+
+        public DbSet<Audit> Audit { get; set; }
+
         //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
         //public GoAber.Models.Team Group { get; set; }
+
     }
 }

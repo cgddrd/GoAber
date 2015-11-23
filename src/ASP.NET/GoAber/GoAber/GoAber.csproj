@@ -297,6 +297,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="AuditAttribute.cs" />
+    <Compile Include="Controllers\AuditsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
@@ -320,9 +322,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
-    <Compile Include="Migrations\201511212227345_init.cs" />
-    <Compile Include="Migrations\201511212227345_init.Designer.cs">
-      <DependentUpon>201511212227345_init.cs</DependentUpon>
+    <Compile Include="Migrations\201511232228364_GoAber.cs" />
+    <Compile Include="Migrations\201511232228364_GoAber.Designer.cs">
+      <DependentUpon>201511232228364_GoAber.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
@@ -334,6 +336,7 @@
     <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Services\CategoryUnitService.cs" />
     <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\Audit.cs" />
     <Compile Include="Models\Community.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\DeviceType.cs" />
@@ -545,11 +548,11 @@
     <Content Include="Views\Jawbone\getHeartDay.cshtml" />
     <Content Include="Views\Jawbone\Index.cshtml" />
     <Content Include="Views\Jawbone\StartOAuth.cshtml" />
+    <Content Include="Views\Audits\Details.cshtml" />
+    <Content Include="Views\Audits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\MyAccount\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
@@ -571,8 +574,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511212227345_init.resx">
-      <DependentUpon>201511212227345_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511232228364_GoAber.resx">
+      <DependentUpon>201511232228364_GoAber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

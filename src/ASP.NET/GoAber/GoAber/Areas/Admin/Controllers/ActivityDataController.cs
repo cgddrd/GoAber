@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -45,6 +45,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData
+        [Audit]
         public ActionResult Index(int? page)
         {
             var activityData = dataService.getAllActivityData();
@@ -57,7 +58,8 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [MultipleButton(Name = "action", Argument = "Filter")]
+        [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Index(int? page, FilterViewModel filterParams)
         {
             int pageNumber = (page ?? 1);
@@ -71,6 +73,7 @@ namespace GoAber.Areas.Admin.Controllers
 
 
         // GET: Admin/ActivityData/Details/5
+        [Audit]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -91,6 +94,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Create
+        [Audit]
         public ActionResult Create()
         {
             var categories = categoryUnitService.CreateCategoryUnitList();
@@ -106,6 +110,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Create([Bind(Include = "ApplicationUserId,idActivityData,categoryUnitId,userId,value,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
@@ -121,6 +126,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Edit/5
+        [Audit]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -144,6 +150,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Edit([Bind(Include = "ApplicationUserId,Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
@@ -159,6 +166,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Delete/5
+        [Audit]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -176,12 +184,14 @@ namespace GoAber.Areas.Admin.Controllers
         // POST: Admin/ActivityData/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult DeleteConfirmed(int id)
         {
             dataService.deleteActivityData(id);
             return RedirectToAction("Index");
         }
 
+        [Audit]
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "BatchDelete")]
         public ActionResult Index(FilterViewModel filterParams) {
@@ -190,8 +200,10 @@ namespace GoAber.Areas.Admin.Controllers
             filterParams.Size = activityData.Count();
             return View("BatchDelete", filterParams);
         }
-
+/* TODO merge conflict : function was on my branch, but not on develop.
+			 I was not sure if I should delete it or not.
         // POST: Admin/ActivityData/BatchDelete
+	[Audit]
         [HttpPost, ActionName("BatchDelete")]
         [ValidateAntiForgeryToken]
         public ActionResult BatchDelete(FilterViewModel filterParams)
@@ -206,7 +218,7 @@ namespace GoAber.Areas.Admin.Controllers
             }
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
+        }*/
 
         protected override void Dispose(bool disposing)
         {
@@ -217,6 +229,8 @@ namespace GoAber.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
+
+        [Audit]
         private IEnumerable CreateCategoryUnitList()
         {
             var categories = db.CategoryUnits.Select(c => new
@@ -255,6 +269,7 @@ namespace GoAber.Areas.Admin.Controllers
             return activityData;
         }
 
+        [Audit]
         private IEnumerable CreateUserList()
         {
             var users = db.Users.Select(c => new
