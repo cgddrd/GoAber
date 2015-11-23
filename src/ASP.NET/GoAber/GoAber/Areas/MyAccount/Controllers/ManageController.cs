@@ -1,20 +1,28 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Areas.MyAccount.Models;
+using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GoAber.Models;
+using GoAber.Services;
 
-namespace GoAber.Controllers
+namespace GoAber.Areas.MyAccount.Controllers
 {
     [Authorize]
     public class ManageController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        private TeamsService teamsService = new TeamsService();
 
         public ManageController()
         {
@@ -50,11 +58,35 @@ namespace GoAber.Controllers
             }
         }
 
-        //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public ActionResult Index()
         {
+
             ViewBag.Title = Resources.Resources.ManageController_Index_Manage;
+
+            var userId = User.Identity.GetUserId();
+
+            var user = UserManager.FindById(userId);
+
+            var model = new IndexViewModel
+            {
+                EmailAddress = UserManager.FindById(userId).Email,
+                Nickname = UserManager.FindById(userId).Nickname,
+                DateOfBirth = UserManager.FindById(userId).DateOfBirth,
+                Team = user.Team
+            };
+
+            return View(model);
+
+
+        }
+
+        //
+        // GET: /Manage/EditAccount
+        public async Task<ActionResult> EditAccount(ManageMessageId? message)
+        {
+            ViewBag.Title = Resources.Resources.ManageController_EditAccount_Manage;
+
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? Resources.Resources.ManageController_Index_password_changed
                 : message == ManageMessageId.SetPasswordSuccess ? Resources.Resources.ManageController_Index_password_set
@@ -65,21 +97,63 @@ namespace GoAber.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var currentUser = UserManager.FindById(userId);
+
+            // CG - Get all of the teams for the user's community and pass them via ViewBag through to the model.
+            //var selectTeams = teamsService.GetTeamsByCommunity(user.Team.community);
+            //ViewBag.teamList = new SelectList(selectTeams, "Id", "name");
+
+            var model = new EditAccountViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                Nickname = currentUser.Nickname,
+                Id = currentUser.Id,
+                Email = currentUser.Email,
+                DateOfBirth = currentUser.DateOfBirth
             };
+
             return View(model);
         }
 
         //
+        // POST: /Manage/EditAccount
+        [HttpPost]
+        public async Task<ActionResult> EditAccount(EditAccountViewModel editModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+
+                ApplicationUser model = UserManager.FindById(userId);
+
+                if (model != null)
+                {
+                    model.Nickname = editModel.Nickname;
+                    model.DateOfBirth = editModel.DateOfBirth;
+                    model.Email = editModel.Email;
+                    model.UserName = editModel.Email;
+
+                    IdentityResult result = await UserManager.UpdateAsync(model);
+
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            return View(editModel);
+        }
+
+
+
+        //
         // POST: /Manage/RemoveLogin
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
             ManageMessageId? message;
@@ -110,7 +184,7 @@ namespace GoAber.Controllers
         //
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
@@ -134,7 +208,7 @@ namespace GoAber.Controllers
         //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
@@ -143,13 +217,13 @@ namespace GoAber.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("EditAccount", "Manage");
         }
 
         //
         // POST: /Manage/DisableTwoFactorAuthentication
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
@@ -158,7 +232,7 @@ namespace GoAber.Controllers
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("EditAccount", "Manage");
         }
 
         //
@@ -173,7 +247,7 @@ namespace GoAber.Controllers
         //
         // POST: /Manage/VerifyPhoneNumber
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
@@ -188,7 +262,7 @@ namespace GoAber.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+                return RedirectToAction("EditAccount", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", Resources.Resources.ManageController_VerifyPhoneNumber_Failed_verify_phone);
@@ -202,14 +276,14 @@ namespace GoAber.Controllers
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
             {
-                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+                return RedirectToAction("EditAccount", new { Message = ManageMessageId.Error });
             }
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
             {
                 await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             }
-            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+            return RedirectToAction("EditAccount", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
         //
@@ -222,7 +296,7 @@ namespace GoAber.Controllers
         //
         // POST: /Manage/ChangePassword
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -237,7 +311,7 @@ namespace GoAber.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("EditAccount", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);
             return View(model);
@@ -253,7 +327,7 @@ namespace GoAber.Controllers
         //
         // POST: /Manage/SetPassword
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -266,7 +340,7 @@ namespace GoAber.Controllers
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
-                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
+                    return RedirectToAction("EditAccount", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
                 AddErrors(result);
             }
@@ -301,7 +375,7 @@ namespace GoAber.Controllers
         //
         // POST: /Manage/LinkLogin
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user

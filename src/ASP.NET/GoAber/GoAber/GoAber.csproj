@@ -281,6 +281,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\MultipleButtonAttribute.cs" />
     <Compile Include="App_Code\Scheduling\Interfaces\IScheduler.cs" />
     <Compile Include="App_Code\Scheduling\Hangfire\HangfireScheduler.cs" />
     <Compile Include="App_Code\Scheduling\Jobs\JawBoneJob.cs" />
@@ -296,9 +297,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="AuditAttribute.cs" />
+    <Compile Include="Controllers\AuditsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Areas\Admin\Models\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
+    <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
     <Compile Include="Controllers\WebServiceAuthsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
@@ -307,8 +314,9 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DeviceAPI.cs" />
+    <Compile Include="Controllers\JawboneController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Areas\MyAccount\Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="App_Code\Scheduling\Hangfire\HangfireContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -327,14 +335,21 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
+    <Compile Include="Migrations\201511232248073_GoAber.cs" />
+    <Compile Include="Migrations\201511232248073_GoAber.Designer.cs">
+      <DependentUpon>201511232248073_GoAber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DataRemovalAudit.cs" />
     <Compile Include="Services\ActivityDataService.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryUnit.cs" />
+    <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Services\CategoryUnitService.cs" />
     <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\Audit.cs" />
     <Compile Include="Models\Community.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\DeviceType.cs" />
@@ -342,13 +357,14 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\GroupChallenge.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Areas\MyAccount\Models\ManageViewModels.cs" />
     <Compile Include="Models\Unit.cs" />
     <Compile Include="Models\UserChallenge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommunitiesService.cs" />
     <Compile Include="Services\TeamsService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Controllers\DataRemovalAuditsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Shared\Extensions.cs" />
@@ -449,6 +465,7 @@
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\_Filter.cshtml" />
+    <Content Include="Areas\Admin\Views\ActivityData\BatchDelete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Details.cshtml" />
@@ -458,6 +475,19 @@
     <Content Include="Views\WebServiceAuths\Delete.cshtml" />
     <Content Include="Views\WebServiceAuths\Details.cshtml" />
     <Content Include="Views\WebServiceAuths\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Index.cshtml" />
+    <Content Include="Areas\MyAccount\Views\web.config" />
+    <Content Include="Areas\MyAccount\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -500,12 +530,12 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\EditAccount.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\SetPassword.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
@@ -532,10 +562,19 @@
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Devices\Index.cshtml" />
     <Content Include="Views\Devices\Delete.cshtml" />
+    <Content Include="Views\DataRemovalAudits\Details.cshtml" />
+    <Content Include="Views\DataRemovalAudits\Index.cshtml" />
+    <Content Include="Views\Jawbone\Callback.cshtml" />
+    <Content Include="Views\Jawbone\getActivityDay.cshtml" />
+    <Content Include="Views\Jawbone\getHeartDay.cshtml" />
+    <Content Include="Views\Jawbone\Index.cshtml" />
+    <Content Include="Views\Jawbone\StartOAuth.cshtml" />
+    <Content Include="Views\Audits\Details.cshtml" />
+    <Content Include="Views\Audits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\MyAccount\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -560,6 +599,11 @@
       <DependentUpon>201511191557050_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511232248073_GoAber.resx">
+      <DependentUpon>201511232248073_GoAber.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -578,7 +622,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52004</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50120/</IISUrl>
+          <IISUrl>http://localhost:50121/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,17 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace GoAber.Models
+namespace GoAber.Areas.MyAccount.Models
 {
+
     public class IndexViewModel
+    {
+        public string Nickname { get; set; }
+        public string EmailAddress { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public Team Team { get; set; }
+        public Community Community { get; set; }
+    }
+
+    public class EditAccountViewModel
     {
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public string Nickname { get; set; }
+        public string Id { get; set; }
+        public string Email { get; set; }
+
+        [DataType(DataType.Date)]
+        // CG - In order for browser-rendered HTML5 date selectors to work properly, we need to use a date format that conforms with RFC-3339.
+        // See: http://stackoverflow.com/a/12634470 for more information.
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfBirth { get; set; }
     }
 
     public class ManageLoginsViewModel
