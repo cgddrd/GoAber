@@ -10,15 +10,18 @@ namespace GoAber.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GoAber.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(GoAber.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
+
+          //  if (System.Diagnostics.Debugger.IsAttached == false)
+           //     System.Diagnostics.Debugger.Launch();
 
             // This method will be called after migrating to the latest version.
             // CG - Create the user roles, then some test users.
@@ -28,6 +31,34 @@ namespace GoAber.Migrations
 
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
+
+            context.Communities.AddOrUpdate(x => x.Id,
+               new Community { name = "AberUni", endpointUrl = "http://aber.ac.uk"}
+            );
+
+            context.Communities.AddOrUpdate(x => x.Id,
+              new Community { name = "BangorUni", endpointUrl = "http://bangor.ac.uk" }
+            );
+
+            context.SaveChanges();
+
+            context.Teams.AddOrUpdate(x => x.Id,
+                new Team { name = "AberCompSci", community = context.Communities.Where(b => b.name == "AberUni").FirstOrDefault() }
+            );
+
+            context.Teams.AddOrUpdate(x => x.Id,
+                new Team { name = "AberIBERS", community = context.Communities.Where(b => b.name == "AberUni").FirstOrDefault() }
+            );
+
+            context.Teams.AddOrUpdate(x => x.Id,
+                new Team { name = "BangorGroup1", community = context.Communities.Where(b => b.name == "BangorUni").FirstOrDefault() }
+            );
+
+            context.Teams.AddOrUpdate(x => x.Id,
+                new Team { name = "BangorGroup2", community = context.Communities.Where(b => b.name == "BangorUni").FirstOrDefault() }
+            );
+
+            context.SaveChanges();
 
             if (!context.Roles.Any(r => r.Name == "Administrator"))
             {
@@ -46,49 +77,52 @@ namespace GoAber.Migrations
                 var participantRole = new IdentityRole { Name = "Participant" };
                 roleManager.Create(participantRole);
             }
-			
+
             //CG - Now create the default/test users.
-            if (!context.Users.Any(u => u.UserName == "admin@aber.ac.uk"))
+            if (!context.Users.Any(u => u.UserName == "admin@test.com"))
             {
                 var adminUser = new ApplicationUser
                 {
                     // CG - NOTE: Username and Email properties must be currently set to the same value.
-                    UserName = "admin@aber.ac.uk",
-                    Email = "admin@aber.ac.uk",
+                    UserName = "admin@test.com",
+                    Email = "admin@test.com",
                     Nickname = "adminuser",
-                    DateOfBirth = DateTime.Now
-                };
+                    DateOfBirth = DateTime.Now,
+                    Team = context.Teams.Where(b => b.name == "AberIBERS").FirstOrDefault()
+            };
 
-                userManager.Create(adminUser, "Juddy123!");
+                userManager.Create(adminUser, "Hello123!");
                 userManager.AddToRole(adminUser.Id, "Administrator");
 
             }
 
-            if (!context.Users.Any(u => u.UserName == "coord@aber.ac.uk"))
+            if (!context.Users.Any(u => u.UserName == "coord@test.com"))
             {
                 var coordUser = new ApplicationUser
                 {
-                    UserName = "coord@aber.ac.uk",
-                    Email = "coord@aber.ac.uk",
+                    UserName = "coord@test.com",
+                    Email = "coord@test.com",
                     Nickname = "coorduser",
-                    DateOfBirth = DateTime.Now
+                    DateOfBirth = DateTime.Now,
+                    Team = context.Teams.Where(b => b.name == "AberCompSci").FirstOrDefault()
                 };
 
-                userManager.Create(coordUser, "Juddy123!");
+                userManager.Create(coordUser, "Hello123!");
                 userManager.AddToRole(coordUser.Id, "Coordinator");
             }
 
-            if (!context.Users.Any(u => u.UserName == "user1@aber.ac.uk"))
+            if (!context.Users.Any(u => u.UserName == "user1@test.com"))
             {
                 var normalUser = new ApplicationUser
                 {
-                    UserName = "user1@aber.ac.uk",
-                    Email = "user1@aber.ac.uk",
+                    UserName = "user1@test.com",
+                    Email = "user1@test.com",
                     Nickname = "user1user",
-                    DateOfBirth = DateTime.Now
+                    DateOfBirth = DateTime.Now,
+                    Team = context.Teams.Where(b => b.name == "BangorGroup1").FirstOrDefault()
                 };
 
-                userManager.Create(normalUser, "Juddy123!");
+                userManager.Create(normalUser, "Hello123!");
                 userManager.AddToRole(normalUser.Id, "Participant");
             }
 
@@ -109,18 +143,6 @@ namespace GoAber.Migrations
                 new DeviceType() { name = "Jawbone", tokenEndpoint = @"https://jawbone.com/auth/oauth2/token", consumerSecret = "f0ca3e7da09288d18bc5b4053704f1a3e43d22da", clientId = "2mcFGghH9so",  authorizationEndpoint = @"https://jawbone.com/auth/oauth2/auth", apiEndpoint= @"https://jawbone.com/nudge/api/v.1.1/users/@me" }
             );
 
-            
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 }

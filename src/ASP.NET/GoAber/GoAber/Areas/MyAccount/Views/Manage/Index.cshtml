@@ -1,0 +1,51 @@
+﻿@model GoAber.Areas.MyAccount.Models.IndexViewModel
+
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+
+<div>
+    <h4>View Your Account Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Resources.ManageController_EditAccount_ManageController_EditAccount_EmailAddress:</dt>
+        <dd>
+
+            @Model.EmailAddress
+
+        </dd>
+
+        <dt>@Resources.ManageController_EditAccount_ManageController_EditAccount_Nickname:</dt>
+        <dd>
+
+            @Model.Nickname
+
+        </dd>
+
+        @if (Model.DateOfBirth != null)
+            {
+
+            <dt>@Resources.ManageController_EditAccount_ManageController_EditAccount_DateOfBirth:</dt>
+
+            <dd>
+                @Model.DateOfBirth.Value.ToShortDateString()
+            </dd>
+        }
+
+        @if (Model.Team != null)
+            {
+
+            <dt>@Resources.ManageController_EditAccount_ManageController_EditAccount_Team:</dt>
+
+            <dd>
+                @Model.Team.name
+            </dd>
+
+        }
+
+        @Html.ActionLink(Resources.ManageController_EditAccount_Manage, "EditAccount", "Manage")
+
+    </dl>
+
+</div>

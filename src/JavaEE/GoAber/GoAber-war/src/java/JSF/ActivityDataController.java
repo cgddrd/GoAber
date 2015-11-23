@@ -1,87 +1,100 @@
 package JSF;
 
 import GoAberDatabase.ActivityData;
+import GoAberDatabase.Category;
+import GoAberDatabase.Unit;
+import GoAberDatabase.User;
+import JSF.auth.AuthController;
+import JSF.services.ActivityDataService;
 import JSF.util.JsfUtil;
-import JSF.util.PaginationHelper;
 import SessionBean.ActivityDataFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-
 
 @ManagedBean(name="activityDataController")
 @SessionScoped
 public class ActivityDataController implements Serializable {
 
-
+    @EJB
+    private SessionBean.CategoryFacade categoryBean;
+    @EJB
+    private SessionBean.UnitFacade unitBean;
+    @EJB
+    private ActivityDataService dataService;
+    
+    @ManagedProperty(value="#{authController}")
+    private AuthController authController;
+    
     private ActivityData current;
-    private DataModel items = null;
-    @EJB private SessionBean.ActivityDataFacade ejbFacade;
-    private PaginationHelper pagination;
-    private int selectedItemIndex;
+    private List<ActivityData> items = null;
+    private List<ActivityData> filteredItems = null;
 
     public ActivityDataController() {
     }
+    
+    @PostConstruct
+    public void init() {
+        recreateItems();
+    }
+    
+    public List<SelectItem> getCategories() {
+        List<SelectItem> names = new ArrayList<>();
+        
+        for (Category cat : categoryBean.findAll()) {
+            names.add(new SelectItem(cat.getName()));
+        }
+        return names;
+    }
+    
+    public List<SelectItem> getUnits() {
+        List<SelectItem> names = new ArrayList<>();
+ 
+        for (Unit unit : unitBean.findAll()) {
+            names.add(new SelectItem(unit.getName()));
+        }
+        return names;
+    }
 
     public ActivityData getSelected() {
-        if (current == null) {
-            current = new ActivityData();
-            selectedItemIndex = -1;
+        if (getCurrent() == null) {
+            setCurrent(new ActivityData());
         }
-        return current;
-    }
-
-    private ActivityDataFacade getFacade() {
-        return ejbFacade;
-    }
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
-                }
-            };
-        }
-        return pagination;
+        return getCurrent();
     }
 
     public String prepareList() {
-        recreateModel();
+        recreateItems();
         return "List";
     }
 
-    public String prepareView() {
-        current = (ActivityData)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(ActivityData item) {
+        current = item;
         return "View";
     }
 
     public String prepareCreate() {
-        current = new ActivityData();
-        selectedItemIndex = -1;
+        setCurrent(new ActivityData());
         return "Create";
     }
 
     public String create() {
         try {
-            getFacade().create(current);
+            User user = authController.getActiveUser();
+            dataService.createForUser(current, user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -90,15 +103,15 @@ public class ActivityDataController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
-        current = (ActivityData)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(ActivityData data) {
+        current = data;
         return "Edit";
     }
 
     public String update() {
         try {
-            getFacade().edit(current);
+            User user = authController.getActiveUser();
+            dataService.updateForUser(current, user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataUpdated"));
             return "View";
         } catch (Exception e) {
@@ -107,89 +120,74 @@ public class ActivityDataController implements Serializable {
         }
     }
 
-    public String destroy() {
-        current = (ActivityData)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreatePagination();
-        recreateModel();
-        return "List";
+    public String prepareDestroy(ActivityData data) {
+        current = data;
+        return "Delete";
     }
-
-    public String destroyAndView() {
+        
+    public String destroy() {
         performDestroy();
-        recreateModel();
-        updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
-        }
+        // must recreate as something has been removed!
+        recreateItems();
+        return "List";
     }
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            dataService.remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
-
-    private void updateCurrentItem() {
-        int count = getFacade().count();
-        if (selectedItemIndex >= count) {
-            // selected index cannot be bigger than number of items:
-            selectedItemIndex = count-1;
-            // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
-            }
-        }
-        if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
-        }
+    
+    private void recreateItems() {
+        User user = authController.getActiveUser();
+        items = dataService.findAllForUser(user);
+        filteredItems = null;
+    }
+    
+    /**
+     * @return the filteredItems
+     */
+    public List<ActivityData> getFilteredItems() {
+        return filteredItems;
     }
 
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
+    /**
+     * @param filteredItems the filteredItems to set
+     */
+    public void setFilteredItems(List<ActivityData> filteredItems) {
+        this.filteredItems = filteredItems;
+    }
+
+    /**
+     * @return the items
+     */
+    public List<ActivityData> getItems() {
         return items;
     }
 
-    private void recreateModel() {
-        items = null;
+    /**
+     * @return the current
+     */
+    public ActivityData getCurrent() {
+        return current;
     }
 
-    private void recreatePagination() {
-        pagination = null;
+    /**
+     * @param current the current to set
+     */
+    public void setCurrent(ActivityData current) {
+        this.current = current;
     }
-
-    public String next() {
-        getPagination().nextPage();
-        recreateModel();
-        return "List";
+    
+    
+    public void setAuthController(AuthController authController) {
+        this.authController = authController;
     }
-
-    public String previous() {
-        getPagination().previousPage();
-        recreateModel();
-        return "List";
-    }
-
-    public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
-    }
-
-    public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
-    }
-
-
-    @FacesConverter(forClass=ActivityData.class)
+    
+    @FacesConverter(forClass = ActivityData.class)
     public static class ActivityDataControllerConverter implements Converter {
 
         @Override
@@ -197,9 +195,9 @@ public class ActivityDataController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ActivityDataController controller = (ActivityDataController)facesContext.getApplication().getELResolver().
+            ActivityDataController controller = (ActivityDataController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "activityDataController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.dataService.findById(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -223,10 +221,9 @@ public class ActivityDataController implements Serializable {
                 ActivityData o = (ActivityData) object;
                 return getStringKey(o.getIdActivityData());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+ActivityData.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + ActivityData.class.getName());
             }
         }
-
     }
 
 }
