@@ -4,6 +4,7 @@ import GoAberDatabase.ActivityData;
 import GoAberDatabase.Category;
 import GoAberDatabase.Unit;
 import JSF.AuditController;
+import JSF.DataRemovalAuditController;
 import JSF.util.JsfUtil;
 import SessionBean.ActivityDataFacade;
 
@@ -39,7 +40,12 @@ public class ActivityDataController implements Serializable {
     
     @ManagedProperty(value="#{auditController}")
     AuditController audit;
+    
+    @ManagedProperty(value="#{dataRemovalAuditController}")
+    DataRemovalAuditController dataRemovalAudit;
     private String deletedMessage;
+    
+    
 
     public ActivityDataController() {
     }
@@ -149,7 +155,7 @@ public class ActivityDataController implements Serializable {
     }
 
     private void performDestroy() {
-        
+        dataRemovalAudit.createDataRemovalAudit(getCurrent(), deletedMessage);
         try {
             getFacade().remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
@@ -254,4 +260,10 @@ public class ActivityDataController implements Serializable {
         this.audit = audit;    
     }
 
+    public DataRemovalAuditController getDataRemovalAudit() {    
+        return dataRemovalAudit;
+    }
+    public void setDataRemovalAudit(DataRemovalAuditController dataRemovalAudit) {    
+        this.dataRemovalAudit = dataRemovalAudit;    
+    }
 }
