@@ -322,9 +322,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511191557050_Initial.cs" />
-    <Compile Include="Migrations\201511191557050_Initial.Designer.cs">
-      <DependentUpon>201511191557050_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201511232320196_GoAber.cs" />
+    <Compile Include="Migrations\201511232320196_GoAber.Designer.cs">
+      <DependentUpon>201511232320196_GoAber.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ActivityData.cs" />
     <Compile Include="Models\WebServiceAuth.cs" />
@@ -335,10 +335,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
-    <Compile Include="Migrations\201511232248073_GoAber.cs" />
-    <Compile Include="Migrations\201511232248073_GoAber.Designer.cs">
-      <DependentUpon>201511232248073_GoAber.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -595,13 +591,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511191557050_Initial.resx">
-      <DependentUpon>201511191557050_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511232248073_GoAber.resx">
-      <DependentUpon>201511232248073_GoAber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511232320196_GoAber.resx">
+      <DependentUpon>201511232320196_GoAber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

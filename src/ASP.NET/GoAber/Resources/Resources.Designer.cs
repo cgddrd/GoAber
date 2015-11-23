@@ -133,6 +133,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Web Service Auth Tokens.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_WebServiceAuth {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_WebServiceAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in.
         /// </summary>
         public static string _LoginPartial_cshtml_Execute_Log_in {
