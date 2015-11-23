@@ -299,7 +299,7 @@
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\WebServiceAuthsController.cs" />
+    <Compile Include="Controllers\WebServiceAuthsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
@@ -454,10 +454,10 @@
     <Content Include="Areas\Admin\Views\Teams\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\WebServiceAuths\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\WebServiceAuths\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\WebServiceAuths\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\WebServiceAuths\Index.cshtml" />
+    <Content Include="Views\WebServiceAuths\Create.cshtml" />
+    <Content Include="Views\WebServiceAuths\Delete.cshtml" />
+    <Content Include="Views\WebServiceAuths\Details.cshtml" />
+    <Content Include="Views\WebServiceAuths\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
