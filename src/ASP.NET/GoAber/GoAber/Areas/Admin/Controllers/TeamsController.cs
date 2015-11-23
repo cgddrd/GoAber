@@ -24,7 +24,7 @@ namespace GoAber.Areas.Admin.Controllers
         public ActionResult Index(int? page)
         {
             int pageNumber = (page ?? 1);
-            var groups = teamService.getAllTeams();
+            var groups = teamService.GetAllTeams();
             return View(groups.ToPagedList(pageNumber, pageSize));
         }
 
@@ -36,7 +36,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = teamService.findTeamById(id.Value);
+            Team team = teamService.FindTeamById(id.Value);
             if (team == null)
             {
                 return HttpNotFound();
@@ -62,7 +62,7 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                teamService.createTeam(team);
+                teamService.CreateTeam(team);
                 return RedirectToAction("Index");
             }
 
@@ -78,7 +78,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = teamService.findTeamById(id.Value);
+            Team team = teamService.FindTeamById(id.Value);
             if (team == null)
             {
                 return HttpNotFound();
@@ -97,7 +97,7 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                teamService.updateTeam(team);
+                teamService.UpdateTeam(team);
                 return RedirectToAction("Index");
             }
             ViewBag.communityId = new SelectList(communityService.getAllCommunities(), "Id", "name", team.communityId);
@@ -112,7 +112,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = teamService.findTeamById(id.Value);
+            Team team = teamService.FindTeamById(id.Value);
             if (team == null)
             {
                 return HttpNotFound();
@@ -126,7 +126,7 @@ namespace GoAber.Areas.Admin.Controllers
         [Audit]
         public ActionResult DeleteConfirmed(int id)
         {
-            teamService.deleteTeam(id);
+            teamService.DeleteTeam(id);
             return RedirectToAction("Index");
         }
 
