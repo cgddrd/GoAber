@@ -162,13 +162,24 @@ namespace GoAber.Services
             summaryStats.Average = values.Average().GetValueOrDefault(0);
             summaryStats.Total = values.Sum().GetValueOrDefault(0);
 
-            ActivityData minItem = data.Aggregate((c, d) => c.value < d.value ? c : d);
-            summaryStats.Min = minItem.value.GetValueOrDefault(0);
-            summaryStats.MinDate = minItem.date.GetValueOrDefault(new DateTime());
+            if (data.Count() > 0)
+            {
+                ActivityData minItem = data.Aggregate((c, d) => c.value < d.value ? c : d);
+                summaryStats.Min = minItem.value.GetValueOrDefault(0);
+                summaryStats.MinDate = minItem.date.GetValueOrDefault(new DateTime());
 
-            ActivityData maxItem = data.Aggregate((c, d) => c.value > d.value ? c : d);
-            summaryStats.Max = maxItem.value.GetValueOrDefault(0);
-            summaryStats.MaxDate = maxItem.date.GetValueOrDefault(new DateTime());
+                ActivityData maxItem = data.Aggregate((c, d) => c.value > d.value ? c : d);
+                summaryStats.Max = maxItem.value.GetValueOrDefault(0);
+                summaryStats.MaxDate = maxItem.date.GetValueOrDefault(new DateTime());
+            }
+            else
+            {
+                summaryStats.MinDate = DateTime.Today;
+                summaryStats.MaxDate = DateTime.Today;
+                summaryStats.Min = 0;
+                summaryStats.Max = 0;
+            }
+            
             return summaryStats;
         }
 
