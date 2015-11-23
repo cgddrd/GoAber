@@ -41,6 +41,37 @@ CREATE TABLE IF NOT EXISTS `GoAber`.`Audit` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+
+-- Table `GoAber`.`DataRemovalAudit`
+
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `GoAber`.`DataRemovalAudit` ;
+
+CREATE TABLE IF NOT EXISTS `GoAber`.`DataRemovalAudit` (
+  `idDataRemovalAudit` INT NOT NULL AUTO_INCREMENT,
+  `userIdWhoRemoved` INT NOT NULL,
+  `userIdData` INT NOT NULL,
+  `dateRemoved` DATETIME NOT NULL,
+  `dataRemoved` VARCHAR(1000) NOT NULL,
+  `message` VARCHAR(200) NULL,
+  PRIMARY KEY (`idDataRemovalAudit`),
+  UNIQUE INDEX `idDataRemovalAudit_UNIQUE` (`idDataRemovalAudit` ASC),
+  INDEX `userWhoRemoved_audit_idx` (`userIdWhoRemoved` ASC),
+  INDEX `userIdData_audit_idx` (`userIdData` ASC),
+  CONSTRAINT `userWhoRemoved_audit`
+    FOREIGN KEY (`userIdWhoRemoved`)
+    REFERENCES `GoAber`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `userIdData_audit`
+    FOREIGN KEY (`userIdData`)
+    REFERENCES `GoAber`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 --
 -- Table structure for table `ActivityData`
 --

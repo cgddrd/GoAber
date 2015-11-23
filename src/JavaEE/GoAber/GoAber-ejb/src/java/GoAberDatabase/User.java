@@ -88,6 +88,10 @@ public class User implements Serializable {
     
     @OneToMany(mappedBy = "userId")
     private Collection<Audit> auditCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userIdData")
+    private Collection<DataRemovalAudit> dataRemovalAuditCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userIdWhoRemoved")
+    private Collection<DataRemovalAudit> dataRemovalAuditCollection1;
 
     public User() {
     }
@@ -199,6 +203,24 @@ public class User implements Serializable {
 
     public void setAuditCollection(Collection<Audit> auditCollection) {
         this.auditCollection = auditCollection;
+    }
+    
+    @XmlTransient
+    public Collection<DataRemovalAudit> getDataRemovalAuditCollection() {
+        return dataRemovalAuditCollection;
+    }
+
+    public void setDataRemovalAuditCollection(Collection<DataRemovalAudit> dataRemovalAuditCollection) {
+        this.dataRemovalAuditCollection = dataRemovalAuditCollection;
+    }
+
+    @XmlTransient
+    public Collection<DataRemovalAudit> getDataRemovalAuditCollection1() {
+        return dataRemovalAuditCollection1;
+    }
+
+    public void setDataRemovalAuditCollection1(Collection<DataRemovalAudit> dataRemovalAuditCollection1) {
+        this.dataRemovalAuditCollection = dataRemovalAuditCollection1;
     }
 
     @Override

@@ -39,8 +39,16 @@ public class ActivityDataController implements Serializable {
     
     @ManagedProperty(value="#{auditController}")
     AuditController audit;
+    private String deletedMessage;
 
     public ActivityDataController() {
+    }
+    
+    public void setDeletedMessage(String deletedMessage){
+        this.deletedMessage = deletedMessage;
+    }
+    public String getDeletedMessage(){
+        return deletedMessage;
     }
     
     @PostConstruct
@@ -141,6 +149,7 @@ public class ActivityDataController implements Serializable {
     }
 
     private void performDestroy() {
+        
         try {
             getFacade().remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));

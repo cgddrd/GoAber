@@ -29,6 +29,7 @@ public class ActivityDataController implements Serializable {
     @EJB private SessionBean.ActivityDataFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
 
     public ActivityDataController() {
     }
