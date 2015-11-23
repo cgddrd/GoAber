@@ -46,7 +46,7 @@ public class SandBoxUI {
         ActivityDataSOAP lo_data = new ActivityDataSOAP();
         lo_data.setCategoryUnitId(1);
         lo_data.setValue(4);
-        
+        lo_data.setUseremail("dan@dan.com");
         
         List<ActivityDataSOAP> lo_datas = new ArrayList<>();
         

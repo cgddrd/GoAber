@@ -6,13 +6,16 @@
 package WebServices;
 
 import GoAberDatabase.ActivityData;
+import GoAberDatabase.User;
 import GoAberDatabase.WebServiceAuth;
 import SessionBean.ActivityDataFacade;
 import SessionBean.CategoryUnitFacade;
 import SessionBean.UserFacade;
 import SessionBean.WebServiceAuthFacade;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.jws.WebService;
@@ -65,14 +68,35 @@ public class GoAberWS {
         return addActivityData(lo_wsa, data);
     }
     
+    public boolean isAdmin(User ao_user) {    
+        
+        return ao_user.getRoleId().getIdRole().equals("admin");
+
+    }
+    
+    public boolean isNotNullEmptyOrWhiteSpace(String as_string) {
+        return (as_string != null && !" ".equals(as_string.replace(" ", "")));
+    }
+    
     private boolean addActivityData(WebServiceAuth ao_wsa, List<ActivityDataSOAP> ao_data) {
         try {
             ActivityData lo_ad = new ActivityData();
             ActivityDataSOAP lo_ads;
+            User lo_user = io_u.find(ao_wsa.getUserid());
+            
             for (int i = 0; i < ao_data.size(); i++) {
                 lo_ads = ao_data.get(i);
                 lo_ad.setCategoryUnitId(io_cf.find(lo_ads.categoryUnitId));
-                lo_ad.setUserId(io_u.find(ao_wsa.getUserid()));
+                
+                if (isNotNullEmptyOrWhiteSpace(lo_ads.useremail) && isAdmin(lo_user)) {
+                    lo_ad.setUserId(io_u.findUserByEmail(lo_ads.useremail));
+
+                } else if (isNotNullEmptyOrWhiteSpace(lo_ads.useremail)) {
+                    return false;
+                }
+                else {
+                    lo_ad.setUserId(lo_user);
+                }
                 lo_ad.setValue(lo_ads.value);
                 io_adf.create(lo_ad);
             }

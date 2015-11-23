@@ -5,15 +5,21 @@ import GoAberDatabase.WebServiceAuth;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.WebServiceAuthFacade;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -29,14 +35,15 @@ public class WebServiceAuthController implements Serializable {
     private DataModel items = null;
     @EJB
     private SessionBean.WebServiceAuthFacade ejbFacade;
-    
+
     @EJB
     private SessionBean.UserFacade ejbUsers;
-    
+
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     public WebServiceAuthController() {
+
     }
 
     public WebServiceAuth getSelected() {
@@ -53,16 +60,26 @@ public class WebServiceAuthController implements Serializable {
 
     public PaginationHelper getPagination() {
         if (pagination == null) {
+
+            User lo_user = ejbUsers.findUserByEmail(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
             pagination = new PaginationHelper(10) {
 
                 @Override
                 public int getItemsCount() {
-                    return getFacade().count();
+                    if (isAdmin(lo_user)) {
+                        return getFacade().count();
+                    } else {
+                        return getFacade().countUser(lo_user.getIdUser());
+                    }
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    if (isAdmin(lo_user)) {
+                        return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    } else {
+                        return new ListDataModel(getFacade().findRangeUser(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, lo_user.getIdUser()));
+                    }
                 }
             };
         }
@@ -81,23 +98,45 @@ public class WebServiceAuthController implements Serializable {
     }
 
     public String prepareCreate() {
-        current = new WebServiceAuth();
-        selectedItemIndex = -1;
-        return "Create";
+        if (isLoggedIn()) {
+            current = new WebServiceAuth();
+            selectedItemIndex = -1;
+            return "Create";
+        } else {
+            redirectLogin();
+            return "List";
+        }
     }
-    
+
+    public void redirectLogin() {
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = context.getExternalContext();
+            externalContext.redirect("/GoAber-war/faces/login/index.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(WebServiceAuthController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private boolean isLoggedIn() {
         return (FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal() != null);
     }
 
+    public boolean isAdmin(User ao_user) {
+        return this.isLoggedIn() && ao_user.getRoleId().getIdRole().equals("admin");
+
+    }
+
     public String create() {
         try {
-            if (!isLoggedIn()) return ""; 
-            
+            if (!isLoggedIn()) {
+                return "";
+            }
+
             User lo_user = ejbUsers.findUserByEmail(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
-            
+
             current.setUserid(lo_user.getIdUser());
-                     
+
             current.setAuthtoken(UUID.randomUUID().toString());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("WebServiceAuthCreated"));
@@ -172,10 +211,28 @@ public class WebServiceAuthController implements Serializable {
     }
 
     public DataModel getItems() {
+        if (!isLoggedIn()) {
+            redirectLogin();
+            PaginationHelper lo_pag = new PaginationHelper(0) {
+
+                @Override
+                public int getItemsCount() {
+                    return 0;
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    return new ListDataModel();
+
+                }
+            };
+            return lo_pag.createPageDataModel();
+        }
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
+
     }
 
     private void recreateModel() {

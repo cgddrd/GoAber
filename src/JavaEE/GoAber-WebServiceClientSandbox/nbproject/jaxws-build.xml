@@ -33,5 +33,22 @@
         <delete dir="${build.generated.dir}/jax-wsCache/GoAberWS"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/goaber/webserviceclientsandbox/consumer"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-GoAberWS"/>
+    <target name="wsimport-client-GoAberWS_1" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/GoAberWS_1"/>
+        <property name="wsdl-GoAberWS_1" location="xml-resources/web-service-references/GoAberWS_1/wsdl/localhost_8080/GoAberWS/GoAberWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/GoAberWS_1" destdir="${build.generated.dir}/jax-wsCache/GoAberWS_1" wsdl="${wsdl-GoAberWS_1}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/GoAberWS/GoAberWS?WSDL" xnocompile="true" xendorsed="true" package="goaber.webserviceclientsandbox.consumer">
+            <depends file="${wsdl-GoAberWS_1}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/GoAberWS_1"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/GoAberWS_1">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-GoAberWS_1" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/GoAberWS_1"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/goaber/webserviceclientsandbox/consumer"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-GoAberWS, wsimport-client-GoAberWS_1"/>
 </project>

@@ -9,6 +9,7 @@ import GoAberDatabase.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +28,17 @@ public class UserFacade extends AbstractFacade<User> {
 
     public UserFacade() {
         super(User.class);
+    }
+    
+        // CG - Convenience serach function using 'User' EJB named query.
+    public User findUserByEmail(String searchEmail) {
+        
+        Query queryEmployeesByFirstName = em.createNamedQuery("User.findByEmail");
+        queryEmployeesByFirstName.setParameter("email", searchEmail);
+        
+        User user = (User) queryEmployeesByFirstName.getSingleResult();
+        
+        return user;
     }
     
 }

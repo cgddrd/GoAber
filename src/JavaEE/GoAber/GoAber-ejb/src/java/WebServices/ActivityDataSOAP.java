@@ -16,4 +16,5 @@ public class ActivityDataSOAP {
     public int categoryUnitId;
     public int value;
     public Date date;
+    public String useremail;
 }
