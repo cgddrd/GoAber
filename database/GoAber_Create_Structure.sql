@@ -18,25 +18,28 @@ USE `GoAber`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- -----------------------------------------------------
+
 -- Table `GoAber`.`Audit`
+
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `Audit` ;
+DROP TABLE IF EXISTS `GoAber`.`Audit` ;
 
-CREATE TABLE IF NOT EXISTS `Audit` (
-`idAudit` INT NOT NULL,
-`userId` INT NULL,
-`urlAccessed` VARCHAR(255) NULL,
-`timestamp` DATETIME NULL,
-`message` VARCHAR(1000) NULL,
-PRIMARY KEY (`idAudit`),
-KEY `UserId_Audit_idx` (`userId` ASC),
-CONSTRAINT `UserId_Audit`
-FOREIGN KEY (`userId`)
-REFERENCES `GoAber`.`User` (`idUser`)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION)
-ENGINE = InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `GoAber`.`Audit` (
+  `idAudit` INT NOT NULL AUTO_INCREMENT,
+  `userId` INT NULL,
+  `urlAccessed` VARCHAR(255) NULL,
+  `timestamp` DATETIME NULL,
+  `message` VARCHAR(1000) NULL,
+  PRIMARY KEY (`idAudit`),
+  INDEX `UserId_Audit_idx` (`userId` ASC),
+  UNIQUE INDEX `idAudit_UNIQUE` (`idAudit` ASC),
+  CONSTRAINT `UserId_Audit`
+    FOREIGN KEY (`userId`)
+    REFERENCES `GoAber`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 --
 -- Table structure for table `ActivityData`
@@ -72,110 +75,121 @@ CREATE TABLE `Category` (
   `idCategory` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`idCategory`),
-  UNIQUE INDEX `idCategory_UNIQUE` (`idCategory` ASC))
-ENGINE = InnoDB;
+  UNIQUE KEY `idCategory_UNIQUE` (`idCategory`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `CategoryUnit`
+--
 
--- -----------------------------------------------------
--- Table `GoAber`.`Unit`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `GoAber`.`Unit` ;
-
-CREATE TABLE IF NOT EXISTS `GoAber`.`Unit` (
-  `idUnit` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idUnit`),
-  UNIQUE INDEX `idUnit_UNIQUE` (`idUnit` ASC))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `GoAber`.`CategoryUnit`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `GoAber`.`CategoryUnit` ;
-
-CREATE TABLE IF NOT EXISTS `GoAber`.`CategoryUnit` (
-  `idCategoryUnit` INT NOT NULL AUTO_INCREMENT,
-  `categoryId` INT NOT NULL,
-  `unitId` INT NOT NULL,
+DROP TABLE IF EXISTS `CategoryUnit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `CategoryUnit` (
+  `idCategoryUnit` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryId` int(11) NOT NULL,
+  `unitId` int(11) NOT NULL,
   PRIMARY KEY (`idCategoryUnit`),
-  UNIQUE INDEX `idCategoryUnit_UNIQUE` (`idCategoryUnit` ASC),
-  INDEX `categoryId_idx` (`categoryId` ASC),
-  INDEX `unitId_idx` (`unitId` ASC),
-  CONSTRAINT `categoryId_categoryUnit`
-    FOREIGN KEY (`categoryId`)
-    REFERENCES `GoAber`.`Category` (`idCategory`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `unitId_categoryUnit`
-    FOREIGN KEY (`unitId`)
-    REFERENCES `GoAber`.`Unit` (`idUnit`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `idCategoryUnit_UNIQUE` (`idCategoryUnit`),
+  KEY `categoryId_idx` (`categoryId`),
+  KEY `unitId_idx` (`unitId`),
+  CONSTRAINT `categoryId_categoryUnit` FOREIGN KEY (`categoryId`) REFERENCES `Category` (`idCategory`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `unitId_categoryUnit` FOREIGN KEY (`unitId`) REFERENCES `Unit` (`idUnit`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `Challenge`
+--
 
--- -----------------------------------------------------
--- Table `GoAber`.`ActivityData`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `GoAber`.`ActivityData` ;
-
-CREATE TABLE IF NOT EXISTS `GoAber`.`ActivityData` (
-  `idActivityData` INT NOT NULL AUTO_INCREMENT,
-  `categoryUnitId` INT NOT NULL,
-  `userId` INT NOT NULL,
-  `value` INT NULL,
-  `lastUpdated` DATETIME NULL,
-  `date` DATE NULL,
-  PRIMARY KEY (`idActivityData`),
-  UNIQUE INDEX `idActivityData_UNIQUE` (`idActivityData` ASC),
-  INDEX `user_idx` (`userId` ASC),
-  INDEX `catergoryUnit_idx` (`categoryUnitId` ASC),
-  CONSTRAINT `user_activityData`
-    FOREIGN KEY (`userId`)
-    REFERENCES `GoAber`.`User` (`idUser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `catergoryUnit_activityData`
-    FOREIGN KEY (`categoryUnitId`)
-    REFERENCES `GoAber`.`CategoryUnit` (`idCategoryUnit`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `GoAber`.`Challenge`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `GoAber`.`Challenge` ;
-
-CREATE TABLE IF NOT EXISTS `GoAber`.`Challenge` (
-  `idChallenge` INT NOT NULL AUTO_INCREMENT,
-  `categoryUnit` INT NOT NULL,
-  `startTime` DATETIME NOT NULL,
-  `endTime` DATETIME NULL,
-  `name` VARCHAR(100) NULL,
-  `communityStartedBy` INT NULL,
+DROP TABLE IF EXISTS `Challenge`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Challenge` (
+  `idChallenge` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryUnit` int(11) NOT NULL,
+  `startTime` datetime NOT NULL,
+  `endTime` datetime DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `communityStartedBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`idChallenge`),
-  UNIQUE INDEX `idChallenge_UNIQUE` (`idChallenge` ASC),
-  INDEX `communityStartedBy_Challenge_idx` (`communityStartedBy` ASC),
-  CONSTRAINT `communityStartedBy_Challenge`
-    FOREIGN KEY (`communityStartedBy`)
-    REFERENCES `GoAber`.`Community` (`idCommunity`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `idChallenge_UNIQUE` (`idChallenge`),
+  KEY `communityStartedBy_Challenge_idx` (`communityStartedBy`),
+  CONSTRAINT `communityStartedBy_Challenge` FOREIGN KEY (`communityStartedBy`) REFERENCES `Community` (`idCommunity`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `Community`
+--
 
--- -----------------------------------------------------
--- Table `GoAber`.`GroupChallenge`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `GoAber`.`GroupChallenge` ;
+DROP TABLE IF EXISTS `Community`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Community` (
+  `idCommunity` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `endpointUrl` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`idCommunity`),
+  UNIQUE KEY `idCommunity_UNIQUE` (`idCommunity`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE IF NOT EXISTS `GoAber`.`GroupChallenge` (
-  `idGroupChallenge` INT NOT NULL AUTO_INCREMENT,
-  `groupId` INT NOT NULL,
-  `challengeId` INT NOT NULL,
+--
+-- Table structure for table `Device`
+--
+
+DROP TABLE IF EXISTS `Device`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Device` (
+  `idDevice` int(11) NOT NULL AUTO_INCREMENT,
+  `deviceTypeId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `accessToken` varchar(45) DEFAULT NULL,
+  `refreshToken` varchar(45) DEFAULT NULL,
+  `tokenExpiration` datetime DEFAULT NULL,
+  PRIMARY KEY (`idDevice`),
+  UNIQUE KEY `idDevice_UNIQUE` (`idDevice`),
+  KEY `deviceType_idx` (`deviceTypeId`),
+  KEY `user_idx` (`userId`),
+  CONSTRAINT `deviceType_Device` FOREIGN KEY (`deviceTypeId`) REFERENCES `DeviceType` (`idDeviceType`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `user_Device` FOREIGN KEY (`userId`) REFERENCES `User` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `DeviceType`
+--
+
+DROP TABLE IF EXISTS `DeviceType`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `DeviceType` (
+  `idDeviceType` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `tokenEndpoint` varchar(250) DEFAULT NULL,
+  `consumerKey` varchar(45) DEFAULT NULL,
+  `consumerSecret` varchar(45) DEFAULT NULL,
+  `clientId` varchar(45) DEFAULT NULL,
+  `authorizationEndpoint` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`idDeviceType`),
+  UNIQUE KEY `idDeviceType_UNIQUE` (`idDeviceType`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `GroupChallenge`
+--
+
+DROP TABLE IF EXISTS `GroupChallenge`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `GroupChallenge` (
+  `idGroupChallenge` int(11) NOT NULL AUTO_INCREMENT,
+  `groupId` int(11) NOT NULL,
+  `challengeId` int(11) NOT NULL,
   PRIMARY KEY (`idGroupChallenge`),
   UNIQUE KEY `idGroupChallenge_UNIQUE` (`idGroupChallenge`),
   KEY `group_idx` (`groupId`),
@@ -272,90 +286,37 @@ CREATE TABLE `UserChallenge` (
   `challengeId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   PRIMARY KEY (`idUserChallenge`),
-  UNIQUE INDEX `idUserChallenge_UNIQUE` (`idUserChallenge` ASC),
-  INDEX `user_idx` (`userId` ASC),
-  INDEX `challenge_idx` (`challengeId` ASC),
-  CONSTRAINT `user_userChallenge`
-    FOREIGN KEY (`userId`)
-    REFERENCES `GoAber`.`User` (`idUser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `challenge_userChallenge`
-    FOREIGN KEY (`challengeId`)
-    REFERENCES `GoAber`.`Challenge` (`idChallenge`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `idUserChallenge_UNIQUE` (`idUserChallenge`),
+  KEY `user_idx` (`userId`),
+  KEY `challenge_idx` (`challengeId`),
+  CONSTRAINT `user_userChallenge` FOREIGN KEY (`userId`) REFERENCES `User` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `challenge_userChallenge` FOREIGN KEY (`challengeId`) REFERENCES `Challenge` (`idChallenge`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `UserRole`
+--
 
--- -----------------------------------------------------
--- Table `GoAber`.`DeviceType`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `GoAber`.`DeviceType` ;
+DROP TABLE IF EXISTS `UserRole`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `UserRole` (
+  `idUserRole` int(11) NOT NULL AUTO_INCREMENT,
+  `roleId` varchar(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`idUserRole`),
+  UNIQUE KEY `idUserRole_UNIQUE` (`idUserRole`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-CREATE TABLE IF NOT EXISTS `GoAber`.`DeviceType` (
-  `idDeviceType` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `tokenEndpoint` VARCHAR(250) NULL,
-  `consumerKey` VARCHAR(45) NULL,
-  `consumerSecret` VARCHAR(45) NULL,
-  `clientId` VARCHAR(45) NULL,
-  `authorizationEndpoint` VARCHAR(250) NULL,
-  PRIMARY KEY (`idDeviceType`),
-  UNIQUE INDEX `idDeviceType_UNIQUE` (`idDeviceType` ASC))
-ENGINE = InnoDB;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-
--- -----------------------------------------------------
--- Table `GoAber`.`Device`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `GoAber`.`Device` ;
-
-CREATE TABLE IF NOT EXISTS `GoAber`.`Device` (
-  `idDevice` INT NOT NULL AUTO_INCREMENT,
-  `deviceTypeId` INT NOT NULL,
-  `userId` INT NOT NULL,
-  `accessToken` VARCHAR(45) NULL,
-  `refreshToken` VARCHAR(45) NULL,
-  `tokenExpiration` DATETIME NULL,
-  PRIMARY KEY (`idDevice`),
-  UNIQUE INDEX `idDevice_UNIQUE` (`idDevice` ASC),
-  INDEX `deviceType_idx` (`deviceTypeId` ASC),
-  INDEX `user_idx` (`userId` ASC),
-  CONSTRAINT `deviceType_Device`
-    FOREIGN KEY (`deviceTypeId`)
-    REFERENCES `GoAber`.`DeviceType` (`idDeviceType`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `user_Device`
-    FOREIGN KEY (`userId`)
-    REFERENCES `GoAber`.`User` (`idUser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `GoAber`.`Audit`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `GoAber`.`Audit` ;
-
-CREATE TABLE IF NOT EXISTS `GoAber`.`Audit` (
-  `idAudit` INT NOT NULL,
-  `userId` INT NULL,
-  `urlAccessed` VARCHAR(255) NULL,
-  `timestamp` DATETIME NULL,
-  `message` VARCHAR(1000) NULL,
-  PRIMARY KEY (`idAudit`),
-  INDEX `UserId_Audit_idx` (`userId` ASC),
-  CONSTRAINT `UserId_Audit`
-    FOREIGN KEY (`userId`)
-    REFERENCES `GoAber`.`User` (`idUser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+-- Dump completed on 2015-11-10 11:47:44
