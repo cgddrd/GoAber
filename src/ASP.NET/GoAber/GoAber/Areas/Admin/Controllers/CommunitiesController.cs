@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using GoAber.Models;
 using PagedList;
+using WebGrease.Css.Extensions;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -114,8 +115,29 @@ namespace GoAber.Areas.Admin.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Community community = db.Communities.Find(id);
+
+            // CG - When we delete a community, we want to also delete any of it's teams. 
+            // HOWEVER, we DON'T neccesarily want to delete the users currently linked to those teams. 
+            // Therefore, we first of all need to remove the relationship between those teams and their users,
+            // before deleting the range of teams linked to the community, before finally deleting the community itself.
+            //
+            // It is important that this process is followed in-order, otherwise we end up with a ton of FK constraint errors.
+
+            community.teams.ForEach(t => t.users.ToList().ForEach(u => t.users.Remove(u)));
+            //CG - The above line is equivalent to the following:
+            //foreach (var team in community.teams)
+            //{
+            //    foreach (var user in team.users.ToList())
+            //    {
+            //        team.users.Remove(user);
+            //    }
+            //}
+
+            db.Teams.RemoveRange(community.teams);
             db.Communities.Remove(community);
+
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
