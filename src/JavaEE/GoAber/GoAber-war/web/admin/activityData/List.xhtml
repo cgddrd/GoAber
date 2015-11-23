@@ -17,12 +17,12 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
 
-                <div>
-                    <h:commandLink action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
-                    <h:outputText value="&nbsp;"/>
-                    <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
+                <div class="btn-group" role="group" >
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareBatchDestroy}" value="#{admin.ListActivityDataBatchDeleteLink}"/>
                 </div>
-                
+
                 <p:dataTable id="activityDataTable" class="table" value="#{adminActivityDataController.items}" 
                              emptyMessage="#{admin.ActivityDataNoItems}"
                              filteredValue="#{adminActivityDataController.filteredItems}" widgetVar="activityDataTable" var="item"
@@ -52,15 +52,28 @@
                         </h:outputText>
                     </p:column>
                     
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{admin.ListActivityDataTitle_date}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.date}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
-                        </h:outputText>
+                    <!-- Date range filter based on http://stackoverflow.com/questions/23791039/primefaces-datatable-date-range-filter-with-filterfunction -->
+                    <p:column headerText="#{admin.ListActivityDataTitle_date}" filterBy="#{item.date}" filterFunction="#{dateRangeFilter.filterByDate}">
+                      <f:facet name="filter">
+                        <h:inputHidden id="filter" />
+                      </f:facet>
+                      <f:facet name="header">
+                        <p:outputLabel value="#{admin.ListActivityDataTitle_date}" />
+                        <br />
+                        <p:calendar placeholder="From Date" class="filter-date" id="from" pattern="dd/MM/yyyy">
+                          <p:ajax event="dateSelect" onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
+                                  oncomplete="PF('activityDataTable').filter()" />
+                        </p:calendar>
+                        <p:calendar placeholder="To Date" class="filter-date" id="to" pattern="dd/MM/yyyy">
+                          <p:ajax event="dateSelect" onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
+                                  oncomplete="PF('activityDataTable').filter()" />
+                        </p:calendar>
+                      </f:facet>
+                      <h:outputText value="#{item.date}">
+                        <f:convertDateTime type="date" dateStyle="medium" />
+                      </h:outputText>
                     </p:column>
-                    
+
                     <p:column filterBy="#{item.categoryUnitId.categoryId.name}" headerText="#{admin.ListActivityDataTitle_category}" filterMatchMode="exact">
                         <f:facet name="filter">
                             <p:selectOneMenu onchange="PF('activityDataTable').filter()" >

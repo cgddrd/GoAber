@@ -20,21 +20,23 @@ namespace GoAber.Areas.Admin.Controllers
         private const int pageSize = 100;
 
         // GET: Admin/Teams
+        [Audit]
         public ActionResult Index(int? page)
         {
             int pageNumber = (page ?? 1);
-            var groups = teamService.getAllTeams();
+            var groups = teamService.GetAllTeams();
             return View(groups.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Admin/Teams/Details/5
+        [Audit]
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = teamService.findTeamById(id.Value);
+            Team team = teamService.FindTeamById(id.Value);
             if (team == null)
             {
                 return HttpNotFound();
@@ -43,6 +45,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/Teams/Create
+        [Audit]
         public ActionResult Create()
         {
             ViewBag.communityId = new SelectList(communityService.getAllCommunities(), "Id", "name");
@@ -54,11 +57,12 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Create([Bind(Include = "Id,name,communityId")] Team team)
         {
             if (ModelState.IsValid)
             {
-                teamService.createTeam(team);
+                teamService.CreateTeam(team);
                 return RedirectToAction("Index");
             }
 
@@ -67,13 +71,14 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/Teams/Edit/5
+        [Audit]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = teamService.findTeamById(id.Value);
+            Team team = teamService.FindTeamById(id.Value);
             if (team == null)
             {
                 return HttpNotFound();
@@ -87,11 +92,12 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Edit([Bind(Include = "Id,name,communityId")] Team team)
         {
             if (ModelState.IsValid)
             {
-                teamService.updateTeam(team);
+                teamService.UpdateTeam(team);
                 return RedirectToAction("Index");
             }
             ViewBag.communityId = new SelectList(communityService.getAllCommunities(), "Id", "name", team.communityId);
@@ -99,13 +105,14 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/Teams/Delete/5
+        [Audit]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Team team = teamService.findTeamById(id.Value);
+            Team team = teamService.FindTeamById(id.Value);
             if (team == null)
             {
                 return HttpNotFound();
@@ -116,12 +123,14 @@ namespace GoAber.Areas.Admin.Controllers
         // POST: Admin/Teams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult DeleteConfirmed(int id)
         {
-            teamService.deleteTeam(id);
+            teamService.DeleteTeam(id);
             return RedirectToAction("Index");
         }
 
+        [Audit]
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,6 +13,8 @@ using PagedList;
 using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using GoAber.ActionFilters;
+using GoAber.Areas.Admin.Models;
 using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
@@ -43,6 +45,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData
+        [Audit]
         public ActionResult Index(int? page)
         {
             var activityData = dataService.getAllActivityData();
@@ -56,17 +59,21 @@ namespace GoAber.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string email, int? idCategoryUnit, DateTime? fromDate = null, DateTime? toDate = null)
+        [Audit]
+        public ActionResult Index(int? page, FilterViewModel filterParams)
         {
+            int pageNumber = (page ?? 1);
             var activityData = dataService.getAllActivityData();
-            activityData = ApplyFiltersToActivityData((IQueryable<ActivityData>) activityData, email, idCategoryUnit, fromDate, toDate);
+            activityData = ApplyFiltersToActivityData((IQueryable<ActivityData>) activityData, filterParams);
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View(activityData.ToList());
+            return View("Index", activityData.ToPagedList(pageNumber, pageSize));
         }
 
+
         // GET: Admin/ActivityData/Details/5
+        [Audit]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -87,13 +94,12 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Create
+        [Audit]
         public ActionResult Create()
         {
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
 
-            // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
-            // CG TODO: Add remaining properties to ApplicationUser so that we can get rid of 'GoAber.User' model.
             ViewBag.userId = new SelectList(db.Users, "Id", "email");
 
             return View();
@@ -104,6 +110,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Create([Bind(Include = "ApplicationUserId,idActivityData,categoryUnitId,userId,value,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
@@ -119,6 +126,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Edit/5
+        [Audit]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -142,6 +150,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Edit([Bind(Include = "ApplicationUserId,Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (ModelState.IsValid)
@@ -157,6 +166,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Delete/5
+        [Audit]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -172,13 +182,43 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // POST: Admin/ActivityData/Delete/5
+		[Audit]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            dataService.deleteActivityData(id);
+        public ActionResult DeleteConfirmed(int id, string message)
+        { 
+            dataService.deleteActivityData(id, message, User.Identity.GetUserId());
             return RedirectToAction("Index");
         }
+
+        [Audit]
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "BatchDelete")]
+        public ActionResult Index(FilterViewModel filterParams) {
+            var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
+            activityData = ApplyFiltersToActivityData(activityData, filterParams);
+            filterParams.Size = activityData.Count();
+            return View("BatchDelete", filterParams);
+        }
+/* TODO merge conflict : function was on my branch, but not on develop.
+			 I was not sure if I should delete it or not.
+        // POST: Admin/ActivityData/BatchDelete
+	[Audit]
+        [HttpPost, ActionName("BatchDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult BatchDelete(FilterViewModel filterParams)
+        {
+            var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
+            activityData = ApplyFiltersToActivityData(activityData, filterParams);
+
+            foreach (var item in activityData)
+            {
+                db.ActivityDatas.Remove(item);
+
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }*/
 
         protected override void Dispose(bool disposing)
         {
@@ -189,36 +229,51 @@ namespace GoAber.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
-        private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, string email, int? categoryUnitId, DateTime? fromDate, DateTime? toDate)
+
+        [Audit]
+        private IEnumerable CreateCategoryUnitList()
         {
-            if (!String.IsNullOrEmpty(email))
+            var categories = db.CategoryUnits.Select(c => new
             {
-                activityData = activityData.Where(a => a.User.Email.Contains(email));
+                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
+                idCategoryUnit = c.Id,
+                category = c.category.name,
+                unit = c.unit.name
+            }).ToList();
+
+            return categories;
+        }
+
+        private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, FilterViewModel filterParams)
+        {
+            if (!String.IsNullOrEmpty(filterParams.Email))
+            {
+                activityData = activityData.Where(a => a.User.Email.Contains(filterParams.Email));
             }
 
-            if (categoryUnitId.HasValue)
+            if (filterParams.CategoryUnitId > 0)
             {
-                activityData = activityData.Where(a => a.categoryunit.Id == categoryUnitId);
+                activityData = activityData.Where(a => a.categoryunit.Id == filterParams.CategoryUnitId);
             }
 
-            if (fromDate.HasValue)
+            if (filterParams.FromDate.HasValue)
             {
-                activityData = activityData.Where(a => a.date >= fromDate);
+                activityData = activityData.Where(a => a.date >= filterParams.FromDate.Value);
             }
 
-            if (toDate.HasValue)
+            if (filterParams.ToDate.HasValue)
             {
-                activityData = activityData.Where(a => a.date <= toDate);
+                activityData = activityData.Where(a => a.date <= filterParams.ToDate.Value);
             }
 
             return activityData;
         }
 
+        [Audit]
         private IEnumerable CreateUserList()
         {
             var users = db.Users.Select(c => new
             {
-                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
                 idUser = c.Id,
                 email = c.Email
             }).ToList();

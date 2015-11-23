@@ -66,8 +66,12 @@ namespace GoAber.Services
             db.SaveChanges();
         }
 
-        public void deleteActivityData(int id)
+        public void deleteActivityData(int id, string message, string userId)
         {
+            DataRemovalAudit dataRemovalAudit = new DataRemovalAudit(message, getActivityDataById(id), userId);
+            db.DataRemovalAudits.Add(dataRemovalAudit);
+            db.SaveChanges();
+
             ActivityData activityData = db.ActivityDatas.Find(id);
             db.ActivityDatas.Remove(activityData);
             db.SaveChanges();
