@@ -2,41 +2,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-<ui:composition template="/template.xhtml">
-    <ui:define name="title">
-        <h:outputText value="#{bundle.index_title}"/>
-    </ui:define>
-    <ui:define name="body">
-        <h:panelGroup id="messagePanel" layout="block">
-            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-        </h:panelGroup>
-        <h:outputText value="#{bundle.index_h1}"/>
-        <br />
-        <h:link outcome="/activityData/List" value="Show All ActivityData Items"/>
-        <br />
-        <h:link outcome="/category/List" value="Show All Category Items"/>
-        <br />
-        <h:link outcome="/categoryUnit/List" value="Show All CategoryUnit Items"/>
-        <br />
-        <h:link outcome="/challenge/List" value="Show All Challenge Items"/>
-        <br />
-        <h:link outcome="/community/List" value="Show All Community Items"/>
-        <br />
-        <h:link outcome="/device/List" value="Show All Device Items"/>
-        <br />
-        <h:link outcome="/deviceType/List" value="Show All DeviceType Items"/>
-        <br />
-        <h:link outcome="/groupChallenge/List" value="Show All GroupChallenge Items"/>
-        <br />
-        <h:link outcome="/team/List" value="Show All Team Items"/>
-        <br />
-        <h:link outcome="/unit/List" value="Show All Unit Items"/>
-        <br />
-        <h:link outcome="/userChallenge/List" value="Show All UserChallenge Items"/>
-    </ui:define>
-</ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.index_title}"/>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:outputText value="#{bundle.index_h1}"/>
+            <br />
+            <h:link outcome="/activityData/List" value="Show All ActivityData Items"/>
+            <br />
+            <h:link outcome="/category/List" value="Show All Category Items"/>
+            <br />
+            <h:link outcome="/categoryUnit/List" value="Show All CategoryUnit Items"/>
+            <br />
+            <h:link outcome="/challenge/List" value="Show All Challenge Items"/>
+            <br />
+            <h:link outcome="/community/List" value="Show All Community Items"/>
+            <br />
+            <h:link outcome="/device/List" value="Show All Device Items"/>
+            <br />
+            <h:link outcome="/deviceType/List" value="Show All DeviceType Items"/>
+            <br />
+            <h:link outcome="/groupChallenge/List" value="Show All GroupChallenge Items"/>
+            <br />
+            <h:link outcome="/team/List" value="Show All Team Items"/>
+            <br />
+            <h:link outcome="/unit/List" value="Show All Unit Items"/>
+            <br />
+            <h:link outcome="/userChallenge/List" value="Show All UserChallenge Items"/>
+            <br />
+            <c:choose>
+
+                <c:when test="#{authController.loggedIn}">
+                    <h:link outcome="/webServiceAuth/index" value="Show All Web Service Tokens"/>
+                </c:when>
+
+            </c:choose>
+        </ui:define>
+    </ui:composition>
 
 
 

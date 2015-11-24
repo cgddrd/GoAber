@@ -45,6 +45,8 @@ public class WebServiceAuthController implements Serializable {
     public WebServiceAuthController() {
 
     }
+    
+    
 
     public WebServiceAuth getSelected() {
         if (current == null) {
@@ -52,6 +54,24 @@ public class WebServiceAuthController implements Serializable {
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public void redirectLogin() {
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(externalContext.getRequestContextPath() + "/faces/login/index.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(WebServiceAuthController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void redirectList() {
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(externalContext.getRequestContextPath() + "/faces/webServiceAuth/List.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(WebServiceAuthController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private WebServiceAuthFacade getFacade() {
@@ -99,6 +119,7 @@ public class WebServiceAuthController implements Serializable {
 
     public String prepareCreate() {
         if (isLoggedIn()) {
+            prepareList();
             current = new WebServiceAuth();
             selectedItemIndex = -1;
             return "Create";
@@ -108,15 +129,15 @@ public class WebServiceAuthController implements Serializable {
         }
     }
 
-    public void redirectLogin() {
-        try {
-            FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext externalContext = context.getExternalContext();
-            externalContext.redirect("/GoAber-war/faces/login/index.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(WebServiceAuthController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void redirectLogin() {
+//        try {
+//            FacesContext context = FacesContext.getCurrentInstance();
+//            ExternalContext externalContext = context.getExternalContext();
+//            externalContext.redirect("/GoAber-war/faces/login/index.xhtml");
+//        } catch (IOException ex) {
+//            Logger.getLogger(WebServiceAuthController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
     private boolean isLoggedIn() {
         return (FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal() != null);
