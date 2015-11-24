@@ -1,6 +1,7 @@
 package JSF.admin;
 
 import GoAberDatabase.Community;
+import JSF.AuditController;
 import JSF.util.JsfUtil;
 import SessionBean.CommunityFacade;
 
@@ -10,6 +11,7 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -27,6 +29,9 @@ public class CommunityController implements Serializable {
     private List<Community> items = null;
     private List<Community> filteredItems = null;
 
+    @ManagedProperty(value="#{auditController}")
+    AuditController audit;
+    
     public CommunityController() {
     }
     
@@ -47,16 +52,19 @@ public class CommunityController implements Serializable {
     }
 
     public String prepareList() {
+        audit.createAudit("community/List", "");
         recreateItems();
         return "List";
     }
 
     public String prepareView(Community item) {
+        audit.createAudit("community/View", "IdCommunity="+item.getIdCommunity());
         current = item;
         return "View";
     }
 
     public String prepareCreate() {
+        audit.createAudit("community/Create", "");
         setCurrent(new Community());
         return "Create";
     }
@@ -65,14 +73,17 @@ public class CommunityController implements Serializable {
         try {
             getFacade().create(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommunityCreated"));
+            audit.createAudit("community/Create", "Created: IdCommunity="+getCurrent().getIdCommunity());
             return prepareCreate();
         } catch (Exception e) {
+            audit.createAudit("community/Create", "Creation failed");
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
     public String prepareEdit(Community data) {
+        audit.createAudit("community/Edit", "IdCommunity="+data.getIdCommunity());
         current = data;
         return "Edit";
     }
@@ -81,6 +92,7 @@ public class CommunityController implements Serializable {
         try {
             getFacade().edit(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommunityUpdated"));
+            audit.createAudit("community/View", "Updated : IdCommunity="+getCurrent().getIdCommunity());
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -89,6 +101,7 @@ public class CommunityController implements Serializable {
     }
 
     public String prepareDestroy(Community data) {
+        audit.createAudit("community/Delete", "IdCommunity="+data.getIdCommunity());
         current = data;
         return "Delete";
     }
@@ -104,7 +117,9 @@ public class CommunityController implements Serializable {
         try {
             getFacade().remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommunityDeleted"));
+            audit.createAudit("community/List", "Deleted : IdCommunity="+getCurrent().getIdCommunity());
         } catch (Exception e) {
+            audit.createAudit("community/List", "Delete failed : IdCommunity="+getCurrent().getIdCommunity());
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
@@ -195,5 +210,10 @@ public class CommunityController implements Serializable {
             }
         }
     }
-
+    public AuditController getAudit() {    
+        return audit;
+    }
+    public void setAudit(AuditController audit) {    
+        this.audit = audit;    
+    }
 }

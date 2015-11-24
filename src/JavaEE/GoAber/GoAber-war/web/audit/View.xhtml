@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewAuditTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewAuditLabel_idAudit}"/>
+                    <h:outputText value="#{auditController.selected.idAudit}" title="#{bundle.ViewAuditTitle_idAudit}"/>
+                    <h:outputText value="#{bundle.ViewAuditLabel_urlAccessed}"/>
+                    <h:outputText value="#{auditController.selected.urlAccessed}" title="#{bundle.ViewAuditTitle_urlAccessed}"/>
+                    <h:outputText value="#{bundle.ViewAuditLabel_timestamp}"/>
+                    <h:outputText value="#{auditController.selected.timestamp}" title="#{bundle.ViewAuditTitle_timestamp}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewAuditLabel_message}"/>
+                    <h:outputText value="#{auditController.selected.message}" title="#{bundle.ViewAuditTitle_message}"/>
+                    <h:outputText value="#{bundle.ViewAuditLabel_userId}"/>
+                    <h:outputText value="#{auditController.selected.userId}" title="#{bundle.ViewAuditTitle_userId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{auditController.destroyAndView}" value="#{bundle.ViewAuditDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewAuditEditLink}"/>
+                <br />
+                <h:commandLink action="#{auditController.prepareCreate}" value="#{bundle.ViewAuditCreateLink}" />
+                <br />
+                <h:commandLink action="#{auditController.prepareList}" value="#{bundle.ViewAuditShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewAuditIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

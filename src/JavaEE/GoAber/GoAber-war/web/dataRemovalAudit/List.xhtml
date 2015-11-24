@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDataRemovalAuditTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDataRemovalAuditEmpty}" rendered="#{dataRemovalAuditController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{dataRemovalAuditController.items.rowCount > 0}">
+                    <h:outputText value="#{dataRemovalAuditController.pagination.pageFirstItem + 1}..#{dataRemovalAuditController.pagination.pageLastItem + 1}/#{dataRemovalAuditController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{dataRemovalAuditController.previous}" value="#{bundle.Previous} #{dataRemovalAuditController.pagination.pageSize}" rendered="#{dataRemovalAuditController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{dataRemovalAuditController.next}" value="#{bundle.Next} #{dataRemovalAuditController.pagination.pageSize}" rendered="#{dataRemovalAuditController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{dataRemovalAuditController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataRemovalAuditTitle_idDataRemovalAudit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDataRemovalAudit}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataRemovalAuditTitle_dateRemoved}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateRemoved}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataRemovalAuditTitle_dataRemoved}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataRemoved}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataRemovalAuditTitle_userIdData}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userIdData}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDataRemovalAuditTitle_userIdWhoRemoved}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userIdWhoRemoved}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{dataRemovalAuditController.prepareView}" value="#{bundle.ListDataRemovalAuditViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dataRemovalAuditController.prepareEdit}" value="#{bundle.ListDataRemovalAuditEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dataRemovalAuditController.destroy}" value="#{bundle.ListDataRemovalAuditDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{dataRemovalAuditController.prepareCreate}" value="#{bundle.ListDataRemovalAuditCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDataRemovalAuditIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

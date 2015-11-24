@@ -1,0 +1,26 @@
+﻿@model GoAber.Areas.Admin.Models.FilterViewModel
+@{
+    ViewBag.Title = "Batch Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Are you sure you want to delete @Model.Size records?</h3>
+<div>
+    @using (Html.BeginForm("BatchDelete", "ActivityData", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+
+        @Html.HiddenFor(x => x.Email)
+        @Html.HiddenFor(x => x.CategoryUnitId)
+        @Html.HiddenFor(x => x.FromDate)
+        @Html.HiddenFor(x => x.ToDate)
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+
