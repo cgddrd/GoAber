@@ -20,11 +20,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.user.email)
+            @Html.DisplayNameFor(model => model.User.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.user.email)
+            @Html.DisplayFor(model => model.User.Email)
         </dd>
 
         <dt>
@@ -57,7 +57,11 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <label>Message </label>
+            <div>
+                <input type="text" name="message"/>
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+            </div>
             @Html.ActionLink(Resources.AD_Delete_cshtml_Execute_Back_to_List, "Index")
         </div>
     }

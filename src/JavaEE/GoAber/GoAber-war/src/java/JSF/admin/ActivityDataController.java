@@ -3,6 +3,7 @@ package JSF.admin;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.Category;
 import GoAberDatabase.Unit;
+import JSF.services.ActivityDataService;
 import JSF.util.JsfUtil;
 import SessionBean.ActivityDataFacade;
 
@@ -26,7 +27,7 @@ import javax.faces.model.SelectItem;
 public class ActivityDataController implements Serializable {
 
     @EJB
-    private SessionBean.ActivityDataFacade ejbFacade;
+    private ActivityDataService dataService;
     @EJB
     private SessionBean.CategoryFacade categoryBean;
     @EJB
@@ -68,10 +69,6 @@ public class ActivityDataController implements Serializable {
         return getCurrent();
     }
 
-    private ActivityDataFacade getFacade() {
-        return ejbFacade;
-    }
-
     public String prepareList() {
         recreateItems();
         return "List";
@@ -89,8 +86,7 @@ public class ActivityDataController implements Serializable {
 
     public String create() {
         try {
-            getCurrent().setLastUpdated(new Date());
-            getFacade().create(getCurrent());
+            dataService.create(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -106,8 +102,7 @@ public class ActivityDataController implements Serializable {
 
     public String update() {
         try {
-            getCurrent().setLastUpdated(new Date());
-            getFacade().edit(getCurrent());
+            dataService.update(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataUpdated"));
             return "View";
         } catch (Exception e) {
@@ -130,24 +125,44 @@ public class ActivityDataController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(getCurrent());
+            dataService.remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
         }
     }
     
-    private void recreateItems() {
-        items = getFacade().findAll();
-        filteredItems = null;
+    public String prepareBatchDestroy() {
+        if (filteredItems == null) {
+            filteredItems = items;
+        }
+        return "BatchDelete";
     }
     
-    public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+    public String batchDestory() {
+        performBatchDestroy();
+        recreateItems();
+        return "List";
     }
-
-    public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    
+    private void performBatchDestroy() {
+        if (filteredItems == null) {
+            return;
+        }
+        
+        for (ActivityData item : filteredItems) {
+            try {
+                getFacade().remove(item);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
+            } catch (Exception e) {
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+    
+    private void recreateItems() {
+        items = dataService.findAll();
+        filteredItems = null;
     }
 
     /**
@@ -195,7 +210,7 @@ public class ActivityDataController implements Serializable {
             }
             ActivityDataController controller = (ActivityDataController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "activityDataController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.dataService.findById(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {

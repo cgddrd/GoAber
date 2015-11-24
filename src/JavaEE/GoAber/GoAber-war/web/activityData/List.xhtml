@@ -14,11 +14,7 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListActivityDataEmpty}" rendered="#{activityDataController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{activityDataController.items.rowCount > 0}">
-                    <h:outputText value="#{activityDataController.pagination.pageFirstItem + 1}..#{activityDataController.pagination.pageLastItem + 1}/#{activityDataController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{activityDataController.previous}" value="#{bundle.Previous} #{activityDataController.pagination.pageSize}" rendered="#{activityDataController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{activityDataController.next}" value="#{bundle.Next} #{activityDataController.pagination.pageSize}" rendered="#{activityDataController.pagination.hasNextPage}"/>&nbsp;
+                <h:panelGroup rendered="#{activityDataController.items.size() > 0}">
                     <h:dataTable value="#{activityDataController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
