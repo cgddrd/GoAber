@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@(Resources.ActivityData)</h1>
+
+<ul class="nav nav-tabs">
+    <li role="presentation" class="@(ViewContext.RouteData.Values["Action"].ToString() == "WeeklySummary" ? "active" : "")">@Html.ActionLink(Resources.WeeklySummary, "WeeklySummary", "ActivityDatas", new { area = "" }, null)</li>
+    <li role="presentation" class="@(ViewContext.RouteData.Values["Action"].ToString() == "MonthlySummary" ? "active" : "")">@Html.ActionLink(Resources.MonthlySummary, "MonthlySummary", "ActivityDatas", new { area = "" }, null)</li>
+    <li role="presentation" class="@(ViewContext.RouteData.Values["Action"].ToString() == "AllTimeSummary" ? "active" : "")">@Html.ActionLink(Resources.AllTimeSummary, "AllTimeSummary", "ActivityDatas", new { area = "" }, null)</li>
+    <li role="presentation" class="@(ViewContext.RouteData.Values["Action"].ToString() == "Manage" ? "active" : "")">@Html.ActionLink(Resources.Manage, "Manage", "ActivityDatas", new { area = "" }, null)</li>
+</ul>
+
+@RenderBody()
