@@ -1,9 +1,8 @@
 ﻿using GoAber.Models;
-using System;
+using GoAber.Models.ViewModels;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace GoAber.Services
 {
@@ -16,6 +15,27 @@ namespace GoAber.Services
     public class CategoryUnitService
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public IEnumerable<CategoryViewModel> GetAllCategories ()
+        {
+            var categories = db.CategoryUnits
+                                .OrderBy(c => c.category.name)
+                                .Select(c => c.category.name)
+                                .Distinct();
+
+            IEnumerable<CategoryViewModel> categoryUnits = categories.Select(c => new CategoryViewModel
+            {
+                name = c,
+                units = db.CategoryUnits
+                            .Where(u => u.category.name == c)
+                            .OrderBy(u => u.unit.name)
+                            .Select(u => u.unit.name)
+                            .Distinct()
+            }).ToList();
+
+            return categoryUnits;
+        }
+       
 
         public IEnumerable CreateCategoryUnitList()
         {

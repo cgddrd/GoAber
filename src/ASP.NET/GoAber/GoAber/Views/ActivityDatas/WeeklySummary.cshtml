@@ -1,0 +1,51 @@
+﻿@using GoAber.Helpers;
+@model IEnumerable<GoAber.Models.ViewModels.CategoryViewModel>
+@{
+    ViewBag.Title = Resources.WeeklySummary;
+    Layout = "~/Views/ActivityDatas/_ActivityDataLayout.cshtml";
+}
+
+<h2>@(Resources.WeeklySummary)</h2>
+
+@Scripts.Render("~/Scripts/moment.min.js")
+@Scripts.Render("~/Scripts/Charts.js")
+
+@foreach (var category in Model)
+{
+    <h3>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, category.name))</h3>
+
+    foreach (var unit in category.units)
+    {
+        <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitsPerDaySummary, unit))</h4>
+        <div class="chart">
+            <div class="ajax-loading"><img src="~/Images/ajax-loader.gif" /></div>
+            <div id="@(unit)-loading-fails"></div>
+            <div id="@(unit)-chart"></div>
+        </div>
+
+        <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, unit))</h4>
+        <div class="well data-summary">
+            <ul>
+                @Html.Raw(Html.ConvertResource(Resources.AD_WeeklySummaryStatistics, unit))
+            </ul>
+        </div>
+
+
+        <script type="text/javascript">
+            $(function () {
+                initiliseAjax();
+                requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "@(unit)"}, function (data) {
+                    createBarChartSummary(data, {
+                        "tagname": "#@(unit)-chart",
+                        "rangeType": "week"
+                    });
+                });
+
+                requestData("@(Url.Action("WeeklyStatistics", "ActivityDatasAPI"))", { "unit": "@(unit)" }, function (data) {
+                    setSummaryValues(data, "@(unit)");
+                });
+            });
+        </script>
+
+    }
+}
