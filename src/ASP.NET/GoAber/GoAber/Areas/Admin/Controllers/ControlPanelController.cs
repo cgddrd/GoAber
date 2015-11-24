@@ -10,6 +10,7 @@ namespace GoAber.Areas.Admin.Controllers
     public class ControlPanelController : BaseController
     {
         // GET: Admin/ControlPanel
+        [Audit]
         public ActionResult Index()
         {
             return View();

@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `goaber` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE IF NOT EXISTS `goaber` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `GoAber`;
 -- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
 --
@@ -16,6 +16,27 @@ USE `GoAber`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+-- -----------------------------------------------------
+-- Table `GoAber`.`Audit`
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `Audit` ;
+
+CREATE TABLE IF NOT EXISTS `Audit` (
+`idAudit` INT NOT NULL,
+`userId` INT NULL,
+`urlAccessed` VARCHAR(255) NULL,
+`timestamp` DATETIME NULL,
+`message` VARCHAR(1000) NULL,
+PRIMARY KEY (`idAudit`),
+KEY `UserId_Audit_idx` (`userId` ASC),
+CONSTRAINT `UserId_Audit`
+FOREIGN KEY (`userId`)
+REFERENCES `GoAber`.`User` (`idUser`)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION)
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `ActivityData`
@@ -206,21 +227,6 @@ CREATE TABLE `Team` (
   CONSTRAINT `community_team` FOREIGN KEY (`communityId`) REFERENCES `Community` (`idCommunity`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-
-DROP TABLE IF EXISTS `jobdetail`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `jobdetail` (
-  `jobid` varchar(255) NOT NULL,
-  `schedtype` int(11) DEFAULT NULL,
-  `shcedtimemins` int(11) DEFAULT NULL,
-  `startnow` tinyint(1) DEFAULT '0',
-  `tasktype` int(11) DEFAULT NULL,
-  PRIMARY KEY (`jobid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `Unit`
