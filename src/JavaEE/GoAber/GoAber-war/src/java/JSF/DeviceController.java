@@ -1,11 +1,13 @@
 package JSF;
 
 import GoAberDatabase.Device;
+import GoAberDatabase.DeviceType;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.DeviceFacade;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -79,9 +81,9 @@ public class DeviceController implements Serializable {
         return "Create";
     }
 
-    public String create() {
+    public String create(Device device) {
         try {
-            getFacade().create(current);
+            getFacade().create(device);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("DeviceCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -127,6 +129,21 @@ public class DeviceController implements Serializable {
             recreateModel();
             return "List";
         }
+    }
+    
+    private void getActiveDevices() {
+        DataModel model = getItems();
+        Iterator<Device> deviceIterator = model.iterator();
+        while(deviceIterator.hasNext()){
+            DeviceType deviceType = deviceIterator.next().getDeviceTypeId();
+            if(deviceType.getName().equals("FitBit")){
+                
+            }
+            else if(deviceType.getName().equals("JawBone")){
+                
+            }
+        }
+                
     }
 
     private void performDestroy() {

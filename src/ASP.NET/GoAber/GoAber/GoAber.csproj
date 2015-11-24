@@ -281,6 +281,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\MultipleButtonAttribute.cs" />
     <Compile Include="App_Code\Scheduling\Interfaces\IScheduler.cs" />
     <Compile Include="App_Code\Scheduling\Hangfire\HangfireScheduler.cs" />
     <Compile Include="App_Code\Scheduling\Jobs\JawBoneJob.cs" />
@@ -296,18 +297,31 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="AuditAttribute.cs" />
+    <Compile Include="Controllers\AuditsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Migrations\201511241701339_Init.cs" />
+    <Compile Include="Migrations\201511241701339_Init.Designer.cs">
+      <DependentUpon>201511241701339_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
+    <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
+    <Compile Include="Controllers\ActivityDatasAPIController.cs" />
+    <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\FitBitController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DeviceAPI.cs" />
+    <Compile Include="Controllers\JawboneController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Areas\MyAccount\Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="App_Code\Scheduling\Hangfire\HangfireContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -317,12 +331,18 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DataRemovalAudit.cs" />
     <Compile Include="Models\ActivityData.cs" />
+    <Compile Include="Models\ViewModels\ActivityDataStatisticsViewModel.cs" />
+    <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\ViewUserSummary.cs" />
     <Compile Include="Services\ActivityDataService.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryUnit.cs" />
+    <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Services\CategoryUnitService.cs" />
     <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\Audit.cs" />
     <Compile Include="Models\Community.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\DeviceType.cs" />
@@ -330,13 +350,14 @@
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\GroupChallenge.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Areas\MyAccount\Models\ManageViewModels.cs" />
     <Compile Include="Models\Unit.cs" />
     <Compile Include="Models\UserChallenge.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommunitiesService.cs" />
     <Compile Include="Services\TeamsService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Controllers\DataRemovalAuditsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Shared\Extensions.cs" />
@@ -424,6 +445,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Scripts\Charts.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -434,13 +457,30 @@
     <Content Include="Areas\Admin\Views\ActivityData\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
-    <Content Include="Areas\Admin\Views\ActivityData\_Filter.cshtml" />
+    <Content Include="Views\Shared\_Pager.cshtml" />
+    <Content Include="Views\Shared\_Filter.cshtml" />
+    <Content Include="Areas\Admin\Views\ActivityData\BatchDelete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Index.cshtml" />
+    <Content Include="Scripts\d3\d3.js" />
+    <Content Include="Scripts\d3\d3.min.js" />
+    <Content Include="Scripts\d3\LICENSE" />
+    <Content Include="Areas\Admin\Views\Communities\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Index.cshtml" />
+    <Content Include="Areas\MyAccount\Views\web.config" />
+    <Content Include="Areas\MyAccount\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\_Filter.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -450,6 +490,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -483,12 +527,12 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\EditAccount.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\SetPassword.cshtml" />
+    <Content Include="Areas\MyAccount\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
@@ -497,9 +541,8 @@
     <Content Include="Views\Roles\ManageUserRoles.cshtml" />
     <Content Include="Views\ActivityDatas\Create.cshtml" />
     <Content Include="Views\ActivityDatas\Delete.cshtml" />
-    <Content Include="Views\ActivityDatas\Details.cshtml" />
     <Content Include="Views\ActivityDatas\Edit.cshtml" />
-    <Content Include="Views\ActivityDatas\Index.cshtml" />
+    <Content Include="Views\ActivityDatas\Manage.cshtml" />
     <Content Include="Views\FitBit\Callback.cshtml" />
     <Content Include="Views\FitBit\GetActivityDay.cshtml" />
     <Content Include="Views\FitBit\GetHeartDay.cshtml" />
@@ -515,11 +558,23 @@
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Devices\Index.cshtml" />
     <Content Include="Views\Devices\Delete.cshtml" />
+    <Content Include="Views\ActivityDatas\_ActivityDataLayout.cshtml" />
+    <Content Include="Views\ActivityDatas\WeeklySummary.cshtml" />
+    <Content Include="Views\ActivityDatas\MonthlySummary.cshtml" />
+    <Content Include="Views\ActivityDatas\AllTimeSummary.cshtml" />
+    <Content Include="Views\ActivityDatas\ViewUser.cshtml" />
+    <Content Include="Views\ActivityDatas\BatchDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Views\Base\" />
+    <Content Include="Views\DataRemovalAudits\Details.cshtml" />
+    <Content Include="Views\DataRemovalAudits\Index.cshtml" />
+    <Content Include="Views\Jawbone\Callback.cshtml" />
+    <Content Include="Views\Jawbone\getActivityDay.cshtml" />
+    <Content Include="Views\Jawbone\getHeartDay.cshtml" />
+    <Content Include="Views\Jawbone\Index.cshtml" />
+    <Content Include="Views\Jawbone\StartOAuth.cshtml" />
+    <Content Include="Views\Audits\Details.cshtml" />
+    <Content Include="Views\Audits\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -537,6 +592,21 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\MyAccount\Views\Shared\" />
+    <Folder Include="Views\API\" />
+    <Folder Include="Views\BaseAPI\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\CategoryAPI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511241701339_Init.resx">
+      <DependentUpon>201511241701339_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -556,7 +626,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52004</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50120/</IISUrl>
+          <IISUrl>http://localhost:50121/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -47,6 +47,12 @@ INSERT INTO `UserRole` VALUES (1,'admin','admin@test.com'),(2,'coordinator','coo
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+--
+-- Dumping data for table 'DeviceType'
+--
+INSERT INTO `devicetype` (`name`,`tokenEndpoint`,`consumerKey`,`consumerSecret`,`clientId`,`authorizationEndpoint`, `apiEndpoint`) VALUES ('Jawbone','https://jawbone.com/auth/oauth2/token','','07e4083f111f1a44ccba1bf94d21c95f5486f8f1','mCZQ7V2DbgQ','https://jawbone.com/auth/oauth2/auth', 'https://jawbone.com/nudge/api/v.1.1/users/@me');
+INSERT INTO `devicetype` (`name`,`tokenEndpoint`,`consumerKey`,`consumerSecret`,`clientId`,`authorizationEndpoint`, `apiEndpoint`) VALUES ('Fitbit','https://api.fitbit.com/oauth2/token',NULL,'6f961c38f86be0a77f903ca9a2524865','22B2TQ','https://www.fitbit.com/oauth2/authorize ', 'https://jawbone.com/nudge/api/v.1.1/users/@me');
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

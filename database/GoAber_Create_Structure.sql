@@ -18,25 +18,59 @@ USE `GoAber`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- -----------------------------------------------------
+
 -- Table `GoAber`.`Audit`
+
 -- -----------------------------------------------------
 
-DROP TABLE IF EXISTS `Audit` ;
+DROP TABLE IF EXISTS `GoAber`.`Audit` ;
 
-CREATE TABLE IF NOT EXISTS `Audit` (
-`idAudit` INT NOT NULL,
-`userId` INT NULL,
-`urlAccessed` VARCHAR(255) NULL,
-`timestamp` DATETIME NULL,
-`message` VARCHAR(1000) NULL,
-PRIMARY KEY (`idAudit`),
-KEY `UserId_Audit_idx` (`userId` ASC),
-CONSTRAINT `UserId_Audit`
-FOREIGN KEY (`userId`)
-REFERENCES `GoAber`.`User` (`idUser`)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION)
-ENGINE = InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `GoAber`.`Audit` (
+  `idAudit` INT NOT NULL AUTO_INCREMENT,
+  `userId` INT NULL,
+  `urlAccessed` VARCHAR(255) NULL,
+  `timestamp` DATETIME NULL,
+  `message` VARCHAR(1000) NULL,
+  PRIMARY KEY (`idAudit`),
+  INDEX `UserId_Audit_idx` (`userId` ASC),
+  UNIQUE INDEX `idAudit_UNIQUE` (`idAudit` ASC),
+  CONSTRAINT `UserId_Audit`
+    FOREIGN KEY (`userId`)
+    REFERENCES `GoAber`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+
+-- Table `GoAber`.`DataRemovalAudit`
+
+-- -----------------------------------------------------
+
+DROP TABLE IF EXISTS `GoAber`.`DataRemovalAudit` ;
+
+CREATE TABLE IF NOT EXISTS `GoAber`.`DataRemovalAudit` (
+  `idDataRemovalAudit` INT NOT NULL AUTO_INCREMENT,
+  `userIdWhoRemoved` INT NOT NULL,
+  `userIdData` INT NOT NULL,
+  `dateRemoved` DATETIME NOT NULL,
+  `dataRemoved` VARCHAR(1000) NOT NULL,
+  `message` VARCHAR(200) NULL,
+  PRIMARY KEY (`idDataRemovalAudit`),
+  UNIQUE INDEX `idDataRemovalAudit_UNIQUE` (`idDataRemovalAudit` ASC),
+  INDEX `userWhoRemoved_audit_idx` (`userIdWhoRemoved` ASC),
+  INDEX `userIdData_audit_idx` (`userIdData` ASC),
+  CONSTRAINT `userWhoRemoved_audit`
+    FOREIGN KEY (`userIdWhoRemoved`)
+    REFERENCES `GoAber`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `userIdData_audit`
+    FOREIGN KEY (`userIdData`)
+    REFERENCES `GoAber`.`User` (`idUser`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 --
 -- Table structure for table `ActivityData`
@@ -144,8 +178,8 @@ CREATE TABLE `Device` (
   `idDevice` int(11) NOT NULL AUTO_INCREMENT,
   `deviceTypeId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `accessToken` varchar(45) DEFAULT NULL,
-  `refreshToken` varchar(45) DEFAULT NULL,
+  `accessToken` varchar(250) DEFAULT NULL,
+  `refreshToken` varchar(250) DEFAULT NULL,
   `tokenExpiration` datetime DEFAULT NULL,
   PRIMARY KEY (`idDevice`),
   UNIQUE KEY `idDevice_UNIQUE` (`idDevice`),
@@ -171,6 +205,7 @@ CREATE TABLE `DeviceType` (
   `consumerSecret` varchar(45) DEFAULT NULL,
   `clientId` varchar(45) DEFAULT NULL,
   `authorizationEndpoint` varchar(250) DEFAULT NULL,
+  `apiEndpoint` VARCHAR(250) NULL,
   PRIMARY KEY (`idDeviceType`),
   UNIQUE KEY `idDeviceType_UNIQUE` (`idDeviceType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
