@@ -152,7 +152,7 @@ public class ActivityDataController implements Serializable {
         
         for (ActivityData item : filteredItems) {
             try {
-                getFacade().remove(item);
+                dataService.remove(item);
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
             } catch (Exception e) {
                 JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
