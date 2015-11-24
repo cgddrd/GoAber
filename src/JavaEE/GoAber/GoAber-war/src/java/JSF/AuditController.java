@@ -112,7 +112,7 @@ public class AuditController implements Serializable {
         current.setTimestamp(new Date());
         if (message.isEmpty())
         {
-            message = "none";
+            message = "Success";
         }
         current.setMessage(message);
         current.setUserId(auth.getActiveUser());
