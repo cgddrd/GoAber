@@ -2,6 +2,7 @@ package JSF.admin;
 
 import GoAberDatabase.Community;
 import GoAberDatabase.Team;
+import JSF.AuditController;
 import JSF.util.JsfUtil;
 import SessionBean.TeamFacade;
 
@@ -11,6 +12,7 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -30,6 +32,10 @@ public class TeamController implements Serializable {
     private List<Team> items = null;
     private List<Team> filteredItems = null;
     private List<Community> communities;
+    
+    @ManagedProperty(value="#{auditController}")
+    AuditController audit;
+    
     public TeamController() {
     }
     
@@ -55,16 +61,19 @@ public class TeamController implements Serializable {
     }
 
     public String prepareList() {
+        audit.createAudit("team/List", "");
         recreateItems();
         return "List";
     }
 
     public String prepareView(Team item) {
+        audit.createAudit("team/View", "IdTeam="+item.getIdGroup());
         current = item;
         return "View";
     }
 
     public String prepareCreate() {
+        audit.createAudit("team/Create", "");
         setCurrent(new Team());
         return "Create";
     }
@@ -73,6 +82,7 @@ public class TeamController implements Serializable {
         try {
             getFacade().create(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeamCreated"));
+            audit.createAudit("team/View", "Created : IdTeam="+getCurrent().getIdGroup());
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -81,6 +91,7 @@ public class TeamController implements Serializable {
     }
 
     public String prepareEdit(Team data) {
+        audit.createAudit("team/Edit", "IdTeam="+data.getIdGroup());
         current = data;
         return "Edit";
     }
@@ -89,6 +100,7 @@ public class TeamController implements Serializable {
         try {
             getFacade().edit(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeamUpdated"));
+            audit.createAudit("team/View", "Updated : IdTeam="+getCurrent().getIdGroup());
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -97,6 +109,7 @@ public class TeamController implements Serializable {
     }
 
     public String prepareDestroy(Team data) {
+        audit.createAudit("team/Delete", "IdTeam="+data.getIdGroup());
         current = data;
         return "Delete";
     }
@@ -112,6 +125,7 @@ public class TeamController implements Serializable {
         try {
             getFacade().remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeamDeleted"));
+            audit.createAudit("team/List", "Deleted : IdTeam="+getCurrent().getIdGroup());
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
@@ -205,5 +219,10 @@ public class TeamController implements Serializable {
         }
 
     }
-
+    public AuditController getAudit() {    
+        return audit;
+    }
+    public void setAudit(AuditController audit) {    
+        this.audit = audit;    
+    }
 }
