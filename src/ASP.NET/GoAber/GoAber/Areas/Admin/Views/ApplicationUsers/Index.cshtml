@@ -13,6 +13,10 @@
     @Html.ActionLink(Resources.Resources.CreateNew, "Create")
 </p> *@
 
+@{Html.RenderPartial("_Filter");}
+
+<h3>Results</h3>
+
 <table class="table">
     <tr>
         <th>
@@ -53,3 +57,5 @@
 }
 
 </table>
+
+@Html.Partial("../Shared/_Pager", Model)

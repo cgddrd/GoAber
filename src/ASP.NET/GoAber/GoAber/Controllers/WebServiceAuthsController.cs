@@ -38,7 +38,7 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Account", new { returnUrl = "/WebServiceAuths" }); ;
+                return RedirectToAction("Login", "Account", new { returnUrl = "/WebServiceAuths" }); ;
             } else
             {
 

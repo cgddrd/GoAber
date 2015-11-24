@@ -40,8 +40,10 @@ public class ActivityDataController implements Serializable {
     private AuthController authController;
     
     private ActivityData current;
+
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
+
 
     public ActivityDataController() {
     }

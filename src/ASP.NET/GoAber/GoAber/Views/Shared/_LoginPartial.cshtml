@@ -29,7 +29,7 @@ using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, n
                 CG - As this partial view has NO FIXED CONTROLLER, we call the static method provided by ApplicationUserService to get the nickname.
                 Note: This is not ideal, as it requires a DB retrieval each time. However, Viewbag does not currently seem to be working.
              *@
-            @Html.ActionLink("Hello " + ApplicationUserService.GetCurrentUser().Nickname + "!", "Index", "Manage", new {Area = "MyAccount"}, htmlAttributes: new {title = "Manage"})
+            @Html.ActionLink("Hello " + ApplicationUserService.GetCurrentApplicationUser().Nickname + "!", "Index", "Manage", new {Area = "MyAccount"}, htmlAttributes: new {title = "Manage"})
             
                 </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
