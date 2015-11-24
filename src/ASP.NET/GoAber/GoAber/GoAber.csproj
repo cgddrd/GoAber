@@ -322,9 +322,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511232320196_GoAber.cs" />
-    <Compile Include="Migrations\201511232320196_GoAber.Designer.cs">
-      <DependentUpon>201511232320196_GoAber.cs</DependentUpon>
+    <Compile Include="Migrations\201511241414077_GoAber.cs" />
+    <Compile Include="Migrations\201511241414077_GoAber.Designer.cs">
+      <DependentUpon>201511241414077_GoAber.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ActivityData.cs" />
     <Compile Include="Models\WebServiceAuth.cs" />
@@ -591,8 +591,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511232320196_GoAber.resx">
-      <DependentUpon>201511232320196_GoAber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511241414077_GoAber.resx">
+      <DependentUpon>201511241414077_GoAber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

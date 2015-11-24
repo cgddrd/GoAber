@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:50120/WebService/GoAberWS.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:50121/WebService/GoAberWS.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="GoAberWS.disco" MetadataType="Disco" ID="f20f4fc9-de6a-4f2d-9969-7a5f74e3ef04" SourceId="1" SourceUrl="http://localhost:50120/WebService/GoAberWS.asmx?disco" />
-    <MetadataFile FileName="GoAberWS.wsdl" MetadataType="Wsdl" ID="52ca23a0-da48-4de9-9c2c-a4cefd866719" SourceId="1" SourceUrl="http://localhost:50120/WebService/GoAberWS.asmx?wsdl" />
+    <MetadataFile FileName="GoAberWS1.wsdl" MetadataType="Wsdl" ID="4752aca6-7f6e-4716-b020-ae9bada546a8" SourceId="1" SourceUrl="http://localhost:50121/WebService/GoAberWS.asmx?wsdl" />
+    <MetadataFile FileName="GoAberWS1.disco" MetadataType="Disco" ID="bee0128f-576a-44da-b41d-9171f88350be" SourceId="1" SourceUrl="http://localhost:50121/WebService/GoAberWS.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="/QcARAPDJeuuvleeWVjw3Rgqj1U=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="ng79F3lhpDTUaCxl5haa/ISeics=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="GoAberWSSoap">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="GoAberWSSoap" contract="GoAberWS.GoAberWSSoap" bindingType="basicHttpBinding" address="http://localhost:50120/WebService/GoAberWS.asmx" bindingConfiguration="GoAberWSSoap">
+    <endpoint name="GoAberWSSoap" contract="GoAberWS.GoAberWSSoap" bindingType="basicHttpBinding" address="http://localhost:50121/WebService/GoAberWS.asmx" bindingConfiguration="GoAberWSSoap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:50120/WebService/GoAberWS.asmx</serializedValue>
+          <serializedValue>http://localhost:50121/WebService/GoAberWS.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

@@ -25,7 +25,7 @@ namespace GoAber.WebServiceClientSandbox.Consumer
                 GoAberWS.GoAberWSSoapClient lo_service = new GoAberWS.GoAberWSSoapClient();
                 bool lb_res = lo_service.AddActivityData(lo_authentication, lo_data);
                 lo_event.result = lb_res;
-            } catch
+            } catch (Exception e)
             {
                 lo_event.result = false;
             }

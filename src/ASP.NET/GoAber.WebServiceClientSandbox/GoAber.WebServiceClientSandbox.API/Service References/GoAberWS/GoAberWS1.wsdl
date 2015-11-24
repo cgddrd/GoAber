@@ -118,10 +118,10 @@
   </wsdl:binding>
   <wsdl:service name="GoAberWS">
     <wsdl:port name="GoAberWSSoap" binding="tns:GoAberWSSoap">
-      <soap:address location="http://localhost:50120/WebService/GoAberWS.asmx" />
+      <soap:address location="http://localhost:50121/WebService/GoAberWS.asmx" />
     </wsdl:port>
     <wsdl:port name="GoAberWSSoap12" binding="tns:GoAberWSSoap12">
-      <soap12:address location="http://localhost:50120/WebService/GoAberWS.asmx" />
+      <soap12:address location="http://localhost:50121/WebService/GoAberWS.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
