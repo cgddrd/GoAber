@@ -140,18 +140,22 @@ namespace GoAber.Services
             db.SaveChanges();
         }
 
-        public void DeleteActivityData(int id)
+        public void DeleteActivityData(int id, string message, string userId)
         {
+            DataRemovalAudit dataRemovalAudit = new DataRemovalAudit(message, GetActivityDataById(id), userId);
+            db.DataRemovalAudits.Add(dataRemovalAudit);
+            db.SaveChanges();
+
             ActivityData activityData = db.ActivityDatas.Find(id);
             db.ActivityDatas.Remove(activityData);
             db.SaveChanges();
         }
 
-        public void BatchDelete(IQueryable<ActivityData> activityData)
+        public void BatchDelete(IQueryable<ActivityData> activityData, string message, string userId)
         {
             foreach (ActivityData item in activityData.ToList())
             {
-                DeleteActivityData(item.Id);
+                DeleteActivityData(item.Id, message, userId);
             }
         }
 

@@ -3,6 +3,9 @@ package JSF.admin;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.Category;
 import GoAberDatabase.Unit;
+import JSF.AuditController;
+import JSF.DataRemovalAuditController;
+import JSF.services.ActivityDataService;
 import JSF.util.JsfUtil;
 import SessionBean.ActivityDataFacade;
 
@@ -14,6 +17,7 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -26,7 +30,7 @@ import javax.faces.model.SelectItem;
 public class ActivityDataController implements Serializable {
 
     @EJB
-    private SessionBean.ActivityDataFacade ejbFacade;
+    private ActivityDataService dataService;
     @EJB
     private SessionBean.CategoryFacade categoryBean;
     @EJB
@@ -34,8 +38,24 @@ public class ActivityDataController implements Serializable {
     private ActivityData current;
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
+    
+    @ManagedProperty(value="#{auditController}")
+    AuditController audit;
+    
+    @ManagedProperty(value="#{dataRemovalAuditController}")
+    DataRemovalAuditController dataRemovalAudit;
+    private String deletedMessage = "none";
+    
+    
 
     public ActivityDataController() {
+    }
+    
+    public void setDeletedMessage(String deletedMessage){
+        this.deletedMessage = deletedMessage;
+    }
+    public String getDeletedMessage(){
+        return deletedMessage;
     }
     
     @PostConstruct
@@ -68,30 +88,29 @@ public class ActivityDataController implements Serializable {
         return getCurrent();
     }
 
-    private ActivityDataFacade getFacade() {
-        return ejbFacade;
-    }
-
     public String prepareList() {
+        audit.createAudit("activityData/List", "");
         recreateItems();
         return "List";
     }
 
     public String prepareView(ActivityData item) {
+        audit.createAudit("activityData/View", "IdActivityData=" + item.getIdActivityData());
         current = item;
         return "View";
     }
 
     public String prepareCreate() {
+        audit.createAudit("activityData/Create", "");
         setCurrent(new ActivityData());
         return "Create";
     }
 
     public String create() {
         try {
-            getCurrent().setLastUpdated(new Date());
-            getFacade().create(getCurrent());
+            dataService.create(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataCreated"));
+            audit.createAudit("activityData/Create", "Created : IdActivityData="+getCurrent().getIdActivityData());
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
@@ -100,15 +119,16 @@ public class ActivityDataController implements Serializable {
     }
 
     public String prepareEdit(ActivityData data) {
+        audit.createAudit("activityData/Edit", "IdActivityData=" + data.getIdActivityData());
         current = data;
         return "Edit";
     }
 
     public String update() {
         try {
-            getCurrent().setLastUpdated(new Date());
-            getFacade().edit(getCurrent());
+            dataService.update(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataUpdated"));
+            audit.createAudit("activityData/View", "Updated : IdActivityData=" + getCurrent().getIdActivityData());
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
@@ -117,6 +137,7 @@ public class ActivityDataController implements Serializable {
     }
 
     public String prepareDestroy(ActivityData data) {
+        audit.createAudit("activityData/Delete", "Viewed delete : IdActivityData="+data.getIdActivityData());
         current = data;
         return "Delete";
     }
@@ -129,25 +150,52 @@ public class ActivityDataController implements Serializable {
     }
 
     private void performDestroy() {
+        dataRemovalAudit.createDataRemovalAudit(getCurrent(), deletedMessage);
         try {
-            getFacade().remove(getCurrent());
+            dataService.remove(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
+            audit.createAudit("activityData/List", "Deleted : IdActivityData="+getCurrent().getIdActivityData());
         } catch (Exception e) {
+            audit.createAudit("activityData/List", "Failed to deleted : IdActivityData="+getCurrent().getIdActivityData());
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
         }
     }
     
-    private void recreateItems() {
-        items = getFacade().findAll();
-        filteredItems = null;
+    public String prepareBatchDestroy() {
+        audit.createAudit("activityData/BatchDelete", "");
+        if (filteredItems == null) {
+            filteredItems = items;
+        }
+        return "BatchDelete";
     }
     
-    public SelectItem[] getItemsAvailableSelectMany() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+    public String batchDestory() {
+        audit.createAudit("activityData/List", "Performed batch delete of ActivityData");
+        performBatchDestroy();
+        recreateItems();
+        return "List";
     }
-
-    public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    
+    private void performBatchDestroy() {
+        if (filteredItems == null) {
+            return;
+        }
+        
+        for (ActivityData item : filteredItems) {
+            dataRemovalAudit.createDataRemovalAudit(item, deletedMessage);
+            try {
+                dataService.remove(item); 
+                //getFacade().remove(item);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
+            } catch (Exception e) {
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+    
+    private void recreateItems() {
+        items = dataService.findAll();
+        filteredItems = null;
     }
 
     /**
@@ -195,7 +243,7 @@ public class ActivityDataController implements Serializable {
             }
             ActivityDataController controller = (ActivityDataController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "activityDataController");
-            return controller.ejbFacade.find(getKey(value));
+            return controller.dataService.findById(getKey(value));
         }
 
         java.lang.Integer getKey(String value) {
@@ -223,5 +271,18 @@ public class ActivityDataController implements Serializable {
             }
         }
     }
+    
+    public AuditController getAudit() {    
+        return audit;
+    }
+    public void setAudit(AuditController audit) {    
+        this.audit = audit;    
+    }
 
+    public DataRemovalAuditController getDataRemovalAudit() {    
+        return dataRemovalAudit;
+    }
+    public void setDataRemovalAudit(DataRemovalAuditController dataRemovalAudit) {    
+        this.dataRemovalAudit = dataRemovalAudit;    
+    }
 }

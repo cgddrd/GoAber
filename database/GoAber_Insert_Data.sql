@@ -15,6 +15,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+USE `goaber`;
 --
 -- Dumping data for table `Role`
 --
@@ -31,7 +32,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (5,'admin@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','admin',6,NULL,NULL,'admin'),(6,'coord@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','coord',7,NULL,NULL,'admin'),(8,'user@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','user',9,NULL,NULL,'participant');
+INSERT INTO `User` VALUES (1,'admin@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','admin',1,NULL,NULL,'admin'),(2,'coord@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','coord',2,NULL,NULL,'admin'),(3,'user@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','user',3,NULL,NULL,'participant');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -41,12 +42,10 @@ UNLOCK TABLES;
 
 LOCK TABLES `UserRole` WRITE;
 /*!40000 ALTER TABLE `UserRole` DISABLE KEYS */;
-INSERT INTO `UserRole` VALUES (6,'admin','admin@test.com'),(7,'coordinator','coord@test.com'),(9,'participant','user@test.com'),(12,'participant','helen@test.com');
+INSERT INTO `UserRole` VALUES (1,'admin','admin@test.com'),(2,'coordinator','coord@test.com'),(3,'participant','user@test.com');
 /*!40000 ALTER TABLE `UserRole` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-INSERT INTO `DeviceTypes` (name, tokenEndpoint, consumerKey, consumerSecret, clientId, authorizationEndpoint) values ('fitbit', 'https://api.fitbit.com/oauth2/token', 'e06d4e7dcbc6fc80c0d00b187b6fb2e1', 'bafe21eca0c10cfe54f21e9b685f041f', '229R69', 'https://www.fitbit.com/oauth2/authorize');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

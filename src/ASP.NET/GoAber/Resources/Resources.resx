@@ -211,7 +211,7 @@
     <value>Locked Out</value>
   </data>
   <data name="ManageController_Index_Manage" xml:space="preserve">
-    <value>Manage</value>
+    <value>Your Account Details</value>
   </data>
   <data name="Manage_Index_cshtml_Execute_Change_password" xml:space="preserve">
     <value>Change your password</value>
@@ -468,5 +468,29 @@
   </data>
   <data name="Clear" xml:space="preserve">
     <value>Clear</value>
+  </data>
+  <data name="ManageController_EditAccount_Manage" xml:space="preserve">
+    <value>Manage Account Details</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_DateOfBirth" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_EmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_Nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="ApplicationUsersController_Index_Title" xml:space="preserve">
+    <value>Manage Users</value>
+  </data>
+  <data name="ApplicationUsersController_Teamname" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>Manage Users</value>
   </data>
 </root>

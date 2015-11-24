@@ -6,6 +6,7 @@
 package SessionBean;
 
 import GoAberDatabase.ActivityData;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,7 @@ public class ActivityDataFacade extends AbstractFacade<ActivityData> {
         super(ActivityData.class);
     }
     
+    public List<ActivityData> getAllForUser(int id) {
+        return em.createNamedQuery("ActivityData.findAllForUser").setParameter("id", id).getResultList();
+    }
 }

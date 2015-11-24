@@ -30,7 +30,14 @@
                     <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Contact, "Contact", "Home", new {area = ""}, null)</li>
                     <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_FitBit, "Index", "FitBit", new { area = "" }, null)</li>
                     <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Jobs, "Index", "Jobs", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Admin, "ControlPanel", "Admin", new { area = "" }, null)</li>
+
+                    @*
+                        CG - Note that an area name (Admin) is being specified here in order to call the 'Index' method inside the 'ControlPanelController' within that area.
+                        This is the "proper" way to access controller methods inside an area.
+
+                        See: http://stackoverflow.com/a/2036325 for more information.
+                    *@
+                    <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Admin, "Index", "ControlPanel", new { area = "Admin" }, null)</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

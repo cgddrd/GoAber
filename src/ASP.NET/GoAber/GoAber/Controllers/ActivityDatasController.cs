@@ -188,9 +188,10 @@ namespace GoAber
         // POST: ActivityDatas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string message)
         {
-            dataService.DeleteActivityData(id);
+            string userId = User.Identity.GetUserId();
+            dataService.DeleteActivityData(id, message, userId);
             return RedirectToAction("Manage");
         }
 
@@ -216,7 +217,7 @@ namespace GoAber
         // POST: Admin/ActivityData/BatchDelete
         [HttpPost, ActionName("BatchDelete")]
         [ValidateAntiForgeryToken]
-        public ActionResult BatchDelete(FilterViewModel filterParams)
+        public ActionResult BatchDelete(FilterViewModel filterParams, string message)
         {
             string userId = User.Identity.GetUserId();
             ApplicationUser user = db.Users.Where(u => u.Id.Equals(userId)).Single();
@@ -228,7 +229,7 @@ namespace GoAber
 
             filterParams.Email = user.Email;
             var activityData = dataService.Filter(filterParams);
-            dataService.BatchDelete(activityData);
+            dataService.BatchDelete(activityData, message, userId);
             return RedirectToAction("Manage");
         }
 

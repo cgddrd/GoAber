@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -45,6 +45,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData
+        [Audit]
         public ActionResult Index(int? page)
         {
             var activityData = dataService.GetAllActivityData();
@@ -59,6 +60,7 @@ namespace GoAber.Areas.Admin.Controllers
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "Filter")]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Index(int? page, FilterViewModel filterParams)
         {
             var activityData = dataService.Filter(filterParams);
@@ -71,6 +73,7 @@ namespace GoAber.Areas.Admin.Controllers
 
 
         // GET: Admin/ActivityData/Details/5
+        [Audit]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -87,13 +90,12 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Create
+        [Audit]
         public ActionResult Create()
         {
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 1);
 
-            // CG - 'Users' refers to the ASP.NET Identity 'ApplicationUser' collection, NOT our own 'User' collection.
-            // CG TODO: Add remaining properties to ApplicationUser so that we can get rid of 'GoAber.User' model.
             ViewBag.userId = new SelectList(db.Users, "Id", "email");
 
             return View();
@@ -104,6 +106,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Create([Bind(Include = "ApplicationUserId,idActivityData,categoryUnitId,userId,value,date")] ActivityData activityData)
         {
             if (activityData.date.Value > DateTime.Today)
@@ -124,6 +127,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Edit/5
+        [Audit]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -147,6 +151,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Edit([Bind(Include = "ApplicationUserId,Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
             if (activityData.date.Value > DateTime.Today)
@@ -167,6 +172,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ActivityData/Delete/5
+        [Audit]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -182,14 +188,16 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // POST: Admin/ActivityData/Delete/5
+		[Audit]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            dataService.DeleteActivityData(id);
+        public ActionResult DeleteConfirmed(int id, string message)
+        { 
+            dataService.DeleteActivityData(id, message, User.Identity.GetUserId());
             return RedirectToAction("Index");
         }
 
+        [Audit]
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "BatchDelete")]
         [ValidateAntiForgeryToken]
@@ -200,15 +208,6 @@ namespace GoAber.Areas.Admin.Controllers
             return View("BatchDelete", filterParams);
         }
 
-        // POST: Admin/ActivityData/BatchDelete
-        [HttpPost, ActionName("BatchDelete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult BatchDelete(FilterViewModel filterParams)
-        {
-            var activityData = dataService.Filter(filterParams);
-            dataService.BatchDelete(activityData);
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {
@@ -223,7 +222,6 @@ namespace GoAber.Areas.Admin.Controllers
         {
             var users = db.Users.Select(c => new
             {
-                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
                 idUser = c.Id,
                 email = c.Email
             }).ToList();

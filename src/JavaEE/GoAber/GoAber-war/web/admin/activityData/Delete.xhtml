@@ -79,6 +79,13 @@
                 </dl>
 
                 <div class="form-actions no-color">
+                    <div class="form-group">
+                        <h:outputLabel class="control-label col-md-2" value="Message" for="#{admin.ActivityDataDeletedMessage}" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="deletedMessage" value="#{adminActivityDataController.deletedMessage}" title="Deleted_message" />
+                        </div>
+                    </div>
+                    
                     <h:commandLink class="btn btn-default" action="#{adminActivityDataController.destroy}" value="#{admin.DestroyActivityDataLink}" /> |
                     <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{admin.ViewActivityDataShowAllLink}"/>
                 </div>
