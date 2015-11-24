@@ -17,9 +17,12 @@
     <class>GoAberDatabase.Role</class>
     <class>GoAberDatabase.ActivityData</class>
     <class>GoAberDatabase.JobDetail</class>
+<<<<<<< HEAD
     <class>GoAberDatabase.WebServiceAuth</class>
+=======
     <class>GoAberDatabase.Audit</class>
     <class>GoAberDatabase.DataRemovalAudit</class>
+>>>>>>> develop
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

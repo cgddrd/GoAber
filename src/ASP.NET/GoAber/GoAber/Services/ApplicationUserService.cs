@@ -1,18 +1,11 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using System.Web.UI;
-using GoAber.Areas.MyAccount.Models;
-using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using GoAber.Models;
-using GoAber.Services;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GoAber.Services
@@ -28,36 +21,7 @@ namespace GoAber.Services
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        /// <summary>
-        /// User manager - attached to application DB context
-        /// </summary>
-        protected UserManager<ApplicationUser> UserManager { get; set; }
-
-        public ApplicationUserService()
-        {
-            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.db));
-        }
-
-        public string GetNicknameById(string userId)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            ApplicationUser user = db.Users.FirstOrDefault(u => u.Id.Equals(userId));
-
-            return user?.Nickname;
-        }
-
-        //public static string GetCurrentUserNickname()
-        //{
-        //    ApplicationDbContext db = new ApplicationDbContext();
-
-        //    var userId = HttpContext.Current.User.Identity.GetUserId();
-
-        //    ApplicationUser user = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId);
-
-        //    return user?.Nickname;
-        //}
-
-        public static ApplicationUser GetCurrentUser()
+        public static ApplicationUser GetCurrentApplicationUser()
         {
             ApplicationDbContext db = new ApplicationDbContext();
 
@@ -72,21 +36,35 @@ namespace GoAber.Services
         {
 
             ApplicationUser user = db.Users.FirstOrDefault(u => u.Id.Equals(userId));
+
             return user;
 
         }
 
-        public ApplicationUser GetCurrentApplicationUser()
+        public IEnumerable<ApplicationUser> GetAllApplicationUsers()
+        { 
+            return db.Users.Include(u => u.Team).OrderBy(u => u.Email);
+        }
+
+        public IEnumerable GenerateApplicationUserList()
         {
+            var applicationUsers = db.Users.Select(u => new
+            {
+                Id = u.Id,
+                Email = u.Email,
+                Nickname = u.Nickname,
+                TeamId = u.Team.Id, 
+                TeamName = u.Team.name
 
-            var userId = HttpContext.Current.User.Identity.GetUserId();
+            }).ToList();
 
-            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId);
-
-            return user;
-            
+            return applicationUsers;
         }
 
+        ~ApplicationUserService()
+        {
+            this.db.Dispose();
+        }
 
     }
 }
