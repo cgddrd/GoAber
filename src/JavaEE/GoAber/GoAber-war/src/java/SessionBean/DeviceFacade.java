@@ -5,9 +5,13 @@
  */
 package SessionBean;
 
+import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.Device;
+import GoAberDatabase.DeviceType;
+import GoAberDatabase.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -28,4 +32,11 @@ public class DeviceFacade extends AbstractFacade<Device> {
         super(Device.class);
     }
     
+    public Device findByUserAndDeviceType(User userId, DeviceType deviceTypeId){
+        try {
+          return (Device)em.createNamedQuery("Device.findByUserAndDeviceType").setParameter("deviceTypeId", deviceTypeId).setParameter("userId", userId).getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
+    }
 }
