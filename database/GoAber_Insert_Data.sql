@@ -22,7 +22,7 @@ USE `goaber`;
 
 LOCK TABLES `Role` WRITE;
 /*!40000 ALTER TABLE `Role` DISABLE KEYS */;
-INSERT INTO `Role` VALUES ('admin'),('coordinator'),('participant');
+INSERT INTO `Role` VALUES ('administrator'),('coordinator'),('participant');
 /*!40000 ALTER TABLE `Role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -32,7 +32,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'admin@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','admin',1,NULL,NULL,'admin'),(2,'coord@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','coord',2,NULL,NULL,'admin'),(3,'user@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','user',3,NULL,NULL,'participant');
+INSERT INTO `User` VALUES (1,'admin@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','admin',1,NULL,NULL,'administrator'),(2,'coord@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','coord',2,NULL,NULL,'admin'),(3,'user@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','user',3,NULL,NULL,'participant');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -42,7 +42,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `UserRole` WRITE;
 /*!40000 ALTER TABLE `UserRole` DISABLE KEYS */;
-INSERT INTO `UserRole` VALUES (1,'admin','admin@test.com'),(2,'coordinator','coord@test.com'),(3,'participant','user@test.com');
+INSERT INTO `UserRole` VALUES (1,'administrator','admin@test.com'),(2,'coordinator','coord@test.com'),(3,'participant','user@test.com');
 /*!40000 ALTER TABLE `UserRole` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

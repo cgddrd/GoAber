@@ -4,7 +4,7 @@ import GoAberDatabase.ActivityData;
 import GoAberDatabase.Category;
 import GoAberDatabase.Unit;
 import GoAberDatabase.User;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import JSF.services.ActivityDataService;
 import JSF.util.JsfUtil;
 import SessionBean.ActivityDataFacade;
@@ -36,8 +36,8 @@ public class ActivityDataController implements Serializable {
     @EJB
     private ActivityDataService dataService;
     
-    @ManagedProperty(value="#{authController}")
-    private AuthController authController;
+    @ManagedProperty(value="#{authService}")
+    private AuthService authService;
     
     private ActivityData current;
 
@@ -95,7 +95,7 @@ public class ActivityDataController implements Serializable {
 
     public String create() {
         try {
-            User user = authController.getActiveUser();
+            User user = authService.getActiveUser();
             dataService.createForUser(current, user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataCreated"));
             return prepareCreate();
@@ -112,7 +112,7 @@ public class ActivityDataController implements Serializable {
 
     public String update() {
         try {
-            User user = authController.getActiveUser();
+            User user = authService.getActiveUser();
             dataService.updateForUser(current, user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataUpdated"));
             return "View";
@@ -144,7 +144,7 @@ public class ActivityDataController implements Serializable {
     }
     
     private void recreateItems() {
-        User user = authController.getActiveUser();
+        User user = authService.getActiveUser();
         items = dataService.findAllForUser(user);
         filteredItems = null;
     }
@@ -185,8 +185,8 @@ public class ActivityDataController implements Serializable {
     }
     
     
-    public void setAuthController(AuthController authController) {
-        this.authController = authController;
+    public void setauthService(AuthService authService) {
+        this.authService = authService;
     }
     
     @FacesConverter(forClass = ActivityData.class)

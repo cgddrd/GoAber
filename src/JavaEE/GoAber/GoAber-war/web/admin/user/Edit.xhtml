@@ -28,7 +28,7 @@
                     </h:selectOneMenu>
                     
                     <h:outputLabel value="#{admin.RoleLabel}" for="roleId" />
-                    <h:selectOneMenu id="roleId" value="#{userController.selected.roleId}" title="#{bundle.EditUserTitle_userRoleId}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_userRoleId}">
+                    <h:selectOneMenu id="roleId" value="#{userController.selected.userRoleId.roleId}" title="#{bundle.EditUserTitle_userRoleId}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_userRoleId}">
                         <f:selectItems value="#{roleController.availableRoles}" var="role" itemLabel="#{role.idRole}"  />
                     </h:selectOneMenu>
                     

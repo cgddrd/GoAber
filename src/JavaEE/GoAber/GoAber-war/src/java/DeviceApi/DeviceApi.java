@@ -8,7 +8,7 @@ package DeviceApi;
 import GoAberDatabase.Device;
 import GoAberDatabase.DeviceType;
 import GoAberDatabase.User;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import SessionBean.ActivityDataFacade;
 import SessionBean.CategoryUnitFacade;
 import SessionBean.DeviceFacade;
@@ -58,8 +58,8 @@ public abstract class DeviceApi extends DefaultApi20
     CategoryUnitFacade categoryUnitFacade = lookupCategoryUnitFacadeBean();
     @EJB 
     SessionBean.UserFacade userFacade;
-    @ManagedProperty(value="#{authController}")
-    AuthController authController;
+    @ManagedProperty(value="#{authService}")
+    AuthService authService;
     int steps;
     //@EJB
     //private SessionBean.DeviceTypeFacade deviceTypeFacade;
@@ -219,7 +219,7 @@ public abstract class DeviceApi extends DefaultApi20
     public JsonObject getActivityData(String requestUrl, int day, int month, int year, User userId)//, CategoryUnit categoryUnitId
     {
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
-        Device device = deviceFacade.findByUserAndDeviceType(authController.getActiveUser(), deviceType);
+        Device device = deviceFacade.findByUserAndDeviceType(authService.getActiveUser(), deviceType);
         if(device == null)
             return null;
         String accessToken = device.getAccessToken();
@@ -288,7 +288,7 @@ public abstract class DeviceApi extends DefaultApi20
     }
    
    public boolean isConnected(){
-       User currentUser = authController.getActiveUser();
+       User currentUser = authService.getActiveUser();
        DeviceType deviceType = deviceTypeFacade.findByName(getType());
        if(currentUser == null || deviceType == null)
            return false;
@@ -299,7 +299,7 @@ public abstract class DeviceApi extends DefaultApi20
    }
    
    public void deleteDevice(){
-       User currentUser = authController.getActiveUser();
+       User currentUser = authService.getActiveUser();
        DeviceType deviceType = deviceTypeFacade.findByName(getType());
        if(currentUser == null || deviceType == null)
            return;
@@ -308,12 +308,12 @@ public abstract class DeviceApi extends DefaultApi20
            deviceFacade.remove(device);
    }
    
-   public void setAuthController(AuthController authController){
-       this.authController = authController;
+   public void setauthService(AuthService authService){
+       this.authService = authService;
    }
    
-   public AuthController getAuthController(){
-       return this.authController;
+   public AuthService getauthService(){
+       return this.authService;
    }
 
     private String refreshToken() {

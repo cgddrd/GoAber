@@ -3,7 +3,7 @@ package JSF;
 import GoAberDatabase.Role;
 import GoAberDatabase.User;
 import GoAberDatabase.UserRole;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.UserFacade;
@@ -49,15 +49,15 @@ public class UserController implements Serializable {
     
     private MessageDigest md;
     
-    // CG - Here we are using dependency injection to grab a reference to the session-scoped 'authController' reference.
+    // CG - Here we are using dependency injection to grab a reference to the session-scoped 'authService' reference.
     // See: http://www.mkyong.com/jsf2/injecting-managed-beans-in-jsf-2-0/ for more information.
-    @ManagedProperty(value="#{authController}")
-    private AuthController authController;
+    @ManagedProperty(value="#{authService}")
+    private AuthService authService;
     
     // CG - When using DI via '@ManagedProperty' we need to make sure the property setter is available.
     // See: http://www.mkyong.com/jsf2/jsf-2-0-managed-bean-x-does-not-exist-check-that-appropriate-getter-andor-setter-methods-exist/ for more information.
-    public void setAuthController(AuthController authController) {
-        this.authController = authController;
+    public void setauthService(AuthService authService) {
+        this.authService = authService;
     }
     
     private UserRole currentUR;
@@ -75,11 +75,11 @@ public class UserController implements Serializable {
     public void Init() {
         
         currentUR = new UserRole();
-        //authController = new AuthController();
+        //authService = new AuthService();
         
         try {
             
-           User activeUser = authController.getActiveUser();
+           User activeUser = authService.getActiveUser();
         
         if (activeUser != null) {
             
@@ -134,7 +134,7 @@ public class UserController implements Serializable {
     }
     
     public String prepareAccountView() {
-        current = authController.getActiveUser();
+        current = authService.getActiveUser();
         selectedItemIndex = -1;
         return "/account/View";
     }
@@ -154,7 +154,6 @@ public class UserController implements Serializable {
         selectedItemIndex = -1;
         
         // CG - Make sure that the 'user registration success' message is displayed to the user in the login page.
-        // CG - WE MAY NEED TO TURN THIS OFF AGAIN?
         // See: http://stackoverflow.com/a/12485381 for more information.
         externalContext.getFlash().setKeepMessages(true);
         
@@ -170,6 +169,11 @@ public class UserController implements Serializable {
         
         try {
             
+            if(getFacade().findUserByEmail(current.getEmail()) != null) {
+                JsfUtil.addErrorMessage("User already exists. Please enter a different email address.");
+                return null;
+            }
+            
             Role participantRole = rEJBFacade.find("participant");
             
             String newPassword = current.getPassword();
@@ -180,15 +184,14 @@ public class UserController implements Serializable {
             currentUR.setEmail(current.getEmail());
             
             // CG - Setup our new user.
-            current.setRoleId(participantRole);
             current.setUserRoleId(currentUR);
             
             getFacade().create(current);
             
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
             
-            authController.setUsername(current.getEmail());
-            authController.setPassword(current.getPassword());
+            authService.setUsername(current.getEmail());
+            authService.setPassword(current.getPassword());
             
             return prepareCreate();
             
@@ -217,7 +220,7 @@ public class UserController implements Serializable {
     }
     
     public String prepareAccountEdit() {
-        current = authController.getActiveUser();
+        current = authService.getActiveUser();
         selectedItemIndex = -1;
         return "/account/Edit";
     }

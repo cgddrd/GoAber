@@ -71,11 +71,7 @@ public class User implements Serializable {
     @JoinColumn(name = "userRoleId", referencedColumnName = "idUserRole")
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private UserRole userRoleId;
-    
-    @JoinColumn(name = "roleId", referencedColumnName = "idRole")
-    @ManyToOne
-    private Role roleId;
-    
+       
     @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
     @ManyToOne
     private Team groupId;
@@ -138,21 +134,6 @@ public class User implements Serializable {
         this.nickname = nickname;
     }
     
-    public Role getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
-        
-        // CG - When we update the 'Role' property for a user, we will always want to cascade this update  to the UserRole property as well.
-        //this.userRoleId.setRoleId(roleId);
-        this.userRoleId = new UserRole();
-        this.userRoleId.setEmail(email);
-        this.userRoleId.setRoleId(roleId);
-        
-    }
-
     @XmlTransient
     public Collection<ActivityData> getActivityDataCollection() {
         return activityDataCollection;
