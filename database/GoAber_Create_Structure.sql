@@ -178,8 +178,8 @@ CREATE TABLE `Device` (
   `idDevice` int(11) NOT NULL AUTO_INCREMENT,
   `deviceTypeId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `accessToken` varchar(45) DEFAULT NULL,
-  `refreshToken` varchar(45) DEFAULT NULL,
+  `accessToken` varchar(250) DEFAULT NULL,
+  `refreshToken` varchar(250) DEFAULT NULL,
   `tokenExpiration` datetime DEFAULT NULL,
   PRIMARY KEY (`idDevice`),
   UNIQUE KEY `idDevice_UNIQUE` (`idDevice`),
@@ -205,6 +205,7 @@ CREATE TABLE `DeviceType` (
   `consumerSecret` varchar(45) DEFAULT NULL,
   `clientId` varchar(45) DEFAULT NULL,
   `authorizationEndpoint` varchar(250) DEFAULT NULL,
+  `apiEndpoint` VARCHAR(250) NULL,
   PRIMARY KEY (`idDeviceType`),
   UNIQUE KEY `idDeviceType_UNIQUE` (`idDeviceType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

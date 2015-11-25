@@ -323,9 +323,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201511241414077_GoAber.cs" />
-    <Compile Include="Migrations\201511241414077_GoAber.Designer.cs">
-      <DependentUpon>201511241414077_GoAber.cs</DependentUpon>
+    <Compile Include="Migrations\201511241501393_GoAber.cs" />
+    <Compile Include="Migrations\201511241501393_GoAber.Designer.cs">
+      <DependentUpon>201511241501393_GoAber.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ActivityData.cs" />
     <Compile Include="Models\WebServiceAuth.cs" />
@@ -485,6 +485,7 @@
     <Content Include="Areas\Admin\Views\ApplicationUsers\Details.cshtml" />
     <Content Include="Areas\Admin\Views\ApplicationUsers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\_Filter.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -592,8 +593,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511241414077_GoAber.resx">
-      <DependentUpon>201511241414077_GoAber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511241501393_GoAber.resx">
+      <DependentUpon>201511241501393_GoAber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -943,11 +944,17 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
-    <Compile Include="Areas\Admin\Models\FilterViewModel.cs" />
+    <Compile Include="Migrations\201511241701339_Init.cs" />
+    <Compile Include="Migrations\201511241701339_Init.Designer.cs">
+      <DependentUpon>201511241701339_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
+    <Compile Include="Controllers\ActivityDatasAPIController.cs" />
+    <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\FitBitController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -962,15 +969,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
-    <Compile Include="Migrations\201511212344413_init.cs" />
-    <Compile Include="Migrations\201511212344413_init.Designer.cs">
-      <DependentUpon>201511212344413_init.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataRemovalAudit.cs" />
     <Compile Include="Models\ActivityData.cs" />
+    <Compile Include="Models\ViewModels\ActivityDataStatisticsViewModel.cs" />
+    <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\ViewUserSummary.cs" />
     <Compile Include="Services\ActivityDataService.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryUnit.cs" />
@@ -1080,6 +1086,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\ajax-loader.gif" />
+    <Content Include="Scripts\Charts.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -1090,15 +1098,17 @@
     <Content Include="Areas\Admin\Views\ActivityData\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ControlPanel\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
-    <Content Include="Areas\Admin\Views\ActivityData\_Filter.cshtml" />
+    <Content Include="Views\Shared\_Pager.cshtml" />
+    <Content Include="Views\Shared\_Filter.cshtml" />
     <Content Include="Areas\Admin\Views\ActivityData\BatchDelete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Teams\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Communities\Create.cshtml" />
+    <Content Include="Scripts\d3\d3.js" />
+    <Content Include="Scripts\d3\d3.min.js" />
+    <Content Include="Scripts\d3\LICENSE" />
     <Content Include="Areas\Admin\Views\Communities\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Edit.cshtml" />
@@ -1121,6 +1131,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -1168,9 +1182,8 @@
     <Content Include="Views\Roles\ManageUserRoles.cshtml" />
     <Content Include="Views\ActivityDatas\Create.cshtml" />
     <Content Include="Views\ActivityDatas\Delete.cshtml" />
-    <Content Include="Views\ActivityDatas\Details.cshtml" />
     <Content Include="Views\ActivityDatas\Edit.cshtml" />
-    <Content Include="Views\ActivityDatas\Index.cshtml" />
+    <Content Include="Views\ActivityDatas\Manage.cshtml" />
     <Content Include="Views\FitBit\Callback.cshtml" />
     <Content Include="Views\FitBit\GetActivityDay.cshtml" />
     <Content Include="Views\FitBit\GetHeartDay.cshtml" />
@@ -1186,6 +1199,14 @@
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Devices\Index.cshtml" />
     <Content Include="Views\Devices\Delete.cshtml" />
+    <Content Include="Views\ActivityDatas\_ActivityDataLayout.cshtml" />
+    <Content Include="Views\ActivityDatas\WeeklySummary.cshtml" />
+    <Content Include="Views\ActivityDatas\MonthlySummary.cshtml" />
+    <Content Include="Views\ActivityDatas\AllTimeSummary.cshtml" />
+    <Content Include="Views\ActivityDatas\ViewUser.cshtml" />
+    <Content Include="Views\ActivityDatas\BatchDelete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
     <Content Include="Views\DataRemovalAudits\Index.cshtml" />
     <Content Include="Views\Jawbone\Callback.cshtml" />
@@ -1195,11 +1216,6 @@
     <Content Include="Views\Jawbone\StartOAuth.cshtml" />
     <Content Include="Views\Audits\Details.cshtml" />
     <Content Include="Views\Audits\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Areas\MyAccount\Views\Shared\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -1219,8 +1235,18 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511212344413_init.resx">
-      <DependentUpon>201511212344413_init.cs</DependentUpon>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\MyAccount\Views\Shared\" />
+    <Folder Include="Views\API\" />
+    <Folder Include="Views\BaseAPI\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\CategoryAPI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511241701339_Init.resx">
+      <DependentUpon>201511241701339_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

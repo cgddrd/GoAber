@@ -31,13 +31,13 @@ namespace GoAber.Models
         public int Id { get; set; }
         public int categoryUnitId { get; set; }
         
-        [DisplayName("Value")]
+        [Display(Name = "AD_Value", ResourceType = typeof(Resources.Resources))]
         public Nullable<int> value { get; set; }
 
-        [DisplayName("Last Updated")]
+        [Display(Name = "AD_LastUpdated", ResourceType = typeof(Resources.Resources))]
         public Nullable<System.DateTime> lastUpdated { get; set; }
 
-        [DisplayName("Date")]
+        [Display(Name = "AD_Date", ResourceType = typeof(Resources.Resources))]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public Nullable<System.DateTime> date { get; set; }

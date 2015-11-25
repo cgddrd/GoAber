@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Device.findAll", query = "SELECT d FROM Device d"),
     @NamedQuery(name = "Device.findByIdDevice", query = "SELECT d FROM Device d WHERE d.idDevice = :idDevice"),
+    @NamedQuery(name = "Device.findByUserAndDeviceType", query = "SELECT d FROM Device d WHERE d.deviceTypeId = :deviceTypeId and d.userId = :userId"),
     @NamedQuery(name = "Device.findByAccessToken", query = "SELECT d FROM Device d WHERE d.accessToken = :accessToken"),
     @NamedQuery(name = "Device.findByRefreshToken", query = "SELECT d FROM Device d WHERE d.refreshToken = :refreshToken"),
     @NamedQuery(name = "Device.findByTokenExpiration", query = "SELECT d FROM Device d WHERE d.tokenExpiration = :tokenExpiration")})
@@ -43,10 +44,10 @@ public class Device implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDevice")
     private Integer idDevice;
-    @Size(max = 45)
+    @Size(max = 250)
     @Column(name = "accessToken")
     private String accessToken;
-    @Size(max = 45)
+    @Size(max = 250)
     @Column(name = "refreshToken")
     private String refreshToken;
     @Column(name = "tokenExpiration")
@@ -60,6 +61,14 @@ public class Device implements Serializable {
     private User userId;
 
     public Device() {
+    }
+    
+    public Device(User userId, DeviceType deviceTypeId, String accessToken, String refreshToken, Date tokenExpiration) {
+        this.userId = userId;
+        this.deviceTypeId = deviceTypeId;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.tokenExpiration = tokenExpiration;
     }
 
     public Device(Integer idDevice) {

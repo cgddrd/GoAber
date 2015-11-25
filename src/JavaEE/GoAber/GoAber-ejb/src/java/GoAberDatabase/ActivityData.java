@@ -64,6 +64,14 @@ public class ActivityData implements Serializable {
     public ActivityData(Integer idActivityData) {
         this.idActivityData = idActivityData;
     }
+    
+    public ActivityData(Integer value, Date lastUpdated, Date date, User userId, CategoryUnit categoryUnitId) {
+        this.value = value;
+        this.lastUpdated = lastUpdated;
+        this.date = date;
+        this.userId = userId;
+        this.categoryUnitId = categoryUnitId;
+    }
 
     public Integer getIdActivityData() {
         return idActivityData;
