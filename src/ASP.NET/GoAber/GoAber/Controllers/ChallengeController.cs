@@ -20,7 +20,7 @@ namespace GoAber
         private ChallengeService challengeService = new ChallengeService();
         private CommunitiesService communitiesService = new CommunitiesService();
         private TeamsService teamService = new TeamsService();
-        
+        private CategoryUnitService categoryUnitService = new CategoryUnitService();
         // CG - We need to create our UserManager instance (copied from AccountController). 
         // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
         public ApplicationUserManager UserManager
@@ -84,6 +84,9 @@ namespace GoAber
                 Text = c.name
             });
             ViewBag.groups = groups;
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
 
             return View();
         }

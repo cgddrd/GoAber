@@ -11,7 +11,8 @@ namespace GoAber.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Challenge
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,17 +24,24 @@ namespace GoAber.Models
         }
     
         public int Id { get; set; }
+        [DisplayName("Activity type")]
         public int categoryUnitId { get; set; }
+        [DisplayName("Activity type")]
         public virtual CategoryUnit categoryUnit { get; set; }
+
+        [DisplayName("Start time")]
         public System.DateTime startTime { get; set; }
+        [DisplayName("End time")]
         public Nullable<System.DateTime> endTime { get; set; }
         public string name { get; set; }
        // public Nullable<int> communityStartedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChallenge> userchallenges { get; set; }
+        [DisplayName("Groups")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupChallenge> groupchallenges { get; set; }
+        [DisplayName("Communities")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommunityChallenge> communityChallenges { get; set; }
 
