@@ -20,6 +20,7 @@ namespace GoAber
         private ChallengeService challengeService = new ChallengeService();
         private CommunitiesService communitiesService = new CommunitiesService();
         private TeamsService teamService = new TeamsService();
+        
         // CG - We need to create our UserManager instance (copied from AccountController). 
         // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
         public ApplicationUserManager UserManager
@@ -33,6 +34,7 @@ namespace GoAber
                 _userManager = value;
             }
         }
+
         // GET: Challenge
         public ActionResult Index()
         {
@@ -70,24 +72,18 @@ namespace GoAber
         public ActionResult Create()
         {
             ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
-//db.Communities
             IEnumerable< SelectListItem > communities = communitiesService.getAllCommunities().Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.name
             });
-            ViewBag.communities = communities; //new SelectList(communities, "idCommunity", "name", 0);
-            /*
-            var query = from d in db.Teams
-                        join c in db.Communities on d.community equals c
-                        where appUser.Team.communityId == c.Id 
-                        select d;*/
-            IEnumerable<SelectListItem> groups = teamService.GetTeamsByCommunity(appUser.Team.community).Select(c => new SelectListItem
+            ViewBag.communities = communities;
+             IEnumerable<SelectListItem> groups = teamService.GetTeamsByCommunity(appUser.Team.community).Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.name
             });
-            ViewBag.groups = groups;// new SelectList(groups, "idTeam", "name", 0);
+            ViewBag.groups = groups;
 
             return View();
         }
@@ -99,42 +95,19 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,categoryUnitId,startTime,endTime,name")] Challenge challenge, string[] groupChallenges, string[] communityChallenges)
         {
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
                 challengeService.createChallenge(challenge);
-                //db.Challenges.Add(challenge);
-                //db.SaveChanges();
 
                 if ( groupChallenges != null )
                 {
-                    challengeService.addChallengeToGroups(challenge, groupChallenges);
-                    /*
-                    foreach (string item in groupChallenges)
-                    {
-                        GroupChallenge groupChallenge = new GroupChallenge()
-                        {
-                            groupId = Int32.Parse(item),
-                            challengeId = challenge.Id
-                        };
-                        db.GroupChallenges.Add(groupChallenge);
-                        db.SaveChanges();
-                    }*/
+                    challengeService.addChallengeToGroups(challenge, groupChallenges, user.Team.Id);
                 }
 
                 if (communityChallenges != null )
                 {
-                    challengeService.addChallengeToCommunities(challenge, communityChallenges);
-                    /*
-                    foreach (string item in communityChallenges)
-                    {
-                        CommunityChallenge communityChallenge = new CommunityChallenge()
-                        {
-                            communityId = Int32.Parse(item),
-                            challengeId = challenge.Id
-                        };
-                        db.CommunityChallenges.Add(communityChallenge);
-                        db.SaveChanges();
-                    }*/
+                    challengeService.addChallengeToCommunities(challenge, communityChallenges, user.Team.community.Id);
                 }
                 return RedirectToAction("Index");
             }
@@ -166,8 +139,6 @@ namespace GoAber
             if (ModelState.IsValid)
             {
                 challengeService.editChallenge(challenge);
-                //db.Entry(challenge).State = EntityState.Modified;
-                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(challenge);
@@ -194,9 +165,6 @@ namespace GoAber
         public ActionResult DeleteConfirmed(int id)
         {
             challengeService.deleteChallenge(id);
-            /*Challenge challenge = db.Challenges.Find(id);
-            db.Challenges.Remove(challenge);
-            db.SaveChanges();*/
             return RedirectToAction("Index");
         }
 
@@ -212,28 +180,13 @@ namespace GoAber
 
         public ActionResult EnterChallenge(int? id)
         {
-            /* Challenge challengeToEnter = db.Challenges.Find(id);
-             UserChallenge userChallenge = new UserChallenge()
-             {
-                 ApplicationUserId = UserManager.FindById(User.Identity.GetUserId()).Id,
-                 challengeId = challengeToEnter.Id
-             };
-             db.UserChallenges.Add(userChallenge);
-             db.SaveChanges();*/
             challengeService.enterUserInToChallenge(UserManager.FindById(User.Identity.GetUserId()).Id, id);
             return RedirectToAction("Index");
         }
 
         public ActionResult LeaveChallenge(int? id)
         {
-           // ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
             challengeService.removeUserFromChallenge(UserManager.FindById(User.Identity.GetUserId()).Id, id);
-            /*
-            var query = from d in db.UserChallenges
-                        where d.ApplicationUserId == appUser.Id && d.challengeId == id
-                        select d;
-            db.UserChallenges.Remove(query.FirstOrDefault());
-            db.SaveChanges();*/
             return RedirectToAction("Index");
         }
         

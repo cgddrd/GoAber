@@ -86,7 +86,7 @@ namespace GoAber.Services
             db.SaveChanges();
         }
 
-        public void addChallengeToGroups(Challenge challenge, string[] groupChallenges)
+        public void addChallengeToGroups(Challenge challenge, string[] groupChallenges, int usersGroup)
         {
             foreach (string item in groupChallenges)
             {
@@ -95,12 +95,28 @@ namespace GoAber.Services
                     groupId = Int32.Parse(item),
                     challengeId = challenge.Id
                 };
+                if (Int32.Parse(item) == usersGroup)
+                {
+                    groupChallenge.startedChallenge = true;
+                }
+                db.GroupChallenges.Add(groupChallenge);
+                db.SaveChanges();
+            }
+
+            if(!groupChallenges.Contains(usersGroup.ToString()))
+            {
+                GroupChallenge groupChallenge = new GroupChallenge()
+                {
+                    groupId = usersGroup,
+                    challengeId = challenge.Id,
+                    startedChallenge = true
+                };
                 db.GroupChallenges.Add(groupChallenge);
                 db.SaveChanges();
             }
         }
 
-        public void addChallengeToCommunities(Challenge challenge, string[] communities)
+        public void addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup)
         {
             foreach (string item in communities)
             {
@@ -108,6 +124,22 @@ namespace GoAber.Services
                 {
                     communityId = Int32.Parse(item),
                     challengeId = challenge.Id
+                };
+                if (Int32.Parse(item) == usersGroup)
+                {
+                    communityChallenge.startedChallenge = true;
+                }
+                db.CommunityChallenges.Add(communityChallenge);
+                db.SaveChanges();
+            }
+
+            if (!communities.Contains(usersGroup.ToString()))
+            {
+                CommunityChallenge communityChallenge = new CommunityChallenge()
+                {
+                    communityId = usersGroup,
+                    challengeId = challenge.Id,
+                    startedChallenge = true
                 };
                 db.CommunityChallenges.Add(communityChallenge);
                 db.SaveChanges();
