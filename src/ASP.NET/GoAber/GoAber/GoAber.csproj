@@ -303,10 +303,6 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
-    <Compile Include="Migrations\201511251737087_goAber.cs" />
-    <Compile Include="Migrations\201511251737087_goAber.Designer.cs">
-      <DependentUpon>201511251737087_goAber.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
@@ -625,11 +621,6 @@
     <Folder Include="Views\BaseAPI\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\CategoryAPI\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511251737087_goAber.resx">
-      <DependentUpon>201511251737087_goAber.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
