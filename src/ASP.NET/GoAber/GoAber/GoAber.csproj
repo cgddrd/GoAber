@@ -303,16 +303,18 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
-    <Compile Include="Migrations\201511241701339_Init.cs" />
-    <Compile Include="Migrations\201511241701339_Init.Designer.cs">
-      <DependentUpon>201511241701339_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201511251737087_goAber.cs" />
+    <Compile Include="Migrations\201511251737087_goAber.Designer.cs">
+      <DependentUpon>201511251737087_goAber.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
+    <Compile Include="Controllers\WebServiceAuthsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
     <Compile Include="Controllers\ActivityDatasAPIController.cs" />
+    <Compile Include="Controllers\ChallengeController.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\FitBitController.cs" />
@@ -327,12 +329,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActivityData.cs" />
+    <Compile Include="Models\WebServiceAuth.cs" />
+    <Compile Include="WebService\ActivityData.cs" />
+    <Compile Include="WebService\AuthHeader.cs" />
+    <Compile Include="WebService\GoAberWS.asmx.cs">
+      <DependentUpon>GoAberWS.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ManualHttpRequest.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataRemovalAudit.cs" />
-    <Compile Include="Models\ActivityData.cs" />
     <Compile Include="Models\ViewModels\ActivityDataStatisticsViewModel.cs" />
     <Compile Include="Models\ViewModels\CategoryViewModel.cs" />
     <Compile Include="Models\ViewModels\ViewUserSummary.cs" />
@@ -342,6 +351,7 @@
     <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Services\CategoryUnitService.cs" />
     <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\CommunityChallenge.cs" />
     <Compile Include="Models\Audit.cs" />
     <Compile Include="Models\Community.cs" />
     <Compile Include="Models\Device.cs" />
@@ -356,6 +366,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommunitiesService.cs" />
     <Compile Include="Services\TeamsService.cs" />
+    <Compile Include="Services\ChallengeService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\DataRemovalAuditsController.cs" />
   </ItemGroup>
@@ -445,6 +456,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="WebService\GoAberWS.asmx" />
     <Content Include="Images\ajax-loader.gif" />
     <Content Include="Scripts\Charts.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -468,10 +480,21 @@
     <Content Include="Scripts\d3\d3.js" />
     <Content Include="Scripts\d3\d3.min.js" />
     <Content Include="Scripts\d3\LICENSE" />
+    <Content Include="Views\WebServiceAuths\Create.cshtml" />
+    <Content Include="Views\WebServiceAuths\Delete.cshtml" />
+    <Content Include="Views\WebServiceAuths\Details.cshtml" />
+    <Content Include="Views\WebServiceAuths\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Communities\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\AllChallenges.cshtml" />
     <Content Include="Areas\MyAccount\Views\web.config" />
     <Content Include="Areas\MyAccount\Views\_ViewStart.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\Index.cshtml" />
@@ -604,8 +627,8 @@
     <Folder Include="Views\CategoryAPI\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511241701339_Init.resx">
-      <DependentUpon>201511241701339_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511251737087_goAber.resx">
+      <DependentUpon>201511251737087_goAber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -28,5 +28,8 @@ namespace GoAber.Models
         public virtual ICollection<ActivityData> activitydatas { get; set; }
         public virtual Category category { get; set; }
         public virtual Unit unit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Challenge> challenges { get; set; }
+
     }
 }

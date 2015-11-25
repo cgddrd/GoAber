@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewWebServiceAuthTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewWebServiceAuthLabel_authtoken}"/>
+                    <h:outputText value="#{webServiceAuthController.selected.authtoken}" title="#{bundle.ViewWebServiceAuthTitle_authtoken}"/>
+                    <h:outputText value="#{bundle.ViewWebServiceAuthLabel_appname}"/>
+                    <h:outputText value="#{webServiceAuthController.selected.appname}" title="#{bundle.ViewWebServiceAuthTitle_appname}"/>
+                    <h:outputText value="#{bundle.ViewWebServiceAuthLabel_userid}"/>
+                    <h:outputText value="#{webServiceAuthController.selected.userid}" title="#{bundle.ViewWebServiceAuthTitle_userid}"/>
+                    <h:outputText value="#{bundle.ViewWebServiceAuthLabel_expire}"/>
+                    <h:outputText value="#{webServiceAuthController.selected.expire}" title="#{bundle.ViewWebServiceAuthTitle_expire}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{webServiceAuthController.destroyAndView}" value="#{bundle.ViewWebServiceAuthDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewWebServiceAuthEditLink}"/>
+                <br />
+                <h:commandLink action="#{webServiceAuthController.prepareCreate}" value="#{bundle.ViewWebServiceAuthCreateLink}" />
+                <br />
+                <h:commandLink action="#{webServiceAuthController.prepareList}" value="#{bundle.ViewWebServiceAuthShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewWebServiceAuthIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
