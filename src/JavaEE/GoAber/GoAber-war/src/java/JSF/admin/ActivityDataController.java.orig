@@ -184,8 +184,12 @@ public class ActivityDataController implements Serializable {
         for (ActivityData item : filteredItems) {
             dataRemovalAudit.createDataRemovalAudit(item, deletedMessage);
             try {
+<<<<<<< HEAD
                 dataService.remove(item);
+=======
+                dataService.remove(item); 
                 //getFacade().remove(item);
+>>>>>>> develop
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
             } catch (Exception e) {
                 JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
