@@ -276,7 +276,7 @@
   <data name="_LoginPartial_cshtml_Execute_Register" xml:space="preserve">
     <value>[WELSH]Register</value>
   </data>
- <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
+  <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
     <value>[WELSH]FitBit</value>
   </data>
   <data name="AdminTeamsController_Index_Title" xml:space="preserve">
@@ -291,7 +291,7 @@
   <data name="AdminCommunitiesController_Create_Title" xml:space="preserve">
     <value>[WELSH]Community</value>
   </data>
-    <data name="AdminCommunitiesController_Delete_Title" xml:space="preserve">
+  <data name="AdminCommunitiesController_Delete_Title" xml:space="preserve">
     <value>[WELSH]Community</value>
   </data>
   <data name="AdminCommunitiesController_Details_Title" xml:space="preserve">
@@ -347,5 +347,8 @@
   </data>
   <data name="ManageTeams" xml:space="preserve">
     <value>[WELSH]ManageTeams</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_WebServiceAuth" xml:space="preserve">
+    <value>[WELSH]Web Service Auth Tokens</value>
   </data>
 </root>

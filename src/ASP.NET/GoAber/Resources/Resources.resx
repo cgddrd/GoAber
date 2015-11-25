@@ -493,4 +493,7 @@
   <data name="ManageUsers" xml:space="preserve">
     <value>Manage Users</value>
   </data>
+  <data name="_Layout_cshtml_Execute_WebServiceAuth" xml:space="preserve">
+    <value>Web Service Auth Tokens</value>
+  </data>
 </root>
