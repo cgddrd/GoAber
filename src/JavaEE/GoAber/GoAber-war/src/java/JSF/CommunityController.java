@@ -6,6 +6,7 @@ import JSF.util.PaginationHelper;
 import SessionBean.CommunityFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -29,6 +30,8 @@ public class CommunityController implements Serializable {
     @EJB private SessionBean.CommunityFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    private List<Community> communities;
 
     public CommunityController() {
     }
