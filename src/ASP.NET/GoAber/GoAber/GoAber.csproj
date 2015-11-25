@@ -323,25 +323,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
-    <Compile Include="Migrations\201511241614389_goAberM.cs" />
-    <Compile Include="Migrations\201511241614389_goAberM.Designer.cs">
-      <DependentUpon>201511241614389_goAberM.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511241631140_goAberm2.cs" />
-    <Compile Include="Migrations\201511241631140_goAberm2.Designer.cs">
-      <DependentUpon>201511241631140_goAberm2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511250915204_goA.cs" />
-    <Compile Include="Migrations\201511250915204_goA.Designer.cs">
-      <DependentUpon>201511250915204_goA.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511250944405_goA1.cs" />
-    <Compile Include="Migrations\201511250944405_goA1.Designer.cs">
-      <DependentUpon>201511250944405_goA1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511251005306_goA2.cs" />
-    <Compile Include="Migrations\201511251005306_goA2.Designer.cs">
-      <DependentUpon>201511251005306_goA2.cs</DependentUpon>
+    <Compile Include="Migrations\201511251108251_help.cs" />
+    <Compile Include="Migrations\201511251108251_help.Designer.cs">
+      <DependentUpon>201511251108251_help.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
@@ -602,20 +586,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511241614389_goAberM.resx">
-      <DependentUpon>201511241614389_goAberM.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511241631140_goAberm2.resx">
-      <DependentUpon>201511241631140_goAberm2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511250915204_goA.resx">
-      <DependentUpon>201511250915204_goA.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511250944405_goA1.resx">
-      <DependentUpon>201511250944405_goA1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511251005306_goA2.resx">
-      <DependentUpon>201511251005306_goA2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511251108251_help.resx">
+      <DependentUpon>201511251108251_help.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

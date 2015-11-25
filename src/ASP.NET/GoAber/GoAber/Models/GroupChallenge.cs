@@ -20,7 +20,7 @@ namespace GoAber.Models
         public bool startedChallenge { get; set; }
     
         public virtual Challenge challenge { get; set; }
-        public virtual Team team { get; set; }
+        public virtual Team group { get; set; }
 
         public GroupChallenge()
         {
