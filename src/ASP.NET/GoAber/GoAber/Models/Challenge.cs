@@ -23,7 +23,8 @@ namespace GoAber.Models
         }
     
         public int Id { get; set; }
-        public int categoryUnit { get; set; }
+        public int categoryUnitId { get; set; }
+        public virtual CategoryUnit categoryUnit { get; set; }
         public System.DateTime startTime { get; set; }
         public Nullable<System.DateTime> endTime { get; set; }
         public string name { get; set; }

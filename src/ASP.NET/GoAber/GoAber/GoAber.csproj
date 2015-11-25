@@ -323,9 +323,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
-    <Compile Include="Migrations\201511251108251_help.cs" />
-    <Compile Include="Migrations\201511251108251_help.Designer.cs">
-      <DependentUpon>201511251108251_help.cs</DependentUpon>
+    <Compile Include="Migrations\201511251437502_goAber.cs" />
+    <Compile Include="Migrations\201511251437502_goAber.Designer.cs">
+      <DependentUpon>201511251437502_goAber.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
@@ -561,6 +561,7 @@
     <Content Include="Views\Challenge\Delete.cshtml" />
     <Content Include="Views\Challenge\Details.cshtml" />
     <Content Include="Views\Challenge\Edit.cshtml" />
+    <Content Include="Views\Challenge\AllChallenges.cshtml" />
     <Content Include="Views\Challenge\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -586,8 +587,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511251108251_help.resx">
-      <DependentUpon>201511251108251_help.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511251437502_goAber.resx">
+      <DependentUpon>201511251437502_goAber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

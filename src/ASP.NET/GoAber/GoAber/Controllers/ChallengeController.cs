@@ -7,15 +7,76 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GoAber.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace GoAber
 {
     public class ChallengeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationUserManager _userManager;
 
+        // CG - We need to create our UserManager instance (copied from AccountController). 
+        // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: Challenge
         public ActionResult Index()
+        {
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+            var query = from d in db.Challenges
+                        join c in db.UserChallenges on d equals c.challenge
+                        join cC in db.CommunityChallenges on d equals cC.challenge
+                        where c.ApplicationUserId == appUser.Id && appUser.Team.communityId == cC.communityId
+                        select d;
+            IEnumerable<Challenge> challenges = query.ToList();
+
+            ViewBag.AssignedChallengesCommunity = challenges;
+
+
+
+            query = from d in db.Challenges
+                        join c in db.UserChallenges on d equals c.challenge
+                    join g in db.GroupChallenges on d equals g.challenge
+                    where c.ApplicationUserId == appUser.Id && g.@group.Id == appUser.Team.Id
+                    select d;
+            IEnumerable<Challenge> challengesNotEntersGroup = query.ToList();
+
+            ViewBag.AssignedChallengesGroup = challenges;
+
+
+
+            query = from d in db.Challenges
+                        join g in db.GroupChallenges on d equals g.challenge
+                    //join c in db.UserChallenges on d equals c.challenge
+                    where g.@group.Id == appUser.Team.Id  //&& c.ApplicationUserId != appUser.Id
+                    select d;
+            IEnumerable<Challenge> challengesGroup = query.ToList();
+            ViewBag.GroupChallenges = challengesGroup;
+
+            query = from d in db.Challenges
+                    join c in db.CommunityChallenges on d equals c.challenge
+                    //join uC in db.UserChallenges on d equals uC.challenge
+                    where appUser.Team.communityId == c.communityId //&& uC.ApplicationUserId != appUser.Id
+                    select d;
+            IEnumerable<Challenge> challengesCommunity = query.ToList();
+            ViewBag.CommunityChallenges = challengesCommunity;
+
+            return View(challenges.ToList());
+        }
+
+        // GET: Challenge
+        public ActionResult AllChallenges()
         {
             return View(db.Challenges.ToList());
         }
@@ -38,7 +99,7 @@ namespace GoAber
         // GET: Challenge/Create
         public ActionResult Create()
         {
-            IEnumerable<SelectListItem> communities = db.Communities.Select(c => new SelectListItem
+            IEnumerable < SelectListItem > communities = db.Communities.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.name
@@ -61,7 +122,7 @@ namespace GoAber
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,categoryUnit,startTime,endTime,name")] Challenge challenge, string[] groupChallenges, string[] communityChallenges)
+        public ActionResult Create([Bind(Include = "Id,categoryUnitId,startTime,endTime,name")] Challenge challenge, string[] groupChallenges, string[] communityChallenges)
         {
             if (ModelState.IsValid)
             {
@@ -167,5 +228,33 @@ namespace GoAber
             }
             base.Dispose(disposing);
         }
+
+
+        public ActionResult EnterChallenge(int? id)
+        {
+            Challenge challengeToEnter = db.Challenges.Find(id);
+            UserChallenge userChallenge = new UserChallenge()
+            {
+                ApplicationUserId = UserManager.FindById(User.Identity.GetUserId()).Id,
+                challengeId = challengeToEnter.Id
+            };
+            db.UserChallenges.Add(userChallenge);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult LeaveChallenge(int? id)
+        {
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+
+            
+            var query = from d in db.UserChallenges
+                        where d.ApplicationUserId == appUser.Id && d.challengeId == id
+                        select d;
+            db.UserChallenges.Remove(query.FirstOrDefault());
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        
     }
 }

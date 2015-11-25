@@ -16,10 +16,11 @@ namespace GoAber.Models
     {
         public int Id { get; set; }
         public int challengeId { get; set; }
-        public int userId { get; set; }
+       // public int userId { get; set; }
     
         public virtual Challenge challenge { get; set; }
         //public virtual User user { get; set; }
-        public virtual ApplicationUser user { get; set; }
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

@@ -347,7 +347,6 @@ C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.csprojResolveAssemblyReference.cache
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.dll
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.pdb
-C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.csprojResolveAssemblyReference.cache
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\roslyn\csc.exe
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -471,5 +470,6 @@ C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Antlr3
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Mono.Math.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\cy\Resources.resources.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\es\Resources.resources.dll
+C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.csprojResolveAssemblyReference.cache
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.pdb

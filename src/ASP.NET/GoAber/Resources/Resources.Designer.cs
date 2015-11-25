@@ -412,6 +412,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Community challenges.
+        /// </summary>
+        public static string Challenges_communityChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_communityChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group challenges .
+        /// </summary>
+        public static string Challenges_groupChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_groupChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Challenges not entered.
+        /// </summary>
+        public static string Challenges_notEntered {
+            get {
+                return ResourceManager.GetString("Challenges_notEntered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Challenges you have entered.
+        /// </summary>
+        public static string Challenges_youAreSignedUpTo {
+            get {
+                return ResourceManager.GetString("Challenges_youAreSignedUpTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose your language!.
         /// </summary>
         public static string ChooseYourLanguage {

@@ -17,10 +17,10 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.categoryUnit, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.categoryUnitId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.categoryUnit, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.categoryUnit, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.categoryUnitId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.categoryUnitId, "", new { @class = "text-danger" })
                 </div>
             </div>
     
@@ -51,14 +51,14 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.communityChallenges, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.ListBox("communityChallenges", (IEnumerable<SelectListItem>)ViewBag.communities, new { @class = "form-control" });
+                    @Html.ListBox("communityChallenges", (IEnumerable<SelectListItem>)ViewBag.communities, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.groupchallenges, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.ListBox("groupchallenges", (IEnumerable<SelectListItem>)ViewBag.groups, new { @class = "form-control" });
+                    @Html.ListBox("groupchallenges", (IEnumerable<SelectListItem>)ViewBag.groups, new { @class = "form-control" })
                 </div>
             </div>
 

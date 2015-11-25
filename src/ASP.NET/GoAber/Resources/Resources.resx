@@ -414,4 +414,16 @@
   <data name="ManageUsers" xml:space="preserve">
     <value>Manage Users</value>
   </data>
+  <data name="Challenges_communityChallenges" xml:space="preserve">
+    <value>Community challenges</value>
+  </data>
+  <data name="Challenges_groupChallenges" xml:space="preserve">
+    <value>Group challenges </value>
+  </data>
+  <data name="Challenges_youAreSignedUpTo" xml:space="preserve">
+    <value>Challenges you have entered</value>
+  </data>
+  <data name="Challenges_notEntered" xml:space="preserve">
+    <value>Challenges not entered</value>
+  </data>
 </root>
