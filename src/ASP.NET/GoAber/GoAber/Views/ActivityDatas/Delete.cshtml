@@ -56,13 +56,17 @@
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <label>Message </label>
-            <div>
-                <input type="text" name="message"/>
-                <input type="submit" value="Delete" class="btn btn-default" /> |
+        <div class="form-group">
+            @Html.Label("message", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("message", new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessage("message", "", new { @class = "text-danger" })
             </div>
-            @Html.ActionLink(Resources.AD_Delete_cshtml_Execute_Back_to_List, "Index")
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink(Resources.AD_Delete_cshtml_Execute_Back_to_List, "Manage")
         </div>
     }
 </div>

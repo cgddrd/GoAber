@@ -72,5 +72,7 @@ namespace GoAber.Models
         //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
         //public GoAber.Models.Team Group { get; set; }
 
+
+        public System.Data.Entity.DbSet<GoAber.Models.WebServiceAuth> WebServiceAuths { get; set; }
     }
 }

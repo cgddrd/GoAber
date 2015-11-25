@@ -14,7 +14,7 @@ using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GoAber.ActionFilters;
-using GoAber.Areas.Admin.Models;
+using GoAber.Models.ViewModels;
 using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
@@ -48,7 +48,7 @@ namespace GoAber.Areas.Admin.Controllers
         [Audit]
         public ActionResult Index(int? page)
         {
-            var activityData = dataService.getAllActivityData();
+            var activityData = dataService.GetAllActivityData();
 
             int pageNumber = (page ?? 1);
 
@@ -58,13 +58,13 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [MultipleButton(Name = "action", Argument = "Filter")]
         [ValidateAntiForgeryToken]
         [Audit]
         public ActionResult Index(int? page, FilterViewModel filterParams)
         {
+            var activityData = dataService.Filter(filterParams);
             int pageNumber = (page ?? 1);
-            var activityData = dataService.getAllActivityData();
-            activityData = ApplyFiltersToActivityData((IQueryable<ActivityData>) activityData, filterParams);
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
@@ -80,11 +80,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = db.ActivityDatas
-                                            .Include(a => a.categoryunit)
-                                            .Include(a => a.categoryunit.category)
-                                            .Include(a => a.categoryunit.unit)
-                                            .SingleOrDefault(d => d.Id == id);
+            ActivityData activityData = dataService.GetActivityDataById(id.Value);
 
             if (activityData == null)
             {
@@ -113,9 +109,14 @@ namespace GoAber.Areas.Admin.Controllers
         [Audit]
         public ActionResult Create([Bind(Include = "ApplicationUserId,idActivityData,categoryUnitId,userId,value,date")] ActivityData activityData)
         {
+            if (activityData.date.Value > DateTime.Today)
+            {
+                ModelState.AddModelError("date", "Date must be in the past or present.");
+            }
+
             if (ModelState.IsValid)
             {
-                dataService.createActivityData(activityData);
+                dataService.CreateActivityData(activityData);
                 return RedirectToAction("Index");
             }
 
@@ -133,7 +134,7 @@ namespace GoAber.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ActivityData activityData = dataService.getActivityDataById(id.Value);
+            ActivityData activityData = dataService.GetActivityDataById(id.Value);
             if (activityData == null)
             {
                 return HttpNotFound();
@@ -153,9 +154,14 @@ namespace GoAber.Areas.Admin.Controllers
         [Audit]
         public ActionResult Edit([Bind(Include = "ApplicationUserId,Id,categoryUnitId,userId,value,lastUpdated,date")] ActivityData activityData)
         {
+            if (activityData.date.Value > DateTime.Today)
+            {
+                ModelState.AddModelError("date", "Date must be in the past or present.");
+            }
+
             if (ModelState.IsValid)
             {
-                dataService.editActivityData(activityData);
+                dataService.EditActivityData(activityData);
                 return RedirectToAction("Index");
             }
 
@@ -187,38 +193,21 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id, string message)
         { 
-            dataService.deleteActivityData(id, message, User.Identity.GetUserId());
+            dataService.DeleteActivityData(id, message, User.Identity.GetUserId());
             return RedirectToAction("Index");
         }
 
         [Audit]
         [HttpPost]
         [MultipleButton(Name = "action", Argument = "BatchDelete")]
-        public ActionResult Index(FilterViewModel filterParams) {
-            var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
-            activityData = ApplyFiltersToActivityData(activityData, filterParams);
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmBatchDelete(int? page, FilterViewModel filterParams)
+        {
+            var activityData = dataService.Filter(filterParams);
             filterParams.Size = activityData.Count();
             return View("BatchDelete", filterParams);
         }
-/* TODO merge conflict : function was on my branch, but not on develop.
-			 I was not sure if I should delete it or not.
-        // POST: Admin/ActivityData/BatchDelete
-	[Audit]
-        [HttpPost, ActionName("BatchDelete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult BatchDelete(FilterViewModel filterParams)
-        {
-            var activityData = db.ActivityDatas.Include(a => a.categoryunit).Include(a => a.User);
-            activityData = ApplyFiltersToActivityData(activityData, filterParams);
 
-            foreach (var item in activityData)
-            {
-                db.ActivityDatas.Remove(item);
-
-            }
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }*/
 
         protected override void Dispose(bool disposing)
         {
@@ -229,47 +218,6 @@ namespace GoAber.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
-
-        [Audit]
-        private IEnumerable CreateCategoryUnitList()
-        {
-            var categories = db.CategoryUnits.Select(c => new
-            {
-                // CG - 'idCategoryUnit was previously set to: c.idCategoryUnit (which no longer exists).
-                idCategoryUnit = c.Id,
-                category = c.category.name,
-                unit = c.unit.name
-            }).ToList();
-
-            return categories;
-        }
-
-        private IQueryable<ActivityData> ApplyFiltersToActivityData(IQueryable<ActivityData> activityData, FilterViewModel filterParams)
-        {
-            if (!String.IsNullOrEmpty(filterParams.Email))
-            {
-                activityData = activityData.Where(a => a.User.Email.Contains(filterParams.Email));
-            }
-
-            if (filterParams.CategoryUnitId > 0)
-            {
-                activityData = activityData.Where(a => a.categoryunit.Id == filterParams.CategoryUnitId);
-            }
-
-            if (filterParams.FromDate.HasValue)
-            {
-                activityData = activityData.Where(a => a.date >= filterParams.FromDate.Value);
-            }
-
-            if (filterParams.ToDate.HasValue)
-            {
-                activityData = activityData.Where(a => a.date <= filterParams.ToDate.Value);
-            }
-
-            return activityData;
-        }
-
-        [Audit]
         private IEnumerable CreateUserList()
         {
             var users = db.Users.Select(c => new

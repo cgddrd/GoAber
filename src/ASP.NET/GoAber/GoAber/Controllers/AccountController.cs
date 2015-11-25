@@ -102,6 +102,11 @@ namespace GoAber.Controllers
             }
         }
 
+        public SignInStatus TryLogin(string as_email, string as_pass, bool ab_rememberMe)
+        {
+            return SignInManager.PasswordSignIn(as_email, as_pass, ab_rememberMe, shouldLockout: false);
+        }
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]

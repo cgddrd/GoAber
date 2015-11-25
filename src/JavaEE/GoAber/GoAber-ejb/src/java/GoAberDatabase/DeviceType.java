@@ -63,6 +63,9 @@ public class DeviceType implements Serializable {
     @Size(max = 250)
     @Column(name = "authorizationEndpoint")
     private String authorizationEndpoint;
+    @Size(max = 250)
+    @Column(name = "apiEndpoint")
+    private String apiEndpoint;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deviceTypeId")
     private Collection<Device> deviceCollection;
 
@@ -127,6 +130,14 @@ public class DeviceType implements Serializable {
 
     public void setAuthorizationEndpoint(String authorizationEndpoint) {
         this.authorizationEndpoint = authorizationEndpoint;
+    }
+    
+    public String getApiEndpoint() {
+        return apiEndpoint;
+    }
+
+    public void setApiEndpoint(String apiEndpoint) {
+        this.apiEndpoint = apiEndpoint;
     }
 
     @XmlTransient
