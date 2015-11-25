@@ -104,15 +104,20 @@ namespace GoAber
         // GET: Challenge/Create
         public ActionResult Create()
         {
-            IEnumerable < SelectListItem > communities = db.Communities.Select(c => new SelectListItem
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+
+            IEnumerable< SelectListItem > communities = db.Communities.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.name
             });
             ViewBag.communities = communities; //new SelectList(communities, "idCommunity", "name", 0);
 
-
-            IEnumerable<SelectListItem> groups = db.Teams.Select(c => new SelectListItem
+            var query = from d in db.Teams
+                        join c in db.Communities on d.community equals c
+                        where appUser.Team.communityId == c.Id 
+                        select d;
+            IEnumerable<SelectListItem> groups = query.Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.name
