@@ -50,6 +50,10 @@
         <resource-bundle>
             <base-name>/AccountBundle</base-name>
             <var>accountBundle</var>
-        </resource-bundle>    
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
     </application>
 </faces-config>

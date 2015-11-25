@@ -40,4 +40,14 @@ public class UserFacade extends AbstractFacade<User> {
         return user;
     }
     
+    public User findUserById(int id) {
+        
+        Query queryEmployeesByFirstName = em.createNamedQuery("User.findByIdUser");
+        queryEmployeesByFirstName.setParameter("idUser", id);
+        
+        User user = (User) queryEmployeesByFirstName.getSingleResult();
+        
+        return user;
+    }
+    
 }

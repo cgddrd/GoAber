@@ -178,8 +178,8 @@ CREATE TABLE `Device` (
   `idDevice` int(11) NOT NULL AUTO_INCREMENT,
   `deviceTypeId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `accessToken` varchar(45) DEFAULT NULL,
-  `refreshToken` varchar(45) DEFAULT NULL,
+  `accessToken` varchar(250) DEFAULT NULL,
+  `refreshToken` varchar(250) DEFAULT NULL,
   `tokenExpiration` datetime DEFAULT NULL,
   PRIMARY KEY (`idDevice`),
   UNIQUE KEY `idDevice_UNIQUE` (`idDevice`),
@@ -205,6 +205,7 @@ CREATE TABLE `DeviceType` (
   `consumerSecret` varchar(45) DEFAULT NULL,
   `clientId` varchar(45) DEFAULT NULL,
   `authorizationEndpoint` varchar(250) DEFAULT NULL,
+  `apiEndpoint` VARCHAR(250) NULL,
   PRIMARY KEY (`idDeviceType`),
   UNIQUE KEY `idDeviceType_UNIQUE` (`idDeviceType`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -341,6 +342,42 @@ CREATE TABLE `UserRole` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+--
+-- Table structure for table `JobDetail`
+--
+
+DROP TABLE IF EXISTS `jobdetail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jobdetail` (
+  `jobid` varchar(255) NOT NULL,
+  `schedtype` int(11) DEFAULT NULL,
+  `shcedtimemins` int(11) DEFAULT NULL,
+  `startnow` tinyint(1) DEFAULT '0',
+  `tasktype` int(11) DEFAULT NULL,
+  PRIMARY KEY (`jobid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `webserviceauth`
+--
+
+DROP TABLE IF EXISTS `webserviceauth`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `webserviceauth` (
+  `authtoken` varchar(255) NOT NULL,
+  `appname` varchar(255) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `expire` datetime DEFAULT NULL,
+  `status_flag` int(1) DEFAULT '1',
+  PRIMARY KEY (`authtoken`),
+  KEY `userid_idx` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

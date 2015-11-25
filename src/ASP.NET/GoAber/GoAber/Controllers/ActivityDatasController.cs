@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,6 +8,9 @@ using GoAber.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using GoAber.Services;
+using PagedList;
+using GoAber.Models.ViewModels;
+using GoAber.ActionFilters;
 
 namespace GoAber
 {
@@ -19,6 +20,7 @@ namespace GoAber
         private CategoryUnitService categoryUnitService = new CategoryUnitService();
         private ActivityDataService dataService = new ActivityDataService();
         private ApplicationUserManager _userManager;
+        private const int pageSize = 100;
 
         // CG - We need to create our UserManager instance (copied from AccountController). 
         // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
@@ -34,26 +36,56 @@ namespace GoAber
             }
         }
 
-        // GET: ActivityDatas
-        public ActionResult Index()
+        // GET: ActivityDatas/WeeklySummary
+        public ActionResult WeeklySummary()
         {
-            var activityDatas = dataService.findActivityDataForUser(User.Identity.GetUserId());
-            return View(activityDatas.ToList());
+            return View(categoryUnitService.GetAllCategories());
         }
 
-        // GET: ActivityDatas/Details/5
-        public ActionResult Details(int? id)
+        // GET: ActivityDatas/MonthlySummary
+        public ActionResult MonthlySummary()
         {
-            if (id == null)
+            return View(categoryUnitService.GetAllCategories());
+        }
+
+        // GET: ActivityDatas/AllTime
+        public ActionResult AllTimeSummary()
+        {
+            return View(categoryUnitService.GetAllCategories());
+        }
+
+        // GET: ActivityDatas/Manage
+        public ActionResult Manage(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            string userId = User.Identity.GetUserId();
+            var data = dataService.FindActivityDataForUser(userId);
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
+            return View(data.ToPagedList(pageNumber, pageSize));
+        }
+
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "Filter")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Manage(int? page, FilterViewModel filterParams)
+        {
+            string userId = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Where(u => u.Id.Equals(userId)).Single();
+
+            if (user == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
-            ActivityData activityData = db.ActivityDatas.Find(id);
-            if (activityData == null)
-            {
-                return HttpNotFound();
-            }
-            return View(activityData);
+
+            filterParams.Email = user.Email;
+            var activityData = dataService.Filter(filterParams);
+            int pageNumber = (page ?? 1);
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
+            return View("Manage", activityData.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ActivityDatas/Create
@@ -72,16 +104,21 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,categoryUnitId,value,lastUpdated,date")] ActivityData activityData)
         {
+            if (activityData.date.Value > DateTime.Today)
+            {
+                ModelState.AddModelError("date", "Date must be in the past or present.");
+            }
 
             if (ModelState.IsValid)
             {
-                dataService.createActivityDataForUser(activityData, User.Identity.GetUserId());
-                return RedirectToAction("Index");
+                dataService.CreateActivityDataForUser(activityData, User.Identity.GetUserId());
+                return RedirectToAction("Manage");
             }
 
             var categories = categoryUnitService.CreateCategoryUnitList();
+            string userId = User.Identity.GetUserId();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", userId);
             return View(activityData);
         }
 
@@ -93,7 +130,7 @@ namespace GoAber
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ActivityData activityData = dataService.getActivityDataById(id.Value);
+            ActivityData activityData = dataService.GetActivityDataById(id.Value);
 
             if (activityData == null)
             {
@@ -113,15 +150,21 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,categoryUnitId,value,lastUpdated,date")] ActivityData activityData)
         {
+            if (activityData.date.Value > DateTime.Today)
+            {
+                ModelState.AddModelError("date", "Date must be in the past or present.");
+            }
+
             if (ModelState.IsValid)
             {
-                dataService.editActivityDataForUser(activityData, User.Identity.GetUserId());
-                return RedirectToAction("Index");
+                dataService.EditActivityDataForUser(activityData, User.Identity.GetUserId());
+                return RedirectToAction("Manage");
             }
 
             var categories = categoryUnitService.CreateCategoryUnitList();
+            string userId = User.Identity.GetUserId();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            ViewBag.userId = new SelectList(db.Users, "Id", "email", activityData.User.Id);
+            ViewBag.userId = new SelectList(db.Users, "Id", "email", userId);
             return View(activityData);
         }
 
@@ -147,8 +190,71 @@ namespace GoAber
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id, string message)
         {
-            dataService.deleteActivityData(id, message, User.Identity.GetUserId());
-            return RedirectToAction("Index");
+            string userId = User.Identity.GetUserId();
+            dataService.DeleteActivityData(id, message, userId);
+            return RedirectToAction("Manage");
+        }
+
+        [HttpPost]
+        [MultipleButton(Name = "action", Argument = "BatchDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmBatchDelete(int? page, FilterViewModel filterParams)
+        {
+            string userId = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Where(u => u.Id.Equals(userId)).Single();
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            filterParams.Email = user.Email;
+            var activityData = dataService.Filter(filterParams);
+            filterParams.Size = activityData.Count();
+            return View("BatchDelete", filterParams);
+        }
+
+        // POST: Admin/ActivityData/BatchDelete
+        [HttpPost, ActionName("BatchDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult BatchDelete(FilterViewModel filterParams, string message)
+        {
+            string userId = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Where(u => u.Id.Equals(userId)).Single();
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            filterParams.Email = user.Email;
+            var activityData = dataService.Filter(filterParams);
+            dataService.BatchDelete(activityData, message, userId);
+            return RedirectToAction("Manage");
+        }
+
+        // GET: ActivityDatas/ViewUser/<userid>
+        public ActionResult ViewUser(string id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            //find user 
+            ApplicationDbContext db = new ApplicationDbContext();
+            ApplicationUser user = db.Users.Where(u => u.Id.Equals(id)).SingleOrDefault();
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            // create view data
+            ViewUserSummary summary = new ViewUserSummary();
+            summary.User = user;
+            summary.CategoryViews = categoryUnitService.GetAllCategories();
+            return View(summary);
         }
 
         protected override void Dispose(bool disposing)

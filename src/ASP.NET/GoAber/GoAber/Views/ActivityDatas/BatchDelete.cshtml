@@ -1,0 +1,35 @@
+﻿@using GoAber.Helpers;
+@model GoAber.Models.ViewModels.FilterViewModel
+@{
+    ViewBag.Title = "Batch Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@Html.ConvertResource(Resources.AreYouSureDelete, Model.Size)</h3>
+<div>
+    @using (Html.BeginForm("BatchDelete", "ActivityDatas", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+
+        @Html.HiddenFor(x => x.Email)
+        @Html.HiddenFor(x => x.CategoryUnitId)
+        @Html.HiddenFor(x => x.FromDate)
+        @Html.HiddenFor(x => x.ToDate)
+
+        <div class="form-group">
+            @Html.Label("message", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("message", new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessage("message", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Manage")
+        </div>
+    }
+</div>
+

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -69,6 +69,7 @@ namespace GoAber.Models
        // public System.Data.Entity.DbSet<GoAber.Models.Job> Jobs { get; set; }
 
         public DbSet<Audit> Audit { get; set; }
+		public System.Data.Entity.DbSet<GoAber.Models.WebServiceAuth> WebServiceAuths { get; set; }
 
         //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
         //public GoAber.Models.Team Group { get; set; }

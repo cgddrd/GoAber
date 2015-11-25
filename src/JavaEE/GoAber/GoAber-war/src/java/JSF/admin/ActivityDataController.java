@@ -184,7 +184,7 @@ public class ActivityDataController implements Serializable {
         for (ActivityData item : filteredItems) {
             dataRemovalAudit.createDataRemovalAudit(item, deletedMessage);
             try {
-                dataService.remove(item); 
+                dataService.remove(item);
                 //getFacade().remove(item);
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
             } catch (Exception e) {
