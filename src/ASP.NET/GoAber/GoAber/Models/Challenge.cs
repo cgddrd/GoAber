@@ -19,6 +19,7 @@ namespace GoAber.Models
         {
             this.userchallenges = new HashSet<UserChallenge>();
             this.groupchallenges = new HashSet<GroupChallenge>();
+            this.communityChallenges = new HashSet<CommunityChallenge>();
         }
     
         public int Id { get; set; }
@@ -26,12 +27,14 @@ namespace GoAber.Models
         public System.DateTime startTime { get; set; }
         public Nullable<System.DateTime> endTime { get; set; }
         public string name { get; set; }
-        public Nullable<int> communityStartedBy { get; set; }
+       // public Nullable<int> communityStartedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChallenge> userchallenges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupChallenge> groupchallenges { get; set; }
-        public virtual Community community { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CommunityChallenge> communityChallenges { get; set; }
+
     }
 }

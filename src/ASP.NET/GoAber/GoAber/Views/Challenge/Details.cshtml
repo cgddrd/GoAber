@@ -1,0 +1,51 @@
+﻿@model GoAber.Models.Challenge
+
+@{
+    ViewBag.Title = "Details";
+}
+
+    <div>
+        <h4>Challenge</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.categoryUnit)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.categoryUnit)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.startTime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.startTime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.endTime)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.endTime)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
+    
+            
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>

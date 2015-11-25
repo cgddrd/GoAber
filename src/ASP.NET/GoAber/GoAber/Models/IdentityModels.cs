@@ -57,6 +57,7 @@ namespace GoAber.Models
         public DbSet<DeviceType> DeviceTypes { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<GroupChallenge> GroupChallenges { get; set; }
+        public DbSet<CommunityChallenge> CommunityChallenges { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<DataRemovalAudit> DataRemovalAudits { get; set; }
         public DbSet<UserChallenge> UserChallenges { get; set; }

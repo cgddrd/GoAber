@@ -298,6 +298,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="AuditAttribute.cs" />
+    <Compile Include="Controllers\ChallengeController.cs" />
     <Compile Include="Controllers\AuditsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
@@ -322,15 +323,32 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ManualHttpRequest.cs" />
-    <Compile Include="Migrations\201511212344413_init.cs" />
-    <Compile Include="Migrations\201511212344413_init.Designer.cs">
-      <DependentUpon>201511212344413_init.cs</DependentUpon>
+    <Compile Include="Migrations\201511241614389_goAberM.cs" />
+    <Compile Include="Migrations\201511241614389_goAberM.Designer.cs">
+      <DependentUpon>201511241614389_goAberM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511241631140_goAberm2.cs" />
+    <Compile Include="Migrations\201511241631140_goAberm2.Designer.cs">
+      <DependentUpon>201511241631140_goAberm2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511250915204_goA.cs" />
+    <Compile Include="Migrations\201511250915204_goA.Designer.cs">
+      <DependentUpon>201511250915204_goA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511250944405_goA1.cs" />
+    <Compile Include="Migrations\201511250944405_goA1.Designer.cs">
+      <DependentUpon>201511250944405_goA1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511251005306_goA2.cs" />
+    <Compile Include="Migrations\201511251005306_goA2.Designer.cs">
+      <DependentUpon>201511251005306_goA2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataRemovalAudit.cs" />
     <Compile Include="Models\ActivityData.cs" />
+    <Compile Include="Models\CommunityChallenge.cs" />
     <Compile Include="Services\ActivityDataService.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryUnit.cs" />
@@ -555,6 +573,11 @@
     <Content Include="Views\Jawbone\StartOAuth.cshtml" />
     <Content Include="Views\Audits\Details.cshtml" />
     <Content Include="Views\Audits\Index.cshtml" />
+    <Content Include="Views\Challenge\Create.cshtml" />
+    <Content Include="Views\Challenge\Delete.cshtml" />
+    <Content Include="Views\Challenge\Details.cshtml" />
+    <Content Include="Views\Challenge\Edit.cshtml" />
+    <Content Include="Views\Challenge\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -579,8 +602,20 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511212344413_init.resx">
-      <DependentUpon>201511212344413_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511241614389_goAberM.resx">
+      <DependentUpon>201511241614389_goAberM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511241631140_goAberm2.resx">
+      <DependentUpon>201511241631140_goAberm2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511250915204_goA.resx">
+      <DependentUpon>201511250915204_goA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511250944405_goA1.resx">
+      <DependentUpon>201511250944405_goA1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511251005306_goA2.resx">
+      <DependentUpon>201511251005306_goA2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
