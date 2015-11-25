@@ -12,17 +12,17 @@ namespace GoAber.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class GroupChallenge
+    public partial class CommunityChallenge
     {
         public int Id { get; set; }
-        public int groupId { get; set; }
+        public int communityId { get; set; }
         public int challengeId { get; set; }
         public bool startedChallenge { get; set; }
     
         public virtual Challenge challenge { get; set; }
-        public virtual Team group { get; set; }
+        public virtual Community community { get; set; }
 
-        public GroupChallenge()
+        public CommunityChallenge()
         {
             startedChallenge = false;
         }

@@ -303,6 +303,10 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Migrations\201511251737087_goAber.cs" />
+    <Compile Include="Migrations\201511251737087_goAber.Designer.cs">
+      <DependentUpon>201511251737087_goAber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
@@ -310,6 +314,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivityDatasController.cs" />
     <Compile Include="Controllers\ActivityDatasAPIController.cs" />
+    <Compile Include="Controllers\ChallengeController.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\FitBitController.cs" />
@@ -346,6 +351,7 @@
     <Compile Include="Services\ApplicationUserService.cs" />
     <Compile Include="Services\CategoryUnitService.cs" />
     <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\CommunityChallenge.cs" />
     <Compile Include="Models\Audit.cs" />
     <Compile Include="Models\Community.cs" />
     <Compile Include="Models\Device.cs" />
@@ -360,6 +366,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommunitiesService.cs" />
     <Compile Include="Services\TeamsService.cs" />
+    <Compile Include="Services\ChallengeService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\DataRemovalAuditsController.cs" />
   </ItemGroup>
@@ -482,6 +489,12 @@
     <Content Include="Areas\Admin\Views\Communities\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Communities\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Challenge\AllChallenges.cshtml" />
     <Content Include="Areas\MyAccount\Views\web.config" />
     <Content Include="Areas\MyAccount\Views\_ViewStart.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\Index.cshtml" />
@@ -612,6 +625,11 @@
     <Folder Include="Views\BaseAPI\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\CategoryAPI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201511251737087_goAber.resx">
+      <DependentUpon>201511251737087_goAber.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

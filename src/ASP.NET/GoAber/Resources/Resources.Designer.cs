@@ -509,14 +509,23 @@ namespace Resources {
             get {
                 return ResourceManager.GetString("AllTimeSummary", resourceCulture);
             }
-	}
-	
-	/// <summary>
-	///   Looks up a localized string similar to Manage Users.
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Users.
         /// </summary>
         public static string ApplicationUsersController_Index_Title {
             get {
                 return ResourceManager.GetString("ApplicationUsersController_Index_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string ApplicationUsersController_Teamname {
+            get {
+                return ResourceManager.GetString("ApplicationUsersController_Teamname", resourceCulture);
             }
         }
         
@@ -526,16 +535,6 @@ namespace Resources {
         public static string AreYouSureDelete {
             get {
                 return ResourceManager.GetString("AreYouSureDelete", resourceCulture);
-        
-	    }
-	}
-	
-	/// <summary>
-	///   Looks up a localized string similar to Team.
-        /// </summary>
-        public static string ApplicationUsersController_Teamname {
-            get {
-                return ResourceManager.GetString("ApplicationUsersController_Teamname", resourceCulture);
             }
         }
         
@@ -554,6 +553,42 @@ namespace Resources {
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community challenges.
+        /// </summary>
+        public static string Challenges_communityChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_communityChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group challenges .
+        /// </summary>
+        public static string Challenges_groupChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_groupChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Challenges not entered.
+        /// </summary>
+        public static string Challenges_notEntered {
+            get {
+                return ResourceManager.GetString("Challenges_notEntered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Challenges you have entered.
+        /// </summary>
+        public static string Challenges_youAreSignedUpTo {
+            get {
+                return ResourceManager.GetString("Challenges_youAreSignedUpTo", resourceCulture);
             }
         }
         
@@ -954,6 +989,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Users.
+        /// </summary>
+        public static string ManageUsers {
+            get {
+                return ResourceManager.GetString("ManageUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly Summary.
         /// </summary>
         public static string MonthlySummary {
@@ -977,16 +1021,6 @@ namespace Resources {
         public static string MonthlySummaryTitle_TotalSteps {
             get {
                 return ResourceManager.GetString("MonthlySummaryTitle_TotalSteps", resourceCulture);
-        
-	    }
-	}
-	
-	/// <summary>
-	///   Looks up a localized string similar to Manage Users.
-        /// </summary>
-        public static string ManageUsers {
-            get {
-                return ResourceManager.GetString("ManageUsers", resourceCulture);
             }
         }
         
