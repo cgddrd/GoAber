@@ -50,24 +50,29 @@ namespace GoAber
                     join g in db.GroupChallenges on d equals g.challenge
                     where c.ApplicationUserId == appUser.Id && g.@group.Id == appUser.Team.Id
                     select d;
-            IEnumerable<Challenge> challengesNotEntersGroup = query.ToList();
+            IEnumerable<Challenge> challengesNotEnteredGroup = query.ToList();
 
-            ViewBag.AssignedChallengesGroup = challenges;
+            ViewBag.AssignedChallengesGroup = challengesNotEnteredGroup;
 
 
 
             query = from d in db.Challenges
                         join g in db.GroupChallenges on d equals g.challenge
-                    //join c in db.UserChallenges on d equals c.challenge
-                    where g.@group.Id == appUser.Team.Id  //&& c.ApplicationUserId != appUser.Id
+                        
+                        join c in db.UserChallenges on d equals c.challenge 
+                            into t from rt in t.DefaultIfEmpty()
+                    where g.@group.Id == appUser.Team.Id && rt.ApplicationUserId != appUser.Id
                     select d;
+            
             IEnumerable<Challenge> challengesGroup = query.ToList();
             ViewBag.GroupChallenges = challengesGroup;
 
             query = from d in db.Challenges
                     join c in db.CommunityChallenges on d equals c.challenge
                     //join uC in db.UserChallenges on d equals uC.challenge
-                    where appUser.Team.communityId == c.communityId //&& uC.ApplicationUserId != appUser.Id
+                    join uC in db.UserChallenges on d equals uC.challenge
+                            into t from rt in t.DefaultIfEmpty()
+                    where appUser.Team.communityId == c.communityId && rt.ApplicationUserId != appUser.Id//&& uC.ApplicationUserId != appUser.Id
                     select d;
             IEnumerable<Challenge> challengesCommunity = query.ToList();
             ViewBag.CommunityChallenges = challengesCommunity;
@@ -129,27 +134,32 @@ namespace GoAber
                 db.Challenges.Add(challenge);
                 db.SaveChanges();
 
-
-                foreach (string item in groupChallenges)
-                {
-                    GroupChallenge groupChallenge = new GroupChallenge()
+                if ( groupChallenges != null )
+                { 
+                    foreach (string item in groupChallenges)
                     {
-                        groupId = Int32.Parse(item),
-                        challengeId = challenge.Id
-                    };
-                    db.GroupChallenges.Add(groupChallenge);
-                    db.SaveChanges();
+                        GroupChallenge groupChallenge = new GroupChallenge()
+                        {
+                            groupId = Int32.Parse(item),
+                            challengeId = challenge.Id
+                        };
+                        db.GroupChallenges.Add(groupChallenge);
+                        db.SaveChanges();
+                    }
                 }
 
-                foreach (string item in communityChallenges)
+                if (communityChallenges != null )
                 {
-                    CommunityChallenge communityChallenge = new CommunityChallenge()
+                    foreach (string item in communityChallenges)
                     {
-                        communityId = Int32.Parse(item),
-                        challengeId = challenge.Id
-                    };
-                    db.CommunityChallenges.Add(communityChallenge);
-                    db.SaveChanges();
+                        CommunityChallenge communityChallenge = new CommunityChallenge()
+                        {
+                            communityId = Int32.Parse(item),
+                            challengeId = challenge.Id
+                        };
+                        db.CommunityChallenges.Add(communityChallenge);
+                        db.SaveChanges();
+                    }
                 }
 
 

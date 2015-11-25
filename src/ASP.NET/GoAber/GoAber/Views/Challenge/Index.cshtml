@@ -21,9 +21,6 @@
             @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.communityChallenges)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.groupchallenges)
         </th>
         <th></th>
@@ -48,13 +45,6 @@
             </td>
 
 
-            <td>
-                @foreach (GoAber.Models.CommunityChallenge cItem in item.communityChallenges)
-                {
-                    @Html.DisplayFor(modelItem => cItem.community.name)
-                    <br />
-                }
-            </td>
             <td>
                 @foreach (GoAber.Models.GroupChallenge gItem in item.groupchallenges)
                 {
@@ -88,9 +78,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.communityChallenges)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.groupchallenges)
-            </th>
             <th></th>
         </tr>
     
@@ -121,13 +108,6 @@
                 }
             </td>
             <td>
-                @foreach (GoAber.Models.GroupChallenge gItem in item.groupchallenges)
-                {
-                    @Html.DisplayFor(modelItem => gItem.group.name)
-                    <br />
-                }
-            </td>
-            <td>
                 @Html.ActionLink("Leave Challenge", "LeaveChallenge", new { id = item.Id })
 
             </td>
@@ -138,7 +118,7 @@
 <hr />
 
 <h2>@Resources.Challenges_notEntered</h2>
-<h2>@Resources.Challenges_groupChallenges </h2>
+<h3>@Resources.Challenges_groupChallenges </h3>
 
 <table class="table">
     <tr>
@@ -197,7 +177,7 @@
 
 
 
-<h2>@Resources.Challenges_communityChallenges</h2>
+<h3>@Resources.Challenges_communityChallenges</h3>
 
 <table class="table">
     <tr>
