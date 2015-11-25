@@ -171,8 +171,15 @@ public class CommunityController implements Serializable {
     public void setCurrent(Community current) {
         this.current = current;
     }
+        
+    public AuditController getAudit() {    
+        return audit;
+    }
+    public void setAudit(AuditController audit) {    
+        this.audit = audit;    
+    }
     
-    @FacesConverter(forClass = Community.class)
+    @FacesConverter(value="adminCommunityConverter", forClass=Community.class)
     public static class CommunityControllerConverter implements Converter {
 
         @Override
@@ -180,8 +187,9 @@ public class CommunityController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            CommunityController controller = (CommunityController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "ad");
+            CommunityController controller = (CommunityController)facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "adminCommunityController");
+            
             return controller.ejbFacade.find(getKey(value));
         }
 
@@ -206,14 +214,9 @@ public class CommunityController implements Serializable {
                 Community o = (Community) object;
                 return getStringKey(o.getIdCommunity());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Community.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: "+Community.class.getName());
             }
         }
-    }
-    public AuditController getAudit() {    
-        return audit;
-    }
-    public void setAudit(AuditController audit) {    
-        this.audit = audit;    
+
     }
 }
