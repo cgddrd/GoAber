@@ -41,21 +41,19 @@ public class ActivityDataAPI {
     @GET
     @Path("/WeeklySummary")
     @Produces(MediaType.APPLICATION_JSON)
-    public ActivityDataDTO WeeklySummary(@Context HttpServletRequest req) {
-        ActivityDataDTO dto = new ActivityDataDTO(dataService.findAll().get(0));
-        return dto;
-//        User user = getUserFromSession(req);
-//        
-//        if(user == null) {
-//            return null;
-//        }
-//
-//        Date startDate = getDateLastWeek();
-//        Date endDate = new Date();
-// 
-//        List<ActivityData> activityData = dataService.findAllForUserInDateRange(user, startDate, endDate);
-//        List<ActivityDataDTO> dto = formatActivityData(activityData);
-//        return dto.get(0);
+    public List<ActivityDataDTO> WeeklySummary(@Context HttpServletRequest req) {
+        User user = getUserFromSession(req);
+        
+        if(user == null) {
+            return null;
+        }
+
+        Date startDate = getDateLastWeek();
+        Date endDate = new Date();
+ 
+        List<ActivityData> activityData = dataService.findAllForUserInDateRange(user, startDate, endDate);
+        List<ActivityDataDTO> dtos = formatActivityData(activityData);
+        return dtos;
     }
     
     private User getUserFromSession(HttpServletRequest req) {
