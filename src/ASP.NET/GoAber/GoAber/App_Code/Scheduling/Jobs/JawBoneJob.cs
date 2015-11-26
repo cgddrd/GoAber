@@ -13,7 +13,7 @@ namespace GoAber.Scheduling.Jobs
             throw new NotImplementedException();
         }
 
-        public void Run()
+        public void Run(string[] args)
         {
             throw new NotImplementedException();
         }

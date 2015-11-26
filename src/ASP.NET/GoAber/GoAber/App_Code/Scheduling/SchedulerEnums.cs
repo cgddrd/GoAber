@@ -9,7 +9,8 @@ namespace GoAber.Scheduling
     {
         FitBit=1,
         JawBone=2,
-        Email=3
+        Email=3,
+        Challenge=4
     }
 
     public enum ScheduleType

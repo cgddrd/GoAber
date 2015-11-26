@@ -1,7 +1,11 @@
-﻿using GoAber.Models;
+﻿using GoAber.App_Code.Scheduling.Jobs;
+using GoAber.Models;
+using GoAber.Scheduling;
+using GoAber.WebService.ChallengesWS;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -84,6 +88,23 @@ namespace GoAber.Services
         {
             db.Challenges.Add(challenge);
             db.SaveChanges();
+
+            Job lo_cjob = new Job();
+            lo_cjob.tasktype = JobType.Challenge;
+            lo_cjob.schedtype = ScheduleType.Once;
+
+            TimeSpan lo_elapsedTime = ((DateTime)challenge.endTime).Subtract(challenge.startTime);
+
+            lo_cjob.minutes = lo_elapsedTime.Minutes;
+            
+            //string[] ls_args = new string[];
+            if (ScheduleJobs.AddJob(lo_cjob))
+            {
+                db.Jobs.Add(lo_cjob);
+                db.SaveChanges();
+            }
+
+
         }
 
         public void addChallengeToGroups(Challenge challenge, string[] groupChallenges, int usersGroup)
@@ -116,7 +137,7 @@ namespace GoAber.Services
             }
         }
 
-        public void addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup)
+        public void addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup, bool local = true)
         {
             foreach (string item in communities)
             {
@@ -131,6 +152,29 @@ namespace GoAber.Services
                 }
                 db.CommunityChallenges.Add(communityChallenge);
                 db.SaveChanges();
+
+                if (local)
+                {
+                    bool lb_goremote = false;
+
+                    for (int i = 0; i < communities.Length; i++)
+                    {
+                        if (int.Parse(communities[i]) != usersGroup)
+                        {
+                            lb_goremote = true;
+                        }
+                    }
+
+                    if (!lb_goremote) return;
+
+                    GoAberChallengeWSConsumer lo_chalconsumer = GoAberChallengeWSConsumer.GetInstance();
+
+                    if (!lo_chalconsumer.AddChallenge(challenge, usersGroup))
+                    {
+                        Debug.WriteLine("Cross community challenge failed!");
+                    }
+                }
+
             }
 
             if (!communities.Contains(usersGroup.ToString()))

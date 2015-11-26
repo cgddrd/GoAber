@@ -38,11 +38,6 @@ namespace GoAber
             io_ac = new AccountController();
         }
 
-        [WebMethod]
-        public string HelloWorld()
-        {
-            return "Hello World";
-        }
 
         [SoapHeader("Authentication")]
         [WebMethod]
@@ -58,11 +53,6 @@ namespace GoAber
 
             for (int i = 0; i < data.Count; i++)
             {
-                //if (data[i].User != lo_wsa.user)
-                //{
-                //    Rollback();
-                //    return false;
-                //}
                 Models.ActivityData lo_accmodel = new Models.ActivityData();
                 CategoryUnit lo_cat = io_db.CategoryUnits.Find(new Object[] { data[i].categoryUnitId });
 

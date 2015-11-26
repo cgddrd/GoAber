@@ -27,6 +27,8 @@ namespace GoAber.Models
         public string name { get; set; }
         [DisplayName("Endpoint URL")]
         public string endpointUrl { get; set; }
+
+        public bool home { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Team> teams { get; set; }
