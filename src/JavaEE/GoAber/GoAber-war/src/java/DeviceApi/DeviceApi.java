@@ -276,7 +276,7 @@ public abstract class DeviceApi extends DefaultApi20
         }
     }
     
-   private CategoryUnitFacade lookupCategoryUnitFacadeBean() {
+    private CategoryUnitFacade lookupCategoryUnitFacadeBean() {
         try {
             InitialContext iniCtx = new InitialContext();
             Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
@@ -287,7 +287,7 @@ public abstract class DeviceApi extends DefaultApi20
         }
     }
    
-   public boolean isConnected(){
+    public boolean isConnected(){
        User currentUser = authController.getActiveUser();
        DeviceType deviceType = deviceTypeFacade.findByName(getType());
        if(currentUser == null || deviceType == null)

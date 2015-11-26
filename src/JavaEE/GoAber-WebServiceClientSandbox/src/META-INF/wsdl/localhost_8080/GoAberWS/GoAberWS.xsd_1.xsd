@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.1-b419 (branches/2.3.1.x-7937; 2014-08-04T08:11:03+0000) JAXWS-RI/2.2.10-b140803.1500 JAXWS-API/2.2.11 JAXB-RI/2.2.10-b140802.1033 JAXB-API/2.2.12-b140109.1041 svn-revision#unknown. --><xs:schema xmlns:tns="http://WebServices/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://WebServices/">
+
+<xs:element name="addActivityData" type="tns:addActivityData"/>
+
+<xs:element name="addActivityDataResponse" type="tns:addActivityDataResponse"/>
+
+<xs:element name="community" type="tns:community"/>
+
+<xs:element name="hello" type="tns:hello"/>
+
+<xs:element name="helloResponse" type="tns:helloResponse"/>
+
+<xs:element name="isAdmin" type="tns:isAdmin"/>
+
+<xs:element name="isAdminResponse" type="tns:isAdminResponse"/>
+
+<xs:element name="isNotNullEmptyOrWhiteSpace" type="tns:isNotNullEmptyOrWhiteSpace"/>
+
+<xs:element name="isNotNullEmptyOrWhiteSpaceResponse" type="tns:isNotNullEmptyOrWhiteSpaceResponse"/>
+
+<xs:element name="role" type="tns:role"/>
+
+<xs:element name="team" type="tns:team"/>
+
+<xs:element name="user" type="tns:user"/>
+
+<xs:element name="userRole" type="tns:userRole"/>
+
+<xs:complexType name="addActivityData">
+<xs:sequence>
+<xs:element name="data" type="tns:activityDataSOAP" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="activityDataSOAP">
+<xs:sequence>
+<xs:element name="categoryUnitId" type="xs:int"/>
+<xs:element name="value" type="xs:int"/>
+<xs:element name="date" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="useremail" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addActivityDataResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="isAdmin">
+<xs:sequence>
+<xs:element name="arg0" type="tns:user" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="user">
+<xs:sequence>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="groupId" type="tns:team" minOccurs="0"/>
+<xs:element name="idUser" type="xs:int" minOccurs="0"/>
+<xs:element name="nickname" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="roleId" type="tns:role" minOccurs="0"/>
+<xs:element name="userRoleId" type="tns:userRole" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="team">
+<xs:sequence>
+<xs:element name="communityId" type="tns:community" minOccurs="0"/>
+<xs:element name="idGroup" type="xs:int" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="community">
+<xs:sequence>
+<xs:element name="endpointUrl" type="xs:string" minOccurs="0"/>
+<xs:element name="idCommunity" type="xs:int" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="role">
+<xs:sequence>
+<xs:element name="idRole" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="userRole">
+<xs:sequence>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="idUserRole" type="xs:int" minOccurs="0"/>
+<xs:element name="roleId" type="tns:role" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="isAdminResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hello">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="helloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="isNotNullEmptyOrWhiteSpace">
+<xs:sequence>
+<xs:element name="arg0" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="isNotNullEmptyOrWhiteSpaceResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

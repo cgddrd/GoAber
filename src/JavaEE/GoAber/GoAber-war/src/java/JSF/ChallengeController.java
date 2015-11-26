@@ -1,12 +1,23 @@
 package JSF;
 
 import GoAberDatabase.Challenge;
+import GoAberDatabase.Community;
+import GoAberDatabase.CommunityChallenge;
+import GoAberDatabase.GroupChallenge;
+import GoAberDatabase.Team;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
+import SessionBean.CategoryUnitFacade;
 import SessionBean.ChallengeFacade;
+import SessionBean.CommunityChallengeFacade;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,21 +28,69 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 
 @ManagedBean(name="challengeController")
 @SessionScoped
 public class ChallengeController implements Serializable {
 
-
     private Challenge current;
     private DataModel items = null;
     @EJB private SessionBean.ChallengeFacade ejbFacade;
+    @EJB private SessionBean.CommunityChallengeFacade communityChallengeFacade;
+    @EJB private SessionBean.GroupChallengeFacade groupChallengeFacade;
+    @EJB private SessionBean.CommunityFacade communityFacade;
+    @EJB private SessionBean.TeamFacade groupFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    private Map<String,Integer> communitiesValue = new LinkedHashMap<>();
+    private Integer[] communityChallenges;
+    
+    private Map<String,Integer> groupValue = new LinkedHashMap<>();
+    private Integer[] groupChallenges;
+    
+
+    
 
     public ChallengeController() {
     }
+    
+   public Integer[] getCommunityChallenges() {
+        return communityChallenges;
+    }
+
+    public void setCommunityChallenges(Integer[] communityChallenges) {
+        this.communityChallenges = communityChallenges;
+    }
+	
+    public Map<String,Integer> getCommunitiesValue() {
+        List<Community> communities = communityFacade.findAll();
+        communities.stream().forEach((community) -> {
+            communitiesValue.put(community.getName(), community.getIdCommunity()); //label, value
+        });
+        return communitiesValue;
+    }
+    
+    public Integer[] getGroupChallenges() {
+        return groupChallenges;
+    }
+
+    public void setGroupChallenges(Integer[] groupChallenges) {
+        this.groupChallenges = groupChallenges;
+    }
+	
+    public Map<String,Integer> getGroupValue() {
+        List<Team> groups = groupFacade.findAll();
+        groups.stream().forEach((group) -> {
+            groupValue.put(group.getName(), group.getIdGroup()); //label, value
+        });
+        return groupValue;
+    }
+
 
     public Challenge getSelected() {
         if (current == null) {
@@ -61,6 +120,26 @@ public class ChallengeController implements Serializable {
         }
         return pagination;
     }
+    
+    
+    public PaginationHelper getPagination(List<Challenge> challenges) {
+        if (pagination == null) {
+            pagination = new PaginationHelper(10) {
+
+                @Override
+                public int getItemsCount() {
+                    return getFacade().count();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    return new ListDataModel(challenges.subList(getPageFirstItem(), getPageFirstItem()+getPageSize()));
+                    //return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
+                }
+            };
+        }
+        return pagination;
+    }
 
     public String prepareList() {
         recreateModel();
@@ -78,15 +157,42 @@ public class ChallengeController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
+    
+    public String prepareIndex(){
+        recreateModel();
+        return "Index";
+    }
 
     public String create() {
         try {
             getFacade().create(current);
+            addGroupChallenges();
+            addCommunityChallenges();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeCreated"));
-            return prepareCreate();
+            return prepareIndex();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
+        }
+    }
+    
+    private void addGroupChallenges()
+    {
+        for (Integer groupId : groupChallenges)
+        {
+            Team group = groupFacade.findById(groupId);
+            GroupChallenge groupChallenge = new GroupChallenge(group, current);
+            groupChallengeFacade.create(groupChallenge);
+        }
+    }
+    
+    private void addCommunityChallenges()
+    {
+        for (Integer communityId : communityChallenges)
+        {
+            Community group = communityFacade.findById(communityId);
+            CommunityChallenge communityChallenge = new CommunityChallenge(group, current);
+            communityChallengeFacade.create(communityChallenge);
         }
     }
 

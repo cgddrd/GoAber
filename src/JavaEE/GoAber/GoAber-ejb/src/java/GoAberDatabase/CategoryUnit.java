@@ -45,6 +45,8 @@ public class CategoryUnit implements Serializable {
     private Integer idCategoryUnit;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryUnitId")
     private Collection<ActivityData> activityDataCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryUnitId")
+    private Collection<Challenge> challengeCollection;
     @JoinColumn(name = "categoryId", referencedColumnName = "idCategory")
     @ManyToOne(optional = false)
     private Category categoryId;
@@ -76,6 +78,15 @@ public class CategoryUnit implements Serializable {
         this.activityDataCollection = activityDataCollection;
     }
 
+    @XmlTransient
+    public Collection<Challenge> getChallengeCollection() {
+        return challengeCollection;
+    }
+
+    public void setChallengeCollection(Collection<Challenge> challengeCollection) {
+        this.challengeCollection = challengeCollection;
+    }
+    
     public Category getCategoryId() {
         return categoryId;
     }

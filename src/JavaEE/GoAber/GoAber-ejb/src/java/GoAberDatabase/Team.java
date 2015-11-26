@@ -48,13 +48,13 @@ public class Team implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "groupId")
-    private Collection<User> userCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
-    private Collection<GroupChallenge> groupChallengeCollection;
     @JoinColumn(name = "communityId", referencedColumnName = "idCommunity")
     @ManyToOne
     private Community communityId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
+    private Collection<GroupChallenge> groupChallengeCollection;
+    @OneToMany(mappedBy = "groupId")
+    private Collection<User> userCollection;
 
     public Team() {
     }

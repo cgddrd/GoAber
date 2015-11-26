@@ -8,6 +8,7 @@ package SessionBean;
 import GoAberDatabase.Team;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -28,4 +29,12 @@ public class TeamFacade extends AbstractFacade<Team> {
         super(Team.class);
     }
     
+    
+    public Team findById(int groupId){
+        try {
+          return (Team)em.createNamedQuery("Team.findByIdGroup").setParameter("idGroup", groupId).getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
+    }
 }
