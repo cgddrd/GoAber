@@ -23,24 +23,27 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.jws.WebService;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  *
  * @author helen
  */
-@WebService(serviceName = "ChallengeService")
-@Stateless()
+
 public class ChallengeService {
     @EJB ChallengeFacade ejbFacade;
-    @EJB CommunityChallengeFacade communityChallengeFacade;
-    @EJB GroupChallengeFacade groupChallengeFacade;
-    @EJB CommunityFacade communityFacade;
-    @EJB TeamFacade groupFacade;
-    @EJB UserChallengeFacade userChallengeFacade;
+    @EJB CommunityChallengeFacade communityChallengeFacade = lookupCommunityChallengeFacadeBean();
+    @EJB GroupChallengeFacade groupChallengeFacade = lookupGroupChallengeFacadeBean();
+    @EJB CommunityFacade communityFacade=lookupCommunityFacadeBean();
+    @EJB TeamFacade groupFacade = lookupTeamFacadeFacadeBean();
+    @EJB UserChallengeFacade userChallengeFacade = lookupUserChallengeFacadeFacadeBean();
+    
+    
     
     
     public Map<String,Integer> getCommunitiesValue() {
@@ -133,5 +136,62 @@ public class ChallengeService {
             }
         }
         return communityCollection;
+    }
+    
+    
+    private CommunityChallengeFacade lookupCommunityChallengeFacadeBean() {
+        try {
+            InitialContext iniCtx = new InitialContext();
+            Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
+            return(CommunityChallengeFacade) ejbCtx.lookup("CommunityChallengeFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
+     private TeamFacade lookupTeamFacadeFacadeBean() {
+        try {
+            InitialContext iniCtx = new InitialContext();
+            Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
+            return(TeamFacade) ejbCtx.lookup("TeamFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
+    private GroupChallengeFacade lookupGroupChallengeFacadeBean() {
+        try {
+            InitialContext iniCtx = new InitialContext();
+            Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
+            return(GroupChallengeFacade) ejbCtx.lookup("GroupChallengeFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
+    private UserChallengeFacade lookupUserChallengeFacadeFacadeBean() {
+        try {
+            InitialContext iniCtx = new InitialContext();
+            Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
+            return(UserChallengeFacade) ejbCtx.lookup("UserChallengeFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
+    
+    private CommunityFacade lookupCommunityFacadeBean() {
+        try {
+            InitialContext iniCtx = new InitialContext();
+            Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
+            return(CommunityFacade) ejbCtx.lookup("CommunityFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
 }
