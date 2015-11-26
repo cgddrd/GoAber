@@ -17,7 +17,6 @@ namespace GoAber
         {
             SchedulerFactory.Instance().GetScheduler().Init(app, "Hangfire");
 
-
             ConfigureAuth(app);
         }
     }

@@ -126,11 +126,14 @@ namespace GoAber.Migrations
                 userManager.AddToRole(normalUser.Id, "Participant");
             }
 
+
             CategoryUnit walking = new CategoryUnit()
             {
                 category = new Category() { name = "Walking" },
                 unit = new Unit() { name = "Steps" }
             };
+
+
 
             CategoryUnit heartbeat = new CategoryUnit() {
                 category = new Category() { name = "HeartRate" },
