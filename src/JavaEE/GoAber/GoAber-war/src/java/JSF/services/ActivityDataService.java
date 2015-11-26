@@ -36,6 +36,10 @@ public class ActivityDataService {
         return getFacade().find(id);
     }
     
+    public List<ActivityData> findAllForUserInDateRange(User user, Date startDate, Date endDate) {
+        return getFacade().getAllForUserInDateRange(user.getIdUser(), startDate, endDate);
+    }
+    
     public void createForUser(ActivityData data, User user) {
         data.setUserId(user);
         create(data);

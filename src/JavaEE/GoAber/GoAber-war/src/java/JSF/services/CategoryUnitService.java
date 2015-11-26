@@ -16,7 +16,7 @@ import javax.ejb.LocalBean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
-
+import JSF.ViewModels.CategoryUnitViewModel;
 /**
  *
  * @author samuel
@@ -32,6 +32,27 @@ public class CategoryUnitService {
     SessionBean.CategoryFacade categoryFacade;
     @EJB
     SessionBean.UnitFacade unitFacade;
+    
+    public List<CategoryUnitViewModel> getCategoryUnits() {
+        List<CategoryUnitViewModel> viewModels = new ArrayList<>();
+        List<Category> categories = categoryFacade.findAll();
+        
+        for(Category category : categories) {
+            List<CategoryUnit> unitsForCategory = ejbFacade.findByCategory(category.getIdCategory());
+            List<Unit> units = new ArrayList<>();
+            CategoryUnitViewModel viewModel = new CategoryUnitViewModel();
+            viewModel.setCategory(category);
+             
+            for(CategoryUnit categoryUnitItem : unitsForCategory) {
+                Unit unit = unitFacade.find(categoryUnitItem.getUnitId().getIdUnit());
+                units.add(unit);
+            }
+            viewModel.setUnits(units);
+            viewModels.add(viewModel);
+        }
+        
+        return viewModels;
+    }
     
     public List<SelectItem> getDisplayItems() {
         List<SelectItem> itemsList = new ArrayList<>();
