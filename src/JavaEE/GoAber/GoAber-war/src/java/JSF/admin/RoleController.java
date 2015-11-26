@@ -1,4 +1,4 @@
-package JSF;
+package JSF.admin;
 
 import GoAberDatabase.Role;
 import JSF.util.JsfUtil;

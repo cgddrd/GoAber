@@ -6,8 +6,10 @@
 package SessionBean;
 
 import GoAberDatabase.User;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -29,16 +31,23 @@ public class UserFacade extends AbstractFacade<User> {
     public UserFacade() {
         super(User.class);
     }
-    
-        // CG - Convenience serach function using 'User' EJB named query.
-    public User findUserByEmail(String searchEmail) {
-        
-        Query queryEmployeesByFirstName = em.createNamedQuery("User.findByEmail");
-        queryEmployeesByFirstName.setParameter("email", searchEmail);
-        
-        User user = (User) queryEmployeesByFirstName.getSingleResult();
-        
-        return user;
+
+    // CG - Convenience serach function using 'User' EJB named query.
+    public User findUserByEmailOrNull(String searchEmail) {
+
+        try {
+
+            Query queryUserByEmail = em.createNamedQuery("User.findByEmail");
+            queryUserByEmail.setParameter("email", searchEmail);
+
+            User user = (User) queryUserByEmail.getSingleResult();
+
+            return user;
+
+        } catch (NoResultException nRE) {
+            return null;
+        }
+
     }
-    
+
 }

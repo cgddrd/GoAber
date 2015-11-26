@@ -54,6 +54,16 @@
                             <p:password id="confirm-password" class="form-control" title="#{bundle.CreateUserCredentialsTitle_confirmpassword}" label="#{bundle.CreateUserCredentialsTitle_confirmpassword}" required="true" />
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateTeamLabel_communityId}" for="teamId" />
+                        <div class="col-md-10">
+                            <h:selectOneMenu class="form-control" id="teamId" value="#{userController.selected.groupId}" title="#{bundle.CreateTeamTitle_communityId}" required="true" requiredMessage="#{bundle.CreateTeamRequiredMessage_userId}">
+                                <!--<f:selectItems value="{adminTeamController.items}" var="team" itemLabel="#team.name}" itemValue="{team}"/>-->
+                                <f:selectItems value="#{adminTeamController.teams}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">

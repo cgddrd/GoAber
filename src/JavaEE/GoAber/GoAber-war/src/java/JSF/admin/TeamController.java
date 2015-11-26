@@ -7,6 +7,7 @@ import JSF.util.JsfUtil;
 import SessionBean.TeamFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -19,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 @ManagedBean(name = "adminTeamController")
 @SessionScoped
@@ -29,6 +31,7 @@ public class TeamController implements Serializable {
     @EJB
     private SessionBean.CommunityFacade communityBean;
     private Team current;
+    private List<SelectItem> teams;
     private List<Team> items = null;
     private List<Team> filteredItems = null;
     private List<Community> communities;
@@ -43,6 +46,29 @@ public class TeamController implements Serializable {
     public void init() {
         communities = communityBean.findAll();
         recreateItems();
+        
+        this.teams = new ArrayList<SelectItem>();
+        
+        for(Community community : communities) {
+            
+            SelectItemGroup test = new SelectItemGroup(community.getName());
+            
+            //List<SelectItem> blah = new ArrayList<>();
+            
+            SelectItem[] blah = new SelectItem[community.getTeamCollection().size()];
+            
+            int i = 0;
+            for (Team team : community.getTeamCollection()) {
+                //blah.add(new SelectItem(team, team.getName()));
+                
+                blah[i] = new SelectItem(team, team.getName());
+                i++;
+            }
+            
+            test.setSelectItems(blah);
+            
+            this.teams.add(test);
+        }
     }
 
     public List<Community> getCommunities() {
@@ -178,6 +204,13 @@ public class TeamController implements Serializable {
     public void setCurrent(Team current) {
         this.current = current;
     }
+
+    /**
+     * @return the teams
+     */
+    public List<SelectItem> getTeams() {
+        return teams;
+    }
     
 
     @FacesConverter(forClass = Team.class)
@@ -189,7 +222,7 @@ public class TeamController implements Serializable {
                 return null;
             }
             TeamController controller = (TeamController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "teamController");
+                    getValue(facesContext.getELContext(), null, "adminTeamController");
             return controller.ejbFacade.find(getKey(value));
         }
 

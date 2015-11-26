@@ -30,6 +30,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.NoResultException;
 import javax.xml.bind.DatatypeConverter;
 
 
@@ -169,7 +170,8 @@ public class UserController implements Serializable {
         
         try {
             
-            if(getFacade().findUserByEmail(current.getEmail()) != null) {
+            // Check to see if this user already exists (if not, we would expect a null to be returned here).
+            if(getFacade().findUserByEmailOrNull(current.getEmail()) != null) {
                 JsfUtil.addErrorMessage("User already exists. Please enter a different email address.");
                 return null;
             }
@@ -197,7 +199,7 @@ public class UserController implements Serializable {
             
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-           return null;
+            return null;
         }
     }
     

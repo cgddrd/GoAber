@@ -106,7 +106,7 @@ public class AuthService implements Serializable {
             
             request.login(this.username, this.password);
             
-            this.activeUser = userFacade.findUserByEmail(this.username);
+            this.activeUser = (User) userFacade.findUserByEmailOrNull(this.username);
             
             externalContext.getSessionMap().put("loggedInUser", this.activeUser);
             externalContext.redirect(forwardURL);
