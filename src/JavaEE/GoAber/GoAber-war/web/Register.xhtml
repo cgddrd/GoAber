@@ -56,11 +56,11 @@
                     </div>
                     
                     <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateTeamLabel_communityId}" for="teamId" />
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserCredentialsLabel_team}" for="teamId" />
                         <div class="col-md-10">
-                            <h:selectOneMenu class="form-control" id="teamId" value="#{userController.selected.groupId}" title="#{bundle.CreateTeamTitle_communityId}" required="true" requiredMessage="#{bundle.CreateTeamRequiredMessage_userId}">
+                            <h:selectOneMenu class="form-control" id="teamId" value="#{userController.selected.groupId}" title="#{bundle.CreateUserCredentialsTitle_team}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_team}">
                                 <!--<f:selectItems value="{adminTeamController.items}" var="team" itemLabel="#team.name}" itemValue="{team}"/>-->
-                                <f:selectItems value="#{adminTeamController.teams}" />
+                                <f:selectItems value="#{adminTeamController.groupedTeamList}" />
                             </h:selectOneMenu>
                         </div>
                     </div>

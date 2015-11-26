@@ -155,6 +155,7 @@ public class CommunityController implements Serializable {
      * @return the items
      */
     public List<Community> getItems() {
+        recreateItems();
         return items;
     }
 

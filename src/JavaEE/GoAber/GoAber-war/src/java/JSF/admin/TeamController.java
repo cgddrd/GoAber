@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -31,10 +32,11 @@ public class TeamController implements Serializable {
     @EJB
     private SessionBean.CommunityFacade communityBean;
     private Team current;
-    private List<SelectItem> teams;
+
     private List<Team> items = null;
     private List<Team> filteredItems = null;
     private List<Community> communities;
+    private List<SelectItem> groupedTeamList;
     
     @ManagedProperty(value="#{auditController}")
     AuditController audit;
@@ -44,31 +46,40 @@ public class TeamController implements Serializable {
     
     @PostConstruct
     public void init() {
+        
         communities = communityBean.findAll();
         recreateItems();
         
-        this.teams = new ArrayList<SelectItem>();
+        // CG - Re-generate the team select list grouped by community.
+        generateGroupedTeamList();
+
+    }
+    
+    private void generateGroupedTeamList() {
+
+        this.groupedTeamList = new ArrayList<>();
+        
+        // CG - In order to ensure the very latest data relating to communities 
+        // and teams is displayed, we need to re-load the communities from the database.
+        communities = communityBean.findAll();
         
         for(Community community : communities) {
             
-            SelectItemGroup test = new SelectItemGroup(community.getName());
+            SelectItemGroup newCommunityGroup = new SelectItemGroup(community.getName());
             
-            //List<SelectItem> blah = new ArrayList<>();
-            
-            SelectItem[] blah = new SelectItem[community.getTeamCollection().size()];
+            SelectItem[] communityTeams = new SelectItem[community.getTeamCollection().size()];
             
             int i = 0;
             for (Team team : community.getTeamCollection()) {
-                //blah.add(new SelectItem(team, team.getName()));
-                
-                blah[i] = new SelectItem(team, team.getName());
+                communityTeams[i] = new SelectItem(team, team.getName());
                 i++;
             }
             
-            test.setSelectItems(blah);
+            newCommunityGroup.setSelectItems(communityTeams);
             
-            this.teams.add(test);
+            this.groupedTeamList.add(newCommunityGroup);
         }
+        
     }
 
     public List<Community> getCommunities() {
@@ -106,10 +117,14 @@ public class TeamController implements Serializable {
 
     public String create() {
         try {
+
             getFacade().create(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TeamCreated"));
+            
             audit.createAudit("team/View", "Created : IdTeam="+getCurrent().getIdGroup());
+            
             return prepareCreate();
+            
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -206,13 +221,14 @@ public class TeamController implements Serializable {
     }
 
     /**
-     * @return the teams
+     * @return the groupedTeamList
      */
-    public List<SelectItem> getTeams() {
-        return teams;
+    public List<SelectItem> getGroupedTeamList() {
+        this.generateGroupedTeamList();
+        return groupedTeamList;
     }
     
-
+    
     @FacesConverter(forClass = Team.class)
     public static class TeamControllerConverter implements Converter {
 
