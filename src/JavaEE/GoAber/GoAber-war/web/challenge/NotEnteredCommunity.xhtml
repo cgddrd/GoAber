@@ -12,7 +12,16 @@
         </ui:define>
         <ui:define name="body">
             <h:form styleClass="jsfcrud_list_form">
-                 <h:inputHidden value="#{challengeController.loadPage()}"/>
+                #{challengeController.loadPage()}
+
+            <h:form styleClass="jsfcrud_list_form">
+                <div>
+                <h:commandLink action="#{challengeController.prepareUnEnteredGroup}" value="#{bundle.UnEnteredGroup}"/> |
+                <h:commandLink action="#{challengeController.prepareUnEnteredCommunity}" value="#{bundle.UnEnteredCommunity}"/> |
+                <h:commandLink action="#{challengeController.prepareEnteredGroup}" value="#{bundle.EnteredGroup}"/> |
+                <h:commandLink action="#{challengeController.prepareEnteredCommunity}" value="#{bundle.EnteredCommunity}"/>
+
+            </div>
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>

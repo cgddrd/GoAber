@@ -182,7 +182,7 @@ public class ChallengeController implements Serializable {
         recreateModel();
         return "NotEnteredGroup";
     }
-    public String prepareNotEnteredGroup() {
+    public String prepareUnEnteredGroup() {
         recreateModel();
         return "NotEnteredGroup";
     }
