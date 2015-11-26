@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ChallengeFacade extends AbstractFacade<Challenge> {
-    @PersistenceContext(unitName = "GoAber-warPU")
+    @PersistenceContext(unitName = "GoAber-ejbPU")
     private EntityManager em;
 
     @Override

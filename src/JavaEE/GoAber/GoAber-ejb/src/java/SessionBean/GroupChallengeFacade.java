@@ -5,19 +5,17 @@
  */
 package SessionBean;
 
-import GoAberDatabase.Team;
+import GoAberDatabase.GroupChallenge;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Dan
+ * @author helen
  */
 @Stateless
-public class TeamFacade extends AbstractFacade<Team> {
-
+public class GroupChallengeFacade extends AbstractFacade<GroupChallenge> {
     @PersistenceContext(unitName = "GoAber-ejbPU")
     private EntityManager em;
 
@@ -26,16 +24,8 @@ public class TeamFacade extends AbstractFacade<Team> {
         return em;
     }
 
-    public Team findById(int groupId){
-        try {
-          return (Team)em.createNamedQuery("Team.findByIdGroup").setParameter("idGroup", groupId).getSingleResult();
-        } catch(NoResultException e) {
-            return null;
-        }
-    }
-    
-    public TeamFacade() {
-        super(Team.class);
+    public GroupChallengeFacade() {
+        super(GroupChallenge.class);
     }
     
 }

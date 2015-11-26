@@ -26,13 +26,22 @@ INSERT INTO `Role` VALUES ('admin'),('coordinator'),('participant');
 /*!40000 ALTER TABLE `Role` ENABLE KEYS */;
 UNLOCK TABLES;
 
+INSERT INTO `goaber`.`community` (`name`, `endpointUrl`) VALUES ('AberUni', 'aber.ac.uk');
+INSERT INTO `goaber`.`community` (`name`, `endpointUrl`) VALUES ('BangorUni', 'b@ac.uk');
+
+INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('AberCompSci', '1');
+INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('AberIBERS', '1');
+INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('BCompSci', '2');
+INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('B_IBERS', '2');
+
+
 --
 -- Dumping data for table `User`
 --
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'admin@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','admin',1,NULL,NULL,'admin'),(2,'coord@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','coord',2,NULL,NULL,'admin'),(3,'user@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','user',3,NULL,NULL,'participant');
+INSERT INTO `User` VALUES (1,'admin@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','admin',1,NULL,2,'admin'),(2,'coord@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','coord',2,NULL,NULL,'admin'),(3,'user@test.com','J8xplPwcAc5mWca93Km2nExqlBgGXmEsadEQs/exH4o=','user',3,NULL,NULL,'participant');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,3 +71,9 @@ INSERT INTO `devicetype` (`name`,`tokenEndpoint`,`consumerKey`,`consumerSecret`,
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2015-11-10 14:41:17
+
+INSERT INTO `goaber`.`category` (`name`) VALUES ('Walking');
+
+INSERT INTO `goaber`.`unit` (`name`) VALUES ('steps');
+
+INSERT INTO `goaber`.`categoryunit` (`categoryId`, `unitId`) VALUES ('1', '1');

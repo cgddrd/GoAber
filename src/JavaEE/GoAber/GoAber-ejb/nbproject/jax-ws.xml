@@ -4,6 +4,9 @@
     <service name="GoAberWS">
       <implementation-class>WebServices.GoAberWS</implementation-class>
     </service>
+    <service name="ChallengeService">
+      <implementation-class>WebServices.ChallengeService</implementation-class>
+    </service>
   </services>
   <clients/>
   <jsr109>true</jsr109>
