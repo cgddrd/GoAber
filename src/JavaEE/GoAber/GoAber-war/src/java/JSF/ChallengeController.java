@@ -1,31 +1,18 @@
 package JSF;
 
 import GoAberDatabase.Challenge;
-import GoAberDatabase.Community;
-import GoAberDatabase.CommunityChallenge;
-import GoAberDatabase.GroupChallenge;
-import GoAberDatabase.Team;
 import GoAberDatabase.User;
-import GoAberDatabase.UserChallenge;
 import JSF.auth.AuthController;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
-import SessionBean.CategoryUnitFacade;
 import SessionBean.ChallengeFacade;
-import SessionBean.CommunityChallengeFacade;
 import WebServices.ChallengeService;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -37,9 +24,6 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 
 @ManagedBean(name="challengeController")
@@ -49,11 +33,6 @@ public class ChallengeController implements Serializable {
     private Challenge current;
     private DataModel items = null;
     @EJB private SessionBean.ChallengeFacade ejbFacade;
-    @EJB private SessionBean.CommunityChallengeFacade communityChallengeFacade;
-    @EJB private SessionBean.GroupChallengeFacade groupChallengeFacade;
-    @EJB private SessionBean.CommunityFacade communityFacade;
-    @EJB private SessionBean.TeamFacade groupFacade;
-    @EJB private SessionBean.UserChallengeFacade userChallengeFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
@@ -87,10 +66,6 @@ public class ChallengeController implements Serializable {
     }
 	
     public Map<String,Integer> getCommunitiesValue() {
-        /*List<Community> communities = communityFacade.findAll();
-        communities.stream().forEach((community) -> {
-            communitiesValue.put(community.getName(), community.getIdCommunity()); //label, value
-        });*/
         communitiesValue = challengeService.getCommunitiesValue();
         return communitiesValue;
     }
@@ -104,10 +79,6 @@ public class ChallengeController implements Serializable {
     }
 	
     public Map<String,Integer> getGroupValue() {
-        /*List<Team> groups = groupFacade.findAll();
-        groups.stream().forEach((group) -> {
-            groupValue.put(group.getName(), group.getIdGroup()); //label, value
-        });*/
         groupValue = challengeService.getGroupValue();
         return groupValue;
     }
@@ -124,6 +95,7 @@ public class ChallengeController implements Serializable {
     private ChallengeFacade getFacade() {
         return ejbFacade;
     }
+    /*
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -140,7 +112,7 @@ public class ChallengeController implements Serializable {
             };
         }
         return pagination;
-    }
+    }*/
     
     
     public PaginationHelper getPaginationChallenges() {
@@ -165,7 +137,7 @@ public class ChallengeController implements Serializable {
     public DataModel getUnEnteredGroupChallenges() {
         if (items == null) {
             User currentUser = authController.getActiveUser();
-            challenges = getFacade().getUnEnteredGroupChalleneges(currentUser);
+            challenges = challengeService.getUnEnteredGroupChalleneges(currentUser);
             items = getPaginationChallenges().createPageDataModel();
         }
         return items;
@@ -190,7 +162,7 @@ public class ChallengeController implements Serializable {
     public DataModel getUnEnteredCommunityChallenges() {
         if (items == null) {
             User currentUser = authController.getActiveUser();
-            challenges = getFacade().getUnEnteredCommunityChalleneges(currentUser);
+            challenges = challengeService.getUnEnteredCommunityChalleneges(currentUser);//getFacade().getUnEnteredCommunityChalleneges(currentUser);
             items = getPaginationChallenges().createPageDataModel();
         }
         return items;
@@ -216,7 +188,7 @@ public class ChallengeController implements Serializable {
     public DataModel getEnteredGroupChallenges() {
         if (items == null) {
             User currentUser = authController.getActiveUser();
-            challenges = getFacade().getEnteredGroupChalleneges(currentUser);
+            challenges = challengeService.getEnteredGroupChalleneges(currentUser);//getFacade().getEnteredGroupChalleneges(currentUser);
             items = getPaginationChallenges().createPageDataModel();
         }
         return items;
@@ -242,7 +214,7 @@ public class ChallengeController implements Serializable {
     public DataModel getEnteredCommunityChallenges() {
         if (items == null) {
             User currentUser = authController.getActiveUser();
-            challenges = getFacade().getEnteredCommunityChalleneges(currentUser);
+            challenges = challengeService.getEnteredCommunityChalleneges(currentUser);//getFacade().getEnteredCommunityChalleneges(currentUser);
             items = getPaginationChallenges().createPageDataModel();
         }
         return items;
@@ -273,18 +245,14 @@ public class ChallengeController implements Serializable {
     public String enterChallege() {
         current = (Challenge)items.getRowData();
         User currentUser = authController.getActiveUser();
-        UserChallenge userChallenge = new UserChallenge(currentUser, current);
-        userChallengeFacade.create(userChallenge);
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        challengeService.enterChallege(current, currentUser);
         return "EnteredCommunity";
     }
     
     public String leaveChallege() {
         current = (Challenge)items.getRowData();
         User currentUser = authController.getActiveUser();
-        UserChallenge userChallenge = userChallengeFacade.findByUserAndChallenge(currentUser, current);
-        userChallengeFacade.remove(userChallenge);
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        challengeService.leaveChallege(current, currentUser);
         return "NotEnteredCommunity";
     }
     
@@ -325,78 +293,7 @@ public class ChallengeController implements Serializable {
         }
     }
     
-   /* private Collection<GroupChallenge> addGroupChallenges()
-    {
-        Collection<GroupChallenge> groupCollection = new ArrayList<>();
-        User currentUser = authController.getActiveUser();
-        int usersGroup = -1;
-        if(currentUser.getGroupId() != null)
-        {
-            usersGroup = currentUser.getGroupId().getIdGroup();
-        }
-        
-        for (Integer groupId : groupChallenges)
-        {
-            Team group = groupFacade.findById(groupId);
-            GroupChallenge groupChallenge = new GroupChallenge(group, current);
-            
-            if(groupId == usersGroup)
-            {
-                groupChallenge.setStartedChallenge(true);
-            }
-            groupChallengeFacade.create(groupChallenge);
-            groupCollection.add(groupChallenge);
-        }
-        
-        if(usersGroup != -1)
-        {
-            if((groupChallenges.length > 0) && (!Arrays.asList(groupChallenges).contains(usersGroup)))
-            {
-                Team group = groupFacade.findById(usersGroup);
-                GroupChallenge groupChallenge = new GroupChallenge(group, current, true);
-                groupChallengeFacade.create(groupChallenge);
-                groupCollection.add(groupChallenge);
-            }
-        }
-        return groupCollection;
-    }
-    
-    private Collection<CommunityChallenge> addCommunityChallenges()
-    {
-        Collection<CommunityChallenge> communityCollection = new ArrayList<>();
-        User currentUser = authController.getActiveUser();
-        int usersCommunity = -1;
-        if(currentUser.getGroupId() != null)
-        {
-            usersCommunity = currentUser.getGroupId().getCommunityId().getIdCommunity();
-        }
-        
-        
-        for (Integer communityId : communityChallenges)
-        {
-            Community group = communityFacade.findById(communityId);
-            CommunityChallenge communityChallenge = new CommunityChallenge(group, current);
-            
-            if(communityId == usersCommunity)
-            {
-                communityChallenge.setStartedChallenge(true);
-            }
-            communityChallengeFacade.create(communityChallenge);
-            communityCollection.add(communityChallenge);
-        }
-        
-        if(usersCommunity != -1)
-        {
-            if((communityChallenges.length > 0) && (!Arrays.asList(communityChallenges).contains(usersCommunity)))
-            {
-                Community community = communityFacade.findById(usersCommunity);
-                CommunityChallenge communityChallenge = new CommunityChallenge(community, current, true);
-                communityChallengeFacade.create(communityChallenge);
-                communityCollection.add(communityChallenge);
-            }
-        }
-        return communityCollection;
-    }*/
+   
 
     public String prepareEdit() {
         current = (Challenge)getItems().getRowData();
@@ -480,13 +377,13 @@ public class ChallengeController implements Serializable {
     }
 
     public String next() {
-        getPagination().nextPage();
+        getPaginationChallenges().nextPage();
         recreateModel();
         return "List";
     }
 
     public String previous() {
-        getPagination().previousPage();
+        getPaginationChallenges().previousPage();
         recreateModel();
         return "List";
     }

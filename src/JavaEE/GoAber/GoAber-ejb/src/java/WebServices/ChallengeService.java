@@ -11,6 +11,7 @@ import GoAberDatabase.CommunityChallenge;
 import GoAberDatabase.GroupChallenge;
 import GoAberDatabase.Team;
 import GoAberDatabase.User;
+import GoAberDatabase.UserChallenge;
 import SessionBean.ChallengeFacade;
 import SessionBean.CommunityChallengeFacade;
 import SessionBean.CommunityFacade;
@@ -31,12 +32,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
- *
+ * Provides commonly used challenge methods
  * @author helen
  */
-
 public class ChallengeService {
-    @EJB ChallengeFacade ejbFacade;
+    @EJB ChallengeFacade ejbFacade = lookupChallengeFacadeBean();
     @EJB CommunityChallengeFacade communityChallengeFacade = lookupCommunityChallengeFacadeBean();
     @EJB GroupChallengeFacade groupChallengeFacade = lookupGroupChallengeFacadeBean();
     @EJB CommunityFacade communityFacade=lookupCommunityFacadeBean();
@@ -45,7 +45,10 @@ public class ChallengeService {
     
     
     
-    
+    /**
+     * To view a list of the communities in a user interface a Map<String,Integer> should be produced
+     * @return Map : community name, communityId
+     */
     public Map<String,Integer> getCommunitiesValue() {
         List<Community> communities = communityFacade.findAll();
         Map<String,Integer> communitiesValue= new LinkedHashMap<>();
@@ -55,6 +58,10 @@ public class ChallengeService {
         return communitiesValue;
     }
     
+     /**
+     * To view a list of the groups in a user interface a Map<String,Integer> should be produced
+     * @return Map : community name, groupId
+     */
     public Map<String,Integer> getGroupValue() {
         List<Team> groups = groupFacade.findAll();
         Map<String,Integer> groupValue = new LinkedHashMap<>();
@@ -64,8 +71,14 @@ public class ChallengeService {
         return groupValue;
     }
     
-    
-    public Collection<GroupChallenge> addGroupChallenges(User currentUser, Challenge challenge, Integer[] groupChallenges)
+    /**
+     * Create the GroupChallenges from the list of groups that have been challenged
+     * @param currentUser
+     * @param challenge The challenge the groups will be added to
+     * @param groups List of group IDs for the groups that have been entered into the challenge.
+     * @return The collection of GroupChallenges which has been produced
+     */
+    public Collection<GroupChallenge> addGroupChallenges(User currentUser, Challenge challenge, Integer[] groups)
     {
         Collection<GroupChallenge> groupCollection = new ArrayList<>();
         //User currentUser = authController.getActiveUser();
@@ -75,7 +88,7 @@ public class ChallengeService {
             usersGroup = currentUser.getGroupId().getIdGroup();
         }
         
-        for (Integer groupId : groupChallenges)
+        for (Integer groupId : groups)
         {
             Team group = groupFacade.findById(groupId);
             GroupChallenge groupChallenge = new GroupChallenge(group, challenge);
@@ -90,8 +103,8 @@ public class ChallengeService {
         
         if(usersGroup != -1)
         {
-            if((groupChallenges.length > 0) && (!Arrays.asList(groupChallenges).contains(usersGroup)))
-            {
+            if((groups.length > 0) && (!Arrays.asList(groups).contains(usersGroup)))
+            { // Add the current users group to the list of challenged groups
                 Team group = groupFacade.findById(usersGroup);
                 GroupChallenge groupChallenge = new GroupChallenge(group, challenge, true);
                 groupChallengeFacade.create(groupChallenge);
@@ -101,7 +114,14 @@ public class ChallengeService {
         return groupCollection;
     }
     
-    public Collection<CommunityChallenge> addCommunityChallenges(User currentUser, Challenge challenge, Integer[] communityChallenges)
+    /**
+     * Create the CommunityChallenges from the list of communities that have been challenged
+     * @param currentUser
+     * @param challenge The challenge the communities will be added to
+     * @param communities List of community IDs for the groups that have been entered into the challenge.
+     * @return The collection of GroupChallenges which has been produced
+     */
+    public Collection<CommunityChallenge> addCommunityChallenges(User currentUser, Challenge challenge, Integer[] communities)
     {
         Collection<CommunityChallenge> communityCollection = new ArrayList<>();
         //User currentUser = authController.getActiveUser();
@@ -112,7 +132,7 @@ public class ChallengeService {
         }
         
         
-        for (Integer communityId : communityChallenges)
+        for (Integer communityId : communities)
         {
             Community group = communityFacade.findById(communityId);
             CommunityChallenge communityChallenge = new CommunityChallenge(group, challenge);
@@ -127,8 +147,8 @@ public class ChallengeService {
         
         if(usersCommunity != -1)
         {
-            if((communityChallenges.length > 0) && (!Arrays.asList(communityChallenges).contains(usersCommunity)))
-            {
+            if((communities.length > 0) && (!Arrays.asList(communities).contains(usersCommunity)))
+            {// Add the current users community to the list of challenged communities
                 Community community = communityFacade.findById(usersCommunity);
                 CommunityChallenge communityChallenge = new CommunityChallenge(community, challenge, true);
                 communityChallengeFacade.create(communityChallenge);
@@ -138,6 +158,47 @@ public class ChallengeService {
         return communityCollection;
     }
     
+    
+    public List<Challenge> getUnEnteredGroupChalleneges(User currentUser)
+    {
+        return ejbFacade.getUnEnteredGroupChalleneges(currentUser);
+    }
+    public List<Challenge> getUnEnteredCommunityChalleneges(User currentUser)
+    {
+        return ejbFacade.getUnEnteredCommunityChalleneges(currentUser);
+    }
+    public List<Challenge> getEnteredGroupChalleneges(User currentUser)
+    {
+        return ejbFacade.getEnteredGroupChalleneges(currentUser);
+    }
+    public List<Challenge> getEnteredCommunityChalleneges(User currentUser)
+    {
+        return ejbFacade.getEnteredCommunityChalleneges(currentUser);
+    }
+    
+    
+    public void enterChallege(Challenge challenge, User currentUser) {
+        UserChallenge userChallenge = new UserChallenge(currentUser, challenge);
+        userChallengeFacade.create(userChallenge);
+    }
+    
+    public void leaveChallege(Challenge challenge, User currentUser) {
+        UserChallenge userChallenge = userChallengeFacade.findByUserAndChallenge(currentUser, challenge);
+        userChallengeFacade.remove(userChallenge);
+    }
+    
+    
+    
+    private ChallengeFacade lookupChallengeFacadeBean() {
+        try {
+            InitialContext iniCtx = new InitialContext();
+            Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
+            return(ChallengeFacade) ejbCtx.lookup("ChallengeFacade");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
     
     private CommunityChallengeFacade lookupCommunityChallengeFacadeBean() {
         try {

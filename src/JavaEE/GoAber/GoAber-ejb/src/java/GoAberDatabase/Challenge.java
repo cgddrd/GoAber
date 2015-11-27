@@ -44,12 +44,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Challenge.findByName", query = "SELECT c FROM Challenge c WHERE c.name = :name"),
     @NamedQuery(name = "Challenge.unEnteredGroup", query = "SELECT d FROM Challenge d "
                                                + "INNER JOIN GroupChallenge g on d = g.challengeId "
-                                               + " JOIN UserChallenge u on d = u.challengeId "
-                                               + "WHERE u.userId != :userId AND g.groupId = u.userId.groupId"),// 
+                                               //+ " JOIN UserChallenge u on d = u.challengeId "
+                                               + "WHERE g.groupId = :groupId"),// u.userId != :userId AND 
     @NamedQuery(name = "Challenge.unEnteredCommunity", query = "SELECT d FROM Challenge d "
                                                + "INNER JOIN CommunityChallenge c on d = c.challengeId "
-                                               + "JOIN UserChallenge u on d = u.challengeId "
-                                               + "WHERE u.userId.groupId.communityId = c.communityId AND u.userId != :userId"),
+                                               //+ "JOIN UserChallenge u on d = u.challengeId "
+                                               + "WHERE c.communityId = :communityId"),
 
     @NamedQuery(name = "Challenge.enteredGroup", query = "SELECT d FROM Challenge d "
                                                + "INNER JOIN GroupChallenge g on d = g.challengeId "

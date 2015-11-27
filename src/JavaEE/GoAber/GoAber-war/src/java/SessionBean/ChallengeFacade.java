@@ -9,6 +9,7 @@ import GoAberDatabase.Challenge;
 import GoAberDatabase.Community;
 import GoAberDatabase.Team;
 import GoAberDatabase.User;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,16 +29,36 @@ public class ChallengeFacade extends AbstractFacade<Challenge> {
         return em;
     }
     
-    
     public List<Challenge> getUnEnteredGroupChalleneges(User userId){
-        return em.createNamedQuery("Challenge.unEnteredGroup").setParameter("userId", userId).getResultList();
+        List<Challenge> challenges = em.createNamedQuery("Challenge.unEnteredGroup").setParameter("groupId", userId.getGroupId()).getResultList();
+        List<Challenge> unEnteredChallenges = new ArrayList<>();
+        for (Challenge challenge : challenges)
+        {
+            if(em.createNamedQuery("UserChallenge.findByIdUserIdChallenge").setParameter("userId", userId).setParameter("challengeId", challenge).getResultList().isEmpty())
+            {
+                unEnteredChallenges.add(challenge);
+            }
+        }
+        
+        return unEnteredChallenges;//em.createNamedQuery("Challenge.unEnteredGroup").setParameter("userId", userId).getResultList();;
     }
     
     public List<Challenge> getUnEnteredCommunityChalleneges(User userId){
-        return em.createNamedQuery("Challenge.unEnteredCommunity").setParameter("userId", userId).getResultList();
+        List<Challenge> challenges = em.createNamedQuery("Challenge.unEnteredCommunity").setParameter("communityId", userId.getGroupId().getCommunityId()).getResultList();
+        
+        List<Challenge> unEnteredChallenges = new ArrayList<>();
+        for (Challenge challenge : challenges)
+        {
+            if(em.createNamedQuery("UserChallenge.findByIdUserIdChallenge").setParameter("userId", userId).setParameter("challengeId", challenge).getResultList().isEmpty())
+            {
+                unEnteredChallenges.add(challenge);
+            }
+        }
+        return unEnteredChallenges;//em.createNamedQuery("Challenge.unEnteredCommunity").setParameter("userId", userId).getResultList();
     }
     
     public List<Challenge> getEnteredGroupChalleneges(User userId){
+        
         return em.createNamedQuery("Challenge.enteredGroup").setParameter("userId", userId).getResultList();
     }
     

@@ -8,11 +8,10 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListChallengeTitle}"></h:outputText>
+            <h:outputText value="#{bundle.UnEnteredGroup}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             
-            <h:form styleClass="jsfcrud_list_form">
                 #{challengeController.loadPage()}
 
             <h:form styleClass="jsfcrud_list_form">
@@ -81,16 +80,6 @@
 
                         </h:column>
                         
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.CreateComminityChallenge_SelectCommunity}"/>
-                            </f:facet>
-                            <ui:repeat var="community" value="#{item.communityChallengeCollection}">
-                                <h:outputText value="#{community.communityId.name}" />
-                                <br />
-                            </ui:repeat>
-
-                        </h:column>
                         
                         <h:column>
                             <f:facet name="header">
