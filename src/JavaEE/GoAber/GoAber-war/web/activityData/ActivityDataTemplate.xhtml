@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="#{view.viewId eq '/activityData/WeeklySummary.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/WeeklySummary" value="Weekly Summary"/></li>
+        <li role="presentation" class="#{view.viewId eq '/activityData/MonthlySummary.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/MonthlySummary" value="Monthly Summary"/></li>
+        <li role="presentation" class="#{view.viewId eq '/activityData/Manage.xhtml' ? 'active' : ''}"><a href="#">Manage</a></li>
+    </ul>
+</ui:fragment>

@@ -8,9 +8,10 @@
     
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{admin.CreateActivityDataTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ActivityDataTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <ui:include src="ActivityDataTemplate.xhtml"/>
             <c:forEach var="categoryView" items="#{categoryUnitService.categoryUnits}" varStatus="counter">
                 <h3>#{categoryView.category.name}</h3>
                 <c:forEach var="unit" items="#{categoryView.units}" varStatus="counter">

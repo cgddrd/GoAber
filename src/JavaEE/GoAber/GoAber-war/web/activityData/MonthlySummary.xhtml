@@ -8,9 +8,10 @@
     
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{admin.CreateActivityDataTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ActivityDataTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            <ui:include src="ActivityDataTemplate.xhtml"/>
             <c:forEach var="categoryView" items="#{categoryUnitService.categoryUnits}" varStatus="counter">
                 <h3>#{categoryView.category.name}</h3>
                 <c:forEach var="unit" items="#{categoryView.units}" varStatus="counter">
@@ -24,8 +25,8 @@
                     <h4>${unit.name} Summary</h4>
                     <div class="well data-summary">
                         <ul>
-                            <li>Total number of #{unit.name} this week: <span class="statistic" id="#{unit.name}-total"></span></li>
-                            <li>Average number of #{unit.name} this week: <span class="statistic" id="#{unit.name}-average"></span></li>
+                            <li>Total number of #{unit.name} this month <span class="statistic" id="#{unit.name}-total"></span></li>
+                            <li>Average number of #{unit.name} this month <span class="statistic" id="#{unit.name}-average"></span></li>
                             <li>Your best day was <span class="statistic" id="#{unit.name}-max-date"></span> with <span class="statistic" id="#{unit.name}-max-value"></span> #{unit.name}.</li>
                             <li>Your worst day was <span class="statistic" id="#{unit.name}-min-date"></span> with <span class="statistic" id="#{unit.name}-min-value"></span> #{unit.name}.</li>
                         </ul>
