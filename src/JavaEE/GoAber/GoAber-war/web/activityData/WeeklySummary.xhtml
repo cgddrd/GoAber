@@ -46,7 +46,6 @@
                             });
 
                             requestData("#{request.contextPath}/rest/API/WeeklyStatistics", { "unit": "#{unit.name}" }, function (data) {
-                                console.log(data);
                                 setSummaryValues(data, "#{unit.name}");
                             });
                         });
