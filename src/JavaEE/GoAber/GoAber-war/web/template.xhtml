@@ -45,7 +45,7 @@
                         
                         <c:choose>
                             
-                            <c:when test="#{authController.loggedIn}">
+                            <c:when test="#{authService.loggedIn}">
                                 <li><h:link outcome="/webServiceAuth/index" value="Web Service Tokens"/></li>
                             </c:when>
                             
@@ -64,7 +64,7 @@
                                     <!-- CG - Either use 'authService.loggedInUser' to get email address, or access 'loggedInUser' session object to access all user properties. -->
                                     <li><h:commandLink action="#{userController.prepareAccountView()}" value="#{authBundle.AuthenticationNavbarUsername_Label} #{authService.activeUser.nickname}!"/></li>
 
-                                    <li><h:commandLink action="#{authService.logoutUser()}" value="#{authBundle.AuthenticationLogoutButton_Label}"/></li>
+                                    <li><h:commandLink action="#{authService.logoutUser(false)}" value="#{authBundle.AuthenticationLogoutButton_Label}"/></li>
                                 
                                 </c:when> 
 
