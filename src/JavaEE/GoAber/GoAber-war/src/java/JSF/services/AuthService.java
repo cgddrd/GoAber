@@ -29,13 +29,10 @@ public class AuthService implements Serializable {
     private String username;
     private String password;
     private User activeUser;
-    
-    @EJB 
-    private SessionBean.UserFacade ejbFacade;
    
     public User getActiveUser() {
-        ejbFacade.flushCache();
-        this.activeUser = ejbFacade.find(activeUser.getIdUser());
+        //ejbFacade.flushCache();
+        this.activeUser = userFacade.find(activeUser.getIdUser());
         return this.activeUser;
     }
 

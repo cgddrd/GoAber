@@ -116,7 +116,7 @@ public class UserController implements Serializable {
     
     public PaginationHelper getPagination() {
         
-        getFacade().flushCache();
+        //getFacade().flushCache();
         
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
