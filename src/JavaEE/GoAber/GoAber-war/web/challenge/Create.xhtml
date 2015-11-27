@@ -29,12 +29,12 @@
                     </div>                    
                    <h:outputLabel value="#{bundle.CreateChallengeLabel_startTime}" for="startTime" />
                     <div class="col-md-10">
-                        <p:calendar id="date" pattern="dd/MM/yyy" maxdate="#{now}" value="#{challengeController.selected.startTime}" title="#{bundle.CreateChallengeTitle_startTime}" />
+                        <p:calendar id="date" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.startTime}" title="#{bundle.CreateChallengeTitle_startTime}" />
                     </div>
                     
                     <h:outputLabel value="#{bundle.CreateChallengeLabel_endTime}" for="endTime" />
                     <div class="col-md-10">
-                        <p:calendar id="date2" pattern="dd/MM/yyy" maxdate="#{now}" value="#{challengeController.selected.endTime}" title="#{bundle.CreateChallengeTitle_endTime}" />
+                        <p:calendar id="date2" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.endTime}" title="#{bundle.CreateChallengeTitle_endTime}" />
                     </div>
                     
                     
