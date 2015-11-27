@@ -30,7 +30,39 @@ namespace GoAber.Services
         {
            return db.Challenges;
         }
-        
+
+        public IEnumerable<Challenge> getCompletedCommunityChallenges(ApplicationUser user)
+        {
+            var query = from d in db.Challenges
+                        join c in db.CommunityChallenges on d equals c.challenge
+                        join uC in db.UserChallenges on d equals uC.challenge
+                                into t
+                        from rt in t.DefaultIfEmpty()
+                        where user.Team.communityId == c.communityId 
+                        && rt.ApplicationUserId != user.Id
+                        && d.complete
+                        select d;
+            IEnumerable<Challenge> challenges = query.ToList();
+            return challenges;
+        }
+
+
+        public IEnumerable<Challenge> getCompletedGroupChallenges(ApplicationUser user)
+        {
+            var query = from d in db.Challenges
+                        join g in db.GroupChallenges on d equals g.challenge
+                        join c in db.UserChallenges on d equals c.challenge
+                            into t
+                        from rt in t.DefaultIfEmpty()
+                        where g.@group.Id == user.Team.Id 
+                        && rt.ApplicationUserId != user.Id
+                        && d.complete
+                        select d;
+            IEnumerable<Challenge> challenges = query.ToList();
+            return challenges;
+        }
+
+
         public IEnumerable<Challenge> getEnteredCommunityChallenges(ApplicationUser user)
         {
             var query = from d in db.Challenges
@@ -61,7 +93,9 @@ namespace GoAber.Services
                         join c in db.UserChallenges on d equals c.challenge
                             into t
                         from rt in t.DefaultIfEmpty()
-                        where g.@group.Id == user.Team.Id && rt.ApplicationUserId != user.Id
+                        where g.@group.Id == user.Team.Id 
+                        && rt.ApplicationUserId != user.Id
+                        && !d.complete
                         select d;
 
             IEnumerable<Challenge> challenges = query.ToList();
@@ -77,7 +111,9 @@ namespace GoAber.Services
                         join uC in db.UserChallenges on d equals uC.challenge
                                 into t
                         from rt in t.DefaultIfEmpty()
-                        where user.Team.communityId == c.communityId && rt.ApplicationUserId != user.Id//&& uC.ApplicationUserId != appUser.Id
+                        where user.Team.communityId == c.communityId 
+                        && rt.ApplicationUserId != user.Id
+                        && !d.complete
                         select d;
             IEnumerable<Challenge> challenges = query.ToList();
 
@@ -92,13 +128,15 @@ namespace GoAber.Services
             Job lo_cjob = new Job();
             lo_cjob.tasktype = JobType.Challenge;
             lo_cjob.schedtype = ScheduleType.Once;
+            lo_cjob.id = challenge.Id + "_job";
 
-            TimeSpan lo_elapsedTime = ((DateTime)challenge.endTime).Subtract(challenge.startTime);
-
-            lo_cjob.minutes = lo_elapsedTime.Minutes;
+            //TimeSpan lo_elapsedTime = ((DateTime)challenge.endTime).Subtract(DateTime.Now);
+            DateTimeOffset ldao_date = DateTime.SpecifyKind((DateTime)challenge.endTime, DateTimeKind.Utc);
+            
+            lo_cjob.date = ldao_date;
             
             //string[] ls_args = new string[];
-            if (ScheduleJobs.AddJob(lo_cjob))
+            if (ScheduleJobs.AddJob(lo_cjob, new string[] { challenge.Id.ToString() }))
             {
                 db.Jobs.Add(lo_cjob);
                 db.SaveChanges();

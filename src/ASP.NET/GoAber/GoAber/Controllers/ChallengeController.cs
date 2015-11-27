@@ -43,6 +43,8 @@ namespace GoAber
             ViewBag.AssignedChallengesGroup = challengeService.getEnteredGroupChallenges(appUser);
             ViewBag.GroupChallenges = challengeService.getUnEnteredGroupChallenges(appUser);
             ViewBag.CommunityChallenges = challengeService.getUnEnteredCommunityChallenges(appUser);
+            ViewBag.CompletedComChallenges = challengeService.getCompletedCommunityChallenges(appUser);
+            ViewBag.CompletedGroupChallenges = challengeService.getCompletedGroupChallenges(appUser);
 
             return View(ViewBag.CommunityChallenges);
         }

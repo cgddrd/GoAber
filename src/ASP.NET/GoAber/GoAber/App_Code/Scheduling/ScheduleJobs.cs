@@ -41,7 +41,14 @@ namespace GoAber.Scheduling
                     lo_scheduler.CreateRecurringJob(ao_jobdetail.id, () => lo_job.Run(args), ao_jobdetail.minutes);
                 } else
                 {
-                    ao_jobdetail.secretid = lo_scheduler.CreateOnceJob(() => lo_job.Run(args), ao_jobdetail.minutes);
+                    if (ao_jobdetail.date != null)
+                    {
+                        ao_jobdetail.secretid = lo_scheduler.CreateOnceJob(() => lo_job.Run(args), ao_jobdetail.date);
+                    }
+                    else
+                    {
+                        ao_jobdetail.secretid = lo_scheduler.CreateOnceJob(() => lo_job.Run(args), ao_jobdetail.minutes);
+                    }
                 }
                 return true;
             } catch (Exception e)

@@ -305,9 +305,9 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
-    <Compile Include="Migrations\201511261856070_GoAber.cs" />
-    <Compile Include="Migrations\201511261856070_GoAber.Designer.cs">
-      <DependentUpon>201511261856070_GoAber.cs</DependentUpon>
+    <Compile Include="Migrations\201511271153143_GoAber.cs" />
+    <Compile Include="Migrations\201511271153143_GoAber.Designer.cs">
+      <DependentUpon>201511271153143_GoAber.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
@@ -612,6 +612,12 @@
     <Content Include="Views\ActivityDatas\ViewUser.cshtml" />
     <Content Include="Views\ActivityDatas\BatchDelete.cshtml" />
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
+    <Content Include="Views\Challenge\AllChallenges.cshtml" />
+    <Content Include="Views\Challenge\Create.cshtml" />
+    <Content Include="Views\Challenge\Delete.cshtml" />
+    <Content Include="Views\Challenge\Details.cshtml" />
+    <Content Include="Views\Challenge\Edit.cshtml" />
+    <Content Include="Views\Challenge\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
@@ -658,8 +664,8 @@
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511261856070_GoAber.resx">
-      <DependentUpon>201511261856070_GoAber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511271153143_GoAber.resx">
+      <DependentUpon>201511271153143_GoAber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

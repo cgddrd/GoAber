@@ -35,6 +35,9 @@ namespace GoAber.Models
         public Nullable<System.DateTime> endTime { get; set; }
         public string name { get; set; }
        // public Nullable<int> communityStartedBy { get; set; }
+
+        [DisplayName("Complete")]
+        public bool complete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChallenge> userchallenges { get; set; }

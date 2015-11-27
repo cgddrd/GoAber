@@ -28,6 +28,8 @@ namespace GoAber.Models
         [DisplayName("Minutes")]
         public int minutes { get; set; }
 
+        public DateTimeOffset date { get; set; }
+
         public bool status_flag { get; set; }
     }
 }
