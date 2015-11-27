@@ -62,7 +62,7 @@
                                 <c:when test="#{authService.loggedIn}">
                                     
                                     <!-- CG - Either use 'authService.loggedInUser' to get email address, or access 'loggedInUser' session object to access all user properties. -->
-                                    <li><h:link outcome="/account/index" value="#{authBundle.AuthenticationNavbarUsername_Label} #{loggedInUser.getNickname()}!"/></li>
+                                    <li><h:link outcome="/account/index" value="#{authBundle.AuthenticationNavbarUsername_Label} #{authService.activeUser.nickname}!"/></li>
 
                                     <li><h:commandLink action="#{authService.logoutUser()}" value="#{authBundle.AuthenticationLogoutButton_Label}"/></li>
                                 

@@ -29,9 +29,14 @@ public class AuthService implements Serializable {
     private String username;
     private String password;
     private User activeUser;
-
+    
+    @EJB 
+    private SessionBean.UserFacade ejbFacade;
+   
     public User getActiveUser() {
-        return activeUser;
+        ejbFacade.flushCache();
+        this.activeUser = ejbFacade.find(activeUser.getIdUser());
+        return this.activeUser;
     }
 
     public String getUsername() {
@@ -108,7 +113,7 @@ public class AuthService implements Serializable {
             
             this.activeUser = (User) userFacade.findUserByEmailOrNull(this.username);
             
-            externalContext.getSessionMap().put("loggedInUser", this.activeUser);
+            //externalContext.getSessionMap().put("loggedInUser", this.activeUser);
             externalContext.redirect(forwardURL);
             
         } catch (ServletException e) {

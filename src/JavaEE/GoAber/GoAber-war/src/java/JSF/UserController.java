@@ -8,12 +8,14 @@ import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.UserFacade;
 import SessionBean.UserRoleFacade;
+import ViewModel.ViewModelChangePassword;
 import java.io.IOException;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +32,6 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.persistence.NoResultException;
 import javax.xml.bind.DatatypeConverter;
 
 
@@ -63,6 +64,8 @@ public class UserController implements Serializable {
     
     private UserRole currentUR;
     
+    private ViewModelChangePassword viewModelChangePassword;
+    
     @EJB 
     private SessionBean.UserRoleFacade urEJBFacade;
     
@@ -76,7 +79,7 @@ public class UserController implements Serializable {
     public void Init() {
         
         currentUR = new UserRole();
-        //authService = new AuthService();
+        viewModelChangePassword = new ViewModelChangePassword();
         
         try {
             
@@ -112,6 +115,9 @@ public class UserController implements Serializable {
     }
     
     public PaginationHelper getPagination() {
+        
+        getFacade().flushCache();
+        
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
 
@@ -157,9 +163,7 @@ public class UserController implements Serializable {
         // CG - Make sure that the 'user registration success' message is displayed to the user in the login page.
         // See: http://stackoverflow.com/a/12485381 for more information.
         externalContext.getFlash().setKeepMessages(true);
-        
-        //externalContext.redirect(externalContext.getRequestContextPath() + "/faces/login/index.xhtml");
-        
+
         // CG - Instead of re-directing via externalContext object, we can just add 'faces-redirect=true' as a URL param.
         // See: http://stackoverflow.com/a/3642969 for more information.
         return "/login/index?faces-redirect=true";
@@ -193,7 +197,7 @@ public class UserController implements Serializable {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
             
             authService.setUsername(current.getEmail());
-            authService.setPassword(current.getPassword());
+            //authService.setPassword(current.getPassword());
             
             return prepareCreate();
             
@@ -222,7 +226,9 @@ public class UserController implements Serializable {
     }
     
     public String prepareAccountEdit() {
-        current = authService.getActiveUser();
+        
+        current = getFacade().find(authService.getActiveUser().getIdUser());
+        //current = authService.getActiveUser();
         selectedItemIndex = -1;
         return "/account/Edit";
     }
@@ -232,12 +238,45 @@ public class UserController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
+    
+    public String updatePassword() {
+        
+        try {
+            
+            String encodedOldPassword = encodePassword(viewModelChangePassword.getOldPassword());
+            String currentUserPassword = current.getPassword();
+            
+            if (!encodedOldPassword.equals(currentUserPassword)) {
+                JsfUtil.addErrorMessage("The original password you entered does not match the password we have on record. Please try again.");
+                return null; 
+            }
+            
+            // CG - Encode the new password.
+            current.setPassword(encodePassword(viewModelChangePassword.getNewPassword()));
+            
+            return update();
+
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
 
     public String update() {
         try {
+            
+            // CG - Make sure to automatically update the user role email address.
+            current.getUserRoleId().setEmail(current.getEmail());
+            
             getFacade().edit(current);
+            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserUpdated"));
+            
+            // CG - Make sure to re-initialise the change password view model ready for next time.
+            viewModelChangePassword = new ViewModelChangePassword();
+            
             return "View";
+            
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -324,7 +363,20 @@ public class UserController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
+    
+    /**
+     * @return the viewModelChangePassword
+     */
+    public ViewModelChangePassword getViewModelChangePassword() {
+        return viewModelChangePassword;
+    }
 
+    /**
+     * @param viewModelChangePassword the viewModelChangePassword to set
+     */
+    public void setViewModelChangePassword(ViewModelChangePassword viewModelChangePassword) {
+        this.viewModelChangePassword = viewModelChangePassword;
+    }
 
     @FacesConverter(value="userConverter", forClass=User.class)
     public static class UserControllerConverter implements Converter {
