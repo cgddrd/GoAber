@@ -5,48 +5,49 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-    <h:outputScript library="js" name="moment.min.js" target="body"/>
-    <h:outputScript library="js" name="Charts.js" target="body"/>
     
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{admin.CreateActivityDataTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <c:forEach var="categoryView" items="${categoryUnitService.categoryUnits}" varStatus="counter">
+            <c:forEach var="categoryView" items="#{categoryUnitService.categoryUnits}" varStatus="counter">
                 <h3>#{categoryView.category.name}</h3>
-                <c:forEach var="unit" items="${categoryView.units}" varStatus="counter">
-                    <h4>${unit} Per Day</h4>
+                <c:forEach var="unit" items="#{categoryView.units}" varStatus="counter">
+                    <h4>#{unit.name} Per Day</h4>
                     <div class="chart">
-                        <div class="ajax-loading"><img src="~/images/ajax-loader.gif" /></div>
-                        <div id="#{unit}-loading-fails"></div>
-                        <div id="#{unit}-chart"></div>
+                        <div class="ajax-loading"><h:graphicImage library="images" name="ajax-loader.gif" /></div>
+                        <div id="#{unit.name}-loading-fails"></div>
+                        <div id="#{unit.name}-chart"></div>
                     </div>
 
-                    <h4>${unit} Summary/h4>
+                    <h4>${unit.name} Summary</h4>
                     <div class="well data-summary">
                         <ul>
-                            <li>Total number of #{unit} this week: <span class="statistic" id="#{unit}-total"></span></li>
-                            <li>Average number of #{unit} this week: <span class="statistic" id="#{unit}-average"></span></li>
-                            <li>Your best day was <span class="statistic" id="#{unit}-max-date"></span> with <span class="statistic" id="#{unit}-max-value"></span> #{unit}.</li>
-                            <li>Your worst day was <span class="statistic" id="#{unit}-min-date"></span> with <span class="statistic" id="#{unit}-min-value"></span> #{unit}.</li>
+                            <li>Total number of #{unit.name} this week: <span class="statistic" id="#{unit.name}-total"></span></li>
+                            <li>Average number of #{unit.name} this week: <span class="statistic" id="#{unit.name}-average"></span></li>
+                            <li>Your best day was <span class="statistic" id="#{unit.name}-max-date"></span> with <span class="statistic" id="#{unit.name}-max-value"></span> #{unit.name}.</li>
+                            <li>Your worst day was <span class="statistic" id="#{unit.name}-min-date"></span> with <span class="statistic" id="#{unit.name}-min-value"></span> #{unit.name}.</li>
                         </ul>
                     </div>
-
+    <h:outputScript library="js" name="jquery-1.11.3.min.js" />
+    <h:outputScript library="js" name="bootstrap.min.js"/>
+    <h:outputScript library="js" name="moment.min.js" target="body"/>
+    <h:outputScript library="js" name="d3.min.js" target="body"/>
+    <h:outputScript library="js" name="Charts.js" target="body"/>
                     <script type="text/javascript">
                         $(function () {
                             initiliseAjax();
-                            requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "#{unit}"}, function (data) {
+                            requestData("#{request.contextPath}/rest/API/WeeklySummary", { "unit": "#{unit.name}"}, function (data) {
                                 createBarChartSummary(data, {
-                                    "tagname": "##{unit}-chart",
+                                    "tagname": "##{unit.name}-chart",
                                     "rangeType": "week"
                                 });
                             });
 
-                            requestData("@(Url.Action("WeeklyStatistics", "ActivityDatasAPI"))", { "unit": "#{unit}" }, function (data) {
-                                setSummaryValues(data, "#{unit}");
-                            });
+//                            requestData("#{request.contextPath}/rest/API/Weekly", { "unit": "#{unit.name}" }, function (data) {
+//                                setSummaryValues(data, "#{unit.name}");
+//                            });
                         });
                     </script>
                 </c:forEach>

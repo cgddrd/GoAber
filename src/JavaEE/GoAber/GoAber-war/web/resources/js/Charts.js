@@ -1,4 +1,4 @@
-﻿/* JavaScript code to display activity data summary statistics
+/* JavaScript code to display activity data summary statistics
 */
 
 
@@ -46,6 +46,10 @@ function setSummaryValues(data, prefix, dateFormat) {
  http://www.d3noob.org/2014/02/making-bar-chart-in-d3js.html
 */
 function createBarChartSummary(data, params) {
+    if (data.length === 0) {
+        return;
+    }
+
     var margin = { top: 20, right: 20, bottom: 70, left: 40 };
     var selection = d3.select(params.tagname);
     var width = selection[0][0].clientWidth - margin.left - margin.right;
