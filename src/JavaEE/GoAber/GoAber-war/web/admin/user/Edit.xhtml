@@ -45,10 +45,10 @@
                     </h:selectOneMenu>
                 </div>
 
-                <h:commandLink class="btn btn-success" action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
-                <br />
-                <br />
-                <h:commandLink class="btn btn-default" action="#{userController.prepareList}" value="#{bundle.EditUserShowAllLink}" immediate="true"/>
+                <div class="btn-toolbar" role="toolbar">
+                    <h:commandLink class="btn btn-success" action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{userController.prepareList}" value="#{bundle.EditUserShowAllLink}" immediate="true"/>
+                </div>
 
             </h:form>
         </ui:define>

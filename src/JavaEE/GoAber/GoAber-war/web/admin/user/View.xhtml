@@ -43,13 +43,15 @@
                     <h:outputLabel value="#{bundle.ViewUserLabel_userRoleId}"/><br />
                     <h:outputText value="#{userController.selected.userRoleId.roleId.idRole}" title="#{bundle.ViewUserTitle_userRoleId}"/>
                 </div>
-
+                
+                <div class="btn-toolbar" role="toolbar">
+                   <h:link class="btn btn-info" outcome="Edit" value="#{bundle.ViewUserEditLink}"/>
+                   <h:commandLink class="btn btn-default" action="#{userController.prepareList}" value="#{bundle.ViewUserShowAllLink}"/>
+                </div>
+                
                 <!--<h:commandLink class="btn btn-danger" action="{userController.destroyAndView}" value="{bundle.ViewUserDestroyLink}"/>-->
-                <h:link class="btn btn-info" outcome="Edit" value="#{bundle.ViewUserEditLink}"/>
+                
                 <!--<h:commandLink class="btn btn-info" action="{userController.prepareCreate}" value="{bundle.ViewUserCreateLink}" />-->
-                <br />
-                <br />
-                <h:commandLink class="btn btn-default" action="#{userController.prepareList}" value="#{bundle.ViewUserShowAllLink}"/>
 
             </h:form>
         </ui:define>
