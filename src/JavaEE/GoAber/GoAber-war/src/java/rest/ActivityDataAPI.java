@@ -5,11 +5,12 @@
  */
 package rest;
 
+import JSF.util.StatisticsSummary;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.User;
 import JSF.services.ActivityDataService;
+import JSF.util.DateUtils;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -39,20 +40,34 @@ public class ActivityDataAPI {
     
     @GET
     @Path("/WeeklySummary")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<ActivityDataDTO> WeeklySummary(@Context HttpServletRequest req) {
+    public List<ActivityDataDTO> weeklySummary(@Context HttpServletRequest req) {
         User user = getUserFromSession(req);
         
         if(user == null) {
             return null;
         }
 
-        Date startDate = getDateLastWeek();
+        Date startDate = DateUtils.getDateLastWeek();
         Date endDate = new Date();
  
         List<ActivityData> activityData = dataService.findAllForUserInDateRange(user, startDate, endDate);
         List<ActivityDataDTO> dtos = formatActivityData(activityData);
         return dtos;
+    }
+    
+    @GET
+    @Path("/WeeklyStatistics")
+    public StatisticsSummary weeklyStatistics (@Context HttpServletRequest req) {
+        User user = getUserFromSession(req);
+        
+        if(user == null) {
+            return null;
+        }
+
+        Date startDate = DateUtils.getDateLastWeek();
+        Date endDate = new Date();
+ 
+        return dataService.statisticsSummary(user, startDate, endDate);
     }
     
     private User getUserFromSession(HttpServletRequest req) {
@@ -70,18 +85,4 @@ public class ActivityDataAPI {
         
         return formattedData;
     }
-    
-    /**
-     * Get the date one week prior to today
-     * @return Date object for one week prior.
-     */
-    private Date getDateLastWeek() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        // substract 7 days
-        // If we give 7 there it will give 8 days back
-        cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)-6);
-        return cal.getTime();
-    }
-
 }

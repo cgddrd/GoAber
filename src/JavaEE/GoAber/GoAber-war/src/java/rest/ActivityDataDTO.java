@@ -1,10 +1,10 @@
 package rest;
 
 import GoAberDatabase.ActivityData;
+import JSF.util.DateUtils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
        
 public class ActivityDataDTO {
@@ -17,21 +17,11 @@ public class ActivityDataDTO {
 
         public ActivityDataDTO(ActivityData data) {
             value = data.getValue();            
-            activityDate = convertDateToString(data.getDate());
-            lastUpdated = convertDateToString(data.getLastUpdated());
+            activityDate = DateUtils.convertDateToString(data.getDate());
+            lastUpdated = DateUtils.convertDateToString(data.getLastUpdated());
             category = data.getCategoryUnitId().getCategoryId().getName();
             unit = data.getCategoryUnitId().getUnitId().getName();
             user = data.getUserId().getNickname();
-        }
-        
-        /** Converts a Java date object to a string
-         * 
-         * @param date the date to convert
-         * @return string representing the date in ISO format
-         */
-        private String convertDateToString(Date date) {
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-            return df.format(date);
         }
 
         /**

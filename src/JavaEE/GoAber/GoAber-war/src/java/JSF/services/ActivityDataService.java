@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import JSF.util.StatisticsSummary;
 
 /** Provides a common interface for CRUD operations on ActivityData
  *
@@ -38,6 +39,11 @@ public class ActivityDataService {
     
     public List<ActivityData> findAllForUserInDateRange(User user, Date startDate, Date endDate) {
         return getFacade().getAllForUserInDateRange(user.getIdUser(), startDate, endDate);
+    }
+    
+    public StatisticsSummary statisticsSummary(User user, Date startDate, Date endDate) {
+        List<ActivityData> data = findAllForUserInDateRange(user, startDate, endDate);
+        return new StatisticsSummary(data);
     }
     
     public void createForUser(ActivityData data, User user) {

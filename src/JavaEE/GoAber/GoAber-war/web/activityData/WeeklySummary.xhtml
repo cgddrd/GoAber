@@ -45,9 +45,10 @@
                                 });
                             });
 
-//                            requestData("#{request.contextPath}/rest/API/Weekly", { "unit": "#{unit.name}" }, function (data) {
-//                                setSummaryValues(data, "#{unit.name}");
-//                            });
+                            requestData("#{request.contextPath}/rest/API/WeeklyStatistics", { "unit": "#{unit.name}" }, function (data) {
+                                console.log(data);
+                                setSummaryValues(data, "#{unit.name}");
+                            });
                         });
                     </script>
                 </c:forEach>
