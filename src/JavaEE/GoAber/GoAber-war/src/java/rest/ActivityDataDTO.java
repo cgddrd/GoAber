@@ -17,22 +17,20 @@ public class ActivityDataDTO {
 
         public ActivityDataDTO(ActivityData data) {
             value = data.getValue();            
-            activityDate = convertDateToISO(data.getDate());
-            lastUpdated = convertDateToISO(data.getLastUpdated());
+            activityDate = convertDateToString(data.getDate());
+            lastUpdated = convertDateToString(data.getLastUpdated());
             category = data.getCategoryUnitId().getCategoryId().getName();
             unit = data.getCategoryUnitId().getUnitId().getName();
             user = data.getUserId().getNickname();
         }
         
-        /** Converts a Java date object to an ISO string
+        /** Converts a Java date object to a string
          * 
          * @param date the date to convert
          * @return string representing the date in ISO format
          */
-        private String convertDateToISO(Date date) {
-            TimeZone tz = TimeZone.getTimeZone("UTC");
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
-            df.setTimeZone(tz);
+        private String convertDateToString(Date date) {
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
             return df.format(date);
         }
 
