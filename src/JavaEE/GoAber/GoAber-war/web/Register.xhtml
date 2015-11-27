@@ -42,8 +42,9 @@
                     <div class="form-group">
                         <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserCredentialsLabel_password}" for="password" />
                         <div class="col-md-10">
-                            <p:password id="password" class="form-control" value="#{userController.selected.password}" title="#{bundle.CreateUserCredentialsTitle_password}" match="confirm-password" label="#{bundle.CreateUserCredentialsTitle_password}" required="true" >
-                                <f:validateLength for="password" minimum="6" maximum="99" />
+                            <p:password validatorMessage="Your password must contain at least one uppercase letter, one lowercase letter, one digit (0-9) and one special character (@,#,$,%,!)." id="password" class="form-control" value="#{userController.selected.password}" title="#{bundle.CreateUserCredentialsTitle_password}" match="confirm-password" label="#{bundle.CreateUserCredentialsTitle_password}" required="true" >
+                                <!--<f:validateLength for="password" minimum="6" maximum="99" />-->
+                                <f:validateRegex for="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,20})" />
                             </p:password>
                         </div>
                     </div>
