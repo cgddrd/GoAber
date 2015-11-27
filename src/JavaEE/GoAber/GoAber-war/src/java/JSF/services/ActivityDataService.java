@@ -41,6 +41,18 @@ public class ActivityDataService {
         return getFacade().getAllForUserInDateRange(user.getIdUser(), startDate, endDate);
     }
     
+    public List<ActivityData> weeklySummary(User user) {
+        Date startDate = DateUtils.getDateLastWeek();
+        Date endDate = new Date();
+        return findAllForUserInDateRange(user, startDate, endDate);
+    }
+    
+    public StatisticsSummary weeklyStatistics(User user) {
+        Date startDate = DateUtils.getDateLastWeek();
+        Date endDate = new Date();
+        return statisticsSummary(user, startDate, endDate);
+    }
+    
     public StatisticsSummary statisticsSummary(User user, Date startDate, Date endDate) {
         List<ActivityData> data = findAllForUserInDateRange(user, startDate, endDate);
         return new StatisticsSummary(data);

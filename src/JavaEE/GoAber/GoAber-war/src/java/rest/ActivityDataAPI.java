@@ -9,9 +9,7 @@ import JSF.util.StatisticsSummary;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.User;
 import JSF.services.ActivityDataService;
-import JSF.util.DateUtils;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
@@ -24,11 +22,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-/**
+/** Activity data REST API
+ * 
+ * This is used to provide a JSON interface to the database so that AJAX calls 
+ * can be made. There is no support for authentication here, so the user must
+ * have a valid session in order to access their data.
  *
  * @author samuel
  */
-
 @Path("/API")
 @Produces({ MediaType.APPLICATION_JSON })
 @Consumes({ MediaType.APPLICATION_JSON })
@@ -46,13 +47,8 @@ public class ActivityDataAPI {
         if(user == null) {
             return null;
         }
-
-        Date startDate = DateUtils.getDateLastWeek();
-        Date endDate = new Date();
- 
-        List<ActivityData> activityData = dataService.findAllForUserInDateRange(user, startDate, endDate);
-        List<ActivityDataDTO> dtos = formatActivityData(activityData);
-        return dtos;
+        
+        return formatActivityData(dataService.weeklySummary(user));
     }
     
     @GET
@@ -64,10 +60,8 @@ public class ActivityDataAPI {
             return null;
         }
 
-        Date startDate = DateUtils.getDateLastWeek();
-        Date endDate = new Date();
- 
-        return dataService.statisticsSummary(user, startDate, endDate);
+        return dataService.weeklyStatistics(user);
+    }
     }
     
     private User getUserFromSession(HttpServletRequest req) {
