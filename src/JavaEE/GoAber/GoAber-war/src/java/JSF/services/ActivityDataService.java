@@ -7,6 +7,7 @@ package JSF.services;
 
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.User;
+import JSF.util.DateUtils;
 import SessionBean.ActivityDataFacade;
 import java.util.Date;
 import java.util.List;
@@ -49,6 +50,18 @@ public class ActivityDataService {
     
     public StatisticsSummary weeklyStatistics(User user) {
         Date startDate = DateUtils.getDateLastWeek();
+        Date endDate = new Date();
+        return statisticsSummary(user, startDate, endDate);
+    }
+    
+    public List<ActivityData> monthlySummary(User user) {
+        Date startDate = DateUtils.getDateLastMonth();
+        Date endDate = new Date();
+        return findAllForUserInDateRange(user, startDate, endDate);
+    }
+    
+    public StatisticsSummary monthlyStatistics(User user) {
+        Date startDate = DateUtils.getDateLastMonth();
         Date endDate = new Date();
         return statisticsSummary(user, startDate, endDate);
     }

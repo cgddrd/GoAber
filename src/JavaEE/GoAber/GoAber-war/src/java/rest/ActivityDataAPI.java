@@ -62,6 +62,30 @@ public class ActivityDataAPI {
 
         return dataService.weeklyStatistics(user);
     }
+    
+    @GET
+    @Path("/MonthlySummary")
+    public List<ActivityDataDTO> monthlySummary(@Context HttpServletRequest req) {
+        User user = getUserFromSession(req);
+        
+        if(user == null) {
+            return null;
+        }
+
+        return formatActivityData(dataService.monthlySummary(user));
+    }
+    
+    
+    @GET
+    @Path("/MonthlyStatistics")
+    public StatisticsSummary monthlyStatistics (@Context HttpServletRequest req) {
+        User user = getUserFromSession(req);
+        
+        if(user == null) {
+            return null;
+        }
+
+        return dataService.monthlyStatistics(user);
     }
     
     private User getUserFromSession(HttpServletRequest req) {
