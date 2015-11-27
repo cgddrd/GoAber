@@ -2,6 +2,7 @@ package JSF.services;
 
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.User;
+import JSF.util.JsfUtil;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -31,9 +32,11 @@ public class AuthService implements Serializable {
     private User activeUser;
    
     public User getActiveUser() {
-        //ejbFacade.flushCache();
+
         this.activeUser = userFacade.find(activeUser.getIdUser());
+        
         return this.activeUser;
+        
     }
 
     public String getUsername() {
@@ -129,11 +132,10 @@ public class AuthService implements Serializable {
     
     public void logoutUser() throws IOException {
         
-        // Invalidate session of a sessionscoped managed bean
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         
-        // Redirect to page you want after logout
-        FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+        // CG - Redirect to homepage once the user has logged out. (Use 'faces-redirect=true' to ensure we remain in the scope of the current application root URL.)
+        FacesContext.getCurrentInstance().getExternalContext().redirect("/login?faces-redirect=true");
     
     }
     

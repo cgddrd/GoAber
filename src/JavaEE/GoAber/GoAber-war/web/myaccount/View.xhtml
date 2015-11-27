@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -11,23 +12,31 @@
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                <p:messages autoUpdate="true"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewUserLabel_email}"/>
+
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.ViewUserLabel_email}" /><br />
                     <h:outputText value="#{userController.selected.email}" title="#{bundle.ViewUserTitle_email}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_nickname}"/>
+                </div>
+
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.ViewUserLabel_nickname}"/><br />
                     <h:outputText value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_groupId}"/>
+                </div>
+
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.ViewUserLabel_groupId}"/><br />
                     <h:outputText value="#{userController.selected.groupId.name}" title="#{bundle.ViewUserTitle_groupId}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_userRoleId}"/>
+                </div>
+
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.ViewUserLabel_userRoleId}"/><br />
                     <h:outputText value="#{userController.selected.userRoleId.roleId}" title="#{bundle.ViewUserTitle_userRoleId}"/>
-                </h:panelGrid>
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewUserEditLink}"/>
-                <br />
-                <h:link outcome="index" value="#{bundle.ViewUserIndexLink}"/>
+                </div>
+                
+                <h:link class="btn btn-default" outcome="Edit" value="#{bundle.ViewUserEditLink}"/>
 
             </h:form>
         </ui:define>

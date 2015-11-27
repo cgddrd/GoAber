@@ -3,45 +3,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.EditUserTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+
             <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                <p:messages autoUpdate="true"/>
             </h:panelGroup>
+
             <h:form>
-                <h:panelGrid columns="2">
+
+                <div class="form-group">
                     <h:outputLabel value="#{bundle.EditUserLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{userController.selected.email}" title="#{bundle.EditUserTitle_email}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_email}"/>
+                    <p:inputText class="form-control" id="email" value="#{userController.selected.email}" title="#{bundle.EditUserTitle_email}" label="#{bundle.bundle.EditUserTitle_email}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_email}">
+                        <!--CG - Regex source: http://stackoverflow.com/a/7932428-->
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                    </p:inputText> 
+                </div>
+
+                <div class="form-group">
                     <h:outputLabel value="#{bundle.EditUserLabel_nickname}" for="nickname" />
-                    <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.EditUserTitle_nickname}" />
+                    <p:inputText class="form-control" id="nickname" value="#{userController.selected.nickname}" title="#{bundle.EditUserTitle_nickname}" required="true"/>
+                </div>
 
-                    <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserCredentialsLabel_team}" for="teamId" />
-                    <div class="col-md-10">
-                        <h:selectOneMenu class="form-control" id="teamId" value="#{userController.selected.groupId}" title="#{bundle.CreateUserCredentialsTitle_team}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_team}">
-                            <f:selectItems value="#{adminTeamController.groupedTeamList}" />
-                        </h:selectOneMenu>
-                    </div>
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.EditUserTitle_groupId}" for="teamId" />
+                    <h:selectOneMenu class="form-control" id="teamId" value="#{userController.selected.groupId}" title="#{bundle.CreateUserCredentialsTitle_team}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_team}">
+                        <f:selectItems value="#{adminTeamController.groupedTeamList}" />
+                    </h:selectOneMenu>
+                </div>
 
+                <div class="form-group">
                     <h:outputLabel value="#{admin.RoleLabel}" for="roleId" />
-                    <h:selectOneMenu id="roleId" value="#{userController.selected.userRoleId.roleId}" title="#{bundle.EditUserTitle_userRoleId}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_userRoleId}">
+                    <h:selectOneMenu class="form-control" id="roleId" value="#{userController.selected.userRoleId.roleId}" title="#{bundle.EditUserTitle_userRoleId}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_userRoleId}">
                         <f:selectItems value="#{roleController.availableRoles}" var="role" itemLabel="#{role.idRole}"  />
                     </h:selectOneMenu>
+                </div>
 
-                </h:panelGrid>
-                <h:commandLink action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
+                <h:commandLink class="btn btn-success" action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
                 <br />
                 <br />
-                <h:link outcome="View" value="#{bundle.EditUserViewLink}"/>
-                <br />
-                <h:commandLink action="#{userController.prepareList}" value="#{bundle.EditUserShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditUserIndexLink}" />
+                <h:commandLink class="btn btn-default" action="#{userController.prepareList}" value="#{bundle.EditUserShowAllLink}" immediate="true"/>
+
             </h:form>
         </ui:define>
     </ui:composition>
