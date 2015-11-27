@@ -122,6 +122,7 @@ namespace GoAber.Services
 
         public void createChallenge(Challenge challenge)
         {
+            challenge.Id = Guid.NewGuid().ToString();
             db.Challenges.Add(challenge);
             db.SaveChanges();
 

@@ -23,7 +23,7 @@ namespace GoAber.Models
             this.communityChallenges = new HashSet<CommunityChallenge>();
         }
     
-        public int Id { get; set; }
+        public string Id { get; set; }
         [DisplayName("Activity type")]
         public int categoryUnitId { get; set; }
         [DisplayName("Activity type")]
