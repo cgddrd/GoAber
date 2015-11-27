@@ -143,7 +143,7 @@ public class UserController implements Serializable {
     public String prepareAccountView() {
         current = authService.getActiveUser();
         selectedItemIndex = -1;
-        return "/account/View";
+        return "/myaccount/View";
     }
 
     public String prepareView() {
@@ -307,8 +307,15 @@ public class UserController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserDeleted"));
+            
+            // CG - Prevent active user from removing their own account whilst still logged in.
+            if (authService.getActiveUser().getIdUser() == current.getIdUser()) {
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ErrorMessageNoDeleteActiveUser"));
+            } else {
+                getFacade().remove(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserDeleted"));  
+            }
+            
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
