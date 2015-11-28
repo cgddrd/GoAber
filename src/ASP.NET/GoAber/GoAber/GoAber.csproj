@@ -305,10 +305,12 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
-    <Compile Include="Migrations\201511271153143_GoAber.cs" />
-    <Compile Include="Migrations\201511271153143_GoAber.Designer.cs">
-      <DependentUpon>201511271153143_GoAber.cs</DependentUpon>
+    <Compile Include="Controllers\ResultsController.cs" />
+    <Compile Include="Migrations\201511272354044_GoAber.cs" />
+    <Compile Include="Migrations\201511272354044_GoAber.Designer.cs">
+      <DependentUpon>201511272354044_GoAber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
@@ -338,6 +340,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Services\ResultService.cs" />
     <Compile Include="WebService\ActivityDataWS\ActivityData.cs" />
     <Compile Include="WebService\AuthHeader.cs" />
     <Compile Include="WebService\ChallengesWS\ChallengeData.cs" />
@@ -382,6 +385,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\DataRemovalAuditsController.cs" />
     <Compile Include="WebService\ChallengesWS\Consumer\GoAberChallengeWSConsumer.cs" />
+    <Compile Include="WebService\ChallengesWS\HandleResult.cs" />
+    <Compile Include="WebService\ChallengesWS\ResultData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Shared\Extensions.cs" />
@@ -618,6 +623,11 @@
     <Content Include="Views\Challenge\Details.cshtml" />
     <Content Include="Views\Challenge\Edit.cshtml" />
     <Content Include="Views\Challenge\Index.cshtml" />
+    <Content Include="Views\Results\Create.cshtml" />
+    <Content Include="Views\Results\Delete.cshtml" />
+    <Content Include="Views\Results\Details.cshtml" />
+    <Content Include="Views\Results\Edit.cshtml" />
+    <Content Include="Views\Results\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
@@ -664,8 +674,8 @@
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511271153143_GoAber.resx">
-      <DependentUpon>201511271153143_GoAber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511272354044_GoAber.resx">
+      <DependentUpon>201511272354044_GoAber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

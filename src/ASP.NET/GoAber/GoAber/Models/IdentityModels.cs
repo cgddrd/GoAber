@@ -71,6 +71,8 @@ namespace GoAber.Models
         public DbSet<Audit> Audit { get; set; }
 		public System.Data.Entity.DbSet<GoAber.Models.WebServiceAuth> WebServiceAuths { get; set; }
 
+        public System.Data.Entity.DbSet<GoAber.Models.Result> Results { get; set; }
+
         //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
         //public GoAber.Models.Team Group { get; set; }
 

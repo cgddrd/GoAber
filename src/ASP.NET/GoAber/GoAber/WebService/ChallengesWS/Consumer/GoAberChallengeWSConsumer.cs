@@ -23,6 +23,15 @@ namespace GoAber.WebService.ChallengesWS
             return io_instance;
         }
 
+
+        public GoAberChallengesWSSoapClient GetSOAPClient(Community ao_com)
+        {
+            Uri lo_host = new Uri(ao_com.endpointUrl);
+            Uri lo_endpoint = new Uri(lo_host, @"WebService/ChallengesWS/GoAberChallengesWS.asmx");
+            GoAberChallengesWSSoapClient lo_service = new GoAberChallengesWSSoapClient("GoAberChallengesWSSoap", lo_endpoint.AbsoluteUri);
+            return lo_service;
+        }
+
         public bool AddChallenge(Challenge ao_challenge, int ai_userGroup)
         {
             try {
@@ -52,9 +61,7 @@ namespace GoAber.WebService.ChallengesWS
                                                   select coms;
 
                     Community lo_com = query.First();
-                    Uri lo_host = new Uri(lo_com.endpointUrl);
-                    Uri lo_endpoint = new Uri(lo_host, @"WebService/ChallengesWS/GoAberChallengesWS.asmx");
-                    GoAberChallengesWSSoapClient lo_service = new GoAberChallengesWSSoapClient("GoAberChallengesWSSoap", lo_endpoint.AbsoluteUri);
+                    GoAberChallengesWSSoapClient lo_service = GetSOAPClient(lo_com);
 
                     bool lb_res = lo_service.RecieveChallenge(lo_chaldatalist[i], ai_userGroup);
                     lo_results.Add(new KeyValuePair<string, bool>(lo_chaldatalist[i].name, lb_res));
@@ -71,29 +78,20 @@ namespace GoAber.WebService.ChallengesWS
                 return false;
             }
        }
+
+        public Result SendResult(Result ao_res, Community ao_sendto)
+        {
+            ResultData lo_resdata = new ResultData();
+            lo_resdata.categoryUnitId = ao_res.categoryUnitId;
+            lo_resdata.communityId = ao_res.community.Id;
+            lo_resdata.value = ao_res.value.Value;
+
+
+            GoAberChallengesWSSoapClient lo_service = GetSOAPClient(ao_sendto);
+
+            //lo_service.
+            return null;
+        }
     }
 
-    //public void AddData(string ls_authtoken)
-    //{
-    //    ConsumerEvent lo_event = new ConsumerEvent();
-    //    try
-    //    {
-    //        GoAberWS.AuthHeader lo_authentication = new GoAberWS.AuthHeader();
-    //        lo_authentication.authtoken = ls_authtoken;
-    //        GoAberWS.ActivityData[] lo_data = new GoAberWS.ActivityData[1];
-    //        lo_data[0] = new GoAberWS.ActivityData();
-    //        lo_data[0].value = 4;
-    //        lo_data[0].date = DateTime.Now;
-    //        lo_data[0].categoryUnitId = 1;
-
-    //        GoAberWS.GoAberWSSoapClient lo_service = new GoAberWS.GoAberWSSoapClient();
-    //        bool lb_res = lo_service.AddActivityData(lo_authentication, lo_data);
-    //        lo_event.result = lb_res;
-    //    }
-    //    catch (Exception e)
-    //    {
-    //        lo_event.result = false;
-    //    }
-    //    ConsumerUpdate(this, lo_event);
-    //}
 }

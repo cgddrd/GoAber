@@ -33,20 +33,6 @@ namespace GoAber.WebService
 
             io_communitiesService = new CommunitiesService();
             io_challengeService = new ChallengeService();
-            //io_communities = io_communitiesService.getAllCommunities();
-            //IEnumerable<SelectListItem> lo_comchallenges = io_communities.Select(c => new SelectListItem
-            //{
-            //    Value = c.Id.ToString(),
-            //    Text = c.name
-            //});
-
-            //io_comChallenges = new string[lo_comchallenges.Count()];
-            //int i = 0;
-            //foreach (SelectListItem item in lo_comchallenges)
-            //{
-            //    io_comChallenges[i] = item.Value;
-            //    i++;
-            //}
         }
 
         [WebMethod]
@@ -65,6 +51,26 @@ namespace GoAber.WebService
             } catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Recieves results from foreign community.
+        /// Returns home community results for challenge.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        [WebMethod]
+        [XmlInclude(typeof(ResultData))]
+        public ResultData RecieveResult(ResultData result)
+        {
+            try
+            {
+                return HandleResult.RecieveResult(result);
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

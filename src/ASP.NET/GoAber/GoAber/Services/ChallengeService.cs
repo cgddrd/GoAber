@@ -244,7 +244,7 @@ namespace GoAber.Services
             db.SaveChanges();
         }
 
-        public void enterUserInToChallenge(string userId, int? challengeId)
+        public void enterUserInToChallenge(string userId, string challengeId = "")
         {
             Challenge challengeToEnter = db.Challenges.Find(challengeId);
             UserChallenge userChallenge = new UserChallenge()
@@ -256,7 +256,7 @@ namespace GoAber.Services
             db.SaveChanges();
         }
 
-        public void removeUserFromChallenge(string userId, int? challengeId)
+        public void removeUserFromChallenge(string userId, string challengeId = "")
         {
             var query = from d in db.UserChallenges
                         where d.ApplicationUserId == userId && d.challengeId == challengeId

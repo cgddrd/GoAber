@@ -598,3 +598,5 @@ C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Antlr3.Runtime
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Mono.Math.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\cy\Resources.resources.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\es\Resources.resources.dll
+C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.dll
+C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.xml
