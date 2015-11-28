@@ -122,7 +122,12 @@ namespace GoAber.Services
 
         public void createChallenge(Challenge challenge)
         {
-            challenge.Id = Guid.NewGuid().ToString();
+            //If the challenge comes to us via the soap web service then there will already be an Id attached.
+            if (String.IsNullOrWhiteSpace(challenge.Id))
+            {
+                challenge.Id = Guid.NewGuid().ToString();
+            }
+
             db.Challenges.Add(challenge);
             db.SaveChanges();
 

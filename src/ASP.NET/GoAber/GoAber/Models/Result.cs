@@ -12,7 +12,7 @@ namespace GoAber.Models
         {
 
         }
-        public string Id {get;set;}
+        public int Id {get;set;}
         public int categoryUnitId { get; set; }
         [DisplayName("Activity type")]
         public virtual CategoryUnit categoryUnit { get; set; }

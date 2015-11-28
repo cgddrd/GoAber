@@ -2,6 +2,7 @@
 using GoAber.RemoteChallengeWS;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -47,6 +48,7 @@ namespace GoAber.WebService.ChallengesWS
                     lo_chaldata.startTime = ao_challenge.startTime;
                     lo_chaldata.name = ao_challenge.name;
                     lo_chaldata.communityId = lo_comchal.communityId;
+                    lo_chaldata.id = ao_challenge.Id;
                     lo_chaldatalist.Add(lo_chaldata);
                 }
 
@@ -81,16 +83,30 @@ namespace GoAber.WebService.ChallengesWS
 
         public Result SendResult(Result ao_res, Community ao_sendto)
         {
-            ResultData lo_resdata = new ResultData();
-            lo_resdata.categoryUnitId = ao_res.categoryUnitId;
-            lo_resdata.communityId = ao_res.community.Id;
-            lo_resdata.value = ao_res.value.Value;
+            try {
+                RemoteChallengeWS.ResultData lo_resdata = new RemoteChallengeWS.ResultData();
+                lo_resdata.categoryUnitId = ao_res.categoryUnitId;
+                lo_resdata.communityId = ao_res.community.Id;
+                lo_resdata.value = ao_res.value.Value;
+                lo_resdata.challengeId = ao_res.challengeId;
 
 
-            GoAberChallengesWSSoapClient lo_service = GetSOAPClient(ao_sendto);
+                GoAberChallengesWSSoapClient lo_service = GetSOAPClient(ao_sendto);
 
-            //lo_service.
-            return null;
+                RemoteChallengeWS.ResultData lo_responsedata = lo_service.RecieveResult(lo_resdata);
+
+                Result lo_response = new Result();
+                lo_response.categoryUnitId = lo_responsedata.categoryUnitId;
+                lo_response.challengeId = lo_responsedata.challengeId;
+                lo_response.communityId = lo_responsedata.communityId;
+                lo_response.value = lo_responsedata.value;
+
+                return lo_response;
+            } catch (Exception e)
+            {
+                Debug.Write(e.StackTrace);
+                return null;
+            }
         }
     }
 

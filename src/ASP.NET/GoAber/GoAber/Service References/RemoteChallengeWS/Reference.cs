@@ -22,6 +22,9 @@ namespace GoAber.RemoteChallengeWS {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string idField;
+        
         private int categoryUnitIdField;
         
         private System.DateTime startTimeField;
@@ -30,6 +33,122 @@ namespace GoAber.RemoteChallengeWS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string nameField;
+        
+        private int communityIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idField, value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=1)]
+        public int categoryUnitId {
+            get {
+                return this.categoryUnitIdField;
+            }
+            set {
+                if ((this.categoryUnitIdField.Equals(value) != true)) {
+                    this.categoryUnitIdField = value;
+                    this.RaisePropertyChanged("categoryUnitId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
+        public System.DateTime startTime {
+            get {
+                return this.startTimeField;
+            }
+            set {
+                if ((this.startTimeField.Equals(value) != true)) {
+                    this.startTimeField = value;
+                    this.RaisePropertyChanged("startTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
+        public System.DateTime endTime {
+            get {
+                return this.endTimeField;
+            }
+            set {
+                if ((this.endTimeField.Equals(value) != true)) {
+                    this.endTimeField = value;
+                    this.RaisePropertyChanged("endTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nameField, value) != true)) {
+                    this.nameField = value;
+                    this.RaisePropertyChanged("name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
+        public int communityId {
+            get {
+                return this.communityIdField;
+            }
+            set {
+                if ((this.communityIdField.Equals(value) != true)) {
+                    this.communityIdField = value;
+                    this.RaisePropertyChanged("communityId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResultData", Namespace="http://tempuri.org/")]
+    [System.SerializableAttribute()]
+    public partial class ResultData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private int categoryUnitIdField;
+        
+        private int valueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string challengeIdField;
         
         private int communityIdField;
         
@@ -57,45 +176,32 @@ namespace GoAber.RemoteChallengeWS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.DateTime startTime {
+        public int value {
             get {
-                return this.startTimeField;
+                return this.valueField;
             }
             set {
-                if ((this.startTimeField.Equals(value) != true)) {
-                    this.startTimeField = value;
-                    this.RaisePropertyChanged("startTime");
+                if ((this.valueField.Equals(value) != true)) {
+                    this.valueField = value;
+                    this.RaisePropertyChanged("value");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
-        public System.DateTime endTime {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string challengeId {
             get {
-                return this.endTimeField;
+                return this.challengeIdField;
             }
             set {
-                if ((this.endTimeField.Equals(value) != true)) {
-                    this.endTimeField = value;
-                    this.RaisePropertyChanged("endTime");
+                if ((object.ReferenceEquals(this.challengeIdField, value) != true)) {
+                    this.challengeIdField = value;
+                    this.RaisePropertyChanged("challengeId");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
-        public string name {
-            get {
-                return this.nameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.nameField, value) != true)) {
-                    this.nameField = value;
-                    this.RaisePropertyChanged("name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=4)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
         public int communityId {
             get {
                 return this.communityIdField;
@@ -128,6 +234,13 @@ namespace GoAber.RemoteChallengeWS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RecieveChallenge", ReplyAction="*")]
         System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveChallengeResponse> RecieveChallengeAsync(GoAber.RemoteChallengeWS.RecieveChallengeRequest request);
+        
+        // CODEGEN: Generating message contract since element name result from namespace http://tempuri.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RecieveResult", ReplyAction="*")]
+        GoAber.RemoteChallengeWS.RecieveResultResponse RecieveResult(GoAber.RemoteChallengeWS.RecieveResultRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RecieveResult", ReplyAction="*")]
+        System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveResultResponse> RecieveResultAsync(GoAber.RemoteChallengeWS.RecieveResultRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -202,6 +315,74 @@ namespace GoAber.RemoteChallengeWS {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RecieveResultRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveResult", Namespace="http://tempuri.org/", Order=0)]
+        public GoAber.RemoteChallengeWS.RecieveResultRequestBody Body;
+        
+        public RecieveResultRequest() {
+        }
+        
+        public RecieveResultRequest(GoAber.RemoteChallengeWS.RecieveResultRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class RecieveResultRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public GoAber.RemoteChallengeWS.ResultData result;
+        
+        public RecieveResultRequestBody() {
+        }
+        
+        public RecieveResultRequestBody(GoAber.RemoteChallengeWS.ResultData result) {
+            this.result = result;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RecieveResultResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveResultResponse", Namespace="http://tempuri.org/", Order=0)]
+        public GoAber.RemoteChallengeWS.RecieveResultResponseBody Body;
+        
+        public RecieveResultResponse() {
+        }
+        
+        public RecieveResultResponse(GoAber.RemoteChallengeWS.RecieveResultResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class RecieveResultResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public GoAber.RemoteChallengeWS.ResultData RecieveResultResult;
+        
+        public RecieveResultResponseBody() {
+        }
+        
+        public RecieveResultResponseBody(GoAber.RemoteChallengeWS.ResultData RecieveResultResult) {
+            this.RecieveResultResult = RecieveResultResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface GoAberChallengesWSSoapChannel : GoAber.RemoteChallengeWS.GoAberChallengesWSSoap, System.ServiceModel.IClientChannel {
     }
@@ -254,6 +435,31 @@ namespace GoAber.RemoteChallengeWS {
             inValue.Body.challenge = challenge;
             inValue.Body.userGroup = userGroup;
             return ((GoAber.RemoteChallengeWS.GoAberChallengesWSSoap)(this)).RecieveChallengeAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        GoAber.RemoteChallengeWS.RecieveResultResponse GoAber.RemoteChallengeWS.GoAberChallengesWSSoap.RecieveResult(GoAber.RemoteChallengeWS.RecieveResultRequest request) {
+            return base.Channel.RecieveResult(request);
+        }
+        
+        public GoAber.RemoteChallengeWS.ResultData RecieveResult(GoAber.RemoteChallengeWS.ResultData result) {
+            GoAber.RemoteChallengeWS.RecieveResultRequest inValue = new GoAber.RemoteChallengeWS.RecieveResultRequest();
+            inValue.Body = new GoAber.RemoteChallengeWS.RecieveResultRequestBody();
+            inValue.Body.result = result;
+            GoAber.RemoteChallengeWS.RecieveResultResponse retVal = ((GoAber.RemoteChallengeWS.GoAberChallengesWSSoap)(this)).RecieveResult(inValue);
+            return retVal.Body.RecieveResultResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveResultResponse> GoAber.RemoteChallengeWS.GoAberChallengesWSSoap.RecieveResultAsync(GoAber.RemoteChallengeWS.RecieveResultRequest request) {
+            return base.Channel.RecieveResultAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveResultResponse> RecieveResultAsync(GoAber.RemoteChallengeWS.ResultData result) {
+            GoAber.RemoteChallengeWS.RecieveResultRequest inValue = new GoAber.RemoteChallengeWS.RecieveResultRequest();
+            inValue.Body = new GoAber.RemoteChallengeWS.RecieveResultRequestBody();
+            inValue.Body.result = result;
+            return ((GoAber.RemoteChallengeWS.GoAberChallengesWSSoap)(this)).RecieveResultAsync(inValue);
         }
     }
 }

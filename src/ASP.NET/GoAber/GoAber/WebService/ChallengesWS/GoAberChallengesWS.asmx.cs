@@ -45,6 +45,7 @@ namespace GoAber.WebService
                 lo_chalmod.endTime = challenge.endTime;
                 lo_chalmod.name = challenge.name;
                 lo_chalmod.startTime = challenge.startTime;
+                lo_chalmod.Id = challenge.id;
                 io_challengeService.createChallenge(lo_chalmod);
                 io_challengeService.addChallengeToCommunities(lo_chalmod, new string[] { challenge.communityId.ToString() }, userGroup, false);
                 return true;

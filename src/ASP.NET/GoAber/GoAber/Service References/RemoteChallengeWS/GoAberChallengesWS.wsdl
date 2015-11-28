@@ -12,6 +12,7 @@
       </s:element>
       <s:complexType name="ChallengeData">
         <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="categoryUnitId" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="startTime" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="endTime" type="s:dateTime" />
@@ -26,6 +27,28 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="RecieveResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="result" type="tns:ResultData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResultData">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="categoryUnitId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="value" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="challengeId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="communityId" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RecieveResultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecieveResultResult" type="tns:ResultData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="RecieveChallengeSoapIn">
@@ -34,10 +57,20 @@
   <wsdl:message name="RecieveChallengeSoapOut">
     <wsdl:part name="parameters" element="tns:RecieveChallengeResponse" />
   </wsdl:message>
+  <wsdl:message name="RecieveResultSoapIn">
+    <wsdl:part name="parameters" element="tns:RecieveResult" />
+  </wsdl:message>
+  <wsdl:message name="RecieveResultSoapOut">
+    <wsdl:part name="parameters" element="tns:RecieveResultResponse" />
+  </wsdl:message>
   <wsdl:portType name="GoAberChallengesWSSoap">
     <wsdl:operation name="RecieveChallenge">
       <wsdl:input message="tns:RecieveChallengeSoapIn" />
       <wsdl:output message="tns:RecieveChallengeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecieveResult">
+      <wsdl:input message="tns:RecieveResultSoapIn" />
+      <wsdl:output message="tns:RecieveResultSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="GoAberChallengesWSSoap" type="tns:GoAberChallengesWSSoap">
@@ -51,11 +84,29 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RecieveResult">
+      <soap:operation soapAction="http://tempuri.org/RecieveResult" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="GoAberChallengesWSSoap12" type="tns:GoAberChallengesWSSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="RecieveChallenge">
       <soap12:operation soapAction="http://tempuri.org/RecieveChallenge" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecieveResult">
+      <soap12:operation soapAction="http://tempuri.org/RecieveResult" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

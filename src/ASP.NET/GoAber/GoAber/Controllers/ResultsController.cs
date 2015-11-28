@@ -23,7 +23,7 @@ namespace GoAber.Controllers
         }
 
         // GET: Results/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -67,7 +67,7 @@ namespace GoAber.Controllers
         }
 
         // GET: Results/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -104,7 +104,7 @@ namespace GoAber.Controllers
         }
 
         // GET: Results/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -121,7 +121,7 @@ namespace GoAber.Controllers
         // POST: Results/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Result result = await db.Results.FindAsync(id);
             db.Results.Remove(result);
