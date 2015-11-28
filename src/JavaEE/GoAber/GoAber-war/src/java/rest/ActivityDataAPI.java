@@ -19,6 +19,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -41,64 +42,86 @@ public class ActivityDataAPI {
     
     @GET
     @Path("/WeeklySummary")
-    public List<ActivityDataDTO> weeklySummary(@Context HttpServletRequest req) {
+    public List<ActivityDataDTO> weeklySummary(
+            @Context HttpServletRequest req,
+            @QueryParam("unit") String unit) {
         User user = getUserFromSession(req);
         
         if(user == null) {
             return null;
         }
         
-        return formatActivityData(dataService.weeklySummary(user));
+        return formatActivityData(dataService.weeklySummary(user, unit));
     }
     
     @GET
     @Path("/WeeklyStatistics")
-    public StatisticsSummary weeklyStatistics (@Context HttpServletRequest req) {
+    public StatisticsSummary weeklyStatistics(
+            @Context HttpServletRequest req,
+            @QueryParam("unit") String unit) {
         User user = getUserFromSession(req);
         
         if(user == null) {
             return null;
         }
 
-        return dataService.weeklyStatistics(user);
+        return dataService.weeklyStatistics(user, unit);
     }
     
     @GET
     @Path("/MonthlySummary")
-    public List<ActivityDataDTO> monthlySummary(@Context HttpServletRequest req) {
+    public List<ActivityDataDTO> monthlySummary(
+                @Context HttpServletRequest req, 
+                @QueryParam("unit") String unit) {
         User user = getUserFromSession(req);
         
         if(user == null) {
             return null;
         }
 
-        return formatActivityData(dataService.monthlySummary(user));
+        return formatActivityData(dataService.monthlySummary(user, unit));
     }
     
     
     @GET
     @Path("/MonthlyStatistics")
-    public StatisticsSummary monthlyStatistics (@Context HttpServletRequest req) {
+    public StatisticsSummary monthlyStatistics(
+            @Context HttpServletRequest req,
+            @QueryParam("unit") String unit) {
         User user = getUserFromSession(req);
         
         if(user == null) {
             return null;
         }
 
-        return dataService.monthlyStatistics(user);
+        return dataService.monthlyStatistics(user, unit);
     }
     
     @GET
     @Path("/AllTimeStatistics")
-    public StatisticsSummary allTimeStatistics (@Context HttpServletRequest req) {
+    public StatisticsSummary allTimeStatistics(
+            @Context HttpServletRequest req,
+            @QueryParam("unit") String unit) {
         User user = getUserFromSession(req);
         
         if(user == null) {
             return null;
         }
 
-        return dataService.allTimeStatistics(user);
+        return dataService.allTimeStatistics(user, unit);
     }
+    
+        @GET
+    @Path("/UserSummary")
+    public StatisticsSummary allTimeStatistics(
+            @Context HttpServletRequest req,
+            @QueryParam("user") int id,
+            @QueryParam("unit") String unit) {
+        
+        
+        return dataService.userSummary(id, unit);
+    }
+    
     
     private User getUserFromSession(HttpServletRequest req) {
      	HttpSession session= req.getSession(true);

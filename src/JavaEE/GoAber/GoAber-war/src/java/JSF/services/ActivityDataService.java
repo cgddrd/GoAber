@@ -34,45 +34,55 @@ public class ActivityDataService {
         return getFacade().getAllForUser(user.getIdUser());
     }
     
+    public List<ActivityData> findAllForUserWithUnit(User user, String unit) {
+        return getFacade().getAllForUserWithUnit(user.getIdUser(), unit);
+    }
+        
     public ActivityData findById(int id) {
         return getFacade().find(id);
     }
     
-    public List<ActivityData> findAllForUserInDateRange(User user, Date startDate, Date endDate) {
-        return getFacade().getAllForUserInDateRange(user.getIdUser(), startDate, endDate);
+    public List<ActivityData> findAllForUserInDateRange(User user, String unit, Date startDate, Date endDate) {
+        return getFacade().getAllForUserInDateRange(user.getIdUser(), unit, startDate, endDate);
     }
     
-    public List<ActivityData> weeklySummary(User user) {
+    public List<ActivityData> weeklySummary(User user, String unit) {
         Date startDate = DateUtils.getDateLastWeek();
         Date endDate = new Date();
-        return findAllForUserInDateRange(user, startDate, endDate);
+        return findAllForUserInDateRange(user, unit, startDate, endDate);
     }
     
-    public StatisticsSummary weeklyStatistics(User user) {
+    public StatisticsSummary weeklyStatistics(User user, String unit) {
         Date startDate = DateUtils.getDateLastWeek();
         Date endDate = new Date();
-        return statisticsSummary(user, startDate, endDate);
+        return statisticsSummary(user, unit, startDate, endDate);
     }
     
-    public List<ActivityData> monthlySummary(User user) {
+    public List<ActivityData> monthlySummary(User user, String unit) {
         Date startDate = DateUtils.getDateLastMonth();
         Date endDate = new Date();
-        return findAllForUserInDateRange(user, startDate, endDate);
+        return findAllForUserInDateRange(user, unit, startDate, endDate);
     }
     
-    public StatisticsSummary monthlyStatistics(User user) {
+    public StatisticsSummary monthlyStatistics(User user, String unit) {
         Date startDate = DateUtils.getDateLastMonth();
         Date endDate = new Date();
-        return statisticsSummary(user, startDate, endDate);
+        return statisticsSummary(user, unit, startDate, endDate);
     }
     
-    public StatisticsSummary allTimeStatistics(User user) {
-       List<ActivityData> data = findAllForUser(user);
+    public StatisticsSummary allTimeStatistics(User user, String unit) {
+       List<ActivityData> data = findAllForUserWithUnit(user, unit);
        return new StatisticsSummary(data);
     }
     
-    public StatisticsSummary statisticsSummary(User user, Date startDate, Date endDate) {
-        List<ActivityData> data = findAllForUserInDateRange(user, startDate, endDate);
+    public StatisticsSummary userSummary(int id, String unit) {
+       List<ActivityData> data = getFacade().getAllForUserWithUnit(id, unit);
+       return new StatisticsSummary(data);
+    }
+    
+    
+    public StatisticsSummary statisticsSummary(User user, String unit, Date startDate, Date endDate) {
+        List<ActivityData> data = findAllForUserInDateRange(user, unit, startDate, endDate);
         return new StatisticsSummary(data);
     }
     

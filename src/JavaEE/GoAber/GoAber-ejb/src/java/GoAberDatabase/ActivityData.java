@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActivityData.findByLastUpdated", query = "SELECT a FROM ActivityData a WHERE a.lastUpdated = :lastUpdated"),
     @NamedQuery(name = "ActivityData.findByDate", query = "SELECT a FROM ActivityData a WHERE a.date = :date"),
     @NamedQuery(name = "ActivityData.findAllForUser", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :id"),
-    @NamedQuery(name = "ActivityData.getAllForUserInDateRange", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :id AND a.date > :startDate AND a.date < :endDate")})
+    @NamedQuery(name = "ActivityData.findAllForUserWithUnit", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :id AND a.categoryUnitId.unitId.name = :unit"),
+    @NamedQuery(name = "ActivityData.getAllForUserInDateRange", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :id AND a.date > :startDate AND a.date < :endDate AND a.categoryUnitId.unitId.name = :unit")})
 public class ActivityData implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -17,10 +17,9 @@
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
 
-                <div>
-                    <h:commandLink action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
-                    <h:outputText value="&nbsp;"/>
-                    <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
+                <div class="btn-group" role="group">
+                    <h:commandLink class="btn btn-default"  action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
+                    <h:commandLink class="btn btn-default"  action="#{adminActivityDataController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
                 </div>
                 
                 <p:dataTable id="activityDataTable" class="table" value="#{adminActivityDataController.items}" 

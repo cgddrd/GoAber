@@ -6,6 +6,7 @@ import GoAberDatabase.Unit;
 import GoAberDatabase.User;
 import JSF.auth.AuthController;
 import JSF.services.ActivityDataService;
+import JSF.services.UserService;
 import JSF.util.JsfUtil;
 
 import java.io.Serializable;
@@ -22,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean(name="activityDataController")
 @SessionScoped
@@ -32,10 +34,13 @@ public class ActivityDataController implements Serializable {
     @EJB
     private ActivityDataService dataService;
     @EJB
+    private UserService userService;
+    @EJB
     private SessionBean.CategoryFacade categoryBean;
     @EJB
     private SessionBean.UnitFacade unitBean;
     private ActivityData current;
+    private User viewUser;
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
 
@@ -137,6 +142,15 @@ public class ActivityDataController implements Serializable {
         }
     }
     
+    public String prepareViewUser() {
+        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance()
+                         .getExternalContext().getRequest();
+        String param = req.getParameter("id");
+        int userId = Integer.parseInt(param);
+        viewUser = userService.getUserById(userId);
+        return "ViewUser";
+    }
+    
     private void recreateItems() {
         User user = authController.getActiveUser();
         items = dataService.findAllForUser(user);
@@ -183,6 +197,13 @@ public class ActivityDataController implements Serializable {
      */
     public void setAuthController(AuthController authController) {
         this.authController = authController;
+    }
+
+    /**
+     * @return the viewUser
+     */
+    public User getViewUser() {
+        return viewUser;
     }
     
     @FacesConverter(forClass = ActivityData.class)
