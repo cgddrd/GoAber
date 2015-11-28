@@ -14,7 +14,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import JSF.util.StatisticsSummary;
+import JSF.ViewModels.StatisticsSummary;
 
 /** Provides a common interface for CRUD operations on ActivityData
  *

@@ -5,7 +5,7 @@
  */
 package rest;
 
-import JSF.util.StatisticsSummary;
+import JSF.ViewModels.StatisticsSummary;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.User;
 import JSF.services.ActivityDataService;
