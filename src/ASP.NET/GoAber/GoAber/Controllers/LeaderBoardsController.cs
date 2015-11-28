@@ -35,5 +35,21 @@ namespace GoAber.Controllers
                 return HttpNotFound();
             }
         }
+
+
+        // GET: LeaderBoards/GroupLeaderBoard
+        public ActionResult GroupLeaderBoard(int? page, int? unit)
+        {
+            if (unit.HasValue)
+            {
+                int pageNumber = (page ?? 1);
+                var sortedGroupViews = userService.GetSortedGroupsForUnit(unit.Value);
+                return View(sortedGroupViews.ToPagedList(pageNumber, pageSize));
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
     }
 }
