@@ -66,6 +66,11 @@ public class ActivityDataService {
         return statisticsSummary(user, startDate, endDate);
     }
     
+    public StatisticsSummary allTimeStatistics(User user) {
+       List<ActivityData> data = findAllForUser(user);
+       return new StatisticsSummary(data);
+    }
+    
     public StatisticsSummary statisticsSummary(User user, Date startDate, Date endDate) {
         List<ActivityData> data = findAllForUserInDateRange(user, startDate, endDate);
         return new StatisticsSummary(data);

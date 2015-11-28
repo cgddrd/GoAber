@@ -88,6 +88,18 @@ public class ActivityDataAPI {
         return dataService.monthlyStatistics(user);
     }
     
+    @GET
+    @Path("/AllTimeStatistics")
+    public StatisticsSummary allTimeStatistics (@Context HttpServletRequest req) {
+        User user = getUserFromSession(req);
+        
+        if(user == null) {
+            return null;
+        }
+
+        return dataService.allTimeStatistics(user);
+    }
+    
     private User getUserFromSession(HttpServletRequest req) {
      	HttpSession session= req.getSession(true);
     	return (User) session.getAttribute("loggedInUser");
