@@ -508,5 +508,7 @@
   <data name="_Layout_cshtml_Execute_WebServiceAuth" xml:space="preserve">
     <value>Web Service Auth Tokens</value>
   </data>
+  <data name="_Layout_cshtml_Execute_LeaderBoards" xml:space="preserve">
+    <value>Leader Boards</value>
+  </data>
 </root>
-
