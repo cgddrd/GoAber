@@ -26,7 +26,7 @@ namespace GoAber.Services
                 .ToList()
                 .Select(g => new ParticipantLeaderViewModel
             {
-                NickName = db.Users.Find(g.Key).Nickname,
+                User = db.Users.Find(g.Key),
                 Total = g.Sum(x => x.value).GetValueOrDefault(0)
             });
 

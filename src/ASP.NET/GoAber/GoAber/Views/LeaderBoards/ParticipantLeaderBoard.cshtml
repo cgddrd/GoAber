@@ -15,10 +15,12 @@
             @Resources.Ranking
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NickName)
+            @Html.DisplayNameFor(model => model.User.Nickname)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
         </th>
     </tr>
 
@@ -31,10 +33,13 @@
                 @i
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NickName)
+                @Html.DisplayFor(modelItem => item.User.Nickname)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.ActionLink(Resources.ViewUser, "ViewUser", "ActivityDatas", new { id = item.User.Id }, null)
             </td>
         </tr>
     }

@@ -8,8 +8,7 @@ namespace GoAber.Models.ViewModels
 {
     public class ParticipantLeaderViewModel
     {
-        [DisplayName("Nick Name")]
-        public string NickName { get; set; }
+        public ApplicationUser User { get; set; }
         public double Total { get; set; }
     }
 }
