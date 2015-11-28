@@ -15,12 +15,16 @@
             <c:forEach var="categoryView" items="#{categoryUnitService.categoryUnits}" varStatus="counter">
                 <h3>#{categoryView.category.name}</h3>
                 <c:forEach var="unit" items="#{categoryView.units}" varStatus="counter">
-                    <h4>${unit.name} Summary</h4>
+                    <h4>
+                        <h:outputFormat value="#{bundle.ActivityDataUnitSummary}">
+                            <f:param value="#{unit.name}" />
+                        </h:outputFormat>
+                    </h4>
                     <div class="well data-summary">
                         <ul>
-                            <li>Total number of #{unit.name}: <span class="statistic" id="#{unit.name}-total"></span></li>
-                            <li>Their best day was <span class="statistic" id="#{unit.name}-max-date"></span> with <span class="statistic" id="#{unit.name}-max-value"></span> #{unit.name}.</li>
-                            <li>Their worst day was <span class="statistic" id="#{unit.name}-min-date"></span> with <span class="statistic" id="#{unit.name}-min-value"></span> #{unit.name}.</li>
+                            <h:outputFormat value="#{bundle.ActivityDataViewUserSummaryMessage}" escape="false">
+                                <f:param value="#{unit.name}" />
+                            </h:outputFormat>
                         </ul>
                     </div>
                     

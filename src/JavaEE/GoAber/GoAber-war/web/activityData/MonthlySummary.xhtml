@@ -12,24 +12,31 @@
         </ui:define>
         <ui:define name="body">
             <ui:include src="ActivityDataTemplate.xhtml"/>
-            <h3>Monthly Summary</h3>
+            <h3>#{bundle.ActivityDataMonthlySummary}</h3>
             <c:forEach var="categoryView" items="#{categoryUnitService.categoryUnits}" varStatus="counter">
                 <h3>#{categoryView.category.name}</h3>
                 <c:forEach var="unit" items="#{categoryView.units}" varStatus="counter">
-                    <h4>#{unit.name} Per Day</h4>
+                    <h4>
+                        <h:outputFormat value="#{bundle.ActivityDataUnitPerDay}">
+                            <f:param value="#{unit.name}" />
+                        </h:outputFormat>
+                    </h4>
                     <div class="chart">
                         <div class="ajax-loading"><h:graphicImage library="images" name="ajax-loader.gif" /></div>
                         <div id="#{unit.name}-loading-fails"></div>
                         <div id="#{unit.name}-chart"></div>
                     </div>
 
-                    <h4>${unit.name} Summary</h4>
+                    <h4>                        
+                        <h:outputFormat value="#{bundle.ActivityDataUnitSummary}">
+                            <f:param value="#{unit.name}" />
+                        </h:outputFormat>
+                    </h4>
                     <div class="well data-summary">
                         <ul>
-                            <li>Total number of #{unit.name} this month <span class="statistic" id="#{unit.name}-total"></span></li>
-                            <li>Average number of #{unit.name} this month <span class="statistic" id="#{unit.name}-average"></span></li>
-                            <li>Your best day was <span class="statistic" id="#{unit.name}-max-date"></span> with <span class="statistic" id="#{unit.name}-max-value"></span> #{unit.name}.</li>
-                            <li>Your worst day was <span class="statistic" id="#{unit.name}-min-date"></span> with <span class="statistic" id="#{unit.name}-min-value"></span> #{unit.name}.</li>
+                            <h:outputFormat value="#{bundle.ActivityDataMonthlySummaryMessage}" escape="false">
+                                <f:param value="#{unit.name}" />
+                            </h:outputFormat>
                         </ul>
                     </div>
                     
