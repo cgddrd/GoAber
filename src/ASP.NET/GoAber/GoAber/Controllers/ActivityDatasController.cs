@@ -18,6 +18,7 @@ namespace GoAber
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private CategoryUnitService categoryUnitService = new CategoryUnitService();
+        private UserService userService = new UserService();
         private ActivityDataService dataService = new ActivityDataService();
         private ApplicationUserManager _userManager;
         private const int pageSize = 100;
@@ -255,6 +256,21 @@ namespace GoAber
             summary.User = user;
             summary.CategoryViews = categoryUnitService.GetAllCategories();
             return View(summary);
+        }
+
+        // GET: ActivityDatas/ParticipantLeaderBoard
+        public ActionResult ParticipantLeaderBoard(int? page, int? unit)
+        {
+            if (unit.HasValue)
+            {
+                int pageNumber = (page ?? 1);
+                var sortedUserViews = userService.GetSortedUsersForUnit(unit.Value);
+                return View(sortedUserViews.ToPagedList(pageNumber, pageSize));
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
         protected override void Dispose(bool disposing)

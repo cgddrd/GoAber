@@ -1,0 +1,44 @@
+﻿@model IEnumerable<GoAber.Models.ViewModels.ParticipantLeaderViewModel>
+
+@{
+    ViewBag.Title = "Participant Leader Board";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3></h3>
+
+<table class="table">
+    <tr>
+        <th>
+            Ranking
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NickName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+    </tr>
+
+    @{int i = 0;}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NickName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.Partial("_Pager", Model)
+
