@@ -29,7 +29,7 @@ namespace GoAber.Services
                 units = db.CategoryUnits
                             .Where(u => u.category.name == c)
                             .OrderBy(u => u.unit.name)
-                            .Select(u => u.unit.name)
+                            .Select(u => u.unit)
                             .Distinct()
             }).ToList();
 

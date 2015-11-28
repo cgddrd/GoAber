@@ -303,6 +303,7 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Controllers\LeaderBoardsController.cs" />
     <Compile Include="Migrations\201511281710453_Init.cs" />
     <Compile Include="Migrations\201511281710453_Init.Designer.cs">
       <DependentUpon>201511281710453_Init.cs</DependentUpon>
@@ -589,7 +590,8 @@
     <Content Include="Views\ActivityDatas\AllTimeSummary.cshtml" />
     <Content Include="Views\ActivityDatas\ViewUser.cshtml" />
     <Content Include="Views\ActivityDatas\BatchDelete.cshtml" />
-    <Content Include="Views\ActivityDatas\ParticipantLeaderBoard.cshtml" />
+    <Content Include="Views\LeaderBoards\ParticipantLeaderBoard.cshtml" />
+    <Content Include="Views\LeaderBoards\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />

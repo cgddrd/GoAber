@@ -18,15 +18,15 @@
     <div class="well data-summary">
         @foreach (var unit in category.units)
         {
-            <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, unit))</h4>
+            <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, unit.name))</h4>
                 <ul>
-                    @Html.Raw(Html.ConvertResource(Resources.AD_ViewUserStatistics, unit))
+                    @Html.Raw(Html.ConvertResource(Resources.AD_ViewUserStatistics, unit.name))
                 </ul>
                 <script type="text/javascript">
                 $(function () {
                     initiliseAjax();
-                    requestData("@(Url.Action("AllTimeStatistics", "ActivityDatasAPI"))", { "unit": "@(unit)" }, function (data) {
-                        setSummaryValues(data, "@(unit)", "MMMM Do YYYY");
+                    requestData("@(Url.Action("AllTimeStatistics", "ActivityDatasAPI"))", { "unit": "@(unit.name)" }, function (data) {
+                        setSummaryValues(data, "@(unit.name)", "MMMM Do YYYY");
                     });
                 });
                 </script>
