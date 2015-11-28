@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -15,9 +15,16 @@ namespace GoAber.Models
         [Display(Name = "Nickname")]
         public string Nickname { get; set; }
 
-        [Display(Name = "DoB")]
+        [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
-        public DateTime? DateOfBirth { get; set; }
+        // CG - In order for browser-rendered HTML5 date selectors to work properly, we need to use a date format that conforms with RFC-3339.
+        // See: http://stackoverflow.com/a/12634470 for more information.
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfBirth { get; set; }
+
+        [Display(Name = "Team")]
+        public int? TeamId { get; set; }
+        public virtual Team Team { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -41,22 +48,31 @@ namespace GoAber.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<GoAber.Models.ActivityData> ActivityDatas { get; set; }
-
-        public System.Data.Entity.DbSet<GoAber.Models.CategoryUnit> CategoryUnits { get; set; }
-
-        public GoAber.Models.Team Group { get; set; }
-
+        public DbSet<ActivityData> ActivityDatas { get; set; }
+        public DbSet<CategoryUnit> CategoryUnits { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Challenge> Challenges { get; set; }
         public DbSet<Community> Communities { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<DeviceType> DeviceTypes { get; set; }
-        public DbSet<Team> Groups { get; set; }
+        public DbSet<Team> Teams { get; set; }
         public DbSet<GroupChallenge> GroupChallenges { get; set; }
+        public DbSet<CommunityChallenge> CommunityChallenges { get; set; }
         public DbSet<Unit> Units { get; set; }
+        public DbSet<DataRemovalAudit> DataRemovalAudits { get; set; }
         public DbSet<UserChallenge> UserChallenges { get; set; }
+        public DbSet<Job> Jobs { get; set; }
 
-        public System.Data.Entity.DbSet<GoAber.Models.Job> Jobs { get; set; }
+        //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
+
+
+       // public System.Data.Entity.DbSet<GoAber.Models.Job> Jobs { get; set; }
+
+        public DbSet<Audit> Audit { get; set; }
+		public System.Data.Entity.DbSet<GoAber.Models.WebServiceAuth> WebServiceAuths { get; set; }
+
+        //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
+        //public GoAber.Models.Team Group { get; set; }
+
     }
 }

@@ -133,6 +133,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Web Service Auth Tokens.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_WebServiceAuth {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_WebServiceAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log in.
         /// </summary>
         public static string _LoginPartial_cshtml_Execute_Log_in {
@@ -169,6 +178,35 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity Data.
+        /// </summary>
+        public static string ActivityData {
+            get {
+                return ResourceManager.GetString("ActivityData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Total number of {0}: &lt;span class=&quot;statistic&quot; id=&quot;{0}-total&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///                    &lt;li&gt;Your best day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+        ///                    &lt;li&gt;Your worst day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;.
+        /// </summary>
+        public static string AD_AllTimeSummaryStatistics {
+            get {
+                return ResourceManager.GetString("AD_AllTimeSummaryStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string AD_Category {
+            get {
+                return ResourceManager.GetString("AD_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string AD_Create_cshtml_Execute_Back_to_List {
@@ -183,6 +221,15 @@ namespace Resources {
         public static string AD_Create_cshtml_Execute_Create {
             get {
                 return ResourceManager.GetString("AD_Create_cshtml_Execute_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string AD_Date {
+            get {
+                return ResourceManager.GetString("AD_Date", resourceCulture);
             }
         }
         
@@ -295,11 +342,91 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Updated.
+        /// </summary>
+        public static string AD_LastUpdated {
+            get {
+                return ResourceManager.GetString("AD_LastUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Total number of {0} this month: &lt;span class=&quot;statistic&quot; id=&quot;{0}-total&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///      &lt;li&gt;Average number of {0} this month: &lt;span class=&quot;statistic&quot; id=&quot;{0}-average&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///      &lt;li&gt;Your best day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+        ///      &lt;li&gt;Your worst day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;.
+        /// </summary>
+        public static string AD_MonthlySummaryStatistics {
+            get {
+                return ResourceManager.GetString("AD_MonthlySummaryStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity Data.
         /// </summary>
         public static string AD_Subtitle {
             get {
                 return ResourceManager.GetString("AD_Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unit.
+        /// </summary>
+        public static string AD_Unit {
+            get {
+                return ResourceManager.GetString("AD_Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Per Day.
+        /// </summary>
+        public static string AD_UnitsPerDaySummary {
+            get {
+                return ResourceManager.GetString("AD_UnitsPerDaySummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Summary.
+        /// </summary>
+        public static string AD_UnitSummary {
+            get {
+                return ResourceManager.GetString("AD_UnitSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string AD_Value {
+            get {
+                return ResourceManager.GetString("AD_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Total number of {0}: &lt;span class=&quot;statistic&quot; id=&quot;{0}-total&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///                    &lt;li&gt;Their best day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+        ///                    &lt;li&gt;Their worst day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;.
+        /// </summary>
+        public static string AD_ViewUserStatistics {
+            get {
+                return ResourceManager.GetString("AD_ViewUserStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;li&gt;Total number of {0} this week: &lt;span class=&quot;statistic&quot; id=&quot;{0}-total&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///      &lt;li&gt;Average number of {0} this week: &lt;span class=&quot;statistic&quot; id=&quot;{0}-average&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+        ///      &lt;li&gt;Your best day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-max-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+        ///      &lt;li&gt;Your worst day was &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-date&quot;&gt;&lt;/span&gt; with &lt;span class=&quot;statistic&quot; id=&quot;{0}-min-value&quot;&gt;&lt;/span&gt; {0}.&lt;/li&gt;.
+        /// </summary>
+        public static string AD_WeeklySummaryStatistics {
+            get {
+                return ResourceManager.GetString("AD_WeeklySummaryStatistics", resourceCulture);
             }
         }
         
@@ -376,6 +503,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Time Summary.
+        /// </summary>
+        public static string AllTimeSummary {
+            get {
+                return ResourceManager.GetString("AllTimeSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Users.
+        /// </summary>
+        public static string ApplicationUsersController_Index_Title {
+            get {
+                return ResourceManager.GetString("ApplicationUsersController_Index_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string ApplicationUsersController_Teamname {
+            get {
+                return ResourceManager.GetString("ApplicationUsersController_Teamname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete {0} records.
+        /// </summary>
+        public static string AreYouSureDelete {
+            get {
+                return ResourceManager.GetString("AreYouSureDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string BackToList {
@@ -394,11 +557,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Community challenges.
+        /// </summary>
+        public static string Challenges_communityChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_communityChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group challenges .
+        /// </summary>
+        public static string Challenges_groupChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_groupChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Challenges not entered.
+        /// </summary>
+        public static string Challenges_notEntered {
+            get {
+                return ResourceManager.GetString("Challenges_notEntered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Challenges you have entered.
+        /// </summary>
+        public static string Challenges_youAreSignedUpTo {
+            get {
+                return ResourceManager.GetString("Challenges_youAreSignedUpTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose your language!.
         /// </summary>
         public static string ChooseYourLanguage {
             get {
                 return ResourceManager.GetString("ChooseYourLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string Clear {
+            get {
+                return ResourceManager.GetString("Clear", resourceCulture);
             }
         }
         
@@ -529,6 +737,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage.
+        /// </summary>
+        public static string Manage {
+            get {
+                return ResourceManager.GetString("Manage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddPhoneNumber.
         /// </summary>
         public static string Manage_AddPhoneNumber_cshtml_Execute_AddPhoneNumber {
@@ -637,6 +854,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage Account Details.
+        /// </summary>
+        public static string ManageController_EditAccount_Manage {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_Manage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of Birth.
+        /// </summary>
+        public static string ManageController_EditAccount_ManageController_EditAccount_DateOfBirth {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_ManageController_EditAccount_DateOfBirth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email Address.
+        /// </summary>
+        public static string ManageController_EditAccount_ManageController_EditAccount_EmailAddress {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_ManageController_EditAccount_EmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        public static string ManageController_EditAccount_ManageController_EditAccount_Nickname {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_ManageController_EditAccount_Nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string ManageController_EditAccount_ManageController_EditAccount_Team {
+            get {
+                return ResourceManager.GetString("ManageController_EditAccount_ManageController_EditAccount_Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred..
         /// </summary>
         public static string ManageController_Index_error {
@@ -646,7 +908,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage.
+        ///   Looks up a localized string similar to Your Account Details.
         /// </summary>
         public static string ManageController_Index_Manage {
             get {
@@ -723,6 +985,42 @@ namespace Resources {
         public static string ManageTeams {
             get {
                 return ResourceManager.GetString("ManageTeams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Users.
+        /// </summary>
+        public static string ManageUsers {
+            get {
+                return ResourceManager.GetString("ManageUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Summary.
+        /// </summary>
+        public static string MonthlySummary {
+            get {
+                return ResourceManager.GetString("MonthlySummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total BeatsThis Month.
+        /// </summary>
+        public static string MonthlySummaryTitle_TotalBeats {
+            get {
+                return ResourceManager.GetString("MonthlySummaryTitle_TotalBeats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Steps This Month.
+        /// </summary>
+        public static string MonthlySummaryTitle_TotalSteps {
+            get {
+                return ResourceManager.GetString("MonthlySummaryTitle_TotalSteps", resourceCulture);
             }
         }
         
@@ -876,6 +1174,42 @@ namespace Resources {
         public static string Unit {
             get {
                 return ResourceManager.GetString("Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View User.
+        /// </summary>
+        public static string ViewUser {
+            get {
+                return ResourceManager.GetString("ViewUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weekly Summary.
+        /// </summary>
+        public static string WeeklySummary {
+            get {
+                return ResourceManager.GetString("WeeklySummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Beats This Week.
+        /// </summary>
+        public static string WeeklySummaryTitle_TotalBeats {
+            get {
+                return ResourceManager.GetString("WeeklySummaryTitle_TotalBeats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Steps This Week.
+        /// </summary>
+        public static string WeeklySummaryTitle_TotalSteps {
+            get {
+                return ResourceManager.GetString("WeeklySummaryTitle_TotalSteps", resourceCulture);
             }
         }
     }

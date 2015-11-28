@@ -88,7 +88,7 @@ namespace GoAber.Models
 
         [Display(Name = "DoB")]
         [DataType(DataType.Date)]
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
     }
 
     public class ResetPasswordViewModel

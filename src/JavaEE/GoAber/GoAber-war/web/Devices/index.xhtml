@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDeviceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <ul style="list-style-type:none;">
+                    <li>
+                        <c:choose>
+                       <c:when test="${fitbitController.isConnected()}" >
+                           <h1>#{bundle.FitbitConnected}</h1>
+                            <br />
+                            <a href="../Fitbit/index.xhtml">Manage Fitbit</a>
+                            <br />
+                            <h:commandLink action="#{fitbitController.deleteDevice()}" value="Revoke authorization"/>
+                       </c:when>
+                       <c:otherwise>
+
+                        <h1>#{bundle.FitbitNotConnected}</h1>
+                            <br />
+                            <a href="../FitbitAccess">Connect Fitbit</a>
+                       </c:otherwise>
+                        </c:choose>
+                   </li>
+                   <li>
+                       <c:choose>
+                       <c:when test="${jawboneController.isConnected()}" >
+                           <h1>#{bundle.JawboneConnected}</h1>
+                            <br />
+                            <a href="../Jawbone/index.xhtml">Manage Jawbone</a>
+                            <br />
+                            <h:commandLink action="#{jawboneController.deleteDevice()}" value="Revoke authorization"/>
+                       </c:when>
+                       <c:otherwise>
+
+                        <h1>#{bundle.JawboneNotConnected}</h1>
+                            <br />
+                            <a href="../JawboneAccess">Connect Jawbone</a>
+                       </c:otherwise>
+                       </c:choose>
+                   </li>
+                </ul>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -41,6 +41,14 @@
                             
                         </c:choose>
                         
+                        <c:choose>
+                            
+                            <c:when test="#{authController.loggedIn}">
+                                <li><h:link outcome="/webServiceAuth/index" value="Web Service Tokens"/></li>
+                            </c:when>
+                            
+                        </c:choose>
+                        
                     </ul>
 
                     <h:form>

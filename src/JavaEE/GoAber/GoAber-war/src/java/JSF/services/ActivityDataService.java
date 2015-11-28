@@ -26,7 +26,7 @@ import JSF.ViewModels.StatisticsSummary;
 @LocalBean
 public class ActivityDataService {
     @EJB
-    SessionBean.ActivityDataFacade ejbFacade;
+    ActivityDataFacade ejbFacade;
     
     /** Get all activity data items in the database
      * 

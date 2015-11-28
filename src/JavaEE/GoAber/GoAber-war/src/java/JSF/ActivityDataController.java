@@ -41,8 +41,10 @@ public class ActivityDataController implements Serializable {
     private SessionBean.UnitFacade unitBean;
     private ActivityData current;
     private User viewUser;
+
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
+
 
     public ActivityDataController() {
     }

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GoAber.Models.ActivityData>
+﻿@using GoAber.Models.ViewModels;
+@model IEnumerable<GoAber.Models.ActivityData>
 
 @{
     ViewBag.Title = "Activity Data";
@@ -6,13 +7,13 @@
 
 <h2>@ViewBag.Title</h2>
 
-@{Html.RenderPartial("_Filter");}
+@{Html.RenderPartial("_Filter", new FilterViewModel(),  new ViewDataDictionary { { "Controller", "ActivityData" }, { "Action", "Index" }, { "CategoryUnits", ViewBag.categoryUnits } });}
 
 <h3>Results</h3>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="btn-group btn-bar" role="group">
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+</div>
 
 <table class="table">
     <tr>
@@ -26,10 +27,10 @@
             @Html.DisplayNameFor(model => model.date)
         </th>
         <th>
-            Category
+            @Html.DisplayNameFor(model => model.categoryunit.category.name)
         </th>
         <th>
-            Unit
+            @Html.DisplayNameFor(model => model.categoryunit.unit.name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.User.Email)
@@ -66,4 +67,4 @@
 }
 </table>
 
-@Html.Partial("../Shared/_Pager", Model)
+@Html.Partial("_Pager", Model)

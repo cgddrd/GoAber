@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListAuditTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListAuditEmpty}" rendered="#{auditController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{auditController.items.rowCount > 0}">
+                    <h:outputText value="#{auditController.pagination.pageFirstItem + 1}..#{auditController.pagination.pageLastItem + 1}/#{auditController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{auditController.previous}" value="#{bundle.Previous} #{auditController.pagination.pageSize}" rendered="#{auditController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{auditController.next}" value="#{bundle.Next} #{auditController.pagination.pageSize}" rendered="#{auditController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{auditController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditTitle_idAudit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idAudit}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditTitle_urlAccessed}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.urlAccessed}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditTitle_timestamp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.timestamp}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditTitle_message}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.message}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAuditTitle_userId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{auditController.prepareView}" value="#{bundle.ListAuditViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{auditController.prepareEdit}" value="#{bundle.ListAuditEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{auditController.destroy}" value="#{bundle.ListAuditDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{auditController.prepareCreate}" value="#{bundle.ListAuditCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListAuditIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

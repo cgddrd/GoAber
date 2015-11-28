@@ -38,35 +38,41 @@ textarea,
     margin: 10px 0px 10px 0px;
 }
 
+.filter-date input {
+    width: 100%;
+}
+
 .ajax-loading {
     text-align: center;
     width: 100%;
     margin: 0 auto;
 }
 
- .chart {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-  }
+.chart {
+   font-family: Arial, sans-serif;
+   font-size: 10px;
+ }
 
-  .axis path, .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
+.axis path, .axis line {
+   fill: none;
+   stroke: #000;
+   shape-rendering: crispEdges;
+}
 
-  .bar {
-    fill: steelblue;
-  }
+.bar {
+  fill: steelblue;
+}
 
-  rect:hover {
-      fill: orange;
-  }
+rect:hover {
+    fill: orange;
+}
 
-  .statistic {
-      font-weight: bold;
-  }
+.statistic {
+    font-weight: bold;
+}
 
-  .btn-bar {
-      margin: 10px 0px 10px 0px;
-  }
+.btn-bar {
+    margin: 10px 0px 10px 0px;
+}
+
+

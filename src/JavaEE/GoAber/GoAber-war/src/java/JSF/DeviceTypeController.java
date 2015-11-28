@@ -1,6 +1,7 @@
 package JSF;
 
 import GoAberDatabase.DeviceType;
+import JSF.auth.AuthController;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.DeviceTypeFacade;
@@ -8,7 +9,9 @@ import SessionBean.DeviceTypeFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.enterprise.inject.spi.WithAnnotations;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -17,12 +20,12 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.interceptor.Interceptors;
 
 
 @ManagedBean(name="deviceTypeController")
 @SessionScoped
 public class DeviceTypeController implements Serializable {
-
 
     private DeviceType current;
     private DataModel items = null;
@@ -66,7 +69,7 @@ public class DeviceTypeController implements Serializable {
         recreateModel();
         return "List";
     }
-
+    
     public String prepareView() {
         current = (DeviceType)getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();

@@ -211,7 +211,7 @@
     <value>Locked Out</value>
   </data>
   <data name="ManageController_Index_Manage" xml:space="preserve">
-    <value>Manage</value>
+    <value>Your Account Details</value>
   </data>
   <data name="Manage_Index_cshtml_Execute_Change_password" xml:space="preserve">
     <value>Change your password</value>
@@ -321,8 +321,14 @@
   <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
     <value>FitBit</value>
   </data>
+  <data name="AdminTeamsController_Index_Title" xml:space="preserve">
+    <value>Teams</value>
+  </data>
   <data name="_Layout_cshtml_Execute_Jobs" xml:space="preserve">
     <value>Jobs</value>
+  </data>
+  <data name="AdminTeamsController_Subtitle" xml:space="preserve">
+    <value>Teams</value>
   </data>
   <data name="AdminCommunitiesController_Create_Title" xml:space="preserve">
     <value>Community</value>
@@ -360,14 +366,14 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="ManageActivityData" xml:space="preserve">
     <value>Manage Activity Data</value>
   </data>
   <data name="ManageCommunities" xml:space="preserve">
     <value>Manage Communities</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
   </data>
   <data name="AD_Subtitle" xml:space="preserve">
     <value>Activity Data</value>
@@ -381,4 +387,117 @@
   <data name="_Layout_cshtml_Execute_ActivityData" xml:space="preserve">
     <value>Activity Data</value>
   </data>
+  <data name="ManageTeams" xml:space="preserve">
+    <value>Manage Teams</value>
+  </data>
+  <data name="ActivityData" xml:space="preserve">
+    <value>Activity Data</value>
+  </data>
+  <data name="MonthlySummary" xml:space="preserve">
+    <value>Monthly Summary</value>
+  </data>
+  <data name="WeeklySummary" xml:space="preserve">
+    <value>Weekly Summary</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="WeeklySummaryTitle_TotalBeats" xml:space="preserve">
+    <value>Total Beats This Week</value>
+  </data>
+  <data name="WeeklySummaryTitle_TotalSteps" xml:space="preserve">
+    <value>Total Steps This Week</value>
+  </data>
+  <data name="MonthlySummaryTitle_TotalBeats" xml:space="preserve">
+    <value>Total BeatsThis Month</value>
+  </data>
+  <data name="MonthlySummaryTitle_TotalSteps" xml:space="preserve">
+    <value>Total Steps This Month</value>
+  </data>
+  <data name="AllTimeSummary" xml:space="preserve">
+    <value>All Time Summary</value>
+  </data>
+  <data name="AD_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="AD_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="AD_LastUpdated" xml:space="preserve">
+    <value>Last Updated</value>
+  </data>
+  <data name="AD_Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="AD_Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="AD_WeeklySummaryStatistics" xml:space="preserve">
+    <value>&lt;li&gt;Total number of {0} this week: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Average number of {0} this week: &lt;span class="statistic" id="{0}-average"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Your best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+      &lt;li&gt;Your worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AD_AllTimeSummaryStatistics" xml:space="preserve">
+    <value>&lt;li&gt;Total number of {0}: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;Your best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+                    &lt;li&gt;Your worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AD_MonthlySummaryStatistics" xml:space="preserve">
+    <value>&lt;li&gt;Total number of {0} this month: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Average number of {0} this month: &lt;span class="statistic" id="{0}-average"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Your best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+      &lt;li&gt;Your worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AD_UnitsPerDaySummary" xml:space="preserve">
+    <value>{0} Per Day</value>
+  </data>
+  <data name="AD_UnitSummary" xml:space="preserve">
+    <value>{0} Summary</value>
+  </data>
+  <data name="ViewUser" xml:space="preserve">
+    <value>View User</value>
+  </data>
+  <data name="AD_ViewUserStatistics" xml:space="preserve">
+    <value>&lt;li&gt;Total number of {0}: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;Their best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+                    &lt;li&gt;Their worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AreYouSureDelete" xml:space="preserve">
+    <value>Are you sure you want to delete {0} records</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="ManageController_EditAccount_Manage" xml:space="preserve">
+    <value>Manage Account Details</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_DateOfBirth" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_EmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_Nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="ApplicationUsersController_Index_Title" xml:space="preserve">
+    <value>Manage Users</value>
+  </data>
+  <data name="ApplicationUsersController_Teamname" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>Manage Users</value>
+  </data>
+<<<<<<< HEAD
+  <data name="_Layout_cshtml_Execute_WebServiceAuth" xml:space="preserve">
+    <value>Web Service Auth Tokens</value>
+  </data>
 </root>
+=======
+</root>
+>>>>>>> develop
