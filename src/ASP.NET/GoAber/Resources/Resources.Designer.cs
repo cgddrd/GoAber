@@ -737,6 +737,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Leader Board.
+        /// </summary>
+        public static string LeaderBoards_GroupLeaderBoardTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_GroupLeaderBoardTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Leader Boards.
+        /// </summary>
+        public static string LeaderBoards_IndexGroupTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_IndexGroupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Participant Leader Boards.
+        /// </summary>
+        public static string LeaderBoards_IndexParticipantTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_IndexParticipantTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Participant Leader Board.
+        /// </summary>
+        public static string LeaderBoards_ParticipantLeaderBoardTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_ParticipantLeaderBoardTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Locked Out.
         /// </summary>
         public static string Lockout_cshtml_Execute_Locked_Out {
@@ -1030,6 +1066,15 @@ namespace Resources {
         public static string MonthlySummaryTitle_TotalSteps {
             get {
                 return ResourceManager.GetString("MonthlySummaryTitle_TotalSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ranking.
+        /// </summary>
+        public static string Ranking {
+            get {
+                return ResourceManager.GetString("Ranking", resourceCulture);
             }
         }
         

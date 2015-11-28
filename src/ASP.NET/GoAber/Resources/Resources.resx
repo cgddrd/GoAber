@@ -511,4 +511,19 @@
   <data name="_Layout_cshtml_Execute_LeaderBoards" xml:space="preserve">
     <value>Leader Boards</value>
   </data>
+  <data name="LeaderBoards_GroupLeaderBoardTitle" xml:space="preserve">
+    <value>Group Leader Board</value>
+  </data>
+  <data name="LeaderBoards_IndexGroupTitle" xml:space="preserve">
+    <value>Group Leader Boards</value>
+  </data>
+  <data name="LeaderBoards_IndexParticipantTitle" xml:space="preserve">
+    <value>Participant Leader Boards</value>
+  </data>
+  <data name="LeaderBoards_ParticipantLeaderBoardTitle" xml:space="preserve">
+    <value>Participant Leader Board</value>
+  </data>
+  <data name="Ranking" xml:space="preserve">
+    <value>Ranking</value>
+  </data>
 </root>

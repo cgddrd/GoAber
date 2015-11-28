@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<GoAber.Models.ViewModels.ParticipantLeaderViewModel>
 
 @{
-    ViewBag.Title = "Participant Leader Board";
+    ViewBag.Title = Resources.LeaderBoards_ParticipantLeaderBoardTitle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            Ranking
+            @Resources.Ranking
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NickName)
