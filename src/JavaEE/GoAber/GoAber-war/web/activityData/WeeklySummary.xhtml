@@ -12,6 +12,7 @@
         </ui:define>
         <ui:define name="body">
             <ui:include src="ActivityDataTemplate.xhtml"/>
+            <h3>Weekly Summary</h3>
             <c:forEach var="categoryView" items="#{categoryUnitService.categoryUnits}" varStatus="counter">
                 <h3>#{categoryView.category.name}</h3>
                 <c:forEach var="unit" items="#{categoryView.units}" varStatus="counter">

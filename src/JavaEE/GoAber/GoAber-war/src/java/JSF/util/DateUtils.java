@@ -16,11 +16,15 @@ public class DateUtils {
      * @return Date object for one week prior.
      */
     public static Date getDateLastWeek() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
         // substract 7 days
         // If we give 7 there it will give 8 days back
-        cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)-6);
+        return addDaysToDate(new Date(), -6);
+    }
+    
+    public static Date addDaysToDate(Date date, int numDays) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)+numDays);
         return cal.getTime();
     }
     

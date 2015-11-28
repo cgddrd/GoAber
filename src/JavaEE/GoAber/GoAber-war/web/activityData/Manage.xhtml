@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ActivityDataTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">          
+            <h:form>
+                <ui:include src="ActivityDataTemplate.xhtml"/>
+                <h3>#{bundle.ListActivityDataFormTitle}</h3>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+
+                <div class="btn-group" role="group" >
+                    <h:commandLink class="btn btn-default" action="#{activityDataController.prepareCreate}" value="#{bundle.ListActivityDataCreateLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{activityDataController.prepareList}" value="#{bundle.FilterActivityDataClearLink}"/>
+                </div>
+                
+                <p:dataTable id="activityDataTable" class="table" value="#{activityDataController.items}" 
+                             emptyMessage="#{bundle.ActivityDataNoItems}"
+                             filteredValue="#{activityDataController.filteredItems}" widgetVar="activityDataTable" var="item"
+                             rows="100" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10, 100, 200">
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListActivityDataTitle_value}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.value}"/>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListActivityDataTitle_lastUpdated}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lastUpdated}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListActivityDataTitle_date}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.date}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.categoryUnitId.categoryId.name}" headerText="#{bundle.ListActivityDataTitle_category}" filterMatchMode="exact">
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('activityDataTable').filter()" >
+                                <f:selectItem itemLabel="#{bundle.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{activityDataController.categories}"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
+                    </p:column>
+                    
+                    <p:column filterBy="#{item.categoryUnitId.unitId.name}" headerText="#{bundle.ListActivityDataTitle_unit}" filterMatchMode="exact">
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('activityDataTable').filter()" >
+                                <f:selectItem itemLabel="#{bundle.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{activityDataController.units}"/>
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="&nbsp;"/>
+                        </f:facet>
+                        
+                        <h:commandLink action="#{activityDataController.prepareView(item)}" value="#{bundle.ListActivityDataViewLink}" />
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{activityDataController.prepareEdit(item)}" value="#{bundle.ListActivityDataEditLink}" />
+                        <h:outputText value=" "/>
+                        <h:commandLink action="#{activityDataController.prepareDestroy(item)}" value="#{bundle.ListActivityDataDestroyLink}" />
+                    </p:column>
+                </p:dataTable>
+                
+                <h:link outcome="/admin/index" value="#{bundle.ListActivityDataIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

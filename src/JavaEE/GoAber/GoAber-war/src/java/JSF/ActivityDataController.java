@@ -27,16 +27,14 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ActivityDataController implements Serializable {
 
+    @ManagedProperty(value="#{authController}")
+    private AuthController authController;
+    @EJB
+    private ActivityDataService dataService;
     @EJB
     private SessionBean.CategoryFacade categoryBean;
     @EJB
     private SessionBean.UnitFacade unitBean;
-    @EJB
-    private ActivityDataService dataService;
-    
-    @ManagedProperty(value="#{authController}")
-    private AuthController authController;
-    
     private ActivityData current;
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
@@ -76,7 +74,7 @@ public class ActivityDataController implements Serializable {
 
     public String prepareList() {
         recreateItems();
-        return "List";
+        return "Manage";
     }
 
     public String prepareView(ActivityData item) {
@@ -92,7 +90,7 @@ public class ActivityDataController implements Serializable {
     public String create() {
         try {
             User user = authController.getActiveUser();
-            dataService.createForUser(current, user);
+            dataService.createForUser(getCurrent(), user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -109,7 +107,7 @@ public class ActivityDataController implements Serializable {
     public String update() {
         try {
             User user = authController.getActiveUser();
-            dataService.updateForUser(current, user);
+            dataService.updateForUser(getCurrent(), user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataUpdated"));
             return "View";
         } catch (Exception e) {
@@ -127,7 +125,7 @@ public class ActivityDataController implements Serializable {
         performDestroy();
         // must recreate as something has been removed!
         recreateItems();
-        return "List";
+        return "Manage";
     }
 
     private void performDestroy() {
@@ -144,7 +142,7 @@ public class ActivityDataController implements Serializable {
         items = dataService.findAllForUser(user);
         filteredItems = null;
     }
-    
+
     /**
      * @return the filteredItems
      */
@@ -179,8 +177,10 @@ public class ActivityDataController implements Serializable {
     public void setCurrent(ActivityData current) {
         this.current = current;
     }
-    
-    
+
+    /**
+     * @param authController the authController to set
+     */
     public void setAuthController(AuthController authController) {
         this.authController = authController;
     }

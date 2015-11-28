@@ -34,6 +34,10 @@ textarea,
    margin:5px 3px;
 }
 
+.btn-group {
+    margin: 10px 0px 10px 0px;
+}
+
 .ajax-loading {
     text-align: center;
     width: 100%;

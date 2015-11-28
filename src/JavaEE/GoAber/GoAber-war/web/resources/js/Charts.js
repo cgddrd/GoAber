@@ -91,7 +91,7 @@ function createBarChartSummary(data, params) {
         .data(data)
       .enter().append('rect')
         .attr('class', 'bar')
-        .attr('x', function (d) { return x(new Date(d.date)); })
+        .attr('x', function (d) { return x(new Date(d.date)) - (barWidth/2) + 2; })
         .attr('y', function (d) { return height - margin.top - margin.bottom - (height - margin.top - margin.bottom - y(d.value)) })
         .attr('width', barWidth -10)
         .attr('height', function (d) { return height - margin.top - margin.bottom - y(d.value) });
@@ -105,7 +105,7 @@ function createBarChartSummary(data, params) {
         .text(function (d) {
           return d.value;
         })
-        .attr("x", function (d, i) { return x(new Date(d.date)) + (barWidth/2) - 13; })
+        .attr("x", function (d, i) { return x(new Date(d.date)) - 13; })
         .attr("y", function (d) {
             return y(d.value) + 15;
         })

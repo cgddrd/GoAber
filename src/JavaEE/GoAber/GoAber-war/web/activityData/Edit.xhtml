@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,37 +15,43 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditActivityDataLabel_idActivityData}" for="idActivityData" />
-                    <h:inputText id="idActivityData" value="#{activityDataController.selected.idActivityData}" title="#{bundle.EditActivityDataTitle_idActivityData}" required="true" requiredMessage="#{bundle.EditActivityDataRequiredMessage_idActivityData}"/>
-                    <h:outputLabel value="#{bundle.EditActivityDataLabel_value}" for="value" />
-                    <h:inputText id="value" value="#{activityDataController.selected.value}" title="#{bundle.EditActivityDataTitle_value}" />
-                    <h:outputLabel value="#{bundle.EditActivityDataLabel_lastUpdated}" for="lastUpdated" />
-                    <h:inputText id="lastUpdated" value="#{activityDataController.selected.lastUpdated}" title="#{bundle.EditActivityDataTitle_lastUpdated}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditActivityDataLabel_date}" for="date" />
-                    <h:inputText id="date" value="#{activityDataController.selected.date}" title="#{bundle.EditActivityDataTitle_date}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
-                    <h:selectOneMenu id="categoryUnitId" value="#{activityDataController.selected.categoryUnitId}" title="#{bundle.EditActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{bundle.EditActivityDataRequiredMessage_categoryUnitId}">
-                        <f:selectItems value="#{categoryUnitController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditActivityDataLabel_userId}" for="userId" />
-                    <h:selectOneMenu id="userId" value="#{activityDataController.selected.userId}" title="#{bundle.EditActivityDataTitle_userId}" required="true" requiredMessage="#{bundle.EditActivityDataRequiredMessage_userId}">
-                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{activityDataController.update}" value="#{bundle.EditActivityDataSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditActivityDataViewLink}"/>
-                <br />
-                <h:commandLink action="#{activityDataController.prepareList}" value="#{bundle.EditActivityDataShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditActivityDataIndexLink}" />
+                <div class="form-horizontal">
+                    
+                    <div class="form-group">
+                        <h:outputLabel class="control-label col-md-2" value="#{bundle.EditActivityDataLabel_value}" for="value" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="value" value="#{activityDataController.selected.value}" title="#{bundle.EditActivityDataTitle_value}" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel class="control-label col-md-2" value="#{bundle.EditActivityDataLabel_date}" for="date" />
+                        <div class="col-md-10">
+                            <p:calendar id="date" pattern="dd/MM/yyy" maxdate="#{now}" value="#{activityDataController.selected.date}" title="#{bundle.EditActivityDataTitle_date}" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.EditActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
+                        <div class="col-md-10">
+                            <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{activityDataController.selected.categoryUnitId}" title="#{bundle.EditActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{bundle.EditActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
+                                <f:selectItems value="#{categoryUnitService.getDisplayItems()}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <h:commandLink class="btn btn-default" action="#{activityDataController.update}" value="#{bundle.EditActivityDataSaveLink}" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <h:commandLink action="#{activityDataController.prepareList}" value="#{bundle.CreateActivityDataShowAllLink}" immediate="true"/>
+                        </div>
+                    </div>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
