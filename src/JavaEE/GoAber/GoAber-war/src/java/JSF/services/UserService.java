@@ -19,7 +19,7 @@ import javax.ejb.Stateless;
 @LocalBean
 public class UserService {
     @EJB
-    private UserFacade ejbFacade;
+     UserFacade ejbFacade;
     
     /** Get a user by their id.
      * 
