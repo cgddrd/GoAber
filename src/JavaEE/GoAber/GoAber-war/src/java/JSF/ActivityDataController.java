@@ -31,6 +31,12 @@ public class ActivityDataController implements Serializable {
 
     @ManagedProperty(value="#{authController}")
     private AuthController authController;
+    @ManagedProperty(value="#{auditController}")
+    private AuditController audit;
+    
+    @ManagedProperty(value="#{dataRemovalAuditController}")
+    private DataRemovalAuditController dataRemovalAudit;
+    
     @EJB
     private ActivityDataService dataService;
     @EJB
@@ -39,9 +45,12 @@ public class ActivityDataController implements Serializable {
     private SessionBean.CategoryFacade categoryBean;
     @EJB
     private SessionBean.UnitFacade unitBean;
+    
     private ActivityData current;
     private User viewUser;
-
+    
+    private String deletedMessage = "none";
+    
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
 
@@ -206,6 +215,80 @@ public class ActivityDataController implements Serializable {
      */
     public User getViewUser() {
         return viewUser;
+    }
+    
+    public String prepareBatchDestroy() {
+        getAudit().createAudit("activityData/BatchDelete", "");
+        if (filteredItems == null) {
+            filteredItems = items;
+        }
+        return "BatchDelete";
+    }
+    
+    public String batchDestory() {
+        getAudit().createAudit("activityData/List", "Performed batch delete of ActivityData");
+        performBatchDestroy();
+        recreateItems();
+        return "Manage";
+    }
+    
+    private void performBatchDestroy() {
+        if (filteredItems == null) {
+            return;
+        }
+        
+        for (ActivityData item : filteredItems) {
+            getDataRemovalAudit().createDataRemovalAudit(item, getDeletedMessage());
+            try {
+                dataService.remove(item);
+                //getFacade().remove(item);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataDeleted"));
+            } catch (Exception e) {
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+
+    /**
+     * @return the audit
+     */
+    public AuditController getAudit() {
+        return audit;
+    }
+
+    /**
+     * @param audit the audit to set
+     */
+    public void setAudit(AuditController audit) {
+        this.audit = audit;
+    }
+
+    /**
+     * @return the dataRemovalAudit
+     */
+    public DataRemovalAuditController getDataRemovalAudit() {
+        return dataRemovalAudit;
+    }
+
+    /**
+     * @param dataRemovalAudit the dataRemovalAudit to set
+     */
+    public void setDataRemovalAudit(DataRemovalAuditController dataRemovalAudit) {
+        this.dataRemovalAudit = dataRemovalAudit;
+    }
+
+    /**
+     * @return the deletedMessage
+     */
+    public String getDeletedMessage() {
+        return deletedMessage;
+    }
+
+    /**
+     * @param deletedMessage the deletedMessage to set
+     */
+    public void setDeletedMessage(String deletedMessage) {
+        this.deletedMessage = deletedMessage;
     }
     
     @FacesConverter(forClass = ActivityData.class)
