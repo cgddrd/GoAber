@@ -17,7 +17,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 import JSF.ViewModels.CategoryUnitViewModel;
-/**
+
+/** Category - Unit Service class.
+ * 
+ * This provides access to the common functions used to get information about 
+ * category units and for formatting them for display.
  *
  * @author samuel
  */
@@ -33,6 +37,13 @@ public class CategoryUnitService {
     @EJB
     SessionBean.UnitFacade unitFacade;
     
+    /** Get a list of category - unit view models for each entry in the system.
+     * 
+     * This is primarily a helper method to make it easier to display the complex
+     * relationship between activity data, categories and units.
+     * 
+     * @return list of category unit view models
+     */
     public List<CategoryUnitViewModel> getCategoryUnits() {
         List<CategoryUnitViewModel> viewModels = new ArrayList<>();
         List<Category> categories = categoryFacade.findAll();
@@ -54,6 +65,16 @@ public class CategoryUnitService {
         return viewModels;
     }
     
+    /** Get a list of category - unit select items for each entry in the system.
+     * 
+     * This is primarily a helper method to make it easier to display the complex
+     * relationship between activity data, categories and units as a drop down list.
+     * 
+     * This will create items for a drop down list with the categories as groups
+     * and units as items.
+     * 
+     * @return list of category unit select items
+     */
     public List<SelectItem> getDisplayItems() {
         List<SelectItem> itemsList = new ArrayList<>();
         List<Category> categories = categoryFacade.findAll();

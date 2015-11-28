@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package JSF.services;
 
 import GoAberDatabase.User;
@@ -19,21 +15,22 @@ import javax.ejb.Stateless;
  *
  * @author samuel
  */
-
 @Stateless
 @LocalBean
 public class UserService {
     @EJB
     private UserFacade ejbFacade;
     
+    /** Get a user by their id.
+     * 
+     * @param id the id of the user
+     * @return the user object for the given id.
+     */
     public User getUserById(int id) {
         return getFacade().find(id);
     }
 
-    /**
-     * @return the ejbFacade
-     */
-    public UserFacade getFacade() {
+    private UserFacade getFacade() {
         return ejbFacade;
     }
 }
