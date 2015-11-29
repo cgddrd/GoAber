@@ -79,7 +79,7 @@ public class ChallengeController implements Serializable {
     }
 	
     public Map<String,Integer> getGroupValue() {
-        groupValue = challengeService.getGroupValue();
+        groupValue = challengeService.getGroupValue(authController.getActiveUser());
         return groupValue;
     }
 
@@ -285,6 +285,7 @@ public class ChallengeController implements Serializable {
             User currentUser = authController.getActiveUser();
             current.setGroupChallengeCollection(challengeService.addGroupChallenges(currentUser, current, groupChallenges));
             current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges));
+            getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeCreated"));
             return prepareIndex();
         } catch (Exception e) {

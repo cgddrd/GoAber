@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Team.findAll", query = "SELECT t FROM Team t"),
     @NamedQuery(name = "Team.findByIdGroup", query = "SELECT t FROM Team t WHERE t.idGroup = :idGroup"),
+    @NamedQuery(name = "Team.findByIdCommunity", query = "SELECT t FROM Team t WHERE t.communityId = :communityId"),
     @NamedQuery(name = "Team.findByName", query = "SELECT t FROM Team t WHERE t.name = :name")})
 public class Team implements Serializable {
     private static final long serialVersionUID = 1L;

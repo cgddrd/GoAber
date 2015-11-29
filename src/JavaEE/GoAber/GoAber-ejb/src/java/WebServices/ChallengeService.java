@@ -62,8 +62,8 @@ public class ChallengeService {
      * To view a list of the groups in a user interface a Map<String,Integer> should be produced
      * @return Map : community name, groupId
      */
-    public Map<String,Integer> getGroupValue() {
-        List<Team> groups = groupFacade.findAll();
+    public Map<String,Integer> getGroupValue(User user) {
+        List<Team> groups = groupFacade.findByCommunity(user.getGroupId().getCommunityId());
         Map<String,Integer> groupValue = new LinkedHashMap<>();
         groups.stream().forEach((group) -> {
             groupValue.put(group.getName(), group.getIdGroup()); //label, value
