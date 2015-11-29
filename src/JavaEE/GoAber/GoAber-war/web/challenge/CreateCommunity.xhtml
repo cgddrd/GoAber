@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateChallengeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateChallengeLabel_name}" for="name" />
+                    <div class="col-md-10">
+                        <h:inputText id="name" value="#{challengeController.selected.name}" title="#{bundle.CreateChallengeTitle_name}" />
+                    </div>
+                    
+                    <h:outputLabel value="#{bundle.CreateChallengeLabel_categoryUnit}" for="categoryUnit" />
+                    <div class="col-md-10">
+                        <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{challengeController.selected.categoryUnitId}" title="#{bundle.CreateActivityDataLabel_categoryUnitId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
+                            <f:selectItems value="#{categoryUnitController.getDisplayItems()}"/>
+                        </h:selectOneMenu>
+                    </div>                    
+                   <h:outputLabel value="#{bundle.CreateChallengeLabel_startTime}" for="startTime" />
+                    <div class="col-md-10">
+                        <p:calendar id="date" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.startTime}" title="#{bundle.CreateChallengeTitle_startTime}" />
+                    </div>
+                    
+                    <h:outputLabel value="#{bundle.CreateChallengeLabel_endTime}" for="endTime" />
+                    <div class="col-md-10">
+                        <p:calendar id="date2" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.endTime}" title="#{bundle.CreateChallengeTitle_endTime}" />
+                    </div>
+                    
+                    
+                    <h:outputLabel value="#{bundle.CreateComminityChallenge_SelectCommunity}" for="endTime" />
+                    <div class="col-md-10">
+                        <h:selectManyListbox value="#{challengeController.communityChallenges}">
+                             <f:selectItems value="#{challengeController.communitiesValue}"/>
+                        </h:selectManyListbox>
+                    </div>
+                    
+                    
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{challengeController.createCommunity}" value="#{bundle.CreateChallengeSaveLink}" />
+                <br />
+                <br />
+                <h:link outcome="/challenge/Index" value="#{bundle.CreateChallengeShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateChallengeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

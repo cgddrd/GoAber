@@ -38,13 +38,7 @@
                     </div>
                     
                     
-                    <h:outputLabel value="#{bundle.CreateComminityChallenge_SelectCommunity}" for="endTime" />
-                    <div class="col-md-10">
-                        <h:selectManyListbox value="#{challengeController.communityChallenges}">
-                             <f:selectItems value="#{challengeController.communitiesValue}"/>
-                        </h:selectManyListbox>
-                    </div>
-                    
+                   
                     <h:outputLabel value="#{bundle.CreateGroupChallenge_SelectCommunity}" for="endTime" />
                     <div class="col-md-10">
                         <h:selectManyListbox value="#{challengeController.groupChallenges}">
@@ -54,10 +48,10 @@
                     
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{challengeController.create}" value="#{bundle.CreateChallengeSaveLink}" />
+                <h:commandLink action="#{challengeController.createGroup}" value="#{bundle.CreateChallengeSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{challengeController.prepareList}" value="#{bundle.CreateChallengeShowAllLink}" immediate="true"/>
+                <h:link outcome="/challenge/Index" value="#{bundle.CreateChallengeShowAllLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateChallengeIndexLink}"/>

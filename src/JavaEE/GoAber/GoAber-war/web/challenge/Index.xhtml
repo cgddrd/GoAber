@@ -92,7 +92,10 @@
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{challengeController.prepareCreate}" value="#{bundle.ListChallengeCreateLink}"/>
+                <h:commandLink action="#{challengeController.prepareCommunityCreate}" value="#{bundle.ListChallengeCommunityCreateLink}"/>
+                <br />
+                <h:commandLink action="#{challengeController.prepareGroupCreate}" value="#{bundle.ListChallengeGroupCreateLink}"/>
+                
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListChallengeIndexLink}"/>

@@ -268,10 +268,15 @@ public class ChallengeController implements Serializable {
         return "View";
     }
 
-    public String prepareCreate() {
+    public String prepareCommunityCreate() {
         current = new Challenge();
         selectedItemIndex = -1;
-        return "Create";
+        return "CreateCommunity";
+    }
+    public String prepareGroupCreate() {
+        current = new Challenge();
+        selectedItemIndex = -1;
+        return "CreateGroup";
     }
     
     public String prepareIndex(){
@@ -279,12 +284,24 @@ public class ChallengeController implements Serializable {
         return "Index";
     }
 
-    public String create() {
+    public String createCommunity() {
+        try {
+            getFacade().create(current);
+            User currentUser = auth.getActiveUser();
+            current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges));
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeCreated"));
+            return prepareIndex();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+    public String createGroup() {
         try {
             getFacade().create(current);
             User currentUser = auth.getActiveUser();
             current.setGroupChallengeCollection(challengeService.addGroupChallenges(currentUser, current, groupChallenges));
-            current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges));
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeCreated"));
             return prepareIndex();

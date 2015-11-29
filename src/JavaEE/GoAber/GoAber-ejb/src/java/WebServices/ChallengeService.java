@@ -103,8 +103,8 @@ public class ChallengeService {
         }
         
         if(usersGroup != -1)
-        {
-            if((groups.length > 0) && (!Arrays.asList(groups).contains(usersGroup)))
+        {//(groups.length > 0) && 
+            if((!Arrays.asList(groups).contains(usersGroup)))
             { // Add the current users group to the list of challenged groups
                 Team group = groupFacade.findById(usersGroup);
                 GroupChallenge groupChallenge = new GroupChallenge(group, challenge, true);
@@ -147,8 +147,8 @@ public class ChallengeService {
         }
         
         if(usersCommunity != -1)
-        {
-            if((communities.length > 0) && (!Arrays.asList(communities).contains(usersCommunity)))
+        {//(communities.length > 0) && 
+            if((!Arrays.asList(communities).contains(usersCommunity)))
             {// Add the current users community to the list of challenged communities
                 Community community = communityFacade.findById(usersCommunity);
                 CommunityChallenge communityChallenge = new CommunityChallenge(community, challenge, true);
