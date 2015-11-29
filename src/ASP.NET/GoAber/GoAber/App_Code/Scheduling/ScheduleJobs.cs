@@ -8,12 +8,13 @@ using System.Web;
 using GoAber.Models;
 using System.Diagnostics;
 using GoAber.Scheduling.Jobs;
+using GoAber.App_Code.Scheduling.Jobs;
 
 namespace GoAber.Scheduling
 {
     public class ScheduleJobs
     {
-        public static bool AddJob(Job ao_jobdetail)
+        public static bool AddJob(Job ao_jobdetail, string[] args = null)
         {
             try
             {
@@ -26,6 +27,10 @@ namespace GoAber.Scheduling
                 {
                     lo_job = new JawBoneJob();
                 }
+                else if (ao_jobdetail.tasktype.Equals(JobType.Challenge))
+                {
+                    lo_job = new ChallengeJob();
+                }
                 else
                 {
                     lo_job = new EmailJob();
@@ -33,10 +38,17 @@ namespace GoAber.Scheduling
                 IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
                 if (ao_jobdetail.schedtype.Equals(ScheduleType.Repeating))
                 {
-                    lo_scheduler.CreateRecurringJob(ao_jobdetail.id, () => lo_job.Run(), ao_jobdetail.minutes);
+                    lo_scheduler.CreateRecurringJob(ao_jobdetail.id, () => lo_job.Run(args), ao_jobdetail.minutes);
                 } else
                 {
-                    ao_jobdetail.secretid = lo_scheduler.CreateOnceJob(() => lo_job.Run(), ao_jobdetail.minutes);
+                    if (ao_jobdetail.date != null)
+                    {
+                        ao_jobdetail.secretid = lo_scheduler.CreateOnceJob(() => lo_job.Run(args), ao_jobdetail.date);
+                    }
+                    else
+                    {
+                        ao_jobdetail.secretid = lo_scheduler.CreateOnceJob(() => lo_job.Run(args), ao_jobdetail.minutes);
+                    }
                 }
                 return true;
             } catch (Exception e)

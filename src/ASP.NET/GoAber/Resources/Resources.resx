@@ -508,5 +508,13 @@
   <data name="_Layout_cshtml_Execute_WebServiceAuth" xml:space="preserve">
     <value>Web Service Auth Tokens</value>
   </data>
+  <data name="Challenges_completedChallenges" xml:space="preserve">
+    <value>Completed Challenges</value>
+  </data>
+  <data name="Challenges_completedcomChallenges" xml:space="preserve">
+    <value>Community Challenges</value>
+  </data>
+  <data name="Challenges_completedgroupChallenges" xml:space="preserve">
+    <value>Group Challenges</value>
+  </data>
 </root>
-
