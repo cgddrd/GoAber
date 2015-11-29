@@ -67,7 +67,7 @@
             <url-pattern>/faces/account/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
+            <role-name>administrator</role-name>
             <role-name>coordinator</role-name>
             <role-name>participant</role-name>
         </auth-constraint>
@@ -81,21 +81,10 @@
             <url-pattern>/faces/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
+            <role-name>administrator</role-name>
         </auth-constraint>
     </security-constraint>
 
-    <security-constraint>
-        <display-name>SecureTestAuthConstraint</display-name>
-        <web-resource-collection>
-            <web-resource-name>secure-page</web-resource-name>
-            <url-pattern>/secure.xhtml</url-pattern>
-            <url-pattern>/faces/secure.xhtml</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>admin</role-name>
-        </auth-constraint>
-    </security-constraint>
     <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
     <error-page>
         <error-code>403</error-code>

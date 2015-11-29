@@ -2,7 +2,7 @@ package JSF;
 
 import GoAberDatabase.Challenge;
 import GoAberDatabase.User;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.ChallengeFacade;
@@ -48,8 +48,8 @@ public class ChallengeController implements Serializable {
     
     @EJB 
     SessionBean.UserFacade userFacade;
-    @ManagedProperty(value="#{authController}")
-    AuthController authController;
+    @ManagedProperty(value="#{authService}")
+    AuthService auth;
     
     
     
@@ -79,7 +79,7 @@ public class ChallengeController implements Serializable {
     }
 	
     public Map<String,Integer> getGroupValue() {
-        groupValue = challengeService.getGroupValue(authController.getActiveUser());
+        groupValue = challengeService.getGroupValue(auth.getActiveUser());
         return groupValue;
     }
 
@@ -136,7 +136,7 @@ public class ChallengeController implements Serializable {
     
     public DataModel getUnEnteredGroupChallenges() {
         if (items == null) {
-            User currentUser = authController.getActiveUser();
+            User currentUser = auth.getActiveUser();
             challenges = challengeService.getUnEnteredGroupChalleneges(currentUser);
             items = getPaginationChallenges().createPageDataModel();
         }
@@ -161,7 +161,7 @@ public class ChallengeController implements Serializable {
     
     public DataModel getUnEnteredCommunityChallenges() {
         if (items == null) {
-            User currentUser = authController.getActiveUser();
+            User currentUser = auth.getActiveUser();
             challenges = challengeService.getUnEnteredCommunityChalleneges(currentUser);//getFacade().getUnEnteredCommunityChalleneges(currentUser);
             items = getPaginationChallenges().createPageDataModel();
         }
@@ -187,7 +187,7 @@ public class ChallengeController implements Serializable {
     
     public DataModel getEnteredGroupChallenges() {
         if (items == null) {
-            User currentUser = authController.getActiveUser();
+            User currentUser = auth.getActiveUser();
             challenges = challengeService.getEnteredGroupChalleneges(currentUser);//getFacade().getEnteredGroupChalleneges(currentUser);
             items = getPaginationChallenges().createPageDataModel();
         }
@@ -213,7 +213,7 @@ public class ChallengeController implements Serializable {
     
     public DataModel getEnteredCommunityChallenges() {
         if (items == null) {
-            User currentUser = authController.getActiveUser();
+            User currentUser = auth.getActiveUser();
             challenges = challengeService.getEnteredCommunityChalleneges(currentUser);//getFacade().getEnteredCommunityChalleneges(currentUser);
             items = getPaginationChallenges().createPageDataModel();
         }
@@ -244,14 +244,14 @@ public class ChallengeController implements Serializable {
     
     public String enterChallege() {
         current = (Challenge)items.getRowData();
-        User currentUser = authController.getActiveUser();
+        User currentUser = auth.getActiveUser();
         challengeService.enterChallege(current, currentUser);
         return "EnteredCommunity";
     }
     
     public String leaveChallege() {
         current = (Challenge)items.getRowData();
-        User currentUser = authController.getActiveUser();
+        User currentUser = auth.getActiveUser();
         challengeService.leaveChallege(current, currentUser);
         return "NotEnteredCommunity";
     }
@@ -282,7 +282,7 @@ public class ChallengeController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            User currentUser = authController.getActiveUser();
+            User currentUser = auth.getActiveUser();
             current.setGroupChallengeCollection(challengeService.addGroupChallenges(currentUser, current, groupChallenges));
             current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges));
             getFacade().edit(current);
@@ -439,11 +439,12 @@ public class ChallengeController implements Serializable {
     }
 
     
-    public void setAuthController(AuthController authController){
-       this.authController = authController;
-   }
-   
-   public AuthController getAuthController(){
-       return this.authController;
-   }
+    public AuthService getAuth() {    
+        return auth;
+    }
+
+
+    public void setAuth(AuthService auth) {    
+        this.auth = auth;    
+    }
 }

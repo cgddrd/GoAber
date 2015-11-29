@@ -232,4 +232,120 @@
             </td>
         </tr>
     }
-</table>
+    </table>
+
+
+    <h2>@Resources.Challenges_completedChallenges</h2>
+    <h3>@Resources.Challenges_completedgroupChallenges</h3>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.categoryUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.startTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.endTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.groupchallenges)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (GoAber.Models.Challenge item in ViewBag.CompletedGroupChallenges)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoryUnit.category.name)
+                    &nbsp;
+                    @Html.DisplayFor(modelItem => item.categoryUnit.unit.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.startTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.endTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+
+
+
+                <td>
+                    @foreach (GoAber.Models.GroupChallenge gItem in item.groupchallenges)
+                {
+                        @Html.DisplayFor(modelItem => gItem.group.name)
+                        <br />
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Enter Challenge", "EnterChallenge", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <h3>@Resources.Challenges_completedcomChallenges</h3>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.categoryUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.startTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.endTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.communityChallenges)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (GoAber.Models.Challenge item in ViewBag.CompletedComChallenges)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoryUnit.category.name)
+                    &nbsp;
+                    @Html.DisplayFor(modelItem => item.categoryUnit.unit.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.startTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.endTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+
+                <td>
+                    @foreach (GoAber.Models.CommunityChallenge cItem in item.communityChallenges)
+                {
+                        @Html.DisplayFor(modelItem => cItem.community.name)
+                        <br />
+
+                    }
+                </td>
+
+                <td>
+                    @Html.ActionLink("Enter Challenge", "EnterChallenge", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>

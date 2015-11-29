@@ -7,7 +7,7 @@ package JSF.device;
 
 import DeviceApi.DeviceApi;
 import GoAberDatabase.User;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -54,8 +54,8 @@ public class FitBitCallbackServlet extends HttpServlet {
       
         String code = request.getParameter("code");
         DeviceApi deviceApi = (DeviceApi)request.getSession().getAttribute("DeviceApi");
-        AuthController authController = (AuthController) request.getSession().getAttribute("authController");
-        User user = authController.getActiveUser();
+        AuthService authService = (AuthService) request.getSession().getAttribute("authService");
+        User user = authService.getActiveUser();
         deviceApi.getAndSaveTokensFitbit(code, user);
     }
 

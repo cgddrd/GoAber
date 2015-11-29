@@ -24,7 +24,7 @@ public class CommunityFacade extends AbstractFacade<Community> {
     protected EntityManager getEntityManager() {
         return em;
     }
-
+        
     public CommunityFacade() {
         super(Community.class);
     }

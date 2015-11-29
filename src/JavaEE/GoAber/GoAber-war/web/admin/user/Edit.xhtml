@@ -15,23 +15,23 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditUserLabel_idUser}" for="idUser" />
-                    <h:inputText id="idUser" value="#{userController.selected.idUser}" title="#{bundle.EditUserTitle_idUser}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_idUser}"/>
                     <h:outputLabel value="#{bundle.EditUserLabel_email}" for="email" />
                     <h:inputText id="email" value="#{userController.selected.email}" title="#{bundle.EditUserTitle_email}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_email}"/>
                     <h:outputLabel value="#{bundle.EditUserLabel_nickname}" for="nickname" />
                     <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.EditUserTitle_nickname}" />
-                    
-                    <h:outputLabel value="#{bundle.EditUserLabel_groupId}" for="groupId" />
-                    <h:selectOneMenu id="groupId" value="#{userController.selected.groupId}" title="#{bundle.EditUserTitle_groupId}" >
-                        <f:selectItems value="#{teamController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    
+
+                    <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserCredentialsLabel_team}" for="teamId" />
+                    <div class="col-md-10">
+                        <h:selectOneMenu class="form-control" id="teamId" value="#{userController.selected.groupId}" title="#{bundle.CreateUserCredentialsTitle_team}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_team}">
+                            <f:selectItems value="#{adminTeamController.groupedTeamList}" />
+                        </h:selectOneMenu>
+                    </div>
+
                     <h:outputLabel value="#{admin.RoleLabel}" for="roleId" />
-                    <h:selectOneMenu id="roleId" value="#{userController.selected.roleId}" title="#{bundle.EditUserTitle_userRoleId}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_userRoleId}">
+                    <h:selectOneMenu id="roleId" value="#{userController.selected.userRoleId.roleId}" title="#{bundle.EditUserTitle_userRoleId}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_userRoleId}">
                         <f:selectItems value="#{roleController.availableRoles}" var="role" itemLabel="#{role.idRole}"  />
                     </h:selectOneMenu>
-                    
+
                 </h:panelGrid>
                 <h:commandLink action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
                 <br />

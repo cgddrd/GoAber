@@ -16,7 +16,7 @@ namespace GoAber.Models
     {
         public int Id { get; set; }
         public int communityId { get; set; }
-        public int challengeId { get; set; }
+        public string challengeId { get; set; }
         public bool startedChallenge { get; set; }
     
         public virtual Challenge challenge { get; set; }

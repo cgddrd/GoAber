@@ -1,4 +1,4 @@
-package JSF;
+package JSF.admin;
 
 import GoAberDatabase.Role;
 import JSF.util.JsfUtil;
@@ -34,14 +34,6 @@ public class RoleController implements Serializable {
     // CG - In order to change the label in 'selectItems' components, we need to pass it a list of Role objects.
     // See: http://stackoverflow.com/a/7641032 for more information.
     private List<Role> availableRoles;
-
-    public List<Role> getAvailableRoles() {
-        return availableRoles;
-    }
-
-    public void setAvailableRoles(List<Role> availableRoles) {
-        this.availableRoles = availableRoles;
-    }
     
     public RoleController() {
     }
@@ -49,6 +41,14 @@ public class RoleController implements Serializable {
     @PostConstruct
     public void init() {
         availableRoles = ejbFacade.findAll();
+    }
+    
+    public List<Role> getAvailableRoles() {
+        return availableRoles;
+    }
+
+    public void setAvailableRoles(List<Role> availableRoles) {
+        this.availableRoles = availableRoles;
     }
    
     public Role getSelected() {

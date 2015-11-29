@@ -7,7 +7,7 @@ package JSF.device;
 
 import DeviceApi.DeviceApi;
 import GoAberDatabase.User;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,8 +45,8 @@ public class JawboneCallbackServlet extends HttpServlet {
       
         String code = request.getParameter("code");
         DeviceApi deviceApi = (DeviceApi)request.getSession().getAttribute("DeviceApi");
-        AuthController authController = (AuthController) request.getSession().getAttribute("authController");
-        User user = authController.getActiveUser();
+        AuthService authService = (AuthService) request.getSession().getAttribute("authService");
+        User user = authService.getActiveUser();
         deviceApi.getAndSaveTokens(code, user);
         
         response.sendRedirect("faces/Jawbone/index.xhtml");

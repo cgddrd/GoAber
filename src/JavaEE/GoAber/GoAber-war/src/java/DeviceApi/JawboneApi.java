@@ -72,7 +72,7 @@ public class JawboneApi extends DeviceApi{
         int day = 26;
         int month = 10;
         int year = 2015;
-        User user = authController.getActiveUser();
+        User user = authService.getActiveUser();
         if(user == null)
             return "index";
         int userID = user.getIdUser();
