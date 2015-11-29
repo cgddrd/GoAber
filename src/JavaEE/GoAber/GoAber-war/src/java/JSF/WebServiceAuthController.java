@@ -81,7 +81,7 @@ public class WebServiceAuthController implements Serializable {
     public PaginationHelper getPagination() {
         if (pagination == null) {
 
-            User lo_user = ejbUsers.findUserByEmail(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
+            User lo_user = (User) ejbUsers.findUserByEmailOrNull(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
             pagination = new PaginationHelper(10) {
 
                 @Override
@@ -144,7 +144,7 @@ public class WebServiceAuthController implements Serializable {
     }
 
     public boolean isAdmin(User ao_user) {
-        return this.isLoggedIn() && ao_user.getRoleId().getIdRole().equals("admin");
+        return this.isLoggedIn() && ao_user.getUserRoleId().getRoleId().getIdRole().equals("admin");
 
     }
 
@@ -154,7 +154,7 @@ public class WebServiceAuthController implements Serializable {
                 return "";
             }
 
-            User lo_user = ejbUsers.findUserByEmail(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
+            User lo_user = (User) ejbUsers.findUserByEmailOrNull(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
 
             current.setUserid(lo_user.getIdUser());
 

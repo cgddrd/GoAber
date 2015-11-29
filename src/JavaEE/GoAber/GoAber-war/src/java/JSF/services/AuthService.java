@@ -1,4 +1,4 @@
-package JSF.auth;
+package JSF.services;
 
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.User;
@@ -21,17 +21,19 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author connorgoddard
  */
-@ManagedBean(name = "authController")
+@ManagedBean(name = "authService")
 @SessionScoped
 // We may want to change this to @ViewScoped. See: http://stackoverflow.com/a/2207147 for more information.
-public class AuthController implements Serializable {
+public class AuthService implements Serializable {
     
     private String username;
     private String password;
     private User activeUser;
-
+   
     public User getActiveUser() {
-        return activeUser;
+        //ejbFacade.flushCache();
+        this.activeUser = userFacade.find(activeUser.getIdUser());
+        return this.activeUser;
     }
 
     public String getUsername() {
@@ -86,7 +88,8 @@ public class AuthController implements Serializable {
     
     public boolean isAdmin() {    
         
-        return this.isLoggedIn() && this.activeUser.getRoleId().getIdRole().equals("admin");
+        // CG - Added fix to make sure that we assert the active user is not null before attempting to query the role type.
+        return this.isLoggedIn() && this.activeUser != null && this.activeUser.getUserRoleId().getRoleId().getIdRole().equals("administrator");
 
     }
    
@@ -105,9 +108,9 @@ public class AuthController implements Serializable {
             
             request.login(this.username, this.password);
             
-            this.activeUser = userFacade.findUserByEmail(this.username);
+            this.activeUser = (User) userFacade.findUserByEmailOrNull(this.username);
             
-            externalContext.getSessionMap().put("loggedInUser", this.activeUser);
+            //externalContext.getSessionMap().put("loggedInUser", this.activeUser);
             externalContext.redirect(forwardURL);
             
         } catch (ServletException e) {

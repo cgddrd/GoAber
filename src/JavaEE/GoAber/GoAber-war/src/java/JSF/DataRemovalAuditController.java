@@ -3,7 +3,7 @@ package JSF;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.Audit;
 import GoAberDatabase.DataRemovalAudit;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.DataRemovalAuditFacade;
@@ -34,8 +34,8 @@ public class DataRemovalAuditController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
-    @ManagedProperty(value="#{authController}")
-    AuthController auth;
+    @ManagedProperty(value="#{authService}")
+    AuthService auth;
 
     public DataRemovalAuditController() {
     }
@@ -182,12 +182,12 @@ public class DataRemovalAuditController implements Serializable {
         }
 
     }
-    public AuthController getAuth() {    
+    public AuthService getAuth() {    
         return auth;
     }
 
 
-    public void setAuth(AuthController auth) {    
+    public void setAuth(AuthService auth) {    
         this.auth = auth;    
     }
 
