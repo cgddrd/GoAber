@@ -5,18 +5,17 @@
  */
 package SessionBean;
 
-import GoAberDatabase.Community;
+import GoAberDatabase.CommunityChallenge;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author samuel
+ * @author helen
  */
 @Stateless
-public class CommunityFacade extends AbstractFacade<Community> {
+public class CommunityChallengeFacade extends AbstractFacade<CommunityChallenge> {
     @PersistenceContext(unitName = "GoAber-warPU")
     private EntityManager em;
 
@@ -24,17 +23,9 @@ public class CommunityFacade extends AbstractFacade<Community> {
     protected EntityManager getEntityManager() {
         return em;
     }
-        
-    public CommunityFacade() {
-        super(Community.class);
-    }
-    
-    public Community findById(int communityId){
-        try {
-          return (Community)em.createNamedQuery("Community.findByIdCommunity").setParameter("idCommunity", communityId).getSingleResult();
-        } catch(NoResultException e) {
-            return null;
-        }
+
+    public CommunityChallengeFacade() {
+        super(CommunityChallenge.class);
     }
     
 }

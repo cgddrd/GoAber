@@ -18,7 +18,7 @@
                     <h:outputLabel value="#{bundle.EditChallengeLabel_idChallenge}" for="idChallenge" />
                     <h:inputText id="idChallenge" value="#{challengeController.selected.idChallenge}" title="#{bundle.EditChallengeTitle_idChallenge}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_idChallenge}"/>
                     <h:outputLabel value="#{bundle.EditChallengeLabel_categoryUnit}" for="categoryUnit" />
-                    <h:inputText id="categoryUnit" value="#{challengeController.selected.categoryUnit}" title="#{bundle.EditChallengeTitle_categoryUnit}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_categoryUnit}"/>
+                    <h:inputText id="categoryUnit" value="#{challengeController.selected.categoryUnitId}" title="#{bundle.EditChallengeTitle_categoryUnit}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_categoryUnit}"/>
                     <h:outputLabel value="#{bundle.EditChallengeLabel_startTime}" for="startTime" />
                     <h:inputText id="startTime" value="#{challengeController.selected.startTime}" title="#{bundle.EditChallengeTitle_startTime}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_startTime}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
@@ -29,10 +29,19 @@
                     </h:inputText>
                     <h:outputLabel value="#{bundle.EditChallengeLabel_name}" for="name" />
                     <h:inputText id="name" value="#{challengeController.selected.name}" title="#{bundle.EditChallengeTitle_name}" />
-                    <h:outputLabel value="#{bundle.EditChallengeLabel_communityStartedBy}" for="communityStartedBy" />
-                    <h:selectOneMenu id="communityStartedBy" value="#{challengeController.selected.communityStartedBy}" title="#{bundle.EditChallengeTitle_communityStartedBy}" >
-                        <f:selectItems value="#{communityController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateComminityChallenge_SelectCommunity}" for="endTime" />
+                    <div class="col-md-10">
+                        <h:selectManyListbox value="#{challengeController.communityChallenges}">
+                             <f:selectItems value="#{challengeController.communitiesValue}"/>
+                        </h:selectManyListbox>
+                    </div>
+                    
+                    <h:outputLabel value="#{bundle.CreateGroupChallenge_SelectCommunity}" for="endTime" />
+                    <div class="col-md-10">
+                        <h:selectManyListbox value="#{challengeController.groupChallenges}">
+                            <f:selectItems value="#{challengeController.groupValue}"/>
+                        </h:selectManyListbox>
+                    </div>
                 </h:panelGrid>
                 <h:commandLink action="#{challengeController.update}" value="#{bundle.EditChallengeSaveLink}"/>
                 <br />

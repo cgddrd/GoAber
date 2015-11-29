@@ -3,22 +3,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.ListChallengeTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
+            #{challengeController.loadPage()}
             <h:form styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListChallengeEmpty}" rendered="#{challengeController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{challengeController.items.rowCount > 0}">
-                    <h:outputText value="#{challengeController.pagination.pageFirstItem + 1}..#{challengeController.pagination.pageLastItem + 1}/#{challengeController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{challengeController.previous}" value="#{bundle.Previous} #{challengeController.pagination.pageSize}" rendered="#{challengeController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{challengeController.next}" value="#{bundle.Next} #{challengeController.pagination.pageSize}" rendered="#{challengeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:outputText value="#{challengeController.paginationChallenges.pageFirstItem + 1}..#{challengeController.paginationChallenges.pageLastItem + 1}/#{challengeController.paginationChallenges.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{challengeController.previous}" value="#{bundle.Previous} #{challengeController.paginationChallenges.pageSize}" rendered="#{challengeController.paginationChallenges.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{challengeController.next}" value="#{bundle.Next} #{challengeController.paginationChallenges.pageSize}" rendered="#{challengeController.paginationChallenges.hasNextPage}"/>&nbsp;
                     <h:dataTable value="#{challengeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
                         <h:column>
                             <f:facet name="header">
@@ -28,9 +30,17 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListChallengeTitle_name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListChallengeTitle_categoryUnit}"/>
                             </f:facet>
-                            <h:outputText value="#{item.categoryUnit}"/>
+                            <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
+                            &nbsp;
+                            <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -50,22 +60,31 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListChallengeTitle_name}"/>
+                                <h:outputText value="#{bundle.CreateGroupChallenge_SelectCommunity}"/>
                             </f:facet>
-                            <h:outputText value="#{item.name}"/>
+                            
+                            <ui:repeat var="group" value="#{item.groupChallengeCollection}">
+                                <h:outputText value="#{group.groupId.name}" />
+                                <br />
+                            </ui:repeat>
+
                         </h:column>
+                        
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListChallengeTitle_communityStartedBy}"/>
+                                <h:outputText value="#{bundle.CreateComminityChallenge_SelectCommunity}"/>
                             </f:facet>
-                            <h:outputText value="#{item.communityStartedBy}"/>
+                            <ui:repeat var="community" value="#{item.communityChallengeCollection}">
+                                <h:outputText value="#{community.communityId.name}" />
+                                <br />
+                            </ui:repeat>
+
                         </h:column>
+                        
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{challengeController.prepareView}" value="#{bundle.ListChallengeViewLink}"/>
-                            <h:outputText value=" "/>
                             <h:commandLink action="#{challengeController.prepareEdit}" value="#{bundle.ListChallengeEditLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{challengeController.destroy}" value="#{bundle.ListChallengeDestroyLink}"/>

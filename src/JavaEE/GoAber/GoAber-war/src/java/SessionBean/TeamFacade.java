@@ -5,9 +5,12 @@
  */
 package SessionBean;
 
+import GoAberDatabase.Community;
 import GoAberDatabase.Team;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -28,4 +31,20 @@ public class TeamFacade extends AbstractFacade<Team> {
         super(Team.class);
     }
     
+    
+    public Team findById(int groupId){
+        try {
+          return (Team)em.createNamedQuery("Team.findByIdGroup").setParameter("idGroup", groupId).getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
+    }
+    
+    public List<Team> findByCommunity(Community communityId){
+        try {
+          return em.createNamedQuery("Team.findByIdCommunity").setParameter("communityId", communityId).getResultList();
+        } catch(NoResultException e) {
+            return null;
+        }
+    }
 }

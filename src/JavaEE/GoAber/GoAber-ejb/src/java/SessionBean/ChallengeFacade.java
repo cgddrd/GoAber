@@ -21,13 +21,14 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ChallengeFacade extends AbstractFacade<Challenge> {
-    @PersistenceContext(unitName = "GoAber-warPU")
+    @PersistenceContext(unitName = "GoAber-ejbPU")
     private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
+    
     
     public List<Challenge> getUnEnteredGroupChalleneges(User userId){
         List<Challenge> challenges = em.createNamedQuery("Challenge.unEnteredGroup").setParameter("groupId", userId.getGroupId()).getResultList();

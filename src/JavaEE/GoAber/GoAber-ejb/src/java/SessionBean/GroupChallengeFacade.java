@@ -6,6 +6,7 @@
 package SessionBean;
 
 import GoAberDatabase.Community;
+import GoAberDatabase.GroupChallenge;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -13,28 +14,20 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author samuel
+ * @author helen
  */
 @Stateless
-public class CommunityFacade extends AbstractFacade<Community> {
-    @PersistenceContext(unitName = "GoAber-warPU")
+public class GroupChallengeFacade extends AbstractFacade<GroupChallenge> {
+    @PersistenceContext(unitName = "GoAber-ejbPU")
     private EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-        
-    public CommunityFacade() {
-        super(Community.class);
-    }
-    
-    public Community findById(int communityId){
-        try {
-          return (Community)em.createNamedQuery("Community.findByIdCommunity").setParameter("idCommunity", communityId).getSingleResult();
-        } catch(NoResultException e) {
-            return null;
-        }
+
+    public GroupChallengeFacade() {
+        super(GroupChallenge.class);
     }
     
 }

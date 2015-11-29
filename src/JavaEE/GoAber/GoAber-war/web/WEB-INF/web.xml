@@ -114,4 +114,43 @@
         <local>SessionBean.CategoryUnitFacade</local>
         <ejb-link>CategoryUnitFacade</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/CommunityFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.CommunityFacade</local>
+        <ejb-link>CommunityFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/UserChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.UserChallengeFacade</local>
+        <ejb-link>UserChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/GroupChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.GroupChallengeFacade</local>
+        <ejb-link>GroupChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/TeamFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.TeamFacade</local>
+        <ejb-link>TeamFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/CommunityChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.CommunityChallengeFacade</local>
+        <ejb-link>CommunityChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/ChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.ChallengeFacade</local>
+        <ejb-link>ChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    
 </web-app>

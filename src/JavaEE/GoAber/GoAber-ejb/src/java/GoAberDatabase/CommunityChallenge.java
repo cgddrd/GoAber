@@ -25,19 +25,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author helen
  */
 @Entity
-@Table(name = "groupchallenge")
+@Table(name = "communitychallenge")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "GroupChallenge.findAll", query = "SELECT g FROM GroupChallenge g"),
-    @NamedQuery(name = "GroupChallenge.findByIdGroupChallenge", query = "SELECT g FROM GroupChallenge g WHERE g.idGroupChallenge = :idGroupChallenge"),
-    @NamedQuery(name = "GroupChallenge.findByStartedChallenge", query = "SELECT g FROM GroupChallenge g WHERE g.startedChallenge = :startedChallenge")})
-public class GroupChallenge implements Serializable {
+    @NamedQuery(name = "CommunityChallenge.findAll", query = "SELECT c FROM CommunityChallenge c"),
+    @NamedQuery(name = "CommunityChallenge.findByIdCommunityChallenge", query = "SELECT c FROM CommunityChallenge c WHERE c.idCommunityChallenge = :idCommunityChallenge"),
+    @NamedQuery(name = "CommunityChallenge.findByStartedChallenge", query = "SELECT c FROM CommunityChallenge c WHERE c.startedChallenge = :startedChallenge")})
+public class CommunityChallenge implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idGroupChallenge")
-    private Integer idGroupChallenge;
+    @Column(name = "idCommunityChallenge")
+    private Integer idCommunityChallenge;
     @Basic(optional = false)
     @NotNull
     @Column(name = "startedChallenge")
@@ -45,40 +45,40 @@ public class GroupChallenge implements Serializable {
     @JoinColumn(name = "challengeId", referencedColumnName = "idChallenge")
     @ManyToOne(optional = false)
     private Challenge challengeId;
-    @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
+    @JoinColumn(name = "communityId", referencedColumnName = "idCommunity")
     @ManyToOne(optional = false)
-    private Team groupId;
+    private Community communityId;
 
-    public GroupChallenge() {
+    public CommunityChallenge() {
     }
 
-    public GroupChallenge(Integer idGroupChallenge) {
-        this.idGroupChallenge = idGroupChallenge;
+    public CommunityChallenge(Integer idCommunityChallenge) {
+        this.idCommunityChallenge = idCommunityChallenge;
     }
 
-    public GroupChallenge(Integer idGroupChallenge, boolean startedChallenge) {
-        this.idGroupChallenge = idGroupChallenge;
+    public CommunityChallenge(Integer idCommunityChallenge, boolean startedChallenge) {
+        this.idCommunityChallenge = idCommunityChallenge;
         this.startedChallenge = startedChallenge;
     }
     
-    public GroupChallenge (Team groupId, Challenge challengeId, boolean startedChallenge) {
-        this.groupId = groupId;
+    public CommunityChallenge (Community communityId, Challenge challengeId, boolean startedChallenge) {
+        this.communityId = communityId;
         this.challengeId = challengeId;
         this.startedChallenge = startedChallenge;
     }
     
-    public GroupChallenge (Team groupId, Challenge challengeId) {
-        this.groupId = groupId;
+    public CommunityChallenge (Community communityId, Challenge challengeId) {
+        this.communityId = communityId;
         this.challengeId = challengeId;
         this.startedChallenge = false;
     }
 
-    public Integer getIdGroupChallenge() {
-        return idGroupChallenge;
+    public Integer getIdCommunityChallenge() {
+        return idCommunityChallenge;
     }
 
-    public void setIdGroupChallenge(Integer idGroupChallenge) {
-        this.idGroupChallenge = idGroupChallenge;
+    public void setIdCommunityChallenge(Integer idCommunityChallenge) {
+        this.idCommunityChallenge = idCommunityChallenge;
     }
 
     public boolean getStartedChallenge() {
@@ -97,29 +97,29 @@ public class GroupChallenge implements Serializable {
         this.challengeId = challengeId;
     }
 
-    public Team getGroupId() {
-        return groupId;
+    public Community getCommunityId() {
+        return communityId;
     }
 
-    public void setGroupId(Team groupId) {
-        this.groupId = groupId;
+    public void setCommunityId(Community communityId) {
+        this.communityId = communityId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idGroupChallenge != null ? idGroupChallenge.hashCode() : 0);
+        hash += (idCommunityChallenge != null ? idCommunityChallenge.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof GroupChallenge)) {
+        if (!(object instanceof CommunityChallenge)) {
             return false;
         }
-        GroupChallenge other = (GroupChallenge) object;
-        if ((this.idGroupChallenge == null && other.idGroupChallenge != null) || (this.idGroupChallenge != null && !this.idGroupChallenge.equals(other.idGroupChallenge))) {
+        CommunityChallenge other = (CommunityChallenge) object;
+        if ((this.idCommunityChallenge == null && other.idCommunityChallenge != null) || (this.idCommunityChallenge != null && !this.idCommunityChallenge.equals(other.idCommunityChallenge))) {
             return false;
         }
         return true;
@@ -127,7 +127,7 @@ public class GroupChallenge implements Serializable {
 
     @Override
     public String toString() {
-        return "GoAberDB.GroupChallenge[ idGroupChallenge=" + idGroupChallenge + " ]";
+        return "GoAberDB.CommunityChallenge[ idCommunityChallenge=" + idCommunityChallenge + " ]";
     }
     
 }
