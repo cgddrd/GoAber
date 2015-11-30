@@ -24,7 +24,7 @@
                     <h:outputLabel value="#{bundle.CreateChallengeLabel_categoryUnit}" for="categoryUnit" />
                     <div class="col-md-10">
                         <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{challengeController.selected.categoryUnitId}" title="#{bundle.CreateActivityDataLabel_categoryUnitId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
-                            <f:selectItems value="#{categoryUnitController.getDisplayItems()}"/>
+                            <f:selectItems value="#{categoryUnitService.getDisplayItems()}"/>
                         </h:selectOneMenu>
                     </div>                    
                    <h:outputLabel value="#{bundle.CreateChallengeLabel_startTime}" for="startTime" />
