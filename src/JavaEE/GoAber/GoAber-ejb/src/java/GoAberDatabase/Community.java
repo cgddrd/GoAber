@@ -8,7 +8,6 @@ package GoAberDatabase;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,17 +28,6 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author connorgoddard
  */
 @Entity
-
-/* CG - In order to ensure we get the latest updates when accessing Community entities via the database,
- * we need to force the EclipseLink shared cache to disable caching of pre-loaded Community entities.
- * 
- * See: https://wiki.eclipse.org/EclipseLink/FAQ/How_to_disable_the_shared_cache%3F for more information.
- *
- * NOTE: We may need to do this for other entities that are updated whose values are then required during the
- * same execution cycle (e.g. Teams or Challenges?)
- */
-@Cacheable(false)
-
 @Table(name = "Community")
 @XmlRootElement
 @NamedQueries({
@@ -62,10 +50,18 @@ public class Community implements Serializable {
     @Size(max = 250)
     @Column(name = "endpointUrl")
     private String endpointUrl;
-    @OneToMany(mappedBy = "communityStartedBy")
-    private Collection<Challenge> challengeCollection;
-    @OneToMany(mappedBy = "communityId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "communityId")
     private Collection<Team> teamCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "communityId")
+    private Collection<CommunityChallenge> communityChallengeCollection;
+
+    public Collection<CommunityChallenge> getCommunityChallengeCollection() {
+        return communityChallengeCollection;
+    }
+
+    public void setCommunityChallengeCollection(Collection<CommunityChallenge> communityChallengeCollection) {
+        this.communityChallengeCollection = communityChallengeCollection;
+    }
 
     public Community() {
     }
@@ -102,15 +98,15 @@ public class Community implements Serializable {
     public void setEndpointUrl(String endpointUrl) {
         this.endpointUrl = endpointUrl;
     }
-
+/*
     @XmlTransient
-    public Collection<Challenge> getChallengeCollection() {
-        return challengeCollection;
+    public Collection<CommunityChallenge> getCommunityChallengeCollection() {
+        return communityChallengeCollection;
     }
 
-    public void setChallengeCollection(Collection<Challenge> challengeCollection) {
-        this.challengeCollection = challengeCollection;
-    }
+    public void setCommunityChallengeCollection(Collection<CommunityChallenge> communityChallengeCollection) {
+        this.communityChallengeCollection = communityChallengeCollection;
+    }*/
 
     @XmlTransient
     public Collection<Team> getTeamCollection() {

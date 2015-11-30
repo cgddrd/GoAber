@@ -17,6 +17,11 @@ namespace GoAber.Scheduling.Hangfire
             return BackgroundJob.Schedule(am_methodcall, TimeSpan.FromMinutes(ai_minutes));
         }
 
+        public string CreateOnceJob(Expression<Action> am_methodcall, DateTimeOffset adao_date)
+        {
+            return BackgroundJob.Schedule(am_methodcall, adao_date);
+        }
+
 
         public void CreateRecurringJob(string as_id, Expression<Action> am_methodcall, int ai_minutes)
         {

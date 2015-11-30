@@ -16,6 +16,7 @@ namespace GoAber.Scheduling.Interfaces
 
         void CreateRecurringJob(string as_id, System.Linq.Expressions.Expression<System.Action> am_methodcall, int ai_minutes);
         string CreateOnceJob(Expression<Action> am_methodcall, int ai_minutes);
+        string CreateOnceJob(Expression<Action> am_methodcall, DateTimeOffset adao_date);
 
         void RemoveRecurringJob(string as_id);
 

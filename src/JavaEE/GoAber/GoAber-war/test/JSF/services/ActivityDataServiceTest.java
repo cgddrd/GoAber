@@ -9,6 +9,9 @@ import GoAberDatabase.ActivityData;
 import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.User;
 import SessionBean.ActivityDataFacade;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -146,6 +149,69 @@ public class ActivityDataServiceTest {
         ActivityData data = service.findById(10);
         assertNotNull(data);
         assertEquals(10, data.getIdActivityData().longValue());
+    }
+    
+    /**
+     * Test of findAllForUserInDateRange method, of class ActivityDataService.
+     * 
+     * We expect to find a single item.
+     * @throws java.text.ParseException
+     */
+    @Test
+    public void testFindAllForUserInDateRange_FindOne() throws ParseException  {
+        //create a dummy logged in user
+        User current = new User();
+        current.setIdUser(0);
+        
+        //setup date range
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        Date startDate = formatter.parse("22/11/15");
+        Date endDate = formatter.parse("28/11/15");
+        
+        //set date for result object
+        List<ActivityData> expResult = createMockData(1);
+        expResult.get(0).setDate(formatter.parse("21/11/15"));
+        
+        //mock call and get result
+        when(facadeMock.getAllForUserInDateRange(0, "Steps", startDate, endDate)).thenReturn(expResult);
+        List<ActivityData> result = service.findAllForUserInDateRange(current, "Steps", startDate, endDate);
+        
+        //check query size matched
+        assertEquals(1, result.size());
+        assertNotNull(result.get(0));
+        assertNotNull(result.get(0).getUserId());
+        
+        ActivityData resultData = result.get(0);
+        User user = resultData.getUserId();
+        
+        //check payload was as expected
+        assertEquals(0, user.getIdUser().longValue());
+        assertEquals(0, resultData.getValue().longValue());
+    }
+    
+    /**
+     * Test of findAllForUserInDateRange method, of class ActivityDataService.
+     * 
+     * We expect to find a no items.
+     * @throws java.text.ParseException
+     */
+    @Test
+    public void testFindAllForUserInDateRange_FindNone() throws ParseException {
+        //create a dummy logged in user
+        User current = new User();
+        current.setIdUser(0);
+       
+        //setup date range
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        Date startDate = formatter.parse("22/11/15");
+        Date endDate = formatter.parse("28/11/15");
+        
+        //mock call and get result
+        when(facadeMock.getAllForUserInDateRange(0, "Steps", startDate, endDate)).thenReturn(new ArrayList<>());
+        List<ActivityData> result = service.findAllForUserInDateRange(current, "Steps", startDate, endDate);
+        
+        //check query size matched
+        assertEquals(0, result.size());
     }
     
     /**

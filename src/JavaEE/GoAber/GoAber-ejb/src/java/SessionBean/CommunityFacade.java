@@ -8,6 +8,7 @@ package SessionBean;
 import GoAberDatabase.Community;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -23,6 +24,14 @@ public class CommunityFacade extends AbstractFacade<Community> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+     public Community findById(int communityId){
+        try {
+          return (Community)em.createNamedQuery("Community.findByIdCommunity").setParameter("idCommunity", communityId).getSingleResult();
+        } catch(NoResultException e) {
+            return null;
+        }
     }
 
     public CommunityFacade() {

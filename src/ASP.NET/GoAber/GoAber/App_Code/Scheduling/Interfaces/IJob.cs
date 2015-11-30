@@ -9,6 +9,6 @@ namespace GoAber.Scheduling.Interfaces
     public interface IJob
     {
         string GetID();
-        void Run();
+        void Run(string[] args);
     }
 }

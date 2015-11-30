@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application name.
+        ///   Looks up a localized string similar to Go Aber.
         /// </summary>
         public static string _Layout_cshtml_Execute_Application_name {
             get {
@@ -129,6 +129,15 @@ namespace Resources {
         public static string _Layout_cshtml_Execute_Jobs {
             get {
                 return ResourceManager.GetString("_Layout_cshtml_Execute_Jobs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leader Boards.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_LeaderBoards {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_LeaderBoards", resourceCulture);
             }
         }
         
@@ -566,6 +575,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completed Challenges.
+        /// </summary>
+        public static string Challenges_completedChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_completedChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community Challenges.
+        /// </summary>
+        public static string Challenges_completedcomChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_completedcomChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Challenges.
+        /// </summary>
+        public static string Challenges_completedgroupChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_completedgroupChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group challenges .
         /// </summary>
         public static string Challenges_groupChallenges {
@@ -724,6 +760,42 @@ namespace Resources {
         public static string HomeController_Index_Home_Page {
             get {
                 return ResourceManager.GetString("HomeController_Index_Home_Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Leader Board.
+        /// </summary>
+        public static string LeaderBoards_GroupLeaderBoardTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_GroupLeaderBoardTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Leader Boards.
+        /// </summary>
+        public static string LeaderBoards_IndexGroupTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_IndexGroupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Participant Leader Boards.
+        /// </summary>
+        public static string LeaderBoards_IndexParticipantTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_IndexParticipantTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Participant Leader Board.
+        /// </summary>
+        public static string LeaderBoards_ParticipantLeaderBoardTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_ParticipantLeaderBoardTitle", resourceCulture);
             }
         }
         
@@ -1021,6 +1093,15 @@ namespace Resources {
         public static string MonthlySummaryTitle_TotalSteps {
             get {
                 return ResourceManager.GetString("MonthlySummaryTitle_TotalSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ranking.
+        /// </summary>
+        public static string Ranking {
+            get {
+                return ResourceManager.GetString("Ranking", resourceCulture);
             }
         }
         

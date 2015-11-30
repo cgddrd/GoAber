@@ -175,6 +175,7 @@
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -284,6 +285,7 @@
     <Compile Include="ActionFilters\MultipleButtonAttribute.cs" />
     <Compile Include="App_Code\Scheduling\Interfaces\IScheduler.cs" />
     <Compile Include="App_Code\Scheduling\Hangfire\HangfireScheduler.cs" />
+    <Compile Include="App_Code\Scheduling\Jobs\ChallengeJob.cs" />
     <Compile Include="App_Code\Scheduling\Jobs\JawBoneJob.cs" />
     <Compile Include="App_Code\Scheduling\Jobs\EmailJob.cs" />
     <Compile Include="App_Code\Scheduling\ScheduleJobs.cs" />
@@ -303,6 +305,9 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Controllers\LeaderBoardsController.cs" />
+    <Compile Include="Controllers\ResultsController.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
@@ -326,10 +331,24 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ActivityData.cs" />
+    <Compile Include="Models\ViewModels\GroupLeaderViewModel.cs" />
+    <Compile Include="Models\ViewModels\ParticipantLeaderViewModel.cs" />
     <Compile Include="Models\WebServiceAuth.cs" />
-    <Compile Include="WebService\ActivityData.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Service References\RemoteChallengeWS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ResultService.cs" />
+    <Compile Include="WebService\ActivityDataWS\ActivityData.cs" />
     <Compile Include="WebService\AuthHeader.cs" />
-    <Compile Include="WebService\GoAberWS.asmx.cs">
+    <Compile Include="WebService\ChallengesWS\ChallengeData.cs" />
+    <Compile Include="WebService\ChallengesWS\GoAberChallengesWS.asmx.cs">
+      <DependentUpon>GoAberChallengesWS.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebService\ActivityDataWS\GoAberWS.asmx.cs">
       <DependentUpon>GoAberWS.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
@@ -365,6 +384,9 @@
     <Compile Include="Services\ChallengeService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\DataRemovalAuditsController.cs" />
+    <Compile Include="WebService\ChallengesWS\Consumer\GoAberChallengeWSConsumer.cs" />
+    <Compile Include="WebService\ChallengesWS\HandleResult.cs" />
+    <Compile Include="WebService\ChallengesWS\ResultData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Shared\Extensions.cs" />
@@ -452,7 +474,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="WebService\GoAberWS.asmx" />
+    <Content Include="Service References\RemoteChallengeWS\GoAber.RemoteChallengeWS.RecieveChallengeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\RemoteChallengeWS\GoAber.RemoteChallengeWS.RecieveResultResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\RemoteChallengeWS\GoAber.RemoteChallengeWS.ResultData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.disco" />
+    <None Include="Service References\RemoteChallengeWS\configuration91.svcinfo" />
+    <None Include="Service References\RemoteChallengeWS\configuration.svcinfo" />
+    <None Include="Service References\RemoteChallengeWS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="WebService\ChallengesWS\GoAberChallengesWS.asmx" />
+    <Content Include="WebService\ActivityDataWS\GoAberWS.asmx" />
     <Content Include="Images\ajax-loader.gif" />
     <Content Include="Scripts\Charts.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -531,8 +570,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -583,6 +620,21 @@
     <Content Include="Views\ActivityDatas\AllTimeSummary.cshtml" />
     <Content Include="Views\ActivityDatas\ViewUser.cshtml" />
     <Content Include="Views\ActivityDatas\BatchDelete.cshtml" />
+    <Content Include="Views\LeaderBoards\ParticipantLeaderBoard.cshtml" />
+    <Content Include="Views\LeaderBoards\Index.cshtml" />
+    <Content Include="Views\LeaderBoards\GroupLeaderBoard.cshtml" />
+    <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
+    <Content Include="Views\Challenge\AllChallenges.cshtml" />
+    <Content Include="Views\Challenge\Create.cshtml" />
+    <Content Include="Views\Challenge\Delete.cshtml" />
+    <Content Include="Views\Challenge\Details.cshtml" />
+    <Content Include="Views\Challenge\Edit.cshtml" />
+    <Content Include="Views\Challenge\Index.cshtml" />
+    <Content Include="Views\Results\Create.cshtml" />
+    <Content Include="Views\Results\Delete.cshtml" />
+    <Content Include="Views\Results\Details.cshtml" />
+    <Content Include="Views\Results\Edit.cshtml" />
+    <Content Include="Views\Results\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
@@ -621,6 +673,12 @@
     <Folder Include="Views\BaseAPI\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\CategoryAPI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
