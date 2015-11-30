@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -15,20 +16,27 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditChallengeLabel_idChallenge}" for="idChallenge" />
-                    <h:inputText id="idChallenge" value="#{challengeController.selected.idChallenge}" title="#{bundle.EditChallengeTitle_idChallenge}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_idChallenge}"/>
-                    <h:outputLabel value="#{bundle.EditChallengeLabel_categoryUnit}" for="categoryUnit" />
-                    <h:inputText id="categoryUnit" value="#{challengeController.selected.categoryUnitId}" title="#{bundle.EditChallengeTitle_categoryUnit}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_categoryUnit}"/>
-                    <h:outputLabel value="#{bundle.EditChallengeLabel_startTime}" for="startTime" />
-                    <h:inputText id="startTime" value="#{challengeController.selected.startTime}" title="#{bundle.EditChallengeTitle_startTime}" required="true" requiredMessage="#{bundle.EditChallengeRequiredMessage_startTime}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditChallengeLabel_endTime}" for="endTime" />
-                    <h:inputText id="endTime" value="#{challengeController.selected.endTime}" title="#{bundle.EditChallengeTitle_endTime}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditChallengeLabel_name}" for="name" />
-                    <h:inputText id="name" value="#{challengeController.selected.name}" title="#{bundle.EditChallengeTitle_name}" />
+                     <h:outputLabel value="#{bundle.CreateChallengeLabel_name}" for="name" />
+                    <div class="col-md-10">
+                        <h:inputText id="name" value="#{challengeController.selected.name}" title="#{bundle.CreateChallengeTitle_name}" />
+                    </div>
+                    
+                    <h:outputLabel value="#{bundle.CreateChallengeLabel_categoryUnit}" for="categoryUnit" />
+                    <div class="col-md-10">
+                        <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{challengeController.selected.categoryUnitId}" title="#{bundle.CreateActivityDataLabel_categoryUnitId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
+                            <f:selectItems value="#{categoryUnitService.getDisplayItems()}"/>
+                        </h:selectOneMenu>
+                    </div>                    
+                   <h:outputLabel value="#{bundle.CreateChallengeLabel_startTime}" for="startTime" />
+                    <div class="col-md-10">
+                        <p:calendar id="date" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.startTime}" title="#{bundle.CreateChallengeTitle_startTime}" />
+                    </div>
+                    
+                    <h:outputLabel value="#{bundle.CreateChallengeLabel_endTime}" for="endTime" />
+                    <div class="col-md-10">
+                        <p:calendar id="date2" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.endTime}" title="#{bundle.CreateChallengeTitle_endTime}" />
+                    </div>
+                    
                     <h:outputLabel value="#{bundle.CreateComminityChallenge_SelectCommunity}" for="endTime" />
                     <div class="col-md-10">
                         <h:selectManyListbox value="#{challengeController.communityChallenges}">
@@ -45,10 +53,8 @@
                 </h:panelGrid>
                 <h:commandLink action="#{challengeController.update}" value="#{bundle.EditChallengeSaveLink}"/>
                 <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditChallengeViewLink}"/>
-                <br />
-                <h:commandLink action="#{challengeController.prepareList}" value="#{bundle.EditChallengeShowAllLink}" immediate="true"/>
+                <h:link outcome="/challenge/Index" value="#{bundle.CreateChallengeShowAllLink}"/>
+                
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.EditChallengeIndexLink}" />
