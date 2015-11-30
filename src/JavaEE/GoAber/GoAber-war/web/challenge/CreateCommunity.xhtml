@@ -24,7 +24,7 @@
                         <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
                         <div class="col-md-10">
                             <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{challengeController.selected.categoryUnitId}" title="#{bundle.CreateActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
-                                <f:selectItems value="#{categoryUnitService.getDisplayItems()}"/>
+                            <f:selectItems value="#{categoryUnitService.getDisplayItems()}"/>
                             </h:selectOneMenu>
                         </div>
 
@@ -46,19 +46,13 @@
                         </h:selectManyListbox>
                     </div>
                     
-                    <h:outputLabel value="#{bundle.CreateGroupChallenge_SelectCommunity}" for="endTime" />
-                    <div class="col-md-10">
-                        <h:selectManyListbox value="#{challengeController.groupChallenges}">
-                            <f:selectItems value="#{challengeController.groupValue}"/>
-                        </h:selectManyListbox>
-                    </div>
                     
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{challengeController.create}" value="#{bundle.CreateChallengeSaveLink}" />
+                <h:commandLink action="#{challengeController.createCommunity}" value="#{bundle.CreateChallengeSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{challengeController.prepareList}" value="#{bundle.CreateChallengeShowAllLink}" immediate="true"/>
+                <h:link outcome="/challenge/Index" value="#{bundle.CreateChallengeShowAllLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.CreateChallengeIndexLink}"/>

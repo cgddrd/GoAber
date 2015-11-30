@@ -6,6 +6,7 @@ import JSF.util.PaginationHelper;
 import SessionBean.RoleFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -57,6 +58,15 @@ public class RoleController implements Serializable {
             selectedItemIndex = -1;
         }
         return current;
+    }
+    
+    public List<SelectItem> getRoleSelectList() {
+        List<SelectItem> roleList = new ArrayList<>();
+        
+        for (Role role : getFacade().findAll()) {
+            roleList.add(new SelectItem(role.getIdRole()));
+        }
+        return roleList;
     }
 
     private RoleFacade getFacade() {

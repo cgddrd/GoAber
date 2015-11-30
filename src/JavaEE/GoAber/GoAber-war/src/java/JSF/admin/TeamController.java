@@ -51,11 +51,35 @@ public class TeamController implements Serializable {
         recreateItems();
         
         // CG - Re-generate the team select list grouped by community.
-        generateGroupedTeamList();
+        generateGroupedTeamSelectList();
 
     }
     
-    private void generateGroupedTeamList() {
+    public List<SelectItem> getGroupedTeamFilterList() {
+        
+        List<SelectItem> teamList = new ArrayList<>();
+        
+        for(Community community : communities) {
+            
+            SelectItemGroup newCommunityGroup = new SelectItemGroup(community.getName());
+            
+            SelectItem[] communityTeams = new SelectItem[community.getTeamCollection().size()];
+            
+            int i = 0;
+            for (Team team : community.getTeamCollection()) {
+                communityTeams[i] = new SelectItem(team.getName());
+                i++;
+            }
+            
+            newCommunityGroup.setSelectItems(communityTeams);
+            
+            teamList.add(newCommunityGroup);
+        }
+        
+        return teamList;
+    }
+    
+    private void generateGroupedTeamSelectList() {
 
         this.groupedTeamList = new ArrayList<>();
         
@@ -224,7 +248,7 @@ public class TeamController implements Serializable {
      * @return the groupedTeamList
      */
     public List<SelectItem> getGroupedTeamList() {
-        this.generateGroupedTeamList();
+        this.generateGroupedTeamSelectList();
         return groupedTeamList;
     }
     

@@ -84,7 +84,7 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserChallenge> userChallengeCollection;
     
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Audit> auditCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userIdData")
     private Collection<DataRemovalAudit> dataRemovalAuditCollection;

@@ -583,12 +583,10 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Areas\MyAccount\Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\ChangePassword.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\EditAccount.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\ManageLogins.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\SetPassword.cshtml" />
-    <Content Include="Areas\MyAccount\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
@@ -625,7 +623,7 @@
     <Content Include="Views\LeaderBoards\GroupLeaderBoard.cshtml" />
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
     <Content Include="Views\Challenge\AllChallenges.cshtml" />
-    <Content Include="Views\Challenge\Create.cshtml" />
+    <Content Include="Views\Challenge\CreateGroup.cshtml" />
     <Content Include="Views\Challenge\Delete.cshtml" />
     <Content Include="Views\Challenge\Details.cshtml" />
     <Content Include="Views\Challenge\Edit.cshtml" />
@@ -635,6 +633,7 @@
     <Content Include="Views\Results\Details.cshtml" />
     <Content Include="Views\Results\Edit.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
+    <Content Include="Views\Challenge\CreateCommunity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
