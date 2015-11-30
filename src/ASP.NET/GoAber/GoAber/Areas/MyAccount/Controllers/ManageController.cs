@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -146,6 +147,53 @@ namespace GoAber.Areas.MyAccount.Controllers
             }
 
             return View(editModel);
+        }
+
+        // GET: Admin/ApplicationUsers/Delete/5
+        public ActionResult Delete()
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            ApplicationUser applicationUser = db.Users.Find(ApplicationUserService.GetCurrentApplicationUser().Id);
+            if (applicationUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(applicationUser);
+        }
+
+        // POST: Admin/ApplicationUsers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed()
+        {
+
+                ApplicationUser applicationUser = db.Users.Find(ApplicationUserService.GetCurrentApplicationUser().Id);
+
+                // CG - If we want to delete an ApplicationUser, we need to make sure that we remove all of the FK relationships.
+                if (applicationUser != null)
+                {
+                    db.ActivityDatas.RemoveRange(db.ActivityDatas.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
+
+                    db.Audit.RemoveRange(db.Audit.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
+
+                    db.DataRemovalAudits.RemoveRange(db.DataRemovalAudits.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
+
+                    db.WebServiceAuths.RemoveRange(db.WebServiceAuths.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
+
+                    db.Users.Remove(applicationUser);
+
+                    db.SaveChanges();
+                }
+
+            //return RedirectToAction("Index");
+            //System.Web.HttpContext.Current.GetOwinContext().Authentication.SignOut();
+            //return RedirectToAction("Index", "Home", new { area = "" });
+
+            // CG - Once we have deleted their account, make sure to log the current user out and return to the homepage.
+            return ApplicationUserService.LogoutCurrentApplicationUser();
         }
 
 

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Security;
+using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GoAber.Models;
@@ -30,6 +34,16 @@ namespace GoAber.Services
             ApplicationUser user = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId);
 
             return user;
+        }
+
+        public static ActionResult LogoutCurrentApplicationUser()
+        {
+            // CG - Log the current user out.
+            HttpContext.Current.GetOwinContext().Authentication.SignOut();
+
+            // CG - As we are not extending from the 'BaseController' class, we must use this approach to return a 'redirect' ActionResult.
+            // See: http://stackoverflow.com/a/6900386 for more information.
+            return new RedirectToRouteResult(new RouteValueDictionary(new {action = "Index", controller = "Home", area = ""}));
         }
 
         public ApplicationUser GetUserById(string userId)
