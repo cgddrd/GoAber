@@ -7,7 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.ViewActivityDataTitle}"></h:outputText>
+            <h:outputText value="#{bundle.DestroyActivityDataTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
@@ -15,7 +15,7 @@
             </h:panelGroup>
             <h:form>
                 <dl class="dl-horizontal">
-
+                    
                     <dt>
                         <h:outputText value="#{bundle.ViewActivityDataLabel_value}"/>
                     </dt>
@@ -70,10 +70,9 @@
                     </dd>
                 </dl>
 
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <h:commandLink action="#{activityDataController.prepareList}" value="#{bundle.ViewActivityDataShowAllLink}"/>
-                    </div>
+                <div class="form-actions no-color">
+                    <h:commandLink class="btn btn-default" action="#{activityDataController.destroy}" value="#{bundle.DestroyActivityDataLink}" /> |
+                    <h:commandLink action="#{activityDataController.prepareList}" value="#{bundle.ViewActivityDataShowAllLink}"/>
                 </div>
             </h:form>
         </ui:define>

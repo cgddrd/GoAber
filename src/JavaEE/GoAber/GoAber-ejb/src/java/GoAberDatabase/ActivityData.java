@@ -8,6 +8,7 @@ package GoAberDatabase;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author connorgoddard
  */
 @Entity
+@Cacheable(false)
 @Table(name = "ActivityData")
 @XmlRootElement
 @NamedQueries({
@@ -35,7 +37,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActivityData.findByValue", query = "SELECT a FROM ActivityData a WHERE a.value = :value"),
     @NamedQuery(name = "ActivityData.findByLastUpdated", query = "SELECT a FROM ActivityData a WHERE a.lastUpdated = :lastUpdated"),
     @NamedQuery(name = "ActivityData.findByDate", query = "SELECT a FROM ActivityData a WHERE a.date = :date"),
-    @NamedQuery(name = "ActivityData.findAllForUser", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :id")})
+    @NamedQuery(name = "ActivityData.findAllForUser", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :id"),
+    @NamedQuery(name = "ActivityData.findAllForUserWithUnit", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :id AND a.categoryUnitId.unitId.name = :unit"),
+    @NamedQuery(name = "ActivityData.getAllForUserInDateRange", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :id AND a.date > :startDate AND a.date < :endDate AND a.categoryUnitId.unitId.name = :unit")})
 public class ActivityData implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

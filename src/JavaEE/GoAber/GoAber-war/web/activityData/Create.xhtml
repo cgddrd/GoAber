@@ -35,7 +35,7 @@
                         <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
                         <div class="col-md-10">
                             <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{activityDataController.selected.categoryUnitId}" title="#{bundle.CreateActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
-                                <f:selectItems value="#{categoryUnitController.getDisplayItems()}"/>
+                                <f:selectItems value="#{categoryUnitService.getDisplayItems()}"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
