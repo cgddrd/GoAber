@@ -627,7 +627,7 @@
     <Content Include="Views\LeaderBoards\GroupLeaderBoard.cshtml" />
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
     <Content Include="Views\Challenge\AllChallenges.cshtml" />
-    <Content Include="Views\Challenge\Create.cshtml" />
+    <Content Include="Views\Challenge\CreateGroup.cshtml" />
     <Content Include="Views\Challenge\Delete.cshtml" />
     <Content Include="Views\Challenge\Details.cshtml" />
     <Content Include="Views\Challenge\Edit.cshtml" />
@@ -637,6 +637,7 @@
     <Content Include="Views\Results\Details.cshtml" />
     <Content Include="Views\Results\Edit.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
+    <Content Include="Views\Challenge\CreateCommunity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />

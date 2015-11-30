@@ -34,7 +34,7 @@
             <br />
             <c:choose>
 
-                <c:when test="#{authController.loggedIn}">
+                <c:when test="#{authService.loggedIn}">
                     <h:link outcome="/webServiceAuth/index" value="Show All Web Service Tokens"/>
                     <br />
                     <br />

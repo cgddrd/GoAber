@@ -8,7 +8,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EditChallengeTitle}"></h:outputText>
+            <h:outputText value="#{bundle.CreateChallengeTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
@@ -16,7 +16,7 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                     <h:outputLabel value="#{bundle.CreateChallengeLabel_name}" for="name" />
+                    <h:outputLabel value="#{bundle.CreateChallengeLabel_name}" for="name" />
                     <div class="col-md-10">
                         <h:inputText id="name" value="#{challengeController.selected.name}" title="#{bundle.CreateChallengeTitle_name}" />
                     </div>
@@ -37,27 +37,24 @@
                         <p:calendar id="date2" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.endTime}" title="#{bundle.CreateChallengeTitle_endTime}" />
                     </div>
                     
-                    <h:outputLabel value="#{bundle.CreateComminityChallenge_SelectCommunity}" for="endTime" />
-                    <div class="col-md-10">
-                        <h:selectManyListbox value="#{challengeController.communityChallenges}">
-                             <f:selectItems value="#{challengeController.communitiesValue}"/>
-                        </h:selectManyListbox>
-                    </div>
                     
+                   
                     <h:outputLabel value="#{bundle.CreateGroupChallenge_SelectCommunity}" for="endTime" />
                     <div class="col-md-10">
                         <h:selectManyListbox value="#{challengeController.groupChallenges}">
                             <f:selectItems value="#{challengeController.groupValue}"/>
                         </h:selectManyListbox>
                     </div>
+                    
                 </h:panelGrid>
-                <h:commandLink action="#{challengeController.update}" value="#{bundle.EditChallengeSaveLink}"/>
+                <br />
+                <h:commandLink action="#{challengeController.createGroup}" value="#{bundle.CreateChallengeSaveLink}" />
+                <br />
                 <br />
                 <h:link outcome="/challenge/Index" value="#{bundle.CreateChallengeShowAllLink}"/>
-                
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.EditChallengeIndexLink}" />
+                <h:link outcome="/index" value="#{bundle.CreateChallengeIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>
