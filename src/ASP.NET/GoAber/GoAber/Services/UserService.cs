@@ -22,13 +22,15 @@ namespace GoAber.Services
 
             // group activity data by user
             // then for each group calculate the total and store it in a model
-            var transformedUsers = activityData.GroupBy(a => a.User.Id)
-                .ToList()
-                .Select(g => new ParticipantLeaderViewModel
-            {
-                User = db.Users.Find(g.Key),
-                Total = g.Sum(x => x.value).GetValueOrDefault(0)
-            });
+            var transformedUsers = activityData
+                            .Where(a => a.User.Id != null) // ignore data that does not have a user
+                            .GroupBy(a => a.User.Id)
+                            .ToList()
+                            .Select(g => new ParticipantLeaderViewModel
+                            {
+                                User = db.Users.Find(g.Key),
+                                Total = g.Sum(x => x.value).GetValueOrDefault(0)
+                            });
 
             // finally order the views according to who is the best
             return transformedUsers.OrderByDescending(m => m.Total);
