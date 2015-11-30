@@ -2,8 +2,41 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
     <service name="GoAberWS">
-      <implementation-class>WebServices.GoAberWS</implementation-class>
+      <implementation-class>WebServices.ActivityDataWS.GoAberWS</implementation-class>
+    </service>
+    <service name="RemoteChallengeWS">
+      <implementation-class>WebServices.ChallengeWS.RemoteChallengeWS</implementation-class>
+      <wsdl-url>http://localhost:50121/WebService/ChallengesWS/GoAberChallengesWS.asmx?WSDL</wsdl-url>
+      <local-wsdl-file>localhost_50121/WebService/ChallengesWS/GoAberChallengesWS.asmx.wsdl</local-wsdl-file>
+      <service-name>GoAberChallengesWS</service-name>
+      <port-name>GoAberChallengesWSSoap</port-name>
+      <package-name>org.tempuri</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
     </service>
   </services>
   <clients/>
+  <jsr109>true</jsr109>
 </jax-ws>

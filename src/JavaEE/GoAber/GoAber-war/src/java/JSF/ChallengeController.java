@@ -13,6 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -281,6 +282,7 @@ public class ChallengeController implements Serializable {
 
     public String create() {
         try {
+            current.setIdChallenge(UUID.randomUUID().toString());
             getFacade().create(current);
             User currentUser = auth.getActiveUser();
             current.setGroupChallengeCollection(challengeService.addGroupChallenges(currentUser, current, groupChallenges));
@@ -417,7 +419,7 @@ public class ChallengeController implements Serializable {
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();

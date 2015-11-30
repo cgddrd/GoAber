@@ -21,20 +21,21 @@
                         <h:inputText id="name" value="#{challengeController.selected.name}" title="#{bundle.CreateChallengeTitle_name}" />
                     </div>
                     
-                    <h:outputLabel value="#{bundle.CreateChallengeLabel_categoryUnit}" for="categoryUnit" />
-                    <div class="col-md-10">
-                        <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{challengeController.selected.categoryUnitId}" title="#{bundle.CreateActivityDataLabel_categoryUnitId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
-                            <f:selectItems value="#{categoryUnitController.getDisplayItems()}"/>
-                        </h:selectOneMenu>
-                    </div>                    
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
+                        <div class="col-md-10">
+                            <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{challengeController.selected.categoryUnitId}" title="#{bundle.CreateActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
+                                <f:selectItems value="#{categoryUnitService.getDisplayItems()}"/>
+                            </h:selectOneMenu>
+                        </div>
+
                    <h:outputLabel value="#{bundle.CreateChallengeLabel_startTime}" for="startTime" />
                     <div class="col-md-10">
-                        <p:calendar id="date" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.startTime}" title="#{bundle.CreateChallengeTitle_startTime}" />
+                        <p:calendar id="startTime" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.startTime}" title="#{bundle.CreateChallengeTitle_startTime}" />
                     </div>
                     
                     <h:outputLabel value="#{bundle.CreateChallengeLabel_endTime}" for="endTime" />
                     <div class="col-md-10">
-                        <p:calendar id="date2" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.endTime}" title="#{bundle.CreateChallengeTitle_endTime}" />
+                        <p:calendar id="endTime" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.endTime}" title="#{bundle.CreateChallengeTitle_endTime}" />
                     </div>
                     
                     

@@ -65,10 +65,11 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Challenge implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Basic(optional = false)
     @Column(name = "idChallenge")
-    private Integer idChallenge;
+    private String idChallenge;
     /*@Basic(optional = false)
     @NotNull
     @Column(name = "categoryUnit")
@@ -98,21 +99,21 @@ public class Challenge implements Serializable {
     public Challenge() {
     }
 
-    public Challenge(Integer idChallenge) {
+    public Challenge(String idChallenge) {
         this.idChallenge = idChallenge;
     }
 
-    public Challenge(Integer idChallenge, CategoryUnit categoryUnitId, Date startTime) {
+    public Challenge(String idChallenge, CategoryUnit categoryUnitId, Date startTime) {
         this.idChallenge = idChallenge;
         this.categoryUnitId = categoryUnitId;
         this.startTime = startTime;
     }
 
-    public Integer getIdChallenge() {
+    public String getIdChallenge() {
         return idChallenge;
     }
 
-    public void setIdChallenge(Integer idChallenge) {
+    public void setIdChallenge(String idChallenge) {
         this.idChallenge = idChallenge;
     }
 
