@@ -65,5 +65,16 @@ namespace UnitTestService
 
             Assert.IsFalse(result);
         }
+
+        [TestMethod]
+        public void TestNoActivityData()
+        {
+            GoAberWS.ActivityData[] activityDataArray = {  };
+
+            GoAberWS.GoAberWSSoapClient soapClient = new GoAberWS.GoAberWSSoapClient();
+            bool result = soapClient.AddActivityData(authentication, activityDataArray);
+
+            Assert.IsTrue(result);
+        }
     }
 }
