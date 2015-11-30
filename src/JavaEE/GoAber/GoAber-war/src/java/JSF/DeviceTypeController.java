@@ -1,7 +1,7 @@
 package JSF;
 
 import GoAberDatabase.DeviceType;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.DeviceTypeFacade;

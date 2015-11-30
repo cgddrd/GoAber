@@ -195,31 +195,6 @@ public class CategoryUnitController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public List<SelectItem> getDisplayItems() {
-        List<SelectItem> itemsList = new ArrayList<>();
-        List<Category> categories = categoryFacade.findAll();
-        for(Category category : categories) {
-            SelectItemGroup group = new SelectItemGroup(category.getName());
-            SelectItem[] selectItems = createUnitsForCategory(category.getIdCategory());
-            group.setSelectItems(selectItems);
-            itemsList.add(group);
-        }
-        return itemsList;
-    }
-
-    public SelectItem[] createUnitsForCategory(int id) {
-        List<CategoryUnit> categoryUnits = ejbFacade.findByCategory(id);
-        SelectItem[] selectItems = new SelectItem[categoryUnits.size()];
-        int i =0;
-        for(CategoryUnit categoryUnitItem : categoryUnits) {
-            Unit unit = unitFacade.find(categoryUnitItem.getUnitId().getIdUnit());
-            SelectItem item = new SelectItem(categoryUnitItem, unit.getName());
-            selectItems[i] = item;
-            i++;
-        }
-        return selectItems;
-    }
-
     @FacesConverter(value="categoryUnitConverter",forClass=CategoryUnit.class)
     public static class CategoryUnitControllerConverter implements Converter {
 

@@ -18,57 +18,44 @@
             
             <h:form>
 
-                <div class="form-horizontal">
-
-                    <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserLabel_email}" for="email" />
-                        <div class="col-md-10">
-                            <p:inputText class="form-control" id="email" value="#{userController.selected.email}" title="#{bundle.CreateUserTitle_email}" label="#{bundle.CreateUserTitle_email}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_email}">
-                                <!--CG - Regex source: http://stackoverflow.com/a/7932428-->
-                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                            </p:inputText>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserLabel_nickname}" for="nickname" />
-                        <div class="col-md-10">
-                            <p:inputText id="nickname" label="#{bundle.CreateUserTitle_nickname}" size="10" class="form-control" value="#{userController.selected.nickname}" title="#{bundle.CreateUserTitle_nickname}">
-                                <f:validateLength for="nickname" minimum="5" maximum="10" />
-                            </p:inputText>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserCredentialsLabel_password}" for="password" />
-                        <div class="col-md-10">
-                            <p:password id="password" class="form-control" value="#{userController.selected.password}" title="#{bundle.CreateUserCredentialsTitle_password}" match="confirm-password" label="#{bundle.CreateUserCredentialsTitle_password}" required="true" >
-                                <f:validateLength for="password" minimum="6" maximum="99" />
-                            </p:password>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateUserCredentialsLabel_confirmpassword}" for="confirm-password" />
-                        <div class="col-md-10">
-                            <p:password id="confirm-password" class="form-control" title="#{bundle.CreateUserCredentialsTitle_confirmpassword}" label="#{bundle.CreateUserCredentialsTitle_confirmpassword}" required="true" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <h:commandLink class="btn btn-default" action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            <h:commandLink action="#{userController.prepareList}" value="#{bundle.CreateUserShowAllLink}" immediate="true"/>
-                        </div>
-                    </div>
-
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />
+                    <p:inputText class="form-control" id="email" value="#{userController.selected.email}" title="#{bundle.CreateUserTitle_email}" label="#{bundle.CreateUserTitle_email}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_email}">
+                        <!--CG - Regex source: http://stackoverflow.com/a/7932428-->
+                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                    </p:inputText> 
                 </div>
+
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.CreateUserLabel_nickname}" for="nickname" />
+                    <p:inputText id="nickname" label="#{bundle.CreateUserTitle_nickname}" size="10" class="form-control" value="#{userController.selected.nickname}" title="#{bundle.CreateUserTitle_nickname}">
+                        <f:validateLength for="nickname" minimum="5" maximum="10" />
+                    </p:inputText>
+                </div>
+
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.CreateUserLabel_password}" for="password" />
+                    <p:password validatorMessage="#{bundle.PasswordValidatorMessage}" id="password" class="form-control" value="#{userController.selected.password}" title="#{bundle.CreateUserTitle_password}" match="confirm-password" label="#{bundle.CreateUserTitle_password}" required="true" >
+                        <f:validateRegex for="password" pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,20})" />
+                    </p:password>
+                </div>
+
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.CreateUserLabel_confirmpassword}" for="confirm-password" />
+                    <p:password id="confirm-password" class="form-control" title="#{bundle.CreateUserTitle_confirmpassword}" label="#{bundle.CreateUserTitle_confirmpassword}" required="true" />
+                </div>
+
+                <div class="form-group">
+                    <h:outputLabel  value="#{bundle.CreateUserLabel_groupId}" for="teamId" />
+                    <h:selectOneMenu class="form-control" id="teamId" value="#{userController.selected.groupId}" title="#{bundle.CreateUserTitle_groupId}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_team}">
+                        <f:selectItems value="#{adminTeamController.groupedTeamList}" />
+                    </h:selectOneMenu>
+                </div>
+
+                <h:commandLink class="btn btn-success" action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />
+
             </h:form>
+            
         </ui:define>
     </ui:composition>
 

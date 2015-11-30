@@ -67,7 +67,7 @@
             <url-pattern>/faces/account/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
+            <role-name>administrator</role-name>
             <role-name>coordinator</role-name>
             <role-name>participant</role-name>
         </auth-constraint>
@@ -81,26 +81,32 @@
             <url-pattern>/faces/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
+            <role-name>administrator</role-name>
         </auth-constraint>
     </security-constraint>
 
-    <security-constraint>
-        <display-name>SecureTestAuthConstraint</display-name>
-        <web-resource-collection>
-            <web-resource-name>secure-page</web-resource-name>
-            <url-pattern>/secure.xhtml</url-pattern>
-            <url-pattern>/faces/secure.xhtml</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>admin</role-name>
-        </auth-constraint>
-    </security-constraint>
     <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
     <error-page>
         <error-code>403</error-code>
         <location>/faces/index.xhtml</location>
     </error-page>
+    
+    <servlet>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+	
+	<init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>rest</param-value>
+         </init-param>
+    
+         <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
     <ejb-local-ref>
         <ejb-ref-name>ejb/DeviceTypeFacade</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -125,4 +131,43 @@
         <local>SessionBean.CategoryUnitFacade</local>
         <ejb-link>CategoryUnitFacade</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/CommunityFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.CommunityFacade</local>
+        <ejb-link>CommunityFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/UserChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.UserChallengeFacade</local>
+        <ejb-link>UserChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/GroupChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.GroupChallengeFacade</local>
+        <ejb-link>GroupChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/TeamFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.TeamFacade</local>
+        <ejb-link>TeamFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/CommunityChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.CommunityChallengeFacade</local>
+        <ejb-link>CommunityChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/ChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.ChallengeFacade</local>
+        <ejb-link>ChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    
 </web-app>

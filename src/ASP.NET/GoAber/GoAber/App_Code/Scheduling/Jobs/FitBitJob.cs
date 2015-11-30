@@ -29,7 +29,7 @@ namespace GoAber.Scheduling.Jobs
             return is_id;
         }
 
-        public void Run()
+        public void Run(string[] args)
         {
            
             Debug.WriteLine("CALLED FITBIT");

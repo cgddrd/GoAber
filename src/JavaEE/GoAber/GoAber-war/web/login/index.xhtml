@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,36 +15,28 @@
 
             <h:panelGroup id="messagePanel" layout="block">
                 <p:messages autoUpdate="true" />
-            </h:panelGroup> 
-
+            </h:panelGroup>
+            
+            <!-- CG - 'viewAction' fires BEFORE the page is rendered. -->
+            <f:metadata>
+                <f:viewAction action="#{authService.checkLogoutStatus()}" />
+            </f:metadata>
+            
             <h:form>
-
-                <div class="form-horizontal">
-
-                    <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{authBundle.AuthenticationUsername_Label}" for="username" />
-                        <div class="col-md-10">
-                            <p:inputText class="form-control" id="username" value="#{authController.username}" title="#{authBundle.AuthenticationUsername_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredUsername_Message}">
-                            </p:inputText>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{authBundle.AuthenticationPassword_Label}" for="password" />
-                        <div class="col-md-10">
-                            <p:password class="form-control" id="password" value="#{authController.password}" title="#{authBundle.AuthenticationPassword_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredPassword_Message}">
-                            </p:password>
-                            
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            <h:commandButton class="btn btn-default" action="#{authController.loginUser}" value="#{authBundle.AuthenticationLoginButton_Label}"/>
-                        </div>
-                    </div>
-
+                
+                <!--<h:outputText value="{param['logoutStatus']}" />-->
+                
+                <div class="form-group">
+                    <h:outputLabel value="#{authBundle.AuthenticationUsername_Label}" for="username"  />
+                    <p:inputText class="form-control" id="username" value="#{authService.username}" title="#{authBundle.AuthenticationUsername_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredUsername_Message}" />
                 </div>
+
+                <div class="form-group">
+                    <h:outputLabel value="#{authBundle.AuthenticationPassword_Label}" for="password"  />
+                    <p:password class="form-control" id="password" value="#{authService.password}" title="#{authBundle.AuthenticationPassword_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredPassword_Message}" />
+                </div>
+                
+                <h:commandButton class="btn btn-success" action="#{authService.loginUser}" value="#{authBundle.AuthenticationLoginButton_Label}"/>
 
             </h:form>
 

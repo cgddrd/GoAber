@@ -8,6 +8,7 @@ package GoAberDatabase;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author connorgoddard
  */
 @Entity
+@Cacheable(false)
 @Table(name = "User")
 @XmlRootElement
 @NamedQueries({
@@ -71,11 +73,7 @@ public class User implements Serializable {
     @JoinColumn(name = "userRoleId", referencedColumnName = "idUserRole")
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private UserRole userRoleId;
-    
-    @JoinColumn(name = "roleId", referencedColumnName = "idRole")
-    @ManyToOne
-    private Role roleId;
-    
+       
     @JoinColumn(name = "groupId", referencedColumnName = "idGroup")
     @ManyToOne
     private Team groupId;
@@ -86,7 +84,7 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<UserChallenge> userChallengeCollection;
     
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Audit> auditCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userIdData")
     private Collection<DataRemovalAudit> dataRemovalAuditCollection;
@@ -138,21 +136,6 @@ public class User implements Serializable {
         this.nickname = nickname;
     }
     
-    public Role getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
-        
-        // CG - When we update the 'Role' property for a user, we will always want to cascade this update  to the UserRole property as well.
-        //this.userRoleId.setRoleId(roleId);
-        this.userRoleId = new UserRole();
-        this.userRoleId.setEmail(email);
-        this.userRoleId.setRoleId(roleId);
-        
-    }
-
     @XmlTransient
     public Collection<ActivityData> getActivityDataCollection() {
         return activityDataCollection;

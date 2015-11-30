@@ -55,3 +55,13 @@ textarea {
   .btn-bar {
       margin: 10px 0px 10px 0px;
   }
+
+  .left {
+      float: left;
+      width: 50%;
+  }
+
+  .right {
+      float: right;
+      width: 50%;
+  }

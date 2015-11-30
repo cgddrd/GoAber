@@ -1,7 +1,7 @@
 package JSF;
 
 import GoAberDatabase.Audit;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.AuditFacade;
@@ -46,8 +46,8 @@ public class AuditController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     
-    @ManagedProperty(value="#{authController}")
-    AuthController auth;
+    @ManagedProperty(value="#{authService}")
+    AuthService auth;
     
     public AuditController() {
     }
@@ -269,12 +269,12 @@ public class AuditController implements Serializable {
 
     }
     
-    public AuthController getAuth() {    
+    public AuthService getAuth() {    
         return auth;
     }
 
 
-    public void setAuth(AuthController auth) {    
+    public void setAuth(AuthService auth) {    
         this.auth = auth;    
     }
 

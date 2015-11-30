@@ -14,37 +14,67 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewActivityDataLabel_idActivityData}"/>
-                    <h:outputText value="#{activityDataController.selected.idActivityData}" title="#{bundle.ViewActivityDataTitle_idActivityData}"/>
-                    <h:outputText value="#{bundle.ViewActivityDataLabel_value}"/>
-                    <h:outputText value="#{activityDataController.selected.value}" title="#{bundle.ViewActivityDataTitle_value}"/>
-                    <h:outputText value="#{bundle.ViewActivityDataLabel_lastUpdated}"/>
-                    <h:outputText value="#{activityDataController.selected.lastUpdated}" title="#{bundle.ViewActivityDataTitle_lastUpdated}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewActivityDataLabel_date}"/>
-                    <h:outputText value="#{activityDataController.selected.date}" title="#{bundle.ViewActivityDataTitle_date}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewActivityDataLabel_categoryUnitId}"/>
-                    <h:outputText value="#{activityDataController.selected.categoryUnitId}" title="#{bundle.ViewActivityDataTitle_categoryUnitId}"/>
-                    <h:outputText value="#{bundle.ViewActivityDataLabel_userId}"/>
-                    <h:outputText value="#{activityDataController.selected.userId}" title="#{bundle.ViewActivityDataTitle_userId}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{activityDataController.destroyAndView}" value="#{bundle.ViewActivityDataDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewActivityDataEditLink}"/>
-                <br />
-                <h:commandLink action="#{activityDataController.prepareCreate}" value="#{bundle.ViewActivityDataCreateLink}" />
-                <br />
-                <h:commandLink action="#{activityDataController.prepareList}" value="#{bundle.ViewActivityDataShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewActivityDataIndexLink}"/>
+                <dl class="dl-horizontal">
 
+                    <dt>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_value}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{activityDataController.selected.value}" title="#{bundle.ViewActivityDataTitle_value}"/>
+                    </dd>
+                    
+                    <dt>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_lastUpdated}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{activityDataController.selected.lastUpdated}" title="#{bundle.ViewActivityDataTitle_lastUpdated}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </dd>
+                    
+                    <dt>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_date}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{activityDataController.selected.date}" title="#{bundle.ViewActivityDataTitle_date}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </dd>
+                    
+                    <dt>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_unit}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{activityDataController.selected.categoryUnitId.categoryId.name}" title="#{bundle.ViewActivityDataTitle_category}"/>
+                    </dd>
+                    
+                    <dt>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_category}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{activityDataController.selected.categoryUnitId.unitId.name}" title="#{bundle.ViewActivityDataTitle_unit}"/>
+                    </dd>
+                    
+                    
+                    <dt>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_userId}"/>
+                    </dt>
+                    
+                    <dd>
+                        <h:outputText value="#{activityDataController.selected.userId.email}" title="#{bundle.ViewActivityDataTitle_userId}"/>
+                    </dd>
+                </dl>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <h:commandLink action="#{activityDataController.prepareList}" value="#{bundle.ViewActivityDataShowAllLink}"/>
+                    </div>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>

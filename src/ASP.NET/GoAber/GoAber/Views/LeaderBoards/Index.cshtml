@@ -1,0 +1,39 @@
+﻿@using GoAber.Helpers;
+@model IEnumerable<GoAber.Models.ViewModels.CategoryViewModel>
+
+@{
+    ViewBag.Title = "Leader Boards";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="left">
+    <h3>@Resources.LeaderBoards_IndexParticipantTitle</h3>
+@foreach (var category in Model)
+{
+    <h4>@category.name</h4>
+
+    <ul>
+        @foreach (var unit in category.units)
+        {
+            <li>@Html.ActionLink(unit.name, "ParticipantLeaderBoard", new {unit = unit.Id })</li>
+        }
+    </ul>
+}
+</div>
+
+<div class="right">
+    <h3>@Resources.LeaderBoards_IndexGroupTitle</h3>
+    @foreach (var category in Model)
+    {
+        <h4>@category.name</h4>
+
+        <ul>
+            @foreach (var unit in category.units)
+            {
+                <li>@Html.ActionLink(unit.name, "GroupLeaderBoard", new { unit = unit.Id })</li>
+            }
+        </ul>
+    }
+</div>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateGroupChallengeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateGroupChallengeLabel_idGroupChallenge}" for="idGroupChallenge" />
+                    <h:inputText id="idGroupChallenge" value="#{groupChallengeController.selected.idGroupChallenge}" title="#{bundle.CreateGroupChallengeTitle_idGroupChallenge}" required="true" requiredMessage="#{bundle.CreateGroupChallengeRequiredMessage_idGroupChallenge}"/>
+                    <h:outputLabel value="#{bundle.CreateGroupChallengeLabel_startedChallenge}" for="startedChallenge" />
+                    <h:inputText id="startedChallenge" value="#{groupChallengeController.selected.startedChallenge}" title="#{bundle.CreateGroupChallengeTitle_startedChallenge}" required="true" requiredMessage="#{bundle.CreateGroupChallengeRequiredMessage_startedChallenge}"/>
+                    <h:outputLabel value="#{bundle.CreateGroupChallengeLabel_challengeId}" for="challengeId" />
+                    <h:selectOneMenu id="challengeId" value="#{groupChallengeController.selected.challengeId}" title="#{bundle.CreateGroupChallengeTitle_challengeId}" required="true" requiredMessage="#{bundle.CreateGroupChallengeRequiredMessage_challengeId}">
+                        <f:selectItems value="#{challengeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateGroupChallengeLabel_groupId}" for="groupId" />
+                    <h:selectOneMenu id="groupId" value="#{groupChallengeController.selected.groupId}" title="#{bundle.CreateGroupChallengeTitle_groupId}" required="true" requiredMessage="#{bundle.CreateGroupChallengeRequiredMessage_groupId}">
+                        <f:selectItems value="#{teamController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{groupChallengeController.create}" value="#{bundle.CreateGroupChallengeSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{groupChallengeController.prepareList}" value="#{bundle.CreateGroupChallengeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateGroupChallengeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

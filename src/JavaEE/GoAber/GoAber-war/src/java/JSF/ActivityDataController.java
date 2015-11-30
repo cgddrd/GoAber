@@ -4,14 +4,13 @@ import GoAberDatabase.ActivityData;
 import GoAberDatabase.Category;
 import GoAberDatabase.Unit;
 import GoAberDatabase.User;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import JSF.services.ActivityDataService;
+import JSF.services.UserService;
 import JSF.util.JsfUtil;
-import SessionBean.ActivityDataFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -24,23 +23,35 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean(name="activityDataController")
 @SessionScoped
 public class ActivityDataController implements Serializable {
 
+    @ManagedProperty(value="#{auditController}")
+    private AuditController audit;
+    
+    @ManagedProperty(value="#{dataRemovalAuditController}")
+    private DataRemovalAuditController dataRemovalAudit;
+    
+    @EJB
+    private ActivityDataService dataService;
+    @EJB
+    private UserService userService;
     @EJB
     private SessionBean.CategoryFacade categoryBean;
     @EJB
     private SessionBean.UnitFacade unitBean;
-    @EJB
-    private ActivityDataService dataService;
     
-    @ManagedProperty(value="#{authController}")
-    private AuthController authController;
+    @ManagedProperty(value="#{authService}")
+    private AuthService authService;
     
     private ActivityData current;
-
+    private User viewUser;
+    
+    private String deletedMessage = "none";
+    
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
 
@@ -80,7 +91,7 @@ public class ActivityDataController implements Serializable {
 
     public String prepareList() {
         recreateItems();
-        return "List";
+        return "Manage";
     }
 
     public String prepareView(ActivityData item) {
@@ -95,8 +106,8 @@ public class ActivityDataController implements Serializable {
 
     public String create() {
         try {
-            User user = authController.getActiveUser();
-            dataService.createForUser(current, user);
+            User user = authService.getActiveUser();
+            dataService.createForUser(getCurrent(), user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -112,8 +123,8 @@ public class ActivityDataController implements Serializable {
 
     public String update() {
         try {
-            User user = authController.getActiveUser();
-            dataService.updateForUser(current, user);
+            User user = authService.getActiveUser();
+            dataService.updateForUser(getCurrent(), user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataUpdated"));
             return "View";
         } catch (Exception e) {
@@ -131,7 +142,7 @@ public class ActivityDataController implements Serializable {
         performDestroy();
         // must recreate as something has been removed!
         recreateItems();
-        return "List";
+        return "Manage";
     }
 
     private void performDestroy() {
@@ -143,12 +154,21 @@ public class ActivityDataController implements Serializable {
         }
     }
     
+    public String prepareViewUser() {
+        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance()
+                         .getExternalContext().getRequest();
+        String param = req.getParameter("id");
+        int userId = Integer.parseInt(param);
+        viewUser = userService.getUserById(userId);
+        return "ViewUser";
+    }
+    
     private void recreateItems() {
-        User user = authController.getActiveUser();
+        User user = authService.getActiveUser();
         items = dataService.findAllForUser(user);
         filteredItems = null;
     }
-    
+
     /**
      * @return the filteredItems
      */
@@ -184,9 +204,89 @@ public class ActivityDataController implements Serializable {
         this.current = current;
     }
     
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
+    }
+
+    /**
+     * @return the viewUser
+     */
+    public User getViewUser() {
+        return viewUser;
+    }
     
-    public void setAuthController(AuthController authController) {
-        this.authController = authController;
+    public String prepareBatchDestroy() {
+        getAudit().createAudit("activityData/BatchDelete", "");
+        if (filteredItems == null) {
+            filteredItems = items;
+        }
+        return "BatchDelete";
+    }
+    
+    public String batchDestory() {
+        getAudit().createAudit("activityData/List", "Performed batch delete of ActivityData");
+        performBatchDestroy();
+        recreateItems();
+        return "Manage";
+    }
+    
+    private void performBatchDestroy() {
+        if (filteredItems == null) {
+            return;
+        }
+        
+        for (ActivityData item : filteredItems) {
+            getDataRemovalAudit().createDataRemovalAudit(item, getDeletedMessage());
+            try {
+                dataService.remove(item);
+                //getFacade().remove(item);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataDeleted"));
+            } catch (Exception e) {
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+
+    /**
+     * @return the audit
+     */
+    public AuditController getAudit() {
+        return audit;
+    }
+
+    /**
+     * @param audit the audit to set
+     */
+    public void setAudit(AuditController audit) {
+        this.audit = audit;
+    }
+
+    /**
+     * @return the dataRemovalAudit
+     */
+    public DataRemovalAuditController getDataRemovalAudit() {
+        return dataRemovalAudit;
+    }
+
+    /**
+     * @param dataRemovalAudit the dataRemovalAudit to set
+     */
+    public void setDataRemovalAudit(DataRemovalAuditController dataRemovalAudit) {
+        this.dataRemovalAudit = dataRemovalAudit;
+    }
+
+    /**
+     * @return the deletedMessage
+     */
+    public String getDeletedMessage() {
+        return deletedMessage;
+    }
+
+    /**
+     * @param deletedMessage the deletedMessage to set
+     */
+    public void setDeletedMessage(String deletedMessage) {
+        this.deletedMessage = deletedMessage;
     }
     
     @FacesConverter(forClass = ActivityData.class)

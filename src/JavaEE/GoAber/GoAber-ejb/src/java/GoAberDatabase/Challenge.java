@@ -38,10 +38,30 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Challenge.findAll", query = "SELECT c FROM Challenge c"),
     @NamedQuery(name = "Challenge.findByIdChallenge", query = "SELECT c FROM Challenge c WHERE c.idChallenge = :idChallenge"),
-    @NamedQuery(name = "Challenge.findByCategoryUnit", query = "SELECT c FROM Challenge c WHERE c.categoryUnit = :categoryUnit"),
+    @NamedQuery(name = "Challenge.findByCategoryUnit", query = "SELECT c FROM Challenge c WHERE c.categoryUnitId = :categoryUnitId"),
     @NamedQuery(name = "Challenge.findByStartTime", query = "SELECT c FROM Challenge c WHERE c.startTime = :startTime"),
     @NamedQuery(name = "Challenge.findByEndTime", query = "SELECT c FROM Challenge c WHERE c.endTime = :endTime"),
-    @NamedQuery(name = "Challenge.findByName", query = "SELECT c FROM Challenge c WHERE c.name = :name")})
+    @NamedQuery(name = "Challenge.findByName", query = "SELECT c FROM Challenge c WHERE c.name = :name"),
+    @NamedQuery(name = "Challenge.unEnteredGroup", query = "SELECT d FROM Challenge d "
+                                               + "INNER JOIN GroupChallenge g on d = g.challengeId "
+                                               //+ " JOIN UserChallenge u on d = u.challengeId "
+                                               + "WHERE g.groupId = :groupId"),// u.userId != :userId AND 
+    @NamedQuery(name = "Challenge.unEnteredCommunity", query = "SELECT d FROM Challenge d "
+                                               + "INNER JOIN CommunityChallenge c on d = c.challengeId "
+                                               //+ "JOIN UserChallenge u on d = u.challengeId "
+                                               + "WHERE c.communityId = :communityId"),
+
+    @NamedQuery(name = "Challenge.enteredGroup", query = "SELECT d FROM Challenge d "
+                                               + "INNER JOIN GroupChallenge g on d = g.challengeId "
+                                               + "INNER JOIN UserChallenge u on d = u.challengeId "
+                                               + "WHERE g.groupId = u.userId.groupId AND u.userId = :userId"),
+    @NamedQuery(name = "Challenge.enteredCommunity", query = "SELECT d FROM Challenge d "
+                                               + "INNER JOIN CommunityChallenge c on d = c.challengeId "
+                                               + "INNER JOIN UserChallenge u on d = u.challengeId "
+                                               + "WHERE u.userId.groupId.communityId = c.communityId AND u.userId = :userId")
+    
+        
+    })
 public class Challenge implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,10 +69,10 @@ public class Challenge implements Serializable {
     @Basic(optional = false)
     @Column(name = "idChallenge")
     private Integer idChallenge;
-    @Basic(optional = false)
+    /*@Basic(optional = false)
     @NotNull
     @Column(name = "categoryUnit")
-    private int categoryUnit;
+    private int categoryUnit;*/
     @Basic(optional = false)
     @NotNull
     @Column(name = "startTime")
@@ -64,14 +84,17 @@ public class Challenge implements Serializable {
     @Size(max = 100)
     @Column(name = "name")
     private String name;
-    @JoinColumn(name = "communityStartedBy", referencedColumnName = "idCommunity")
-    @ManyToOne
-    private Community communityStartedBy;
+    @JoinColumn(name = "categoryUnitId", referencedColumnName = "idCategoryUnit")
+    @ManyToOne(optional = false)
+    private CategoryUnit categoryUnitId;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
     private Collection<UserChallenge> userChallengeCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
     private Collection<GroupChallenge> groupChallengeCollection;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
+    private Collection<CommunityChallenge> communityChallengeCollection;
+    
     public Challenge() {
     }
 
@@ -79,9 +102,9 @@ public class Challenge implements Serializable {
         this.idChallenge = idChallenge;
     }
 
-    public Challenge(Integer idChallenge, int categoryUnit, Date startTime) {
+    public Challenge(Integer idChallenge, CategoryUnit categoryUnitId, Date startTime) {
         this.idChallenge = idChallenge;
-        this.categoryUnit = categoryUnit;
+        this.categoryUnitId = categoryUnitId;
         this.startTime = startTime;
     }
 
@@ -93,12 +116,12 @@ public class Challenge implements Serializable {
         this.idChallenge = idChallenge;
     }
 
-    public int getCategoryUnit() {
-        return categoryUnit;
+    public CategoryUnit getCategoryUnitId() {
+        return categoryUnitId;
     }
 
-    public void setCategoryUnit(int categoryUnit) {
-        this.categoryUnit = categoryUnit;
+    public void setCategoryUnitId(CategoryUnit categoryUnitId) {
+        this.categoryUnitId = categoryUnitId;
     }
 
     public Date getStartTime() {
@@ -118,19 +141,12 @@ public class Challenge implements Serializable {
     }
 
     public String getName() {
+        System.out.println("getName()");
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Community getCommunityStartedBy() {
-        return communityStartedBy;
-    }
-
-    public void setCommunityStartedBy(Community communityStartedBy) {
-        this.communityStartedBy = communityStartedBy;
     }
 
     @XmlTransient
@@ -151,6 +167,16 @@ public class Challenge implements Serializable {
         this.groupChallengeCollection = groupChallengeCollection;
     }
 
+    
+    @XmlTransient
+    public Collection<CommunityChallenge> getCommunityChallengeCollection() {
+        return communityChallengeCollection;
+    }
+
+    public void setCommunityChallengeCollection(Collection<CommunityChallenge> communityChallengeCollection) {
+        this.communityChallengeCollection = communityChallengeCollection;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
