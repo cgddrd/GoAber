@@ -37,13 +37,33 @@ import javax.naming.NamingException;
  * @author helen
  */
 public class ChallengeService {
-    @EJB ChallengeFacade ejbFacade = lookupChallengeFacadeBean();
-    @EJB CommunityChallengeFacade communityChallengeFacade = lookupCommunityChallengeFacadeBean();
-    @EJB GroupChallengeFacade groupChallengeFacade = lookupGroupChallengeFacadeBean();
-    @EJB CommunityFacade communityFacade=lookupCommunityFacadeBean();
-    @EJB TeamFacade groupFacade = lookupTeamFacadeFacadeBean();
-    @EJB UserChallengeFacade userChallengeFacade = lookupUserChallengeFacadeFacadeBean();
+    @EJB ChallengeFacade ejbFacade;// = lookupChallengeFacadeBean();
+    @EJB CommunityChallengeFacade communityChallengeFacade;// = lookupCommunityChallengeFacadeBean();
+    @EJB GroupChallengeFacade groupChallengeFacade;// = lookupGroupChallengeFacadeBean();
+    @EJB CommunityFacade communityFacade;//=lookupCommunityFacadeBean();
+    @EJB TeamFacade groupFacade;// = lookupTeamFacadeFacadeBean();
+    @EJB UserChallengeFacade userChallengeFacade;// = lookupUserChallengeFacadeFacadeBean();
+
+    public ChallengeService(){
+        ejbFacade = lookupChallengeFacadeBean();
+        communityChallengeFacade = lookupCommunityChallengeFacadeBean();
+        groupChallengeFacade = lookupGroupChallengeFacadeBean();
+        communityFacade=lookupCommunityFacadeBean();
+        groupFacade = lookupTeamFacadeFacadeBean();
+        userChallengeFacade = lookupUserChallengeFacadeFacadeBean();
+    }
     
+    // Added to allow the mocking of the facades in the test class
+    public ChallengeService(ChallengeFacade ejbFacade,CommunityChallengeFacade communityChallengeFacade, 
+                            GroupChallengeFacade groupChallengeFacade, CommunityFacade communityFacade, 
+                             TeamFacade groupFacade, UserChallengeFacade userChallengeFacade){
+        this.ejbFacade= ejbFacade;
+        this.communityChallengeFacade= communityChallengeFacade;
+        this.groupChallengeFacade= groupChallengeFacade;
+        this.communityFacade= communityFacade;
+        this.groupFacade= groupFacade;
+        this.userChallengeFacade=userChallengeFacade;
+    }
     
     
     /**

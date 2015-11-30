@@ -514,8 +514,9 @@ C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNet
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\EntityFramework.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\GoAber.dll
-C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Moq.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\MySql.Data.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\MySql.Fabric.Plugin.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Newtonsoft.Json.dll
@@ -531,7 +532,6 @@ C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Micros
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\log4net.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Web.Optimization.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.dll
-C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Security.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Owin.dll
@@ -570,6 +570,8 @@ C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNet
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNetOpenAuth.OpenId.UI.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNetOpenAuth.OpenIdInfoCard.UI.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNetOpenAuth.OpenIdOAuth.xml
+C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Moq.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Net.Http.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Net.Http.WebRequest.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Newtonsoft.Json.xml
@@ -583,7 +585,6 @@ C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Micros
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\log4net.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Web.Optimization.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.xml
-C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Security.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml
