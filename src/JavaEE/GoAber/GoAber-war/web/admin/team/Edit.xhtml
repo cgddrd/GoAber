@@ -27,7 +27,7 @@
                         <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateTeamLabel_communityId}" for="communityId" />
                         <div class="col-md-10">
                             <h:selectOneMenu class="form-control" id="communityId" value="#{adminTeamController.selected.communityId}" title="#{bundle.CreateTeamTitle_communityId}" 
-                                             required="true" requiredMessage="#{bundle.CreateCommunityRequiredMessage_idCommunity}" converter="communityConverter">
+                                             required="true" requiredMessage="#{bundle.CreateCommunityRequiredMessage_idCommunity}" converter="adminCommunityConverter">
                                 <f:selectItems value="#{adminTeamController.communities}" var="community" itemLabel="#{community.name}" itemValue="#{community}"/>
                             </h:selectOneMenu>
                         </div>

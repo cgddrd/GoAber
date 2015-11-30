@@ -70,7 +70,7 @@ public class GoAberWS {
     
     public boolean isAdmin(User ao_user) {    
         
-        return ao_user.getRoleId().getIdRole().equals("admin");
+        return ao_user.getUserRoleId().getRoleId().getIdRole().equals("admin");
 
     }
     
@@ -89,7 +89,7 @@ public class GoAberWS {
                 lo_ad.setCategoryUnitId(io_cf.find(lo_ads.categoryUnitId));
                 
                 if (isNotNullEmptyOrWhiteSpace(lo_ads.useremail) && isAdmin(lo_user)) {
-                    lo_ad.setUserId(io_u.findUserByEmail(lo_ads.useremail));
+                    lo_ad.setUserId(io_u.findUserByEmailOrNull(lo_ads.useremail));
 
                 } else if (isNotNullEmptyOrWhiteSpace(lo_ads.useremail)) {
                     return false;

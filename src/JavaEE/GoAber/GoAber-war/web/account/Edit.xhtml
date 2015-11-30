@@ -18,6 +18,13 @@
                     <h:outputLabel value="#{bundle.EditUserLabel_nickname}" for="nickname" />
                     <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.EditUserTitle_nickname}" />
                 </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditUserLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{userController.selected.email}" title="#{bundle.EditUserTitle_email}" />
+                </h:panelGrid>
+                <br />
+                <h:link outcome="EditPassword" value="Edit Password" />
+                <br />
                 <h:commandLink action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
                 <br />
                 <h:link outcome="index" value="#{bundle.EditUserIndexLink}" />

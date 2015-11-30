@@ -526,4 +526,13 @@
   <data name="Ranking" xml:space="preserve">
     <value>Ranking</value>
   </data>
+  <data name="Challenges_completedChallenges" xml:space="preserve">
+    <value>Completed Challenges</value>
+  </data>
+  <data name="Challenges_completedcomChallenges" xml:space="preserve">
+    <value>Community Challenges</value>
+  </data>
+  <data name="Challenges_completedgroupChallenges" xml:space="preserve">
+    <value>Group Challenges</value>
+  </data>
 </root>

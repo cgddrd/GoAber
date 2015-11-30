@@ -43,6 +43,8 @@ namespace GoAber
             ViewBag.AssignedChallengesGroup = challengeService.getEnteredGroupChallenges(appUser);
             ViewBag.GroupChallenges = challengeService.getUnEnteredGroupChallenges(appUser);
             ViewBag.CommunityChallenges = challengeService.getUnEnteredCommunityChallenges(appUser);
+            ViewBag.CompletedComChallenges = challengeService.getCompletedCommunityChallenges(appUser);
+            ViewBag.CompletedGroupChallenges = challengeService.getCompletedGroupChallenges(appUser);
 
             return View(ViewBag.CommunityChallenges);
         }
@@ -181,13 +183,13 @@ namespace GoAber
         }
         
 
-        public ActionResult EnterChallenge(int? id)
+        public ActionResult EnterChallenge(string id)
         {
             challengeService.enterUserInToChallenge(UserManager.FindById(User.Identity.GetUserId()).Id, id);
             return RedirectToAction("Index");
         }
 
-        public ActionResult LeaveChallenge(int? id)
+        public ActionResult LeaveChallenge(string id)
         {
             challengeService.removeUserFromChallenge(UserManager.FindById(User.Identity.GetUserId()).Id, id);
             return RedirectToAction("Index");

@@ -21,17 +21,14 @@
             <br />
             <h:link outcome="/categoryUnit/List" value="Show All CategoryUnit Items"/>
             <br />
-            <h:link outcome="/challenge/List" value="Show All Challenge Items"/>
+            <h:link outcome="/challenge/Index" value="Show All Challenge Items"/>
             <br />
-            <h:link outcome="/community/List" value="Show All Community Items"/>
-            <br />
+            
             <a href="Devices/index.xhtml">Show All Devices</a>
             <br />
             <h:link outcome="/deviceType/List" value="Show All DeviceType Items"/>
             <br />
             <h:link outcome="/groupChallenge/List" value="Show All GroupChallenge Items"/>
-            <br />
-            <h:link outcome="/team/List" value="Show All Team Items"/>
             <br />
             <h:link outcome="/unit/List" value="Show All Unit Items"/>
             <br />
@@ -41,67 +38,24 @@
 
                 <c:when test="#{authController.loggedIn}">
                     <h:link outcome="/webServiceAuth/index" value="Show All Web Service Tokens"/>
+                    <br />
+                    <br />
+                    <h:form>
+                        <h:link outcome="/challenge/EnteredGroup" value="#{bundle.EnteredGroup}"/>
+                        <br />
+                        <h:link outcome="/challenge/EnteredCommunity" value="#{bundle.EnteredCommunity}"/>
+                        <br />
+                        <h:link outcome="/challenge/NotEnteredGroup" value="#{bundle.UnEnteredGroup}"/>
+                        <br />
+                        <h:link outcome="/challenge/NotEnteredCommunity" value="#{bundle.UnEnteredCommunity}"/>
+                    
+                        
+                    </h:form>
                 </c:when>
 
+                
+                
             </c:choose>
         </ui:define>
     </ui:composition>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </html>

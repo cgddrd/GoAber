@@ -33,11 +33,11 @@ namespace GoAber.Migrations
             var userManager = new UserManager<ApplicationUser>(userStore);
 
             context.Communities.AddOrUpdate(x => x.Id,
-               new Community { name = "AberUni", endpointUrl = "http://aber.ac.uk"}
+               new Community { name = "AberUni", endpointUrl = "http://localhost:50121/", home = true}
             );
 
             context.Communities.AddOrUpdate(x => x.Id,
-              new Community { name = "BangorUni", endpointUrl = "http://bangor.ac.uk" }
+              new Community { name = "BangorUni", endpointUrl = "http://localhost:50122/" }
             );
 
             context.SaveChanges();

@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Team.findAll", query = "SELECT t FROM Team t"),
     @NamedQuery(name = "Team.findByIdGroup", query = "SELECT t FROM Team t WHERE t.idGroup = :idGroup"),
+    @NamedQuery(name = "Team.findByIdCommunity", query = "SELECT t FROM Team t WHERE t.communityId = :communityId"),
     @NamedQuery(name = "Team.findByName", query = "SELECT t FROM Team t WHERE t.name = :name")})
 public class Team implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -48,13 +50,13 @@ public class Team implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "groupId")
-    private Collection<User> userCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
-    private Collection<GroupChallenge> groupChallengeCollection;
     @JoinColumn(name = "communityId", referencedColumnName = "idCommunity")
     @ManyToOne
     private Community communityId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
+    private Collection<GroupChallenge> groupChallengeCollection;
+    @OneToMany(mappedBy = "groupId")
+    private Collection<User> userCollection;
 
     public Team() {
     }
@@ -66,6 +68,13 @@ public class Team implements Serializable {
     public Team(Integer idGroup, String name) {
         this.idGroup = idGroup;
         this.name = name;
+    }
+    
+    @PreRemove
+    private void removeUsers() {
+        for (User u : this.userCollection) {
+            u.setGroupId(null);
+        }
     }
 
     public Integer getIdGroup() {

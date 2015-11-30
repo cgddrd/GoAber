@@ -8,6 +8,7 @@ package GoAberDatabase;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,10 +50,18 @@ public class Community implements Serializable {
     @Size(max = 250)
     @Column(name = "endpointUrl")
     private String endpointUrl;
-    @OneToMany(mappedBy = "communityStartedBy")
-    private Collection<Challenge> challengeCollection;
     @OneToMany(mappedBy = "communityId")
     private Collection<Team> teamCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "communityId")
+    private Collection<CommunityChallenge> communityChallengeCollection;
+
+    public Collection<CommunityChallenge> getCommunityChallengeCollection() {
+        return communityChallengeCollection;
+    }
+
+    public void setCommunityChallengeCollection(Collection<CommunityChallenge> communityChallengeCollection) {
+        this.communityChallengeCollection = communityChallengeCollection;
+    }
 
     public Community() {
     }
@@ -89,15 +98,15 @@ public class Community implements Serializable {
     public void setEndpointUrl(String endpointUrl) {
         this.endpointUrl = endpointUrl;
     }
-
+/*
     @XmlTransient
-    public Collection<Challenge> getChallengeCollection() {
-        return challengeCollection;
+    public Collection<CommunityChallenge> getCommunityChallengeCollection() {
+        return communityChallengeCollection;
     }
 
-    public void setChallengeCollection(Collection<Challenge> challengeCollection) {
-        this.challengeCollection = challengeCollection;
-    }
+    public void setCommunityChallengeCollection(Collection<CommunityChallenge> communityChallengeCollection) {
+        this.communityChallengeCollection = communityChallengeCollection;
+    }*/
 
     @XmlTransient
     public Collection<Team> getTeamCollection() {

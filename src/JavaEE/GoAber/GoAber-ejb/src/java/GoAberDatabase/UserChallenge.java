@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserChallenge.findAll", query = "SELECT u FROM UserChallenge u"),
-    @NamedQuery(name = "UserChallenge.findByIdUserChallenge", query = "SELECT u FROM UserChallenge u WHERE u.idUserChallenge = :idUserChallenge")})
+    @NamedQuery(name = "UserChallenge.findByIdUserChallenge", query = "SELECT u FROM UserChallenge u WHERE u.idUserChallenge = :idUserChallenge"),
+@NamedQuery(name = "UserChallenge.findByIdUserIdChallenge", query = "SELECT u FROM UserChallenge u WHERE u.userId = :userId AND u.challengeId = :challengeId")})
 public class UserChallenge implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,6 +49,11 @@ public class UserChallenge implements Serializable {
 
     public UserChallenge(Integer idUserChallenge) {
         this.idUserChallenge = idUserChallenge;
+    }
+    
+    public UserChallenge(User userId, Challenge challengeId) {
+        this.userId = userId;
+        this.challengeId = challengeId;
     }
 
     public Integer getIdUserChallenge() {
