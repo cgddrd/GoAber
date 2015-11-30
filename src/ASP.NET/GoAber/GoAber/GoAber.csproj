@@ -335,7 +335,6 @@
     <Compile Include="Models\ViewModels\ParticipantLeaderViewModel.cs" />
     <Compile Include="Models\WebServiceAuth.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="WebService\ActivityData.cs" />
     <Compile Include="Service References\RemoteChallengeWS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
