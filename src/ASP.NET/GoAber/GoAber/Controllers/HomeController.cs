@@ -15,22 +15,6 @@ namespace GoAber.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Title = Resources.Resources.HomeController_About_About;
-            ViewBag.Message = Resources.Resources.HomeController_About_application_description;
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Title = Resources.Resources.HomeController_Contact_title;
-            ViewBag.Message = Resources.Resources.HomeController_Contact_contact_page_header;
-
-            return View();
-        }
-
         /// <summary>
         /// Code sourced from the following url.
         /// http://afana.me/post/aspnet-mvc-internationalization.aspx

@@ -159,7 +159,7 @@ namespace GoAber.Services
             }
         }
 
-        private ActivityDataStatisticsViewModel ComputeStatistics(IEnumerable<ActivityData> data)
+        public ActivityDataStatisticsViewModel ComputeStatistics(IEnumerable<ActivityData> data)
         {
             ActivityDataStatisticsViewModel summaryStats = new ActivityDataStatisticsViewModel();
             var values = data.Select(a => a.value);

@@ -16,17 +16,17 @@
 
     foreach (var unit in category.units)
     {
-        <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitsPerDaySummary, unit))</h4>
+        <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitsPerDaySummary, unit.name))</h4>
         <div class="chart">
             <div class="ajax-loading"><img src="~/Images/ajax-loader.gif" /></div>
-            <div id="@(unit)-loading-fails"></div>
-            <div id="@(unit)-chart"></div>
+            <div id="@(unit.name)-loading-fails"></div>
+            <div id="@(unit.name)-chart"></div>
         </div>
 
-        <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, unit))</h4>
+        <h4>@Html.Raw(Html.ConvertResource(Resources.AD_UnitSummary, unit.name))</h4>
         <div class="well data-summary">
             <ul>
-                @Html.Raw(Html.ConvertResource(Resources.AD_WeeklySummaryStatistics, unit))
+                @Html.Raw(Html.ConvertResource(Resources.AD_WeeklySummaryStatistics, unit.name))
             </ul>
         </div>
 
@@ -34,15 +34,15 @@
         <script type="text/javascript">
             $(function () {
                 initiliseAjax();
-                requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "@(unit)"}, function (data) {
+                requestData("@(Url.Action("WeeklySummary", "ActivityDatasAPI"))", { "unit": "@(unit.name)"}, function (data) {
                     createBarChartSummary(data, {
-                        "tagname": "#@(unit)-chart",
+                        "tagname": "#@(unit.name)-chart",
                         "rangeType": "week"
                     });
                 });
 
-                requestData("@(Url.Action("WeeklyStatistics", "ActivityDatasAPI"))", { "unit": "@(unit)" }, function (data) {
-                    setSummaryValues(data, "@(unit)");
+                requestData("@(Url.Action("WeeklyStatistics", "ActivityDatasAPI"))", { "unit": "@(unit.name)" }, function (data) {
+                    setSummaryValues(data, "@(unit.name)");
                 });
             });
         </script>

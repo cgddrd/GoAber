@@ -152,10 +152,10 @@ namespace GoAber.Migrations
                 new DeviceType() { name = "Jawbone", tokenEndpoint = @"https://jawbone.com/auth/oauth2/token", consumerSecret = "f0ca3e7da09288d18bc5b4053704f1a3e43d22da", clientId = "2mcFGghH9so",  authorizationEndpoint = @"https://jawbone.com/auth/oauth2/auth", apiEndpoint= @"https://jawbone.com/nudge/api/v.1.1/users/@me" }
             );
 
-            var user = context.Users.Where(x => x.Email == "admin@aber.ac.uk").SingleOrDefault();
+            var user = context.Users.Where(x => x.Email == "admin@test.com").SingleOrDefault();
             Random rnd = new Random();
             context.ActivityDatas.AddOrUpdate(x => x.Id,
-                new ActivityData { date = DateTime.Today, lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking},
+                new ActivityData { date = DateTime.Today, lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user},
                 new ActivityData { date = DateTime.Today.AddDays(-1), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
                 new ActivityData { date = DateTime.Today.AddDays(-2), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
                 new ActivityData { date = DateTime.Today.AddDays(-3), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = walking, User = user },
@@ -167,7 +167,7 @@ namespace GoAber.Migrations
             );
 
             context.ActivityDatas.AddOrUpdate(x => x.Id,
-                new ActivityData { date = DateTime.Today, lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat },
+                new ActivityData { date = DateTime.Today, lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
                 new ActivityData { date = DateTime.Today.AddDays(-1), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
                 new ActivityData { date = DateTime.Today.AddDays(-2), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
                 new ActivityData { date = DateTime.Today.AddDays(-3), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
