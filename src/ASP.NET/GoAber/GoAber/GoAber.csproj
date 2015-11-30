@@ -306,9 +306,9 @@
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
-    <Compile Include="Migrations\201511281627471_GoAber.cs" />
-    <Compile Include="Migrations\201511281627471_GoAber.Designer.cs">
-      <DependentUpon>201511281627471_GoAber.cs</DependentUpon>
+    <Compile Include="Migrations\201511300833071_goaber.cs" />
+    <Compile Include="Migrations\201511300833071_goaber.Designer.cs">
+      <DependentUpon>201511300833071_goaber.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
@@ -624,7 +624,7 @@
     <Content Include="Views\ActivityDatas\BatchDelete.cshtml" />
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
     <Content Include="Views\Challenge\AllChallenges.cshtml" />
-    <Content Include="Views\Challenge\Create.cshtml" />
+    <Content Include="Views\Challenge\CreateGroup.cshtml" />
     <Content Include="Views\Challenge\Delete.cshtml" />
     <Content Include="Views\Challenge\Details.cshtml" />
     <Content Include="Views\Challenge\Edit.cshtml" />
@@ -634,6 +634,7 @@
     <Content Include="Views\Results\Details.cshtml" />
     <Content Include="Views\Results\Edit.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
+    <Content Include="Views\Challenge\CreateCommunity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
@@ -680,8 +681,8 @@
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511281627471_GoAber.resx">
-      <DependentUpon>201511281627471_GoAber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201511300833071_goaber.resx">
+      <DependentUpon>201511300833071_goaber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
