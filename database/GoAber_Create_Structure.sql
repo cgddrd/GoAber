@@ -139,15 +139,14 @@ DROP TABLE IF EXISTS `Challenge`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Challenge` (
   `idChallenge` int(11) NOT NULL AUTO_INCREMENT,
-  `categoryUnit` int(11) NOT NULL,
+  `categoryUnitId` int(11) NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
-  `communityStartedBy` int(11) DEFAULT NULL,
   PRIMARY KEY (`idChallenge`),
-  UNIQUE KEY `idChallenge_UNIQUE` (`idChallenge`),
-  KEY `communityStartedBy_Challenge_idx` (`communityStartedBy`),
-  CONSTRAINT `communityStartedBy_Challenge` FOREIGN KEY (`communityStartedBy`) REFERENCES `Community` (`idCommunity`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  UNIQUE KEY `idChallenge_UNIQUE` (`idChallenge`), 
+  KEY `catergoryUnit_idx` (`categoryUnitId`),
+  CONSTRAINT `catergoryUnit_challenge` FOREIGN KEY (`categoryUnitId`) REFERENCES `CategoryUnit` (`idCategoryUnit`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -222,6 +221,7 @@ CREATE TABLE `GroupChallenge` (
   `idGroupChallenge` int(11) NOT NULL AUTO_INCREMENT,
   `groupId` int(11) NOT NULL,
   `challengeId` int(11) NOT NULL,
+  `startedChallenge` bool NOT NULL,
   PRIMARY KEY (`idGroupChallenge`),
   UNIQUE KEY `idGroupChallenge_UNIQUE` (`idGroupChallenge`),
   KEY `group_idx` (`groupId`),
@@ -230,6 +230,28 @@ CREATE TABLE `GroupChallenge` (
   CONSTRAINT `challenge_groupChallenge` FOREIGN KEY (`challengeId`) REFERENCES `Challenge` (`idChallenge`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `CommunityChallenge`
+--
+
+DROP TABLE IF EXISTS `CommunityChallenge`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `CommunityChallenge` (
+  `idCommunityChallenge` int(11) NOT NULL AUTO_INCREMENT,
+  `communityId` int(11) NOT NULL,
+  `challengeId` int(11) NOT NULL,
+  `startedChallenge` bool NOT NULL,
+  PRIMARY KEY (`idCommunityChallenge`),
+  UNIQUE KEY `idCommunityChallenge_UNIQUE` (`idCommunityChallenge`),
+  KEY `community_idx` (`communityId`),
+  KEY `challenge_idx` (`challengeId`),
+  CONSTRAINT `community_communityChallenge` FOREIGN KEY (`communityId`) REFERENCES `Community` (`idCommunity`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `challenge_communityChallenge` FOREIGN KEY (`challengeId`) REFERENCES `Challenge` (`idChallenge`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Table structure for table `Role`
@@ -291,17 +313,13 @@ CREATE TABLE `User` (
   `password` varchar(255) NOT NULL,
   `nickname` varchar(45) DEFAULT NULL,
   `userRoleId` int(11) NOT NULL,
-  `userCredentialsId` int(11) DEFAULT NULL,
   `groupId` int(11) DEFAULT NULL,
-  `roleId` varchar(45) NOT NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE KEY `Email_UNIQUE` (`email`),
   UNIQUE KEY `idUser_UNIQUE` (`idUser`),
   KEY `userRole_idx` (`userRoleId`),
-  KEY `userCredentials_idx` (`userCredentialsId`),
   KEY `group_idx` (`groupId`),
   CONSTRAINT `group_user` FOREIGN KEY (`groupId`) REFERENCES `Team` (`idGroup`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `userCredentials_user` FOREIGN KEY (`userCredentialsId`) REFERENCES `UserCredentials` (`idUserCredentials`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `userRole_user` FOREIGN KEY (`userRoleId`) REFERENCES `UserRole` (`idUserRole`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -377,7 +395,6 @@ CREATE TABLE `webserviceauth` (
   KEY `userid_idx` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

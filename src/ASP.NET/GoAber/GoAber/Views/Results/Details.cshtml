@@ -1,0 +1,51 @@
+﻿@model GoAber.Models.Result
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Result</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.categoryUnit.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoryUnit.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.challenge.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.challenge.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.community.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.community.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.value)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

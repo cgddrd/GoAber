@@ -21,6 +21,17 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
+    /*
+     * CG - This method forces the EclipseLink cache to be cleared out programatically (i.e. "refresh" the data to be re-loaded from the database)
+     * This is useful when you make a change on a 1:M relationship (e.g. adding a new Team to an exisiting Community entity)
+     * and need to then need to refresh the 'Many' collection (e.g. refresh the Team collection on Community in order to then access that new Team via the Community entity).
+     *
+     * See: https://wiki.eclipse.org/EclipseLink/Examples/JPA/Caching#How_to_refresh_the_cache for more information.
+     */
+    public void flushCache() {
+        getEntityManager().getEntityManagerFactory().getCache().evictAll();
+    }
+    
     public void create(T entity) {
         getEntityManager().persist(entity);
     }

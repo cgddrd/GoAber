@@ -543,7 +543,6 @@ C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Resources.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\PagedList.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\WebGrease.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.Core.dll
-C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Org.Mentalis.Security.Cryptography.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Antlr3.Runtime.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Mono.Math.dll
@@ -594,9 +593,10 @@ C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Resources.pdb
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\PagedList.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.Core.xml
-C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Org.Mentalis.Security.Cryptography.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Antlr3.Runtime.pdb
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Mono.Math.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\cy\Resources.resources.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\es\Resources.resources.dll
+C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.dll
+C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.xml

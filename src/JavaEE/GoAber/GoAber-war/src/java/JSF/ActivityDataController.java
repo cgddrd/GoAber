@@ -4,7 +4,7 @@ import GoAberDatabase.ActivityData;
 import GoAberDatabase.Category;
 import GoAberDatabase.Unit;
 import GoAberDatabase.User;
-import JSF.auth.AuthController;
+import JSF.services.AuthService;
 import JSF.services.ActivityDataService;
 import JSF.services.UserService;
 import JSF.util.JsfUtil;
@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 @SessionScoped
 public class ActivityDataController implements Serializable {
 
-    @ManagedProperty(value="#{authController}")
-    private AuthController authController;
     @ManagedProperty(value="#{auditController}")
     private AuditController audit;
     
@@ -45,6 +43,9 @@ public class ActivityDataController implements Serializable {
     private SessionBean.CategoryFacade categoryBean;
     @EJB
     private SessionBean.UnitFacade unitBean;
+    
+    @ManagedProperty(value="#{authService}")
+    private AuthService authService;
     
     private ActivityData current;
     private User viewUser;
@@ -105,7 +106,7 @@ public class ActivityDataController implements Serializable {
 
     public String create() {
         try {
-            User user = authController.getActiveUser();
+            User user = authService.getActiveUser();
             dataService.createForUser(getCurrent(), user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataCreated"));
             return prepareCreate();
@@ -122,7 +123,7 @@ public class ActivityDataController implements Serializable {
 
     public String update() {
         try {
-            User user = authController.getActiveUser();
+            User user = authService.getActiveUser();
             dataService.updateForUser(getCurrent(), user);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataUpdated"));
             return "View";
@@ -163,7 +164,7 @@ public class ActivityDataController implements Serializable {
     }
     
     private void recreateItems() {
-        User user = authController.getActiveUser();
+        User user = authService.getActiveUser();
         items = dataService.findAllForUser(user);
         filteredItems = null;
     }
@@ -202,12 +203,9 @@ public class ActivityDataController implements Serializable {
     public void setCurrent(ActivityData current) {
         this.current = current;
     }
-
-    /**
-     * @param authController the authController to set
-     */
-    public void setAuthController(AuthController authController) {
-        this.authController = authController;
+    
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
     }
 
     /**

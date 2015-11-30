@@ -6,14 +6,16 @@
 package SessionBean;
 
 import GoAberDatabase.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
  *
- * @author helen
+ * @author connor
  */
 @Stateless
 public class UserFacade extends AbstractFacade<User> {
@@ -29,18 +31,54 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
     
-    // CG - Convenience serach function using 'User' EJB named query.
-    public User findUserByEmail(String searchEmail) {
+    @Override
+    public User find(Object id) {
+        super.flushCache();
+        return super.find(id);
+    }
+
+    @Override
+    public List<User> findAll() {
+        super.flushCache();
+        return super.findAll();
+    }
+    
+    @Override
+    public List<User> findRange(int[] range) {
+        super.flushCache();
+        return super.findRange(range);
+    }
+    
+    @Override
+    public int count() {
+        super.flushCache();
+        return super.count();
+    }
+    
+    
+    // CG - Convenience search function using 'User' EJB named query.
+    public User findUserByEmailOrNull(String searchEmail) {
         
-        Query queryEmployeesByFirstName = em.createNamedQuery("User.findByEmail");
-        queryEmployeesByFirstName.setParameter("email", searchEmail);
+        super.flushCache();
         
-        User user = (User) queryEmployeesByFirstName.getSingleResult();
-        
-        return user;
+        try {
+
+            Query queryUserByEmail = em.createNamedQuery("User.findByEmail");
+            queryUserByEmail.setParameter("email", searchEmail);
+
+            User user = (User) queryUserByEmail.getSingleResult();
+
+            return user;
+
+        } catch (NoResultException nRE) {
+            return null;
+        }
+
     }
     
     public User findUserById(int id) {
+        
+        super.flushCache();
         
         Query queryEmployeesByFirstName = em.createNamedQuery("User.findByIdUser");
         queryEmployeesByFirstName.setParameter("idUser", id);

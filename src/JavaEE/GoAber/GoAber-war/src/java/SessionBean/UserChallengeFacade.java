@@ -5,7 +5,10 @@
  */
 package SessionBean;
 
+import GoAberDatabase.Challenge;
+import GoAberDatabase.User;
 import GoAberDatabase.UserChallenge;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,6 +25,10 @@ public class UserChallengeFacade extends AbstractFacade<UserChallenge> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    public UserChallenge findByUserAndChallenge(User userId, Challenge challengeId){
+        return (UserChallenge)em.createNamedQuery("UserChallenge.findByIdUserIdChallenge").setParameter("userId", userId).setParameter("challengeId", challengeId).getSingleResult();
     }
 
     public UserChallengeFacade() {

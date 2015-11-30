@@ -351,4 +351,13 @@
   <data name="_Layout_cshtml_Execute_WebServiceAuth" xml:space="preserve">
     <value>[WELSH]Web Service Auth Tokens</value>
   </data>
+  <data name="Challenges_completedChallenges" xml:space="preserve">
+    <value>[WELSH]Completed Challenges</value>
+  </data>
+  <data name="Challenges_completedcomChallenges" xml:space="preserve">
+    <value>[WELSH]Community Challenges</value>
+  </data>
+  <data name="Challenges_completedgroupChallenges" xml:space="preserve">
+    <value>[WELSH]Group Challenges</value>
+  </data>
 </root>

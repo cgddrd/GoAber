@@ -15,7 +15,7 @@ namespace GoAber.Models
     public partial class UserChallenge
     {
         public int Id { get; set; }
-        public int challengeId { get; set; }
+        public string challengeId { get; set; }
        // public int userId { get; set; }
     
         public virtual Challenge challenge { get; set; }

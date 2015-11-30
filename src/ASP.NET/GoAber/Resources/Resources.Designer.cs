@@ -566,6 +566,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Completed Challenges.
+        /// </summary>
+        public static string Challenges_completedChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_completedChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community Challenges.
+        /// </summary>
+        public static string Challenges_completedcomChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_completedcomChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Challenges.
+        /// </summary>
+        public static string Challenges_completedgroupChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_completedgroupChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group challenges .
         /// </summary>
         public static string Challenges_groupChallenges {
