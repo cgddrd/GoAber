@@ -6,6 +6,7 @@ import JSF.util.JsfUtil;
 import SessionBean.CommunityFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
@@ -49,6 +50,15 @@ public class CommunityController implements Serializable {
 
     private CommunityFacade getFacade() {
         return ejbFacade;
+    }
+    
+    public List<SelectItem> getCommunitySelectList() {
+        List<SelectItem> communityList = new ArrayList<>();
+        
+        for (Community community : getFacade().findAll()) {
+            communityList.add(new SelectItem(community.getName()));
+        }
+        return communityList;
     }
 
     public String prepareList() {

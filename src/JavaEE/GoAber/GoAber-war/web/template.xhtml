@@ -13,7 +13,6 @@
         <h:outputStylesheet library="css" name="bootstrap.css"/>
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
         <h:outputStylesheet library="css" name="theme.css"/>
-        <h:outputScript library="js" name="bootstrap.min.js" target="body"/>
     </h:head>
 
     <h:body role="document">
@@ -32,8 +31,7 @@
 
                     <ul class="nav navbar-nav">
                         <li><h:link outcome="/index" value="Home"/></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><h:link outcome="/activityData/WeeklySummary" value="Activity Data"/></li>
                         
                         <c:choose>
                             
@@ -45,7 +43,7 @@
                         
                         <c:choose>
                             
-                            <c:when test="#{authController.loggedIn}">
+                            <c:when test="#{authService.loggedIn}">
                                 <li><h:link outcome="/webServiceAuth/index" value="Web Service Tokens"/></li>
                             </c:when>
                             
@@ -62,9 +60,9 @@
                                 <c:when test="#{authService.loggedIn}">
                                     
                                     <!-- CG - Either use 'authService.loggedInUser' to get email address, or access 'loggedInUser' session object to access all user properties. -->
-                                    <li><h:link outcome="/account/index" value="#{authBundle.AuthenticationNavbarUsername_Label} #{authService.activeUser.nickname}!"/></li>
+                                    <li><h:commandLink action="#{userController.prepareAccountView()}" value="#{authBundle.AuthenticationNavbarUsername_Label} #{authService.activeUser.nickname}!"/></li>
 
-                                    <li><h:commandLink action="#{authService.logoutUser()}" value="#{authBundle.AuthenticationLogoutButton_Label}"/></li>
+                                    <li><h:commandLink action="#{authService.logoutUser(false)}" value="#{authBundle.AuthenticationLogoutButton_Label}"/></li>
                                 
                                 </c:when> 
 
