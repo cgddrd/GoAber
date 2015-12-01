@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -36,7 +37,7 @@ import org.goaberchallenges.ResultData;
  *
  * @author Dan
  */
-//@Singleton
+@Stateless
 public class ChallengeWSConsumer {
 
     
@@ -47,7 +48,6 @@ public class ChallengeWSConsumer {
     public boolean addChallenge(Challenge ao_challenge, Collection<CommunityChallenge> ao_comCollection, int ai_userGroup) {
         try {
 
-            List<ChallengeData> lo_chaldatalist = new ArrayList<>();
             for (CommunityChallenge lo_comchal : ao_comCollection) {
                 if (lo_comchal.getCommunityId().getHome()) {
                     continue;
@@ -62,7 +62,6 @@ public class ChallengeWSConsumer {
                 lo_chaldata.setCommunityId(lo_comchal.getCommunityId().getIdCommunity());
                 lo_chaldata.setId(ao_challenge.getIdChallenge());
                 lo_chaldata.setName(ao_challenge.getName());
-                lo_chaldatalist.add(lo_chaldata);
 
                 boolean lb_res = getSOAPClient(lo_comchal.getCommunityId()).recieveChallenge(lo_chaldata, ai_userGroup);
                 System.out.println("Service returned: " + lb_res);

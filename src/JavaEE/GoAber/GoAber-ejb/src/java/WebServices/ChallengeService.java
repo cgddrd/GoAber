@@ -5,19 +5,27 @@
  */
 package WebServices;
 
+import DTO.IJobDetail;
 import GoAberDatabase.Challenge;
 import GoAberDatabase.Community;
 import GoAberDatabase.CommunityChallenge;
 import GoAberDatabase.GroupChallenge;
+import GoAberDatabase.JobDetail;
+import GoAberDatabase.Scheduletype;
+import GoAberDatabase.Tasktype;
 import GoAberDatabase.Team;
 import GoAberDatabase.User;
 import GoAberDatabase.UserChallenge;
+import Jobs.ChallengeJob;
+import Scheduling.Jobs.AbstractJob;
 import SessionBean.ChallengeFacade;
 import SessionBean.CommunityChallengeFacade;
 import SessionBean.CommunityFacade;
 import SessionBean.GroupChallengeFacade;
+import SessionBean.SchedulerSessionBeanRemote;
+import SessionBean.ScheduletypeFacade;
+import SessionBean.TasktypeFacade;
 import SessionBean.TeamFacade;
-import SessionBean.UnitFacade;
 import SessionBean.UserChallengeFacade;
 import WebServices.ChallengeWS.Consumer.ChallengeWSConsumer;
 import java.util.ArrayList;
@@ -27,23 +35,28 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.persistence.EntityManager;
-import javax.transaction.UserTransaction;
 
 /**
  * Provides commonly used challenge methods
  * @author helen
  */
+@Stateless
 public class ChallengeService {
 
-
-    //@EJB ChallengeWSConsumer challengeWSConsumer;// = lookupChallengeWSConsumerBean();
+    @EJB ChallengeWSConsumer challengeWSConsumer;
+    @EJB SchedulerSessionBeanRemote SchedSessBean;
+    @EJB ScheduletypeFacade schedtypeFacade;
+    @EJB TasktypeFacade tasktypeFacade;
+    
     @EJB ChallengeFacade ejbFacade;// = lookupChallengeFacadeBean();
     @EJB CommunityChallengeFacade communityChallengeFacade;// = lookupCommunityChallengeFacadeBean();
     @EJB GroupChallengeFacade groupChallengeFacade;// = lookupGroupChallengeFacadeBean();
@@ -53,12 +66,12 @@ public class ChallengeService {
     
 
     public ChallengeService(){
-        ejbFacade = lookupChallengeFacadeBean();
-        communityChallengeFacade = lookupCommunityChallengeFacadeBean();
-        groupChallengeFacade = lookupGroupChallengeFacadeBean();
-        communityFacade=lookupCommunityFacadeBean();
-        groupFacade = lookupTeamFacadeFacadeBean();
-        userChallengeFacade = lookupUserChallengeFacadeFacadeBean();
+//        ejbFacade = lookupChallengeFacadeBean();
+//        communityChallengeFacade = lookupCommunityChallengeFacadeBean();
+//        groupChallengeFacade = lookupGroupChallengeFacadeBean();
+//        communityFacade=lookupCommunityFacadeBean();
+//        groupFacade = lookupTeamFacadeFacadeBean();
+//        userChallengeFacade = lookupUserChallengeFacadeFacadeBean();
     }
     
     // Added to allow the mocking of the facades in the test class
@@ -73,6 +86,22 @@ public class ChallengeService {
         this.userChallengeFacade=userChallengeFacade;
     }
     
+    public void AddChallengeJob(Challenge challenge) {
+        JobDetail lo_job = new JobDetail();
+        Scheduletype lo_stype = schedtypeFacade.find("O");
+        Tasktype lo_ttype = tasktypeFacade.find("Challenge");
+        lo_job.setSchedtype(lo_stype);
+        lo_job.setTasktype(lo_ttype);
+        lo_job.setStartnow(Boolean.TRUE);
+        lo_job.setSchedulerArgs(new String[] { challenge.getIdChallenge() });
+        lo_job.setShcedtimemins(1);
+        
+        AbstractJob lo_chaljob = new ChallengeJob(lo_job);
+    }
+    
+    public String createChallengeID() {
+       return UUID.randomUUID().toString();
+    }
     
     /**
      * To view a list of the communities in a user interface a Map<String,Integer> should be produced
@@ -194,7 +223,6 @@ public class ChallengeService {
                 }
             }
             if (!lb_goremote) return communityCollection;
-            ChallengeWSConsumer challengeWSConsumer = new ChallengeWSConsumer();
             if (!challengeWSConsumer.addChallenge(challenge, communityCollection, usersCommunity)) {
                 System.err.println("Failed to send challenge remotely");            
             }
@@ -308,54 +336,6 @@ public class ChallengeService {
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
-        }
-    }
-
-    public void persist(Object object) {
-        /* Add this to the deployment descriptor of this module (e.g. web.xml, ejb-jar.xml):
-         * <persistence-context-ref>
-         * <persistence-context-ref-name>persistence/LogicalName</persistence-context-ref-name>
-         * <persistence-unit-name>GoAber-ejbPU</persistence-unit-name>
-         * </persistence-context-ref>
-         * <resource-ref>
-         * <res-ref-name>UserTransaction</res-ref-name>
-         * <res-type>javax.transaction.UserTransaction</res-type>
-         * <res-auth>Container</res-auth>
-         * </resource-ref> */
-        try {
-            Context ctx = new InitialContext();
-            UserTransaction utx = (UserTransaction) ctx.lookup("java:comp/env/UserTransaction");
-            utx.begin();
-            EntityManager em = (EntityManager) ctx.lookup("java:comp/env/persistence/LogicalName");
-            em.persist(object);
-            utx.commit();
-        } catch (Exception e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void persist1(Object object) {
-        /* Add this to the deployment descriptor of this module (e.g. web.xml, ejb-jar.xml):
-         * <persistence-context-ref>
-         * <persistence-context-ref-name>persistence/LogicalName</persistence-context-ref-name>
-         * <persistence-unit-name>GoAber-ejbPU</persistence-unit-name>
-         * </persistence-context-ref>
-         * <resource-ref>
-         * <res-ref-name>UserTransaction</res-ref-name>
-         * <res-type>javax.transaction.UserTransaction</res-type>
-         * <res-auth>Container</res-auth>
-         * </resource-ref> */
-        try {
-            Context ctx = new InitialContext();
-            UserTransaction utx = (UserTransaction) ctx.lookup("java:comp/env/UserTransaction");
-            utx.begin();
-            EntityManager em = (EntityManager) ctx.lookup("java:comp/env/persistence/LogicalName");
-            em.persist(object);
-            utx.commit();
-        } catch (Exception e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
-            throw new RuntimeException(e);
         }
     }
 

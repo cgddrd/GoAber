@@ -31,8 +31,12 @@ import javax.faces.model.SelectItem;
 @SessionScoped
 public class ChallengeController implements Serializable {
 
+    @EJB
+    private ChallengeService challengeService;
+
     private Challenge current;
     private DataModel items = null;
+    
     @EJB private SessionBean.ChallengeFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
@@ -45,7 +49,6 @@ public class ChallengeController implements Serializable {
     
     List<Challenge> challenges;
     
-    ChallengeService challengeService = new ChallengeService();
     
     @EJB 
     SessionBean.UserFacade userFacade;
@@ -287,11 +290,12 @@ public class ChallengeController implements Serializable {
 
     public String createCommunity() {
         try {
-            current.setIdChallenge(UUID.randomUUID().toString());
+            current.setIdChallenge(challengeService.createChallengeID());
             getFacade().create(current);
             User currentUser = auth.getActiveUser();
             current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges, true));
             getFacade().edit(current);
+            challengeService.AddChallengeJob(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeCreated"));
             return prepareIndex();
         } catch (Exception e) {
@@ -301,6 +305,7 @@ public class ChallengeController implements Serializable {
     }
     public String createGroup() {
         try {
+            current.setIdChallenge(challengeService.createChallengeID());
             getFacade().create(current);
             User currentUser = auth.getActiveUser();
             current.setGroupChallengeCollection(challengeService.addGroupChallenges(currentUser, current, groupChallenges));

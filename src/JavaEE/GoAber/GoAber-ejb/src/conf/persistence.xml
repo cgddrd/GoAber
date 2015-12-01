@@ -22,6 +22,8 @@
     <class>GoAberDatabase.CommunityChallenge</class>
     <class>GoAberDatabase.DataRemovalAudit</class>
     <class>GoAberDatabase.Result</class>
+    <class>GoAberDatabase.Scheduletype</class>
+    <class>GoAberDatabase.Tasktype</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

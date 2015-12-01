@@ -16,9 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -124,6 +126,17 @@ public class JobDetail implements Serializable, IJobDetail {
     @Override
     public String toString() {
         return "GoAberDatabase.Jobdetail[ jobid=" + jobid + " ]";
+    }
+    
+    //Pass arguments to scheduler.
+    @Transient
+    private String[] is_args;
+    public void setSchedulerArgs(String[] as_args) {
+        is_args = as_args;
+    }
+    @Override
+    public String[] scheduler_args() {
+        return is_args;
     }
     
 }

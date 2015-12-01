@@ -17,12 +17,14 @@ import SessionBean.CommunityFacade;
 import SessionBean.ResultFacade;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import org.goaberchallenges.ResultData;
 
 /**
  *
  * @author Dan
  */
+@Stateless
 public class HandleResult {
 
     @EJB

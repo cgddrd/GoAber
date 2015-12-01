@@ -22,29 +22,33 @@ import javax.jws.WebService;
 @WebService(serviceName = "GoAberChallengesWS", portName = "GoAberChallengesWSSoap", endpointInterface = "org.goaberchallenges.GoAberChallengesWSSoap", targetNamespace = "http://goaberchallenges.org/", wsdlLocation = "META-INF/wsdl/GoAberChallengesWS/localhost_50121/WebService/ChallengesWS/GoAberChallengesWS.asmx.wsdl")
 @Stateless
 public class GoAberChallengesWS {
+    
+    @EJB
+    private HandleResult io_handleResult;
+    
+    @EJB
+    private CategoryUnitFacade io_categoryUnitFacade;
 
+    @EJB
+    private ChallengeFacade io_challengeFacade;
+
+    @EJB
     ChallengeService io_chalservice;
 
-    public GoAberChallengesWS() {
-        io_chalservice = new ChallengeService();
-    }
-    @EJB
-    private CategoryUnitFacade categoryUnitFacade;
+    public GoAberChallengesWS() {}
 
-    @EJB
-    private ChallengeFacade challengeFacade;
 
     public boolean recieveChallenge(org.goaberchallenges.ChallengeData challenge, int userGroup) {
         try {
             Challenge lo_chalmod = new Challenge();
 
-            CategoryUnit lo_catunit = categoryUnitFacade.find(challenge.getCategoryUnitId());
+            CategoryUnit lo_catunit = io_categoryUnitFacade.find(challenge.getCategoryUnitId());
             lo_chalmod.setCategoryUnitId(lo_catunit);
             lo_chalmod.setEndTime(challenge.getEndTime().toGregorianCalendar().getTime());
             lo_chalmod.setName(challenge.getName());
             lo_chalmod.setStartTime(challenge.getStartTime().toGregorianCalendar().getTime());
             lo_chalmod.setIdChallenge(challenge.getId());
-            challengeFacade.create(lo_chalmod);
+            io_challengeFacade.create(lo_chalmod);
             io_chalservice.addCommunityChallenges(null, lo_chalmod, new Integer[]{challenge.getCommunityId()}, false);
             //lo_chalmod.setIdChallenge(userGroup); = challenge.id;
             return true;
@@ -57,8 +61,7 @@ public class GoAberChallengesWS {
     public org.goaberchallenges.ResultData recieveResult(org.goaberchallenges.ResultData result) {
         try {
            
-            HandleResult lo_handleResult = new HandleResult();
-            return lo_handleResult.RecieveResult(result);
+            return io_handleResult.RecieveResult(result);
             
         } catch (Exception e) {
             e.printStackTrace();
