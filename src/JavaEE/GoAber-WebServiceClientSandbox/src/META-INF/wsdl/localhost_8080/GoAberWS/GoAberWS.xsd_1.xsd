@@ -6,10 +6,6 @@
 
 <xs:element name="community" type="tns:community"/>
 
-<xs:element name="hello" type="tns:hello"/>
-
-<xs:element name="helloResponse" type="tns:helloResponse"/>
-
 <xs:element name="isAdmin" type="tns:isAdmin"/>
 
 <xs:element name="isAdminResponse" type="tns:isAdminResponse"/>
@@ -101,17 +97,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="hello">
-<xs:sequence>
-<xs:element name="name" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="helloResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
 
 <xs:complexType name="isNotNullEmptyOrWhiteSpace">
 <xs:sequence>

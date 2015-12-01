@@ -100,3 +100,7 @@ INSERT INTO `goaber`.`category` (`name`) VALUES ('Walking');
 INSERT INTO `goaber`.`unit` (`name`) VALUES ('steps');
 
 INSERT INTO `goaber`.`categoryunit` (`categoryId`, `unitId`) VALUES ('1', '1');
+
+
+INSERT INTO `goaber`.`webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('admin_token', 'TestApp', '1');
+INSERT INTO `goaber`.`webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('user_token', 'TestApp', '3');

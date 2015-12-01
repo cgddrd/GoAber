@@ -11,7 +11,7 @@
     <h:body>
         <c:choose>
 
-            <c:when test="#{authController.loggedIn}">
+            <c:when test="#{authService.loggedIn}">
                 <f:event type="preRenderView" listener="#{webServiceAuthController.redirectList()}" />
             </c:when>
             <c:otherwise>
