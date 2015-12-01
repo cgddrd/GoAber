@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * After the user has authorized Jawbone this callback gets called. 
+ * This will trigger the request for the access and refresh tokens before 
+ * forwarding the user to the Jawbone index page.
  * @author Craig
  */
 @WebServlet(name = "JawboneCallbackServlet", urlPatterns = {"/JawboneCallbackServlet"})
@@ -52,7 +54,6 @@ public class JawboneCallbackServlet extends HttpServlet {
         response.sendRedirect("faces/Jawbone/index.xhtml");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -80,15 +81,5 @@ public class JawboneCallbackServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

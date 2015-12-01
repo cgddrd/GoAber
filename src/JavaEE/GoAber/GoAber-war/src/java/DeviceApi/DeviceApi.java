@@ -34,7 +34,6 @@ import javax.json.JsonReader;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.net.ssl.HttpsURLConnection;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.DefaultApi20;
 import org.scribe.model.OAuthConfig;
@@ -42,12 +41,13 @@ import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
-import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 import org.scribe.utils.Preconditions;
 
 /**
- *
+ * The generic class that allows the system to different devices e.g Jawbone
+ * 
+ * 
  * @author Craig
  */
 public abstract class DeviceApi extends DefaultApi20
@@ -56,37 +56,51 @@ public abstract class DeviceApi extends DefaultApi20
     DeviceFacade deviceFacade = lookupDeviceFacadeBean();
     ActivityDataFacade activityDataFacade = lookupActivityDataFacadeBean();
     CategoryUnitFacade categoryUnitFacade = lookupCategoryUnitFacadeBean();
+   
     @EJB 
     SessionBean.UserFacade userFacade;
     @ManagedProperty(value="#{authService}")
     AuthService authService;
     int steps;
-    //@EJB
-    //private SessionBean.DeviceTypeFacade deviceTypeFacade;
-    //@Resource(name="GoAber-warPU") 
-    //private DataSource dataSource;
     
-   // @PersistenceContext(unitName = "GoAber-warPU")
-    //private EntityManager em ;
+    public int getSteps()
+    {
+        return steps;
+    }
     
+    /**
+     * Gets the type of device, so that the deviceType can be retrieved from the database.
+     * @return 
+     */
+    abstract String getType();
     
-    public abstract String getType();
-    public abstract String getScope();
-    public abstract Class getProviderClass();
+    /**
+     * The scope that will be added to the authorization URL.
+     * @return 
+     */
+    abstract String getScope();
+    
+    /**
+     * The base class must be passed to OAuthService.
+     * @return 
+     */
+    abstract Class getProviderClass();
        
     @Override
-    public String getAccessTokenEndpoint() {
-        
+    public String getAccessTokenEndpoint() {   
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
-        
         return String.format("%s?grant_type=authorization_code&client_id=%s&client_secret=%s", deviceType.getTokenEndpoint(), deviceType.getClientId(), deviceType.getConsumerSecret());
     }
     
+    /**
+     * 
+     * @param code
+     * @return 
+     */
     public String getAccessTokenEndpoint(String code) {
         return String.format(getAccessTokenEndpoint() + "&code=%s", code);
     }
 
-    
     public String getCallbackUrl()
     {
         String CALLBACK_URL = "http://localhost:8080/GoAber-war/%sCallbackServlet";
@@ -116,58 +130,14 @@ public abstract class DeviceApi extends DefaultApi20
                 .callback(getCallbackUrl())
                 .build();
        return service;
-    }
+    }  
     
-    public void getAndSaveTokensFitbit(String code, User user)
-    {
-        DeviceType deviceType = deviceTypeFacade.findByName(getType());
-        String urlString = getAccessTokenEndpoint();//code);
-        URL url;
-        try {
-            url = new URL(urlString);
-            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            String auth = deviceType.getClientId() + ":"+ deviceType.getConsumerSecret();
-            byte[] encodedBytes = Base64.getEncoder().encode(auth.getBytes());
-            String s = new String(encodedBytes);
-            String authBytes = "Basic "+s;
-	    con.setRequestProperty("Authorization", authBytes);
-            con.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            String param = String.format("client_id=%s&grant_type=authorization_code&redirect_uri=%s&code=%s", deviceType.getClientId(), getCallbackUrl(), code);
-            con.addRequestProperty("client_id", deviceType.getClientId());
-            con.addRequestProperty("grant_type", "authorization_code");
-            con.addRequestProperty("redirect_uri", getCallbackUrl());
-            con.addRequestProperty("code", code);
-            con.setUseCaches(false);
-            con.setDoInput(true);
-            con.setDoOutput(true);
-            int responseCode = con.getResponseCode();
-            String err = con.getResponseMessage();
-            System.out.println("Craig "+ responseCode);
-            try (InputStream is = url.openStream(); 
-                    JsonReader jsonReader = Json.createReader(is)) {
- 
-                JsonObject jsonObject = jsonReader.readObject();
-                String accessToken = jsonObject.getString("access_token");
-                String refreshToken = jsonObject.getString("refresh_token");
-                int expiresIn = jsonObject.getInt("expires_in");
-                Date date = new Date();
-                date.setSeconds(date.getSeconds() + expiresIn);
-                Device device = new Device(user, deviceType, accessToken, refreshToken, date);
-                deviceFacade.create(device);
-                System.out.println("access_token " + accessToken);
-                System.out.println("refreshToken " + refreshToken);
-                System.out.println("expiresIn " + expiresIn);
-            }
-           
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(DeviceApi.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DeviceApi.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    
+    /**
+     * Sends the request for the access token and refresh token, 
+     * and saves these to the database
+     * @param code
+     * @param user 
+     */
     public void getAndSaveTokens(String code, User user)
     {
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
@@ -186,9 +156,6 @@ public abstract class DeviceApi extends DefaultApi20
                 date.setSeconds(date.getSeconds() + expiresIn);
                 Device device = new Device(user, deviceType, accessToken, refreshToken, date);
                 deviceFacade.create(device);
-                System.out.println("access_token " + accessToken);
-                System.out.println("refreshToken " + refreshToken);
-                System.out.println("expiresIn " + expiresIn);
             }
            
         } catch (MalformedURLException ex) {
@@ -208,26 +175,33 @@ public abstract class DeviceApi extends DefaultApi20
             throw new RuntimeException(ne);
         }
     }   
+
     
-    /*
-    public ActivityData getWalkingSteps(String requestUrl, String json, int day, int month, int year, User userId)
-    {
-        CategoryUnit categoryUnit = new CategoryUnit();//categoryUnitFacade.findByCategoryAndUnit("Walking", "Steps");
-        return getActivityData(requestUrl, json, day, month, year, userId, categoryUnit);
-    }*/
-    
+    /**
+     * Makes the request for the activity data
+     * @param requestUrl Will be appended to the API endpoint URL. (e.g. /Moves)
+     * @param day
+     * @param month
+     * @param year
+     * @param userId
+     * @return JsonObject 
+     */
     public JsonObject getActivityData(String requestUrl, int day, int month, int year, User userId)//, CategoryUnit categoryUnitId
     {
         DeviceType deviceType = deviceTypeFacade.findByName(getType());
         Device device = deviceFacade.findByUserAndDeviceType(authService.getActiveUser(), deviceType);
         if(device == null)
+        {
             return null;
+        }
         String accessToken = device.getAccessToken();
         if(device.getTokenExpiration().before(new Date()))
         {
             accessToken = refreshToken();
             if(accessToken.isEmpty())
+            {
                 return null;
+            }
         } 
         String fullUrl = deviceType.getApiEndpoint() + requestUrl;
 
@@ -240,19 +214,74 @@ public abstract class DeviceApi extends DefaultApi20
 
          Response response = request.send();
 
-        try{
+        try
+        {
             try (InputStream is = new ByteArrayInputStream(response.getBody().getBytes()); 
-                    JsonReader jsonReader = Json.createReader(is)) {
+                    JsonReader jsonReader = Json.createReader(is)) 
+            {
 
                 JsonObject jsonObject = jsonReader.readObject();
                 jsonReader.close();
                 return jsonObject;
             }
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) 
+        {
             Logger.getLogger(DeviceApi.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return null;
     } 
+    
+    /**
+     * Checks if the user has a device already assigned to them.
+     * @return 
+     */
+    public boolean isConnected()
+    {
+       User currentUser = authService.getActiveUser();
+       DeviceType deviceType = deviceTypeFacade.findByName(getType());
+       if(currentUser == null || deviceType == null)
+       {
+           return false;
+       }
+       Device device = deviceFacade.findByUserAndDeviceType(currentUser, deviceType);
+       if(device == null)
+       {
+           return false;
+       }
+       return true;
+    }
+   
+    public void deleteDevice()
+    {
+        User currentUser = authService.getActiveUser();
+        DeviceType deviceType = deviceTypeFacade.findByName(getType());
+        if(currentUser == null || deviceType == null)
+        {
+           return;
+        }
+        Device device = deviceFacade.findByUserAndDeviceType(currentUser, deviceType);
+        if(device != null)
+        {
+           deviceFacade.remove(device);
+        }
+    }
+   
+    public void setauthService(AuthService authService)
+    {
+       this.authService = authService;
+    }
+   
+    public AuthService getauthService()
+    {
+       return this.authService;
+    }
+
+    private String refreshToken() 
+    {
+        String refreshToken = "";
+        return refreshToken;
+    }
     
     
     private DeviceFacade lookupDeviceFacadeBean() {
@@ -288,38 +317,5 @@ public abstract class DeviceApi extends DefaultApi20
     }
    
 
-   public boolean isConnected(){
-       User currentUser = authService.getActiveUser();
-       DeviceType deviceType = deviceTypeFacade.findByName(getType());
-       if(currentUser == null || deviceType == null)
-           return false;
-       Device device = deviceFacade.findByUserAndDeviceType(currentUser, deviceType);
-       if(device == null)
-           return false;
-       return true;
-   }
-   
-   public void deleteDevice(){
-       User currentUser = authService.getActiveUser();
-       DeviceType deviceType = deviceTypeFacade.findByName(getType());
-       if(currentUser == null || deviceType == null)
-           return;
-       Device device = deviceFacade.findByUserAndDeviceType(currentUser, deviceType);
-       if(device != null)
-           deviceFacade.remove(device);
-   }
-   
-   public void setauthService(AuthService authService){
-       this.authService = authService;
-   }
-   
-   public AuthService getauthService(){
-       return this.authService;
-   }
-
-    private String refreshToken() {
-        String refreshToken = "";
-        return refreshToken;
-    }
     
 }

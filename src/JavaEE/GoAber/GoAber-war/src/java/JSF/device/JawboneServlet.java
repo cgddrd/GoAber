@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 import org.scribe.oauth.OAuthService;
 
 /**
- *
- * @author connorgoddard
+ * Sends the user to the Jawbone authorization page
+ * 
  */
 @WebServlet("/JawboneAccess")
 public class JawboneServlet extends HttpServlet {
@@ -41,10 +41,7 @@ public class JawboneServlet extends HttpServlet {
         response.sendRedirect(serviceBuilder.getAuthorizationUrl(null));
     }
     
-    
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+   /**
      * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
@@ -71,15 +68,4 @@ public class JawboneServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "User session logout servlet.";
-    }// </editor-fold>
-
 }

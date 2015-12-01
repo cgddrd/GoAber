@@ -56,7 +56,7 @@ public class FitBitCallbackServlet extends HttpServlet {
         DeviceApi deviceApi = (DeviceApi)request.getSession().getAttribute("DeviceApi");
         AuthService authService = (AuthService) request.getSession().getAttribute("authService");
         User user = authService.getActiveUser();
-        deviceApi.getAndSaveTokensFitbit(code, user);
+        deviceApi.getAndSaveTokens(code, user);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
