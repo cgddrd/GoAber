@@ -299,6 +299,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModels\EditApplicationUserViewModel.cs" />
     <Compile Include="AuditAttribute.cs" />
     <Compile Include="Controllers\AuditsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
@@ -488,6 +489,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Areas\MyAccount\Views\Manage\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.disco" />
     <None Include="Service References\RemoteChallengeWS\configuration91.svcinfo" />
     <None Include="Service References\RemoteChallengeWS\configuration.svcinfo" />
@@ -670,8 +672,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\MyAccount\Views\Shared\" />
     <Folder Include="Views\API\" />
     <Folder Include="Views\BaseAPI\" />

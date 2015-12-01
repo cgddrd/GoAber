@@ -521,7 +521,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage Users.
+        ///   Looks up a localized string similar to Manage User Accounts.
         /// </summary>
         public static string ApplicationUsersController_Index_Title {
             get {
@@ -1277,6 +1277,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Role Type.
+        /// </summary>
+        public static string RoleType_Label {
+            get {
+                return ResourceManager.GetString("RoleType_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -1291,6 +1300,33 @@ namespace Resources {
         public static string Unit {
             get {
                 return ResourceManager.GetString("Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Account.
+        /// </summary>
+        public static string UserDelete_Title {
+            get {
+                return ResourceManager.GetString("UserDelete_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Details.
+        /// </summary>
+        public static string UserDetails_Title {
+            get {
+                return ResourceManager.GetString("UserDetails_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Account Details.
+        /// </summary>
+        public static string UserEdit_Title {
+            get {
+                return ResourceManager.GetString("UserEdit_Title", resourceCulture);
             }
         }
         

@@ -485,7 +485,7 @@
     <value>Team</value>
   </data>
   <data name="ApplicationUsersController_Index_Title" xml:space="preserve">
-    <value>Manage Users</value>
+    <value>Manage User Accounts</value>
   </data>
   <data name="ApplicationUsersController_Teamname" xml:space="preserve">
     <value>Team</value>
@@ -546,5 +546,17 @@
   </data>
   <data name="Delete_User_Title" xml:space="preserve">
     <value>Delete Your Account</value>
+  </data>
+  <data name="RoleType_Label" xml:space="preserve">
+    <value>Role Type</value>
+  </data>
+  <data name="UserDelete_Title" xml:space="preserve">
+    <value>Delete Account</value>
+  </data>
+  <data name="UserDetails_Title" xml:space="preserve">
+    <value>Account Details</value>
+  </data>
+  <data name="UserEdit_Title" xml:space="preserve">
+    <value>Edit Account Details</value>
   </data>
 </root>

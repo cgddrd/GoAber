@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Areas.Admin.Models.ViewModels;
 using GoAber.Models;
 using GoAber.Services;
 using PagedList;
@@ -27,9 +28,6 @@ namespace GoAber.Areas.Admin.Controllers
             var applicationUsers = applicationUserService.GetAllApplicationUsers();
 
             int pageNumber = (page ?? 1);
-
-           // var teams = categoryUnitService.CreateCategoryUnitList();
-           // ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
 
             var teamList = teamsService.CreateTeamList();
             ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
@@ -131,15 +129,25 @@ namespace GoAber.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ApplicationUser applicationUser = db.Users.Find(id);
+
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
 
-            var teamList = teamsService.CreateTeamList();
-            ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+            EditApplicationUserViewModel model = new EditApplicationUserViewModel();
 
-            return View(applicationUser);
+            var roleList = applicationUserService.GenerateApplicationUserRoleList();
+            ViewBag.RoleName = new SelectList(roleList, "RoleName", "RoleName", ApplicationUserService.GetAssignedRoleForApplicationUser(applicationUser.Id));
+
+            var teamList = teamsService.CreateTeamList();
+            //ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+
+            model.TeamItems = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+
+            model.User = applicationUser;
+
+            return View(model);
         }
 
         // POST: Admin/ApplicationUsers/Edit/5
@@ -147,9 +155,9 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nickname,DateOfBirth,TeamId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "User,RoleId,RoleName,Id,Nickname,DateOfBirth,TeamId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] EditApplicationUserViewModel editApplicationUserViewModel)
         {
-            var currentUser = db.Users.Find(applicationUser.Id);
+            var currentUser = db.Users.Find(editApplicationUserViewModel.User.Id);
 
             if (ModelState.IsValid)
             {
@@ -161,26 +169,30 @@ namespace GoAber.Areas.Admin.Controllers
                 // Note: As we are not updating all values of the ApplicationUser, we should really use a custom view model to hold the returned form values, rather than using the ApplicationUser model.
                 if (currentUser != null)
                 {
-                    currentUser.DateOfBirth = applicationUser.DateOfBirth;
-                    currentUser.Nickname = applicationUser.Nickname;
-                    currentUser.Email = applicationUser.Email;
-                    currentUser.TeamId = applicationUser.TeamId;
-                    currentUser.UserName = applicationUser.UserName;
-
+                    currentUser.DateOfBirth = editApplicationUserViewModel.User.DateOfBirth;
+                    currentUser.Nickname = editApplicationUserViewModel.User.Nickname;
+                    currentUser.Email = editApplicationUserViewModel.User.Email;
+                    currentUser.TeamId = editApplicationUserViewModel.User.TeamId;
+                    currentUser.UserName = editApplicationUserViewModel.User.UserName;
 
                     db.SaveChanges();
                 }
 
+                ApplicationUserService.SetRoleToApplicationUser(editApplicationUserViewModel.User.Id, editApplicationUserViewModel.RoleName);
+
                 return RedirectToAction("Index");
             }
 
-            
+
+            var roleList = applicationUserService.GenerateApplicationUserRoleList();
+            ViewBag.RoleName = new SelectList(roleList, "RoleName", "RoleName", editApplicationUserViewModel.RoleName);
+
             var teamList = teamsService.CreateTeamList();
+           // ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", editApplicationUserViewModel.User.TeamId);
 
-            ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+            editApplicationUserViewModel.TeamItems = new SelectList(teamList, "TeamId", "Name", "CommunityName", editApplicationUserViewModel.User.TeamId);
 
-            // ViewBag.TeamId = new SelectList(db.Teams, "Id", "name", applicationUser.TeamId);
-            return View(applicationUser);
+            return View(editApplicationUserViewModel);
         }
 
         // GET: Admin/ApplicationUsers/Delete/5

@@ -21,6 +21,7 @@ namespace GoAber.Controllers
         private ApplicationDbContext context;
         //private GoAberEntities db = new GoAberEntities();
         //private ApplicationDbContext db = new ApplicationDbContext();
+        private TeamsService teamsService = new TeamsService();
 
         public AccountController()
         {
@@ -156,6 +157,9 @@ namespace GoAber.Controllers
         public ActionResult Register()
         {
             ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
+
+            var teamList = teamsService.CreateTeamList();
+            ViewBag.TeamList = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
             return View();
         }
 
@@ -170,6 +174,7 @@ namespace GoAber.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
+                    TeamId = model.TeamId,
 
                     //CG - Wire our extended properties from 'ApplicationUser' into the Register view model.
                     Nickname = model.Nickname,

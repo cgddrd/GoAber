@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -48,13 +49,23 @@ namespace GoAber.Services
             return HttpContext.Current.User.IsInRole(roleName);
         }
 
-        public static void SetRoleToApplicationUser(string applicationUserId, string roleName)
+        public static string GetAssignedRoleForApplicationUser(string applicationUserId)
         {
-            ApplicationUser user = ApplicationUserService.GetApplicationUserById(applicationUserId);
+            return GetRolesForApplicationUser(applicationUserId).FirstOrDefault();
+        }
 
+        private static IList<string> GetRolesForApplicationUser(string applicationUserId)
+        {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            userManager.RemoveFromRoles(applicationUserId, Roles.GetRolesForUser(user.UserName));
+            return userManager.GetRoles(applicationUserId);
+        }
+
+        public static void SetRoleToApplicationUser(string applicationUserId, string roleName)
+        {
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            userManager.RemoveFromRoles(applicationUserId, GetRolesForApplicationUser(applicationUserId).ToArray());
 
             userManager.AddToRole(applicationUserId, roleName);
 
@@ -140,6 +151,22 @@ namespace GoAber.Services
             }).ToList();
 
             return applicationUsers;
+        }
+
+        public IEnumerable GenerateApplicationUserRoleList()
+        {
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+
+            var roles = roleManager.Roles.Select(t => new
+            {
+                Id = t.Id,
+                RoleName = t.Name
+            }
+            ).ToList();
+
+            return roles;
+
         }
 
         ~ApplicationUserService()
