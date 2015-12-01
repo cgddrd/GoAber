@@ -39,27 +39,27 @@
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-RemoteChallengeWS" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/RemoteChallengeWS"/>
-        <property name="service-wsdl-RemoteChallengeWS" location="${meta.inf}/xml-resources/web-services/RemoteChallengeWS/wsdl/localhost_50121/WebService/ChallengesWS/GoAberChallengesWS.asmx.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/RemoteChallengeWS" destdir="${build.generated.dir}/jax-wsCache/service/RemoteChallengeWS" wsdl="${service-wsdl-RemoteChallengeWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
-            <depends file="${wsdl-RemoteChallengeWS}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/RemoteChallengeWS"/>
+    <target name="wsimport-service-GoAberChallengesWS" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/GoAberChallengesWS"/>
+        <property name="service-wsdl-GoAberChallengesWS" location="${meta.inf}/xml-resources/web-services/GoAberChallengesWS/wsdl/localhost_50121/WebService/ChallengesWS/GoAberChallengesWS.asmx.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/GoAberChallengesWS" destdir="${build.generated.dir}/jax-wsCache/service/GoAberChallengesWS" wsdl="${service-wsdl-GoAberChallengesWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-GoAberChallengesWS}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/GoAberChallengesWS"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/RemoteChallengeWS">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/GoAberChallengesWS">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
-        <property name="targetLocation-RemoteChallengeWS" location="${meta.inf}/wsdl/RemoteChallengeWS"/>
-        <property name="sourceLocation-RemoteChallengeWS" location="${meta.inf}/xml-resources/web-services/RemoteChallengeWS/wsdl/"/>
-        <copy todir="${targetLocation-RemoteChallengeWS}">
-            <fileset dir="${sourceLocation-RemoteChallengeWS}"/>
+        <property name="targetLocation-GoAberChallengesWS" location="${meta.inf}/wsdl/GoAberChallengesWS"/>
+        <property name="sourceLocation-GoAberChallengesWS" location="${meta.inf}/xml-resources/web-services/GoAberChallengesWS/wsdl/"/>
+        <copy todir="${targetLocation-GoAberChallengesWS}">
+            <fileset dir="${sourceLocation-GoAberChallengesWS}"/>
         </copy>
     </target>
-    <target name="wsimport-service-clean-RemoteChallengeWS" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/service/RemoteChallengeWS"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/org/tempuri"/>
+    <target name="wsimport-service-clean-GoAberChallengesWS" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/GoAberChallengesWS"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/goaberchallenges"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-init, wsimport-service-RemoteChallengeWS"/>
+    <target name="wsimport-service-generate" depends="wsimport-init, wsimport-service-GoAberChallengesWS"/>
 </project>

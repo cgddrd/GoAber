@@ -72,7 +72,7 @@ CREATE TABLE `category` (
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`idCategory`),
   UNIQUE KEY `idCategory_UNIQUE` (`idCategory`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `categoryunit` (
   KEY `unitId_idx` (`unitId`),
   CONSTRAINT `categoryId_categoryUnit` FOREIGN KEY (`categoryId`) REFERENCES `category` (`idCategory`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `unitId_categoryUnit` FOREIGN KEY (`unitId`) REFERENCES `unit` (`idUnit`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -125,10 +125,12 @@ DROP TABLE IF EXISTS `community`;
 CREATE TABLE `community` (
   `idCommunity` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `endpointUrl` varchar(250) DEFAULT NULL,
+  `domain` varchar(250) DEFAULT NULL,
+  `home` int(1) DEFAULT '0',
+  `challengesEndpoint` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`idCommunity`),
   UNIQUE KEY `idCommunity_UNIQUE` (`idCommunity`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +151,7 @@ CREATE TABLE `communitychallenge` (
   KEY `challenge_idx` (`challengeId`),
   CONSTRAINT `challenge_communityChallenge` FOREIGN KEY (`challengeId`) REFERENCES `challenge` (`idChallenge`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `community_communityChallenge` FOREIGN KEY (`communityId`) REFERENCES `community` (`idCommunity`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,7 +218,7 @@ CREATE TABLE `devicetype` (
   `apiEndpoint` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`idDeviceType`),
   UNIQUE KEY `idDeviceType_UNIQUE` (`idDeviceType`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,11 +251,15 @@ DROP TABLE IF EXISTS `jobdetail`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `jobdetail` (
   `jobid` varchar(255) NOT NULL,
-  `schedtype` int(11) DEFAULT NULL,
+  `schedtype` varchar(50) DEFAULT NULL,
   `shcedtimemins` int(11) DEFAULT NULL,
   `startnow` tinyint(1) DEFAULT '0',
-  `tasktype` int(11) DEFAULT NULL,
-  PRIMARY KEY (`jobid`)
+  `tasktype` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`jobid`),
+  KEY `job_shedtype_idx` (`schedtype`),
+  KEY `job_tasktype_idx` (`tasktype`),
+  CONSTRAINT `job_shedtype` FOREIGN KEY (`schedtype`) REFERENCES `scheduletype` (`shedId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `job_tasktype` FOREIGN KEY (`tasktype`) REFERENCES `tasktype` (`taskId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -295,6 +301,34 @@ CREATE TABLE `role` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `scheduletype`
+--
+
+DROP TABLE IF EXISTS `scheduletype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `scheduletype` (
+  `shedId` varchar(50) NOT NULL,
+  `shedName` varchar(100) NOT NULL,
+  PRIMARY KEY (`shedId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tasktype`
+--
+
+DROP TABLE IF EXISTS `tasktype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tasktype` (
+  `taskId` varchar(50) NOT NULL,
+  `taskName` varchar(100) NOT NULL,
+  PRIMARY KEY (`taskId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `team`
 --
 
@@ -309,7 +343,7 @@ CREATE TABLE `team` (
   UNIQUE KEY `idGroup_UNIQUE` (`idGroup`),
   KEY `community_idx` (`communityId`),
   CONSTRAINT `community_team` FOREIGN KEY (`communityId`) REFERENCES `community` (`idCommunity`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +358,7 @@ CREATE TABLE `unit` (
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`idUnit`),
   UNIQUE KEY `idUnit_UNIQUE` (`idUnit`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -414,4 +448,4 @@ CREATE TABLE `webserviceauth` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-30 11:57:53
+-- Dump completed on 2015-12-01  0:30:25

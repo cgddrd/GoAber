@@ -6,6 +6,7 @@
 package SessionBean;
 
 import GoAberDatabase.Community;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -28,7 +29,11 @@ public class CommunityFacade extends AbstractFacade<Community> {
     
      public Community findById(int communityId){
         try {
-          return (Community)em.createNamedQuery("Community.findByIdCommunity").setParameter("idCommunity", communityId).getSingleResult();
+            
+          return (Community)em.createNamedQuery("Community.findByIdCommunity")
+                  .setParameter("idCommunity", communityId)
+                  .getSingleResult();
+          
         } catch(NoResultException e) {
             return null;
         }
@@ -36,6 +41,10 @@ public class CommunityFacade extends AbstractFacade<Community> {
 
     public CommunityFacade() {
         super(Community.class);
+    }
+    
+    public List<Community> FindByHome() {
+       return em.createNamedQuery("Community.findByHome", Community.class).setParameter("home", "1").getResultList();
     }
     
 }

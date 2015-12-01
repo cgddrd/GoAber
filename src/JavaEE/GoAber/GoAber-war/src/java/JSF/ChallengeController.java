@@ -290,7 +290,7 @@ public class ChallengeController implements Serializable {
             current.setIdChallenge(UUID.randomUUID().toString());
             getFacade().create(current);
             User currentUser = auth.getActiveUser();
-            current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges));
+            current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges, true));
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeCreated"));
             return prepareIndex();

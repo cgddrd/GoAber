@@ -15,7 +15,7 @@ namespace GoAber.RemoteChallengeWS {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ChallengeData", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ChallengeData", Namespace="http://goaberchallenges.org/")]
     [System.SerializableAttribute()]
     public partial class ChallengeData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -136,7 +136,7 @@ namespace GoAber.RemoteChallengeWS {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ResultData", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResultData", Namespace="http://goaberchallenges.org/")]
     [System.SerializableAttribute()]
     public partial class ResultData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -225,21 +225,21 @@ namespace GoAber.RemoteChallengeWS {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RemoteChallengeWS.GoAberChallengesWSSoap")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://goaberchallenges.org/", ConfigurationName="RemoteChallengeWS.GoAberChallengesWSSoap")]
     public interface GoAberChallengesWSSoap {
         
-        // CODEGEN: Generating message contract since element name challenge from namespace http://tempuri.org/ is not marked nillable
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RecieveChallenge", ReplyAction="*")]
+        // CODEGEN: Generating message contract since element name challenge from namespace http://goaberchallenges.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://goaberchallenges.org/RecieveChallenge", ReplyAction="*")]
         GoAber.RemoteChallengeWS.RecieveChallengeResponse RecieveChallenge(GoAber.RemoteChallengeWS.RecieveChallengeRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RecieveChallenge", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://goaberchallenges.org/RecieveChallenge", ReplyAction="*")]
         System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveChallengeResponse> RecieveChallengeAsync(GoAber.RemoteChallengeWS.RecieveChallengeRequest request);
         
-        // CODEGEN: Generating message contract since element name result from namespace http://tempuri.org/ is not marked nillable
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RecieveResult", ReplyAction="*")]
+        // CODEGEN: Generating message contract since element name result from namespace http://goaberchallenges.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://goaberchallenges.org/RecieveResult", ReplyAction="*")]
         GoAber.RemoteChallengeWS.RecieveResultResponse RecieveResult(GoAber.RemoteChallengeWS.RecieveResultRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/RecieveResult", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://goaberchallenges.org/RecieveResult", ReplyAction="*")]
         System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveResultResponse> RecieveResultAsync(GoAber.RemoteChallengeWS.RecieveResultRequest request);
     }
     
@@ -249,7 +249,7 @@ namespace GoAber.RemoteChallengeWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class RecieveChallengeRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveChallenge", Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveChallenge", Namespace="http://goaberchallenges.org/", Order=0)]
         public GoAber.RemoteChallengeWS.RecieveChallengeRequestBody Body;
         
         public RecieveChallengeRequest() {
@@ -263,7 +263,7 @@ namespace GoAber.RemoteChallengeWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://goaberchallenges.org/")]
     public partial class RecieveChallengeRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
@@ -287,7 +287,7 @@ namespace GoAber.RemoteChallengeWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class RecieveChallengeResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveChallengeResponse", Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveChallengeResponse", Namespace="http://goaberchallenges.org/", Order=0)]
         public GoAber.RemoteChallengeWS.RecieveChallengeResponseBody Body;
         
         public RecieveChallengeResponse() {
@@ -301,7 +301,7 @@ namespace GoAber.RemoteChallengeWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://goaberchallenges.org/")]
     public partial class RecieveChallengeResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
@@ -321,7 +321,7 @@ namespace GoAber.RemoteChallengeWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class RecieveResultRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveResult", Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveResult", Namespace="http://goaberchallenges.org/", Order=0)]
         public GoAber.RemoteChallengeWS.RecieveResultRequestBody Body;
         
         public RecieveResultRequest() {
@@ -335,7 +335,7 @@ namespace GoAber.RemoteChallengeWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://goaberchallenges.org/")]
     public partial class RecieveResultRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
@@ -355,7 +355,7 @@ namespace GoAber.RemoteChallengeWS {
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class RecieveResultResponse {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveResultResponse", Namespace="http://tempuri.org/", Order=0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveResultResponse", Namespace="http://goaberchallenges.org/", Order=0)]
         public GoAber.RemoteChallengeWS.RecieveResultResponseBody Body;
         
         public RecieveResultResponse() {
@@ -369,7 +369,7 @@ namespace GoAber.RemoteChallengeWS {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://goaberchallenges.org/")]
     public partial class RecieveResultResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]

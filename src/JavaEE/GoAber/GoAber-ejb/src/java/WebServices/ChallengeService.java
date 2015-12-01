@@ -17,7 +17,9 @@ import SessionBean.CommunityChallengeFacade;
 import SessionBean.CommunityFacade;
 import SessionBean.GroupChallengeFacade;
 import SessionBean.TeamFacade;
+import SessionBean.UnitFacade;
 import SessionBean.UserChallengeFacade;
+import WebServices.ChallengeWS.Consumer.ChallengeWSConsumer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,18 +33,24 @@ import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.transaction.UserTransaction;
 
 /**
  * Provides commonly used challenge methods
  * @author helen
  */
 public class ChallengeService {
+
+
+    //@EJB ChallengeWSConsumer challengeWSConsumer;// = lookupChallengeWSConsumerBean();
     @EJB ChallengeFacade ejbFacade;// = lookupChallengeFacadeBean();
     @EJB CommunityChallengeFacade communityChallengeFacade;// = lookupCommunityChallengeFacadeBean();
     @EJB GroupChallengeFacade groupChallengeFacade;// = lookupGroupChallengeFacadeBean();
     @EJB CommunityFacade communityFacade;//=lookupCommunityFacadeBean();
     @EJB TeamFacade groupFacade;// = lookupTeamFacadeFacadeBean();
     @EJB UserChallengeFacade userChallengeFacade;// = lookupUserChallengeFacadeFacadeBean();
+    
 
     public ChallengeService(){
         ejbFacade = lookupChallengeFacadeBean();
@@ -140,9 +148,10 @@ public class ChallengeService {
      * @param currentUser
      * @param challenge The challenge the communities will be added to
      * @param communities List of community IDs for the groups that have been entered into the challenge.
+     * @param local Whether the call has come from a controller or a web service.
      * @return The collection of GroupChallenges which has been produced
      */
-    public Collection<CommunityChallenge> addCommunityChallenges(User currentUser, Challenge challenge, Integer[] communities)
+    public Collection<CommunityChallenge> addCommunityChallenges(User currentUser, Challenge challenge, Integer[] communities, boolean local)
     {
         Collection<CommunityChallenge> communityCollection = new ArrayList<>();
         //User currentUser = authController.getActiveUser();
@@ -151,7 +160,6 @@ public class ChallengeService {
         {
             usersCommunity = currentUser.getGroupId().getCommunityId().getIdCommunity();
         }
-        
         
         for (Integer communityId : communities)
         {
@@ -176,6 +184,22 @@ public class ChallengeService {
                 communityCollection.add(communityChallenge);
             }
         }
+        
+        if (local) 
+        {
+            boolean lb_goremote = false;
+            for (Integer community : communities) {
+                if (!Objects.equals(usersCommunity, community)) {
+                    lb_goremote = true;
+                }
+            }
+            if (!lb_goremote) return communityCollection;
+            ChallengeWSConsumer challengeWSConsumer = new ChallengeWSConsumer();
+            if (!challengeWSConsumer.addChallenge(challenge, communityCollection, usersCommunity)) {
+                System.err.println("Failed to send challenge remotely");            
+            }
+        }
+        
         return communityCollection;
     }
     
@@ -276,4 +300,63 @@ public class ChallengeService {
             throw new RuntimeException(ne);
         }
     }
+
+    private ChallengeWSConsumer lookupChallengeWSConsumerBean() {
+        try {
+            Context c = new InitialContext();
+            return (ChallengeWSConsumer) c.lookup("java:global/GoAber/GoAber-ejb/ChallengeWSConsumer!WebServices.ChallengeWS.Consumer.ChallengeWSConsumer");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    public void persist(Object object) {
+        /* Add this to the deployment descriptor of this module (e.g. web.xml, ejb-jar.xml):
+         * <persistence-context-ref>
+         * <persistence-context-ref-name>persistence/LogicalName</persistence-context-ref-name>
+         * <persistence-unit-name>GoAber-ejbPU</persistence-unit-name>
+         * </persistence-context-ref>
+         * <resource-ref>
+         * <res-ref-name>UserTransaction</res-ref-name>
+         * <res-type>javax.transaction.UserTransaction</res-type>
+         * <res-auth>Container</res-auth>
+         * </resource-ref> */
+        try {
+            Context ctx = new InitialContext();
+            UserTransaction utx = (UserTransaction) ctx.lookup("java:comp/env/UserTransaction");
+            utx.begin();
+            EntityManager em = (EntityManager) ctx.lookup("java:comp/env/persistence/LogicalName");
+            em.persist(object);
+            utx.commit();
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void persist1(Object object) {
+        /* Add this to the deployment descriptor of this module (e.g. web.xml, ejb-jar.xml):
+         * <persistence-context-ref>
+         * <persistence-context-ref-name>persistence/LogicalName</persistence-context-ref-name>
+         * <persistence-unit-name>GoAber-ejbPU</persistence-unit-name>
+         * </persistence-context-ref>
+         * <resource-ref>
+         * <res-ref-name>UserTransaction</res-ref-name>
+         * <res-type>javax.transaction.UserTransaction</res-type>
+         * <res-auth>Container</res-auth>
+         * </resource-ref> */
+        try {
+            Context ctx = new InitialContext();
+            UserTransaction utx = (UserTransaction) ctx.lookup("java:comp/env/UserTransaction");
+            utx.begin();
+            EntityManager em = (EntityManager) ctx.lookup("java:comp/env/persistence/LogicalName");
+            em.persist(object);
+            utx.commit();
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
+            throw new RuntimeException(e);
+        }
+    }
+
 }

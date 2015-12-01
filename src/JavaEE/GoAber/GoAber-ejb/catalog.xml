@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="file:/C:/Users/Dan/Desktop/GoAberWS.asmx" uri="src/conf/xml-resources/web-services/GoAberWS/wsdl/GoAberWS.asmx.wsdl"/>
-    <system systemId="http://localhost:50121/WebService/ChallengesWS/GoAberChallengesWS.asmx?WSDL" uri="src/conf/xml-resources/web-services/RemoteChallengeWS/wsdl/localhost_50121/WebService/ChallengesWS/GoAberChallengesWS.asmx.wsdl"/>
+    <system systemId="http://localhost:50121/WebService/ChallengesWS/GoAberChallengesWS.asmx?WSDL" uri="src/conf/xml-resources/web-services/GoAberChallengesWS/wsdl/localhost_50121/WebService/ChallengesWS/GoAberChallengesWS.asmx.wsdl"/>
 </catalog>
