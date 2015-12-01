@@ -674,6 +674,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you wish to delete your account?.
+        /// </summary>
+        public static string Delete_User_Prompt {
+            get {
+                return ResourceManager.GetString("Delete_User_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes, delete my account..
+        /// </summary>
+        public static string Delete_User_Prompt_Button {
+            get {
+                return ResourceManager.GetString("Delete_User_Prompt_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please be aware that your data will be NON-RECOVERABLE if you proceed..
+        /// </summary>
+        public static string Delete_User_Prompt_Warning {
+            get {
+                return ResourceManager.GetString("Delete_User_Prompt_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Your Account.
+        /// </summary>
+        public static string Delete_User_Title {
+            get {
+                return ResourceManager.GetString("Delete_User_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this?.
         /// </summary>
         public static string DeleteConfirmation {

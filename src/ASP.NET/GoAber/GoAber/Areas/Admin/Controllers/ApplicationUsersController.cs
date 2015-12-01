@@ -46,7 +46,6 @@ namespace GoAber.Areas.Admin.Controllers
                 
             }
            
-
             return View(applicationUsers.ToPagedList(pageNumber, pageSize));
         }
 
@@ -60,8 +59,6 @@ namespace GoAber.Areas.Admin.Controllers
 
             var teamList = teamsService.CreateTeamList();
             ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
-
-            ViewBag.ConnorMessage = "The Same test Type might have been already created,, go back to the Visit page to see the avilalbe Lab Tests";
 
             return View(applicationUsers.ToPagedList(1, pageSize));
         }
@@ -208,32 +205,14 @@ namespace GoAber.Areas.Admin.Controllers
         {
 
             // CG - Prevent an administrator user from deleting their own account whilst still logged in.
-            if (ApplicationUserService.GetCurrentApplicationUser().Id.Equals(id))
+            if (ApplicationUserService.IsApplicationUserIdLoggedIn(id) && ApplicationUserService.IsCurrentApplicationUserInRole("Administrator"))
             {
-                TempData["Error"] = "You are currently attempting to delete your own account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account.";
+                TempData["Error"] = "You are currently attempting to delete your own administrator account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account.";
 
             }
             else
             {
-                ApplicationUser applicationUser = db.Users.Find(id);
-
-                // CG - If we want to delete an ApplicationUser, we need to make sure that we remove all of the FK relationships.
-                if (applicationUser != null)
-                {
-                    db.ActivityDatas.RemoveRange(db.ActivityDatas.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
-
-                    db.Audit.RemoveRange(db.Audit.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
-
-                    db.DataRemovalAudits.RemoveRange(db.DataRemovalAudits.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
-
-                    db.WebServiceAuths.RemoveRange(db.WebServiceAuths.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
-
-                    db.Users.Remove(applicationUser);
-
-                    db.SaveChanges();
-                }
-                
-
+                applicationUserService.DeleteApplicationUser(id);
             }
 
             

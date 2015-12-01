@@ -535,4 +535,16 @@
   <data name="Challenges_completedgroupChallenges" xml:space="preserve">
     <value>Group Challenges</value>
   </data>
+  <data name="Delete_User_Prompt" xml:space="preserve">
+    <value>Are you sure you wish to delete your account?</value>
+  </data>
+  <data name="Delete_User_Prompt_Button" xml:space="preserve">
+    <value>Yes, delete my account.</value>
+  </data>
+  <data name="Delete_User_Prompt_Warning" xml:space="preserve">
+    <value>Please be aware that your data will be NON-RECOVERABLE if you proceed.</value>
+  </data>
+  <data name="Delete_User_Title" xml:space="preserve">
+    <value>Delete Your Account</value>
+  </data>
 </root>
