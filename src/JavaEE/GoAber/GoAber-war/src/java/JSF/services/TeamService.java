@@ -5,17 +5,11 @@
  */
 package JSF.services;
 
-import GoAberDatabase.ActivityData;
 import GoAberDatabase.Team;
-import GoAberDatabase.User;
-import JSF.util.DateUtils;
-import SessionBean.ActivityDataFacade;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import JSF.ViewModels.StatisticsSummary;
 import SessionBean.TeamFacade;
 
 /**Team Service Class.

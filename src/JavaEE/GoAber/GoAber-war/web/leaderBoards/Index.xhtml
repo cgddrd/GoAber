@@ -16,7 +16,20 @@
                     <c:forEach var="unit" items="#{categoryView.units}" varStatus="counter">
                         <li>
                             <h:form>
-                                <h:commandLink action="#{leaderBoardController.prepareGroupLeader(unit.name)}" value="#{unit.name}"/>
+                                <h:commandLink action="#{leaderBoardController.prepareParticipantLeaders(unit.name)}" value="#{unit.name}"/>
+                            </h:form>
+                        </li>
+                    </c:forEach>
+                 </ul>
+            </c:forEach>
+            
+            <c:forEach var="categoryView" items="#{categoryUnitService.categoryUnits}" varStatus="counter">
+                 <h3>#{categoryView.category.name}</h3>
+                 <ul>
+                    <c:forEach var="unit" items="#{categoryView.units}" varStatus="counter">
+                        <li>
+                            <h:form>
+                                <h:commandLink action="#{leaderBoardController.prepareGroupLeaders(unit.name)}" value="#{unit.name}"/>
                             </h:form>
                         </li>
                     </c:forEach>
