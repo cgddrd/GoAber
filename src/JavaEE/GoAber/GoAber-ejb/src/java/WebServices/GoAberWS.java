@@ -89,6 +89,7 @@ public class GoAberWS {
                 else {
                     lo_ad.setUserId(lo_user);
                 }
+                lo_ad.setDate(lo_ads.date);
                 lo_ad.setValue(lo_ads.value);
                 io_adf.create(lo_ad);
             }

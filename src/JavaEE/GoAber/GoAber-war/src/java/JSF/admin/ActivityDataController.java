@@ -109,11 +109,11 @@ public class ActivityDataController implements Serializable {
     public String create() {
         try {
             dataService.create(getCurrent());
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataCreated"));
             audit.createAudit("activityData/Create", "Created : IdActivityData="+getCurrent().getIdActivityData());
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -127,11 +127,11 @@ public class ActivityDataController implements Serializable {
     public String update() {
         try {
             dataService.update(getCurrent());
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataUpdated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataUpdated"));
             audit.createAudit("activityData/View", "Updated : IdActivityData=" + getCurrent().getIdActivityData());
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
@@ -153,11 +153,11 @@ public class ActivityDataController implements Serializable {
         dataRemovalAudit.createDataRemovalAudit(getCurrent(), deletedMessage);
         try {
             dataService.remove(getCurrent());
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataDeleted"));
             audit.createAudit("activityData/List", "Deleted : IdActivityData="+getCurrent().getIdActivityData());
         } catch (Exception e) {
             audit.createAudit("activityData/List", "Failed to deleted : IdActivityData="+getCurrent().getIdActivityData());
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
     
@@ -186,9 +186,9 @@ public class ActivityDataController implements Serializable {
             try {
                 dataService.remove(item);
                 //getFacade().remove(item);
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/AdminBundle").getString("ActivityDataDeleted"));
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ActivityDataDeleted"));
             } catch (Exception e) {
-                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/AdminBundle").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
     }

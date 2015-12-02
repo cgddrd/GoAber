@@ -8,44 +8,44 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{admin.ListActivityDataTitle}"></h:outputText>
+            <h:outputText value="#{bundle.ListActivityDataTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">          
             <h:form>
-                <h3>#{admin.ListActivityDataFormTitle}</h3>
+                <h3>#{bundle.ListActivityDataFormTitle}</h3>
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
 
                 <div class="btn-group" role="group" >
-                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
-                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
-                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareBatchDestroy}" value="#{admin.ListActivityDataBatchDeleteLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareCreate}" value="#{bundle.ListActivityDataCreateLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareList}" value="#{bundle.FilterActivityDataClearLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.prepareBatchDestroy}" value="#{bundle.ListActivityDataBatchDeleteLink}"/>
                 </div>
 
                 <p:dataTable id="activityDataTable" class="table" value="#{adminActivityDataController.items}" 
-                             emptyMessage="#{admin.ActivityDataNoItems}"
+                             emptyMessage="#{bundle.ActivityDataNoItems}"
                              filteredValue="#{adminActivityDataController.filteredItems}" widgetVar="activityDataTable" var="item"
                              rows="100" paginator="true"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="10, 100, 200">
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{admin.ListActivityDataTitle_idActivityData}"/>
+                            <h:outputText value="#{bundle.ListActivityDataTitle_idActivityData}"/>
                         </f:facet>
                         <h:outputText value="#{item.idActivityData}"/>
                     </p:column>
                     
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{admin.ListActivityDataTitle_value}"/>
+                            <h:outputText value="#{bundle.ListActivityDataTitle_value}"/>
                         </f:facet>
                         <h:outputText value="#{item.value}"/>
                     </p:column>
                     
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{admin.ListActivityDataTitle_lastUpdated}"/>
+                            <h:outputText value="#{bundle.ListActivityDataTitle_lastUpdated}"/>
                         </f:facet>
                         <h:outputText value="#{item.lastUpdated}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
@@ -53,12 +53,12 @@
                     </p:column>
                     
                     <!-- Date range filter based on http://stackoverflow.com/questions/23791039/primefaces-datatable-date-range-filter-with-filterfunction -->
-                    <p:column headerText="#{admin.ListActivityDataTitle_date}" filterBy="#{item.date}" filterFunction="#{dateRangeFilter.filterByDate}">
+                    <p:column headerText="#{bundle.ListActivityDataTitle_date}" filterBy="#{item.date}" filterFunction="#{dateRangeFilter.filterByDate}">
                       <f:facet name="filter">
                         <h:inputHidden id="filter" />
                       </f:facet>
                       <f:facet name="header">
-                        <p:outputLabel value="#{admin.ListActivityDataTitle_date}" />
+                        <p:outputLabel value="#{bundle.ListActivityDataTitle_date}" />
                         <br />
                         <p:calendar placeholder="From Date" class="filter-date" id="from" pattern="dd/MM/yyyy">
                           <p:ajax event="dateSelect" onstart="$(PrimeFaces.escapeClientId('#{p:component('filter')}'))[0].value = $(PrimeFaces.escapeClientId('#{p:component('from')}_input'))[0].value + '-' + $(PrimeFaces.escapeClientId('#{p:component('to')}_input'))[0].value" 
@@ -74,27 +74,27 @@
                       </h:outputText>
                     </p:column>
 
-                    <p:column filterBy="#{item.categoryUnitId.categoryId.name}" headerText="#{admin.ListActivityDataTitle_category}" filterMatchMode="exact">
+                    <p:column filterBy="#{item.categoryUnitId.categoryId.name}" headerText="#{bundle.ListActivityDataTitle_category}" filterMatchMode="exact">
                         <f:facet name="filter">
                             <p:selectOneMenu onchange="PF('activityDataTable').filter()" >
-                                <f:selectItem itemLabel="#{admin.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="#{bundle.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItems value="#{adminActivityDataController.categories}"/>
                             </p:selectOneMenu>
                         </f:facet>
                         <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
                     </p:column>
                     
-                    <p:column filterBy="#{item.categoryUnitId.unitId.name}" headerText="#{admin.ListActivityDataTitle_unit}" filterMatchMode="exact">
+                    <p:column filterBy="#{item.categoryUnitId.unitId.name}" headerText="#{bundle.ListActivityDataTitle_unit}" filterMatchMode="exact">
                         <f:facet name="filter">
                             <p:selectOneMenu onchange="PF('activityDataTable').filter()" >
-                                <f:selectItem itemLabel="#{admin.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="#{bundle.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItems value="#{adminActivityDataController.units}"/>
                             </p:selectOneMenu>
                         </f:facet>
                         <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
                     </p:column>
                     
-                    <p:column filterBy="#{item.userId.email}" headerText="#{admin.ListActivityDataTitle_user}" filterMatchMode="contains">
+                    <p:column filterBy="#{item.userId.email}" headerText="#{bundle.ListActivityDataTitle_user}" filterMatchMode="contains">
                         <h:outputText value="#{item.userId.email}" />
                     </p:column>
 
@@ -103,15 +103,15 @@
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
                         
-                        <h:commandLink action="#{adminActivityDataController.prepareView(item)}" value="#{admin.ListActivityDataViewLink}" />
+                        <h:commandLink action="#{adminActivityDataController.prepareView(item)}" value="#{bundle.ListActivityDataViewLink}" />
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{adminActivityDataController.prepareEdit(item)}" value="#{admin.ListActivityDataEditLink}" />
+                        <h:commandLink action="#{adminActivityDataController.prepareEdit(item)}" value="#{bundle.ListActivityDataEditLink}" />
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{adminActivityDataController.prepareDestroy(item)}" value="#{admin.ListActivityDataDestroyLink}" />
+                        <h:commandLink action="#{adminActivityDataController.prepareDestroy(item)}" value="#{bundle.ListActivityDataDestroyLink}" />
                     </p:column>
                 </p:dataTable>
                 
-                <h:link outcome="/admin/index" value="#{admin.ListActivityDataIndexLink}"/>
+                <h:link outcome="/admin/index" value="#{bundle.ListActivityDataIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

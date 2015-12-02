@@ -63,6 +63,8 @@ public class ActivityData implements Serializable {
     private CategoryUnit categoryUnitId;
 
     public ActivityData() {
+        this.lastUpdated = new Date();
+        this.date = new Date();
     }
 
     public ActivityData(Integer idActivityData) {

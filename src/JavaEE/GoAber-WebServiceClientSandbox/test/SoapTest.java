@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import goaber.webserviceclientsandbox.SandBoxUI;
 import goaber.webserviceclientsandbox.consumer.ActivityDataSOAP;
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ public class SoapTest {
     
     @Before
     public void setUp() {
+               
         sandBox = new SandBoxUI();
         activityData = new ActivityDataSOAP();
         activityData.setCategoryUnitId(1);
