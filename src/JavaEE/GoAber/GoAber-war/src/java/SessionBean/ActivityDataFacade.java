@@ -49,4 +49,11 @@ public class ActivityDataFacade extends AbstractFacade<ActivityData> {
                     .setParameter("unit", unit)
                     .getResultList();
     }
+    
+    public List<ActivityData> getAllForGroup(int id, String unit) {
+        return em.createNamedQuery("ActivityData.findActivityDataForGroup")
+                    .setParameter("id", id)
+                    .setParameter("unit", unit)
+                    .getResultList();
+    }
 }
