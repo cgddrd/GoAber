@@ -53,11 +53,17 @@ public class ChallengeJob extends AbstractJob {
 
     public ChallengeJob(IJobDetail ao_jobdetails) {
         super(ao_jobdetails);
-        io_resultFacade = lookupResultFacadeBean();
-        io_activityFacade = lookupActivityDataFacadeBean();
-        io_communityFacade = lookupCommunityFacadeBean();
-        io_challengeFacade = lookupChallengeFacadeBean();
-        io_challengeWSConsumer = lookupChallengeWSConsumerBean();
+//        io_communityFacade = lookupCommunityFacadeBean();
+//        io_resultFacade = lookupResultFacadeBean();
+//        io_activityFacade = lookupActivityDataFacadeBean();
+//        io_challengeFacade = lookupChallengeFacadeBean();
+//        io_challengeWSConsumer = lookupChallengeWSConsumerBean();
+
+        io_communityFacade = lookupBean(CommunityFacade.class);
+        io_resultFacade = lookupBean(ResultFacade.class);
+        io_activityFacade = lookupBean(ActivityDataFacade.class);
+        io_challengeFacade = lookupBean(ChallengeFacade.class);
+        io_challengeWSConsumer = lookupBean(ChallengeWSConsumer.class);
     }
 
     @Override
@@ -73,7 +79,7 @@ public class ChallengeJob extends AbstractJob {
             String ls_challengeid = getJobDetails().scheduler_args()[0];
 
             Challenge lo_challenge = io_challengeFacade.find(ls_challengeid);
-            Community lo_homecom = io_communityFacade.FindByHome().get(0);
+            Community lo_homecom = io_communityFacade.findByHome().get(0);
 
             Result lo_res = new Result();
 
@@ -109,54 +115,14 @@ public class ChallengeJob extends AbstractJob {
 
     }
 
-    private ChallengeWSConsumer lookupChallengeWSConsumerBean() {
-        try {
-            Context c = new InitialContext();
-            return (ChallengeWSConsumer) c.lookup("java:global/GoAber/GoAber-ejb/ChallengeWSConsumer!WebServices.ChallengeWS.Consumer.ChallengeWSConsumer");
+    private <T> T lookupBean(Class<T> clazz) {
+          try {
+            InitialContext iniCtx = new InitialContext();
+            Context ejbCtx = (Context) iniCtx.lookup("java:comp/env/ejb");
+            return (T) ejbCtx.lookup(clazz.getSimpleName());
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
-
-    private ChallengeFacade lookupChallengeFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (ChallengeFacade) c.lookup("java:global/GoAber/GoAber-ejb/ChallengeFacade!SessionBean.ChallengeFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private CommunityFacade lookupCommunityFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (CommunityFacade) c.lookup("java:global/GoAber/GoAber-ejb/CommunityFacade!SessionBean.CommunityFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private ActivityDataFacade lookupActivityDataFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (ActivityDataFacade) c.lookup("java:global/GoAber/GoAber-ejb/ActivityDataFacade!SessionBean.ActivityDataFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
-    private ResultFacade lookupResultFacadeBean() {
-        try {
-            Context c = new InitialContext();
-            return (ResultFacade) c.lookup("java:global/GoAber/GoAber-ejb/ResultFacade!SessionBean.ResultFacade");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
 }

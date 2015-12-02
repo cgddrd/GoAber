@@ -26,15 +26,15 @@ public class CommunityFacade extends AbstractFacade<Community> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
-     public Community findById(int communityId){
+
+    public Community findById(int communityId) {
         try {
-            
-          return (Community)em.createNamedQuery("Community.findByIdCommunity")
-                  .setParameter("idCommunity", communityId)
-                  .getSingleResult();
-          
-        } catch(NoResultException e) {
+
+            return (Community) em.createNamedQuery("Community.findByIdCommunity")
+                    .setParameter("idCommunity", communityId)
+                    .getSingleResult();
+
+        } catch (NoResultException e) {
             return null;
         }
     }
@@ -42,9 +42,13 @@ public class CommunityFacade extends AbstractFacade<Community> {
     public CommunityFacade() {
         super(Community.class);
     }
-    
-    public List<Community> FindByHome() {
-       return em.createNamedQuery("Community.findByHome", Community.class).setParameter("home", "1").getResultList();
+
+    public List<Community> findByHome() {
+        try {
+            return em.createNamedQuery("Community.findByHome").setParameter("home", 1).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
-    
+
 }

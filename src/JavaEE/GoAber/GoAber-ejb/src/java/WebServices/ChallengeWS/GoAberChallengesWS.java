@@ -7,8 +7,10 @@ package WebServices.ChallengeWS;
 
 import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.Challenge;
+import GoAberDatabase.Community;
 import SessionBean.CategoryUnitFacade;
 import SessionBean.ChallengeFacade;
+import SessionBean.CommunityFacade;
 import WebServices.ChallengeService;
 import WebServices.HandleResult;
 import javax.ejb.EJB;
@@ -35,11 +37,21 @@ public class GoAberChallengesWS {
     @EJB
     ChallengeService io_chalservice;
 
-    public GoAberChallengesWS() {}
+    @EJB
+    private CommunityFacade io_communityFacade;
+    
+    private static Community io_homecom = null;
+    
+    public GoAberChallengesWS() 
+    {
+    }
 
 
     public boolean recieveChallenge(org.goaberchallenges.ChallengeData challenge, int userGroup) {
         try {
+            if (io_homecom == null) {
+               io_homecom = io_communityFacade.findByHome().get(0);
+            }
             Challenge lo_chalmod = new Challenge();
 
             CategoryUnit lo_catunit = io_categoryUnitFacade.find(challenge.getCategoryUnitId());
@@ -49,7 +61,7 @@ public class GoAberChallengesWS {
             lo_chalmod.setStartTime(challenge.getStartTime().toGregorianCalendar().getTime());
             lo_chalmod.setIdChallenge(challenge.getId());
             io_challengeFacade.create(lo_chalmod);
-            io_chalservice.addCommunityChallenges(null, lo_chalmod, new Integer[]{challenge.getCommunityId()}, false);
+            io_chalservice.addCommunityChallenges(null, lo_chalmod, new Integer[]{io_homecom.getIdCommunity(), challenge.getCommunityId()}, false);
             //lo_chalmod.setIdChallenge(userGroup); = challenge.id;
             return true;
         } catch (Exception e) {
@@ -60,8 +72,10 @@ public class GoAberChallengesWS {
 
     public org.goaberchallenges.ResultData recieveResult(org.goaberchallenges.ResultData result) {
         try {
-           
-            return io_handleResult.RecieveResult(result);
+            if (io_homecom == null) {
+               io_homecom = io_communityFacade.findByHome().get(0);
+            }
+            return io_handleResult.RecieveResult(result, io_homecom);
             
         } catch (Exception e) {
             e.printStackTrace();

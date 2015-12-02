@@ -38,22 +38,22 @@ public class HandleResult {
     @EJB
     ActivityDataFacade activityFacade;
 
-    public ResultData RecieveResult(ResultData result) {
-        CategoryUnit lo_catunit = catunitFacade.find(result.getCategoryUnitId());
-        Challenge lo_challenge = challengeFacade.find(result.getChallengeId());
-        Community lo_community = communityFacade.find(result.getCommunityId());
+    public ResultData RecieveResult(ResultData ao_result, Community ao_homecom) {
+        CategoryUnit lo_catunit = catunitFacade.find(ao_result.getCategoryUnitId());
+        Challenge lo_challenge = challengeFacade.find(ao_result.getChallengeId());
+        Community lo_community = communityFacade.find(ao_result.getCommunityId());
 
         Result lo_resmodel = new Result();
         lo_resmodel.setCategoryUnitId(lo_catunit);
         lo_resmodel.setChallengeId(lo_challenge);
         lo_resmodel.setCommunityId(lo_community);
-        lo_resmodel.setValue(result.getValue());
+        lo_resmodel.setValue(ao_result.getValue());
 
         resultFacade.create(lo_resmodel);
         Result lo_homeresult = new Result();
         lo_homeresult.setCategoryUnitId(lo_catunit);
         lo_homeresult.setChallengeId(lo_challenge);
-        lo_homeresult.setCommunityId(lo_community);
+        lo_homeresult.setCommunityId(ao_homecom);
 
         List<ActivityData> lo_datalist = activityFacade.getAllInDateRange(
                 lo_challenge.getCategoryUnitId().getIdCategoryUnit().toString(),

@@ -3,6 +3,7 @@ using GoAber.Services;
 using GoAber.WebService.ChallengesWS;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -47,7 +48,17 @@ namespace GoAber.WebService
                 lo_chalmod.startTime = challenge.startTime;
                 lo_chalmod.Id = challenge.id;
                 io_challengeService.createChallenge(lo_chalmod);
-                io_challengeService.addChallengeToCommunities(lo_chalmod, new string[] { challenge.communityId.ToString() }, userGroup, false);
+
+                List<string> lo_errors = new List<string>();
+                io_challengeService.addChallengeToCommunities(lo_chalmod, new string[] { challenge.communityId.ToString() }, userGroup, ref lo_errors, false);
+                if (lo_errors.Count > 0)
+                {
+                    for (int i = 0; i < lo_errors.Count; i++)
+                    {
+                        Debug.WriteLine(lo_errors[i]);
+                    }
+                    return false;
+                }
                 return true;
             } catch (Exception ex)
             {

@@ -150,7 +150,30 @@ namespace GoAber.Services
 
 
         }
+        public void setupRemoteChallenge(Challenge challenge, string[] communities, int usersGroup, ref List<string> errors, bool local = true)
+        {
+            createChallenge(challenge);
+            if (addChallengeToCommunities(challenge, communities, usersGroup, ref errors, local)) return;
 
+            //Try to rollback if request doesn't work.
+            //The remote challenge may have been set wrong so make sure we delete that as well if it exists.
+            try {
+                IQueryable<Challenge> query = from c in db.Challenges
+                                              where c.Id == challenge.Id
+                                              select c;
+                List<Challenge> challenges = query.ToList();
+                for (int i = 0; i < challenges.Count; i++)
+                {
+                    db.Challenges.Remove(challenges[i]);
+                }
+                db.SaveChanges();
+            } catch (Exception ex)
+            {
+                Debug.Write(ex.StackTrace);
+            }
+
+
+        }
         public void addChallengeToGroups(Challenge challenge, string[] groupChallenges, int usersGroup)
         {
             foreach (string item in groupChallenges)
@@ -181,7 +204,7 @@ namespace GoAber.Services
             }
         }
 
-        public void addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup, bool local = true)
+        public bool addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup, ref List<string> errors, bool local = true)
         {
             foreach (string item in communities)
             {
@@ -209,13 +232,14 @@ namespace GoAber.Services
                         }
                     }
 
-                    if (!lb_goremote) return;
+                    if (!lb_goremote) return true;
 
                     GoAberChallengeWSConsumer lo_chalconsumer = GoAberChallengeWSConsumer.GetInstance();
 
                     if (!lo_chalconsumer.AddChallenge(challenge, usersGroup))
                     {
-                        Debug.WriteLine("Cross community challenge failed!");
+                        errors.Add("Failed to send challenge to opposition community!");
+                        return false;
                     }
                 }
 
@@ -232,6 +256,7 @@ namespace GoAber.Services
                 db.CommunityChallenges.Add(communityChallenge);
                 db.SaveChanges();
             }
+            return true;
         }
 
 

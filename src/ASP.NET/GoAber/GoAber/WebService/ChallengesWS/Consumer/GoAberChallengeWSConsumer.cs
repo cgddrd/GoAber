@@ -27,8 +27,8 @@ namespace GoAber.WebService.ChallengesWS
 
         public GoAberChallengesWSSoapClient GetSOAPClient(Community ao_com)
         {
-            Uri lo_host = new Uri(ao_com.endpointUrl);
-            Uri lo_endpoint = new Uri(lo_host, @"WebService/ChallengesWS/GoAberChallengesWS.asmx");
+            Uri lo_host = new Uri(ao_com.domain);
+            Uri lo_endpoint = new Uri(lo_host, ao_com.challengesEndpoint);
             GoAberChallengesWSSoapClient lo_service = new GoAberChallengesWSSoapClient("GoAberChallengesWSSoap", lo_endpoint.AbsoluteUri);
             return lo_service;
         }
@@ -36,7 +36,13 @@ namespace GoAber.WebService.ChallengesWS
         public bool AddChallenge(Challenge ao_challenge, int ai_userGroup)
         {
             try {
-                List<RemoteChallengeWS.ChallengeData> lo_chaldatalist = new List<RemoteChallengeWS.ChallengeData>();
+                IQueryable<Community> lo_homecomquery = from coms in db.Communities
+                                              where coms.home == true
+                                              select coms;
+
+                Community lo_homecom = lo_homecomquery.First();
+
+                List<KeyValuePair<string, bool>> lo_results = new List<KeyValuePair<string, bool>>();
                 foreach (CommunityChallenge lo_comchal in ao_challenge.communityChallenges)
                 {
                     RemoteChallengeWS.ChallengeData lo_chaldata = new RemoteChallengeWS.ChallengeData();
@@ -47,17 +53,10 @@ namespace GoAber.WebService.ChallengesWS
                     }
                     lo_chaldata.startTime = ao_challenge.startTime;
                     lo_chaldata.name = ao_challenge.name;
-                    lo_chaldata.communityId = lo_comchal.communityId;
+                    lo_chaldata.communityId = lo_homecom.Id;
                     lo_chaldata.id = ao_challenge.Id;
-                    lo_chaldatalist.Add(lo_chaldata);
-                }
 
-                List<KeyValuePair<string, bool>> lo_results = new List<KeyValuePair<string, bool>>();
-
-
-                for (int i = 0; i < lo_chaldatalist.Count; i++)
-                {
-                    int li_id = lo_chaldatalist[i].communityId;
+                    int li_id = lo_comchal.communityId;
                     IQueryable<Community> query = from coms in db.Communities
                                                   where coms.Id == li_id
                                                   select coms;
@@ -65,9 +64,10 @@ namespace GoAber.WebService.ChallengesWS
                     Community lo_com = query.First();
                     GoAberChallengesWSSoapClient lo_service = GetSOAPClient(lo_com);
 
-                    bool lb_res = lo_service.RecieveChallenge(lo_chaldatalist[i], ai_userGroup);
-                    lo_results.Add(new KeyValuePair<string, bool>(lo_chaldatalist[i].name, lb_res));
+                    bool lb_res = lo_service.RecieveChallenge(lo_chaldata, ai_userGroup);
+                    lo_results.Add(new KeyValuePair<string, bool>(lo_chaldata.name, lb_res));
                 }
+
 
                 for (int i = 0; i < lo_results.Count; i++)
                 {

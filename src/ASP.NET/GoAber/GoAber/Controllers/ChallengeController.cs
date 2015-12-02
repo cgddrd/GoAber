@@ -131,10 +131,15 @@ namespace GoAber
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
-                challengeService.createChallenge(challenge);
+
+                List<string> errors = new List<string>();
+                challengeService.setupRemoteChallenge(challenge, communityChallenges, user.Team.community.Id, ref errors);
                 
-                challengeService.addChallengeToCommunities(challenge, communityChallenges, user.Team.community.Id);
-                
+                if (errors.Count > 0)
+                {
+                    ViewBag.errors = errors;
+                    return View(challenge);
+                }
                 return RedirectToAction("Index");
             }
             return View(challenge);

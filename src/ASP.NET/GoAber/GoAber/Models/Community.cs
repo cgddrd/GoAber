@@ -25,8 +25,11 @@ namespace GoAber.Models
         public int Id { get; set; }
         [DisplayName("Name")]
         public string name { get; set; }
-        [DisplayName("Endpoint URL")]
-        public string endpointUrl { get; set; }
+        [DisplayName("Domain")]
+        public string domain { get; set; }
+
+        [DisplayName("Challenges Endpoint")]
+        public string challengesEndpoint { get; set; }
 
         public bool home { get; set; }
     
