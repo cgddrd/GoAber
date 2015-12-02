@@ -31,9 +31,9 @@ import javax.faces.model.SelectItem;
 public class ChallengeController implements Serializable {
 
     private Challenge current;
-    private DataModel items = null;
+    //private DataModel items = null;
     @EJB private SessionBean.ChallengeFacade ejbFacade;
-    private PaginationHelper pagination;
+   // private PaginationHelper pagination;
     private int selectedItemIndex;
     
     private Map<String,Integer> communitiesValue = new LinkedHashMap<>();
@@ -42,14 +42,14 @@ public class ChallengeController implements Serializable {
     private Map<String,Integer> groupValue = new LinkedHashMap<>();
     private Integer[] groupChallenges;
     
-    List<Challenge> challenges;
+    private List<Challenge> challenges;
     
-    ChallengeService challengeService = new ChallengeService();
+    private ChallengeService challengeService = new ChallengeService();
     
     @EJB 
-    SessionBean.UserFacade userFacade;
+    private SessionBean.UserFacade userFacade;
     @ManagedProperty(value="#{authService}")
-    AuthService auth;
+    private AuthService auth;
     
     
     
@@ -95,142 +95,60 @@ public class ChallengeController implements Serializable {
     private ChallengeFacade getFacade() {
         return ejbFacade;
     }
-    /*
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
 
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
-                }
-            };
-        }
-        return pagination;
-    }*/
     
-    
-    public PaginationHelper getPaginationChallenges() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-                @Override
-                public int getItemsCount() { return challenges.size(); }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    List<Challenge> list = challenges;
-                    if (challenges.size() > 10){
-                        list = challenges.subList(getPageFirstItem(), getPageFirstItem()+getPageSize());
-                    }
-                    return new ListDataModel(list);
-                }
-            };
-        }
-        return pagination;
-    }
-    
-    public DataModel getUnEnteredGroupChallenges() {
-        if (items == null) {
+    public List<Challenge> getUnEnteredGroupChallenges() {
+        if (challenges == null) {
             User currentUser = auth.getActiveUser();
             challenges = challengeService.getUnEnteredGroupChalleneges(currentUser);
-            items = getPaginationChallenges().createPageDataModel();
+            //items = getPaginationChallenges().createPageDataModel();
         }
-        return items;
+        return challenges;
     }
-    
-    public String nextUnEnteredGroupChallenges() {
-        getPaginationChallenges().nextPage();
-        recreateModel();
-        return "NotEnteredGroup";
-    }
-
-    public String previousUnEnteredGroupChallenges() {
-        getPaginationChallenges().previousPage();
-        recreateModel();
-        return "NotEnteredGroup";
-    }
+ 
     public String prepareUnEnteredGroup() {
         recreateModel();
         return "NotEnteredGroup";
     }
     
-    public DataModel getUnEnteredCommunityChallenges() {
-        if (items == null) {
+    public List<Challenge> getUnEnteredCommunityChallenges() {
+        if (challenges == null) {
             User currentUser = auth.getActiveUser();
             challenges = challengeService.getUnEnteredCommunityChalleneges(currentUser);//getFacade().getUnEnteredCommunityChalleneges(currentUser);
-            items = getPaginationChallenges().createPageDataModel();
+            //items = getPaginationChallenges().createPageDataModel();
         }
-        return items;
-    }
-    
-    public String nextUnEnteredCommunityChallenges() {
-        getPaginationChallenges().nextPage();
-        recreateModel();
-        return "NotEnteredCommunity";
+        return challenges;
     }
 
-    public String previousUnEnteredCommunityChallenges() {
-        getPaginationChallenges().previousPage();
-        recreateModel();
-        return "NotEnteredCommunity";
-    }
     
     public String prepareUnEnteredCommunity() {
         recreateModel();
         return "NotEnteredCommunity";
     }
     
-    public DataModel getEnteredGroupChallenges() {
-        if (items == null) {
+    public List<Challenge> getEnteredGroupChallenges() {
+        if (challenges == null) {
             User currentUser = auth.getActiveUser();
-            challenges = challengeService.getEnteredGroupChalleneges(currentUser);//getFacade().getEnteredGroupChalleneges(currentUser);
-            items = getPaginationChallenges().createPageDataModel();
+            challenges = challengeService.getEnteredGroupChalleneges(currentUser);
         }
-        return items;
-    }
-    
-    public String nextEnteredGroupChallenges() {
-        getPaginationChallenges().nextPage();
-        recreateModel();
-        return "EnteredGroup";
+        return challenges;
     }
 
-    public String previousEnteredGroupChallenges() {
-        getPaginationChallenges().previousPage();
-        recreateModel();
-        return "EnteredGroup";
-    }
     
     public String prepareEnteredGroup() {
         recreateModel();
         return "EnteredGroup";
     }
     
-    public DataModel getEnteredCommunityChallenges() {
-        if (items == null) {
+    public List<Challenge> getEnteredCommunityChallenges() {
+        if (challenges == null) {
             User currentUser = auth.getActiveUser();
             challenges = challengeService.getEnteredCommunityChalleneges(currentUser);//getFacade().getEnteredCommunityChalleneges(currentUser);
-            items = getPaginationChallenges().createPageDataModel();
+            //items = getPaginationChallenges().createPageDataModel();
         }
-        return items;
-    }
-    
-    public String nextEnteredCommunityChallenges() {
-        getPaginationChallenges().nextPage();
-        recreateModel();
-        return "EnteredCommunity";
+        return challenges;
     }
 
-    public String previousEnteredCommunityChallenges() {
-        getPaginationChallenges().previousPage();
-        recreateModel();
-        return "EnteredCommunity";
-    }
     
     public String prepareEnteredCommunity() {
         recreateModel();
@@ -242,32 +160,22 @@ public class ChallengeController implements Serializable {
         recreateModel();
     }
     
-    public String enterChallege() {
-        current = (Challenge)items.getRowData();
+    public String enterChallege(Challenge data) {
+        current = data;
         User currentUser = auth.getActiveUser();
         challengeService.enterChallege(current, currentUser);
         return "EnteredCommunity";
     }
     
-    public String leaveChallege() {
-        current = (Challenge)items.getRowData();
+    public String leaveChallege(Challenge data) {
+        current = data;
         User currentUser = auth.getActiveUser();
         challengeService.leaveChallege(current, currentUser);
         return "NotEnteredCommunity";
     }
     
 
-    public String prepareList() {
-        recreateModel();
-        return "List";
-    }
-
-    public String prepareView() {
-        current = (Challenge)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
-    }
-
+   
     public String prepareCommunityCreate() {
         current = new Challenge();
         selectedItemIndex = -1;
@@ -313,9 +221,8 @@ public class ChallengeController implements Serializable {
     
    
 
-    public String prepareEdit() {
-        current = (Challenge)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(Challenge data) {
+        current = data;
         return "Edit";
     }
 
@@ -323,33 +230,25 @@ public class ChallengeController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeUpdated"));
-            return "View";
+            return "Index";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
 
-    public String destroy() {
-        current = (Challenge)getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String destroy(Challenge data) {
+        current = data;
         performDestroy();
-        recreatePagination();
         recreateModel();
-        return "List";
+        return "";
     }
 
     public String destroyAndView() {
         performDestroy();
         recreateModel();
-        updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
-        }
+        
+        return "";
     }
 
     private void performDestroy() {
@@ -361,50 +260,23 @@ public class ChallengeController implements Serializable {
         }
     }
 
-    private void updateCurrentItem() {
-        int count = getFacade().count();
-        if (selectedItemIndex >= count) {
-            // selected index cannot be bigger than number of items:
-            selectedItemIndex = count-1;
-            // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
-            }
-        }
-        if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex+1}).get(0);
-        }
-    }
-
-    public DataModel getItems() {
-        if (items == null) {
+    /**
+     * Get all challenges. Used in coordinator view
+     * @return 
+     */
+    public List<Challenge> getItems() {
+        if (challenges == null) {
             challenges = getFacade().findAll();
-            items = getPaginationChallenges().createPageDataModel();
         }
-        return items;
+        return challenges;
        
     }
 
     private void recreateModel() {
-        items = null;
         challenges = null;
     }
 
-    private void recreatePagination() {
-        pagination = null;
-    }
-
-    public String next() {
-        getPaginationChallenges().nextPage();
-        recreateModel();
-        return "List";
-    }
-
-    public String previous() {
-        getPaginationChallenges().previousPage();
-        recreateModel();
-        return "List";
-    }
+   
 
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);

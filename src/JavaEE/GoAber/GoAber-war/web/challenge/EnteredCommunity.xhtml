@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -13,63 +14,70 @@
         <ui:define name="body">
             #{challengeController.loadPage()}
 
-            <h:form styleClass="jsfcrud_list_form">
-                <div>
-                <h:commandLink action="#{challengeController.prepareUnEnteredGroup}" value="#{bundle.UnEnteredGroup}"/> |
-                <h:commandLink action="#{challengeController.prepareUnEnteredCommunity}" value="#{bundle.UnEnteredCommunity}"/> |
-                <h:commandLink action="#{challengeController.prepareEnteredGroup}" value="#{bundle.EnteredGroup}"/> |
-                <h:commandLink action="#{challengeController.prepareEnteredCommunity}" value="#{bundle.EnteredCommunity}"/>
-
-            </div>
+            <h:form >
                 
-                <h:panelGroup id="messagePanel" layout="block">
+                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListChallengeEmpty}" rendered="#{challengeController.enteredCommunityChallenges.rowCount == 0}"/>
-                <h:panelGroup rendered="#{challengeController.enteredCommunityChallenges.rowCount > 0}">
-                    <h:outputText value="#{challengeController.paginationChallenges.pageFirstItem + 1}..#{challengeController.paginationChallenges.pageLastItem + 1}/#{challengeController.paginationChallenges.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{challengeController.previousEnteredCommunityChallenges}" value="#{bundle.Previous} #{challengeController.paginationChallenges.pageSize}" rendered="#{challengeController.paginationChallenges.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{challengeController.nextEnteredCommunityChallenges}" value="#{bundle.Next} #{challengeController.paginationChallenges.pageSize}" rendered="#{challengeController.paginationChallenges.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{challengeController.enteredCommunityChallenges}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+                
+                
+                <div class="btn-group" role="group">
+                    <h:link class="btn btn-default"  outcome="NotEnteredGroup" value="#{bundle.UnEnteredGroup}"/> 
+                    <h:link class="btn btn-default" outcome="NotEnteredCommunity" value="#{bundle.UnEnteredCommunity}"/> 
+                    <h:link class="btn btn-default" outcome="EnteredGroup" value="#{bundle.EnteredGroup}"/> 
+                    <h:link class="btn btn-default" outcome="EnteredCommunity" value="#{bundle.EnteredCommunity}"/>
+
+                </div>
+            <br />
+            
+               
+                
+               
+                <p:dataTable id="challengeTable" class="table" value="#{challengeController.enteredCommunityChallenges}" 
+                             emptyMessage="#{bundle.ListChallengeEmpty}"
+                             filteredValue="#{challengeController.enteredCommunityChallenges}" widgetVar="challengeTable" var="item"
+                             rows="100" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10, 100, 200">
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListChallengeTitle_idChallenge}"/>
                             </f:facet>
                             <h:outputText value="#{item.idChallenge}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListChallengeTitle_name}"/>
                             </f:facet>
                             <h:outputText value="#{item.name}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListChallengeTitle_categoryUnit}"/>
                             </f:facet>
                             <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
                             &nbsp;
                             <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListChallengeTitle_startTime}"/>
                             </f:facet>
                             <h:outputText value="#{item.startTime}">
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListChallengeTitle_endTime}"/>
                             </f:facet>
                             <h:outputText value="#{item.endTime}">
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
-                        </h:column>
+                        </p:column>
                         
                         
-                        <h:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.CreateComminityChallenge_SelectCommunity}"/>
                             </f:facet>
@@ -78,17 +86,17 @@
                                 <br />
                             </ui:repeat>
 
-                        </h:column>
+                        </p:column>
                         
-                        <h:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{challengeController.leaveChallege}" value="#{bundle.LeaveChallenge}"/>
+                            <h:commandLink action="#{challengeController.leaveChallege(item)}" value="#{bundle.LeaveChallenge}"/>
                             
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
+                        </p:column>
+                    </p:dataTable>
+                
             </h:form>
         </ui:define>
     </ui:composition>

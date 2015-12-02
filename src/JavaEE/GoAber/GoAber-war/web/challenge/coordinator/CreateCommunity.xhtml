@@ -15,46 +15,66 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateChallengeLabel_name}" for="name" />
-                    <div class="col-md-10">
-                        <h:inputText id="name" value="#{challengeController.selected.name}" title="#{bundle.CreateChallengeTitle_name}" />
+                <div class="form-horizontal">
+                    
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateChallengeLabel_name}" for="name" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control"  id="name" value="#{challengeController.selected.name}" title="#{bundle.CreateChallengeTitle_name}" />
+                        </div>
                     </div>
                     
-                    <h:outputLabel value="#{bundle.CreateChallengeLabel_categoryUnit}" for="categoryUnit" />
+                    <div class="form-group">
+                    <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateChallengeLabel_categoryUnit}" for="categoryUnit" />
                     <div class="col-md-10">
                         <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{challengeController.selected.categoryUnitId}" title="#{bundle.CreateActivityDataLabel_categoryUnitId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
                             <f:selectItems value="#{categoryUnitService.getDisplayItems()}"/>
                         </h:selectOneMenu>
-                    </div>                    
-                   <h:outputLabel value="#{bundle.CreateChallengeLabel_startTime}" for="startTime" />
+                    </div>  
+                    </div>
+                    
+                    <div class="form-group">
+                   <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateChallengeLabel_startTime}" for="startTime" />
                     <div class="col-md-10">
                         <p:calendar id="date" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.startTime}" title="#{bundle.CreateChallengeTitle_startTime}" />
                     </div>
+                   </div>
                     
-                    <h:outputLabel value="#{bundle.CreateChallengeLabel_endTime}" for="endTime" />
+                   <div class="form-group">
+                    <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateChallengeLabel_endTime}" for="endTime" />
                     <div class="col-md-10">
                         <p:calendar id="date2" pattern="dd/MM/yyy" mindate="#{now}" value="#{challengeController.selected.endTime}" title="#{bundle.CreateChallengeTitle_endTime}" />
                     </div>
+                    </div>
                     
-                    
-                    <h:outputLabel value="#{bundle.CreateComminityChallenge_SelectCommunity}" for="endTime" />
+                    <div class="form-group">
+                    <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateComminityChallenge_SelectCommunity}:" for="endTime" />
                     <div class="col-md-10">
-                        <h:selectManyListbox value="#{challengeController.communityChallenges}">
+                        <h:selectManyListbox class="form-control"  value="#{challengeController.communityChallenges}">
                              <f:selectItems value="#{challengeController.communitiesValue}"/>
                         </h:selectManyListbox>
                     </div>
+                    </div>
                     
-                    
-                </h:panelGrid>
                 <br />
-                <h:commandLink action="#{challengeController.createCommunity}" value="#{bundle.CreateChallengeSaveLink}" />
+                <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <h:commandLink class="btn btn-default" action="#{challengeController.createCommunity}" value="#{bundle.CreateChallengeSaveLink}" />
+                        </div>
+                    </div>
+                
                 <br />
                 <br />
-                <h:link outcome="/challenge/Index" value="#{bundle.CreateChallengeShowAllLink}"/>
+                <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <h:commandLink class="btn btn-default" action="#{challengeController.createCommunity}" value="#{bundle.CreateChallengeSaveLink}" />
+                        </div>
+                    </div>
+                
+                
+                <h:link outcome="/challenge/coordinator/Index" value="#{bundle.CreateChallengeShowAllLink}"/>
                 <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateChallengeIndexLink}"/>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
