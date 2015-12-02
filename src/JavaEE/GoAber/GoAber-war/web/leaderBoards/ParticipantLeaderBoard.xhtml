@@ -16,7 +16,6 @@
                     <f:param value="#{leaderBoardController.viewUnit}" />
                 </h:outputFormat>
             </h3>
-            <h:form>
                 <p:dataTable id="leaderBoard" class="table" value="#{leaderBoardController.participants}" 
                              emptyMessage="#{bundle.ParticipantLeaderBoardNoItems}"
                              widgetVar="activityDataTable" var="item" 
@@ -49,12 +48,13 @@
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ParticipantLeaderBoard_UserLink}"/>
                         </f:facet>
-                        <h:commandLink action="#{activityDataController.prepareViewUser(user)}" value="#{bundle.View}"/>
+                        <h:form>
+                            <h:commandLink action="#{activityDataController.prepareViewUser(item.user)}" value="#{bundle.View}"/>
+                        </h:form>
                     </p:column>
                 </p:dataTable>
                 
                 <h:link outcome="/leaderBoards/Index" value="#{bundle.LeaderBoardsIndex_Link}"/>
-            </h:form>
         </ui:define>
     </ui:composition>
 
