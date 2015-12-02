@@ -4,7 +4,6 @@ import GoAberDatabase.Challenge;
 import GoAberDatabase.User;
 import JSF.services.AuthService;
 import JSF.util.JsfUtil;
-import JSF.util.PaginationHelper;
 import SessionBean.ChallengeFacade;
 import WebServices.ChallengeService;
 
@@ -21,8 +20,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
 
@@ -31,10 +28,8 @@ import javax.faces.model.SelectItem;
 public class ChallengeController implements Serializable {
 
     private Challenge current;
-    //private DataModel items = null;
     @EJB private SessionBean.ChallengeFacade ejbFacade;
-   // private PaginationHelper pagination;
-    private int selectedItemIndex;
+
     
     private Map<String,Integer> communitiesValue = new LinkedHashMap<>();
     private Integer[] communityChallenges;
@@ -46,14 +41,10 @@ public class ChallengeController implements Serializable {
     
     private ChallengeService challengeService = new ChallengeService();
     
-    @EJB 
-    private SessionBean.UserFacade userFacade;
+ 
     @ManagedProperty(value="#{authService}")
     private AuthService auth;
-    
-    
-    
-    
+ 
     public ChallengeController() {
     }
     
@@ -87,7 +78,6 @@ public class ChallengeController implements Serializable {
     public Challenge getSelected() {
         if (current == null) {
             current = new Challenge();
-            selectedItemIndex = -1;
         }
         return current;
     }
@@ -178,12 +168,10 @@ public class ChallengeController implements Serializable {
    
     public String prepareCommunityCreate() {
         current = new Challenge();
-        selectedItemIndex = -1;
         return "CreateCommunity";
     }
     public String prepareGroupCreate() {
         current = new Challenge();
-        selectedItemIndex = -1;
         return "CreateGroup";
     }
     
