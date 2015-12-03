@@ -17,7 +17,6 @@ import javax.ejb.LocalBean;
 import JSF.ViewModels.StatisticsSummary;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**Activity Data Service Class.
@@ -129,8 +128,14 @@ public class ActivityDataService {
             }
             
             // Use one item to represent meta-data and set value to total
-            ActivityData squashedItem = sublist.get(0);
-            squashedItem.setValue(total);
+            ActivityData tmp = sublist.get(0);
+            ActivityData squashedItem = new ActivityData(
+                    total, 
+                    tmp.getLastUpdated(), 
+                    tmp.getDate(), 
+                    tmp.getUserId(), 
+                    tmp.getCategoryUnitId()
+            );
             combinedData.add(squashedItem);
         }
         
