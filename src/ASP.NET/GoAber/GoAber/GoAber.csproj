@@ -307,7 +307,16 @@
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\LeaderBoardsController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
+    <Compile Include="Migrations\201512022231591_Init.cs" />
+    <Compile Include="Migrations\201512022231591_Init.Designer.cs">
+      <DependentUpon>201512022231591_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512022234189_Init1.cs" />
+    <Compile Include="Migrations\201512022234189_Init1.Designer.cs">
+      <DependentUpon>201512022234189_Init1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Result.cs" />
+    <Compile Include="Models\ViewModels\ActivityDataListViewModel.cs" />
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
@@ -678,6 +687,14 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512022231591_Init.resx">
+      <DependentUpon>201512022231591_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512022234189_Init1.resx">
+      <DependentUpon>201512022234189_Init1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
