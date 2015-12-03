@@ -15,7 +15,6 @@ import JSF.util.PaginationHelper;
 import SessionBean.ChallengeFacade;
 import ViewModel.LeaderItemViewModel;
 import ViewModel.LeaderViewModel;
-import ViewModel.ParticipantLeaderViewModel;
 import WebServices.ChallengeService;
 
 import java.io.Serializable;
@@ -37,7 +36,6 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.persistence.Cacheable;
 
 
 @ManagedBean(name="challengeController")
