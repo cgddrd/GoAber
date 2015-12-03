@@ -10,6 +10,8 @@ using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GoAber.Services;
+using GoAber.Models.ViewModels;
+using PagedList;
 
 namespace GoAber
 {
@@ -21,6 +23,7 @@ namespace GoAber
         private CommunitiesService communitiesService = new CommunitiesService();
         private TeamsService teamService = new TeamsService();
         private CategoryUnitService categoryUnitService = new CategoryUnitService();
+        private const int pageSize = 100;
         // CG - We need to create our UserManager instance (copied from AccountController). 
         // This works because the OWIN context is shared application-wide. See: http://stackoverflow.com/a/27751581
         public ApplicationUserManager UserManager
@@ -74,13 +77,13 @@ namespace GoAber
         public ActionResult CreateCommunity()
         {
             ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
-            IEnumerable< SelectListItem > communities = communitiesService.getAllCommunities().Select(c => new SelectListItem
+            IEnumerable<SelectListItem> communities = communitiesService.getAllCommunities().Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.name
             });
             ViewBag.communities = communities;
-            
+
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
@@ -91,7 +94,7 @@ namespace GoAber
         public ActionResult CreateGroup()
         {
             ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
-            
+
             IEnumerable<SelectListItem> groups = teamService.GetTeamsByCommunity(appUser.Team.community).Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
@@ -132,9 +135,9 @@ namespace GoAber
             if (ModelState.IsValid)
             {
                 challengeService.createChallenge(challenge);
-                
+
                 challengeService.addChallengeToCommunities(challenge, communityChallenges, user.Team.community.Id);
-                
+
                 return RedirectToAction("Index");
             }
             return View(challenge);
@@ -202,7 +205,7 @@ namespace GoAber
             }
             base.Dispose(disposing);
         }
-        
+
 
         public ActionResult EnterChallenge(string id)
         {
@@ -215,6 +218,49 @@ namespace GoAber
             challengeService.removeUserFromChallenge(UserManager.FindById(User.Identity.GetUserId()).Id, id);
             return RedirectToAction("Index");
         }
-        
+
+        public ActionResult ViewGroupLeaderBoard(int? page, string id)
+        {
+            Challenge challenge = challengeService.getChallengeById(id);
+            ActivityDataService dataService = new ActivityDataService();
+
+            // first get all acitivty data matching the unit
+            var activityData = dataService.GetAllActivityData();
+            activityData = activityData.Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id);
+
+            IEnumerable<LeaderViewModel> model = challenge.groupchallenges.Select(c => new LeaderViewModel
+            {
+                Name = c.group.name,
+                Total = activityData.Where(a => a.User.TeamId == c.group.Id).Sum(a => a.value).GetValueOrDefault(),
+                NumMembers = activityData.Where(a => a.User.TeamId == c.group.Id).GroupBy(a => a.User.Id).Count()
+            });
+
+            model = model.OrderByDescending(m => m.Total);
+
+            int pageNumber = (page ?? 1);
+            return View("LeaderBoard", model.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult ViewCommunityLeaderBoard(int? page, string id)
+        {
+            Challenge challenge = challengeService.getChallengeById(id);
+            ActivityDataService dataService = new ActivityDataService();
+
+            // first get all acitivty data matching the unit
+            var activityData = dataService.GetAllActivityData();
+            activityData = activityData.Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id);
+
+            IEnumerable<LeaderViewModel> model = challenge.communityChallenges.Select(c => new LeaderViewModel
+            {
+                Name = c.community.name,
+                Total = activityData.Where(a => a.User.Team.communityId == c.communityId).Sum(a => a.value).GetValueOrDefault(),
+                NumMembers = activityData.Where(a => a.User.Team.communityId == c.communityId).GroupBy(a => a.User.Id).Count()
+            });
+
+            model = model.OrderByDescending(m => m.Total);
+
+            int pageNumber = (page ?? 1);
+            return View("LeaderBoard", model.ToPagedList(pageNumber, pageSize));
+        }
     }
 }

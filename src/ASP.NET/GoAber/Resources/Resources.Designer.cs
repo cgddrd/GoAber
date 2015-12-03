@@ -800,6 +800,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leader Board.
+        /// </summary>
+        public static string LeaderBoards_LeaderBoardTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_LeaderBoardTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Participant Leader Board.
         /// </summary>
         public static string LeaderBoards_ParticipantLeaderBoardTitle {

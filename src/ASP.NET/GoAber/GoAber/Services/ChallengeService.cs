@@ -26,6 +26,11 @@ namespace GoAber.Services
             return db.Challenges.Find(id);
         }
 
+        public Challenge getChallengeById(string id)
+        {
+            return db.Challenges.Find(id);
+        }
+
         public IEnumerable<Challenge> getAllChallenges()
         {
            return db.Challenges;
