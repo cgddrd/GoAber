@@ -223,7 +223,7 @@ namespace GoAber
             return View("BatchDelete", filterParams);
         }
 
-        // POST: Admin/ActivityData/BatchDelete
+        // POST: ActivityDatas/BatchDelete
         [HttpPost, ActionName("BatchDelete")]
         [ValidateAntiForgeryToken]
         public ActionResult BatchDelete(FilterViewModel filterParams, string message)

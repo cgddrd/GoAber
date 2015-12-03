@@ -216,6 +216,25 @@ namespace GoAber.Areas.Admin.Controllers
             return View("BatchDelete", filterParams);
         }
 
+        // POST: Admin/ActivityData/BatchDelete
+        [HttpPost, ActionName("BatchDelete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult BatchDelete(FilterViewModel filterParams, string message)
+        {
+            ApplicationUserService userService = new ApplicationUserService();
+            ApplicationUser user = userService.GetUserById(User.Identity.GetUserId());
+
+            if (user == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            filterParams.Email = user.Email;
+            var activityData = dataService.Filter(filterParams);
+            dataService.BatchDelete(activityData, message, user.Id);
+            return RedirectToAction("Index");
+        }
+
 
         protected override void Dispose(bool disposing)
         {
