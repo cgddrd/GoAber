@@ -1,5 +1,6 @@
 ﻿using DotNetOpenAuth.OAuth2;
 using GoAber.Models;
+using GoAber.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Newtonsoft.Json.Linq;
@@ -24,6 +25,8 @@ namespace GoAber.Controllers
         public abstract ActivityData GetHeartRate(int year, int month, int day);
 
         protected ApplicationDbContext db = new ApplicationDbContext();
+        protected DeviceService deviceService = new DeviceService();
+        protected CategoryUnitService categoryUnitService = new CategoryUnitService();
         private ApplicationUserManager _userManager;
 
         // CG - We need to create our UserManager instance (copied from AccountController). 
@@ -40,9 +43,9 @@ namespace GoAber.Controllers
             }
         }
 
-        protected WebServerClient getClient()
+        protected WebServerClient GetClient()
         {
-            DeviceType deviceType = findDeviceTypeByName(DeviceName());
+            DeviceType deviceType = deviceService.FindDeviceTypeByName(DeviceName());
             if (deviceType == null)
             {
                 return null;
@@ -62,45 +65,28 @@ namespace GoAber.Controllers
         }
 
 
-        protected DeviceType findDeviceTypeByName(String name)
-        {
-            var query = from d in db.DeviceTypes
-                        where d.name == name
-                        select d;
-            DeviceType deviceType = query.FirstOrDefault();
-            return deviceType;
-        }
+        
 
         public ActionResult Index()
         {
-
             var user = UserManager.FindById(User.Identity.GetUserId());
 
-            Device device = FindDevice(user.Id); // GET USER ID FROM SESSION!!
+            Device device = deviceService.FindDevice(user.Id, DeviceName()); // GET USER ID FROM SESSION!!
 
             if (device == null)
+            {
                 return RedirectToAction("StartOAuth"); // redirect to authorisation
-
+            }
             if (DateTime.UtcNow > device.tokenExpiration)
+            {
                 RefreshToken(user.Id); // Token needs refreshing
+            }
             return View();
         }
 
-
-        protected Device FindDevice(string userID)
-        {
-            string deviceType = findDeviceTypeByName(DeviceName()).name;
-            var query = from d in db.Devices
-                        where (d.ApplicationUserId == userID // MOCK USER ID FOR NOW
-                        && d.deviceType.name == deviceType)
-                        select d;
-            return query.FirstOrDefault();
-        }
-
-
         protected String GetCurrentUserAccessToken(string userID)
         {
-            Device device = FindDevice(userID);
+            Device device = deviceService.FindDevice(userID, DeviceName());
             if (device == null)
                 return null; // No token availible for this user
             if (DateTime.UtcNow > device.tokenExpiration)
@@ -111,8 +97,8 @@ namespace GoAber.Controllers
 
         private String RefreshToken(string userID)
         {
-            WebServerClient client = getClient();
-            Device device = FindDevice(userID);
+            WebServerClient client = GetClient();
+            Device device = deviceService.FindDevice(userID, DeviceName());
             if (device != null)
             {
                 try
@@ -142,7 +128,6 @@ namespace GoAber.Controllers
                     }
                     Console.WriteLine(e.StackTrace);
                 }
-
             }
             return "";
         }
@@ -150,7 +135,7 @@ namespace GoAber.Controllers
 
         public ActionResult StartOAuth()
         {
-            WebServerClient client = getClient();
+            WebServerClient client = GetClient();
             if (client == null)
             {
                 ViewBag.Message = "Could not find " + DeviceName() + " connectivity settings!";
@@ -171,7 +156,7 @@ namespace GoAber.Controllers
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
 
-            WebServerClient client = getClient();
+            WebServerClient client = GetClient();
             if (client == null)
             {
                 ViewBag.Message += "Got token<br />";
@@ -184,13 +169,13 @@ namespace GoAber.Controllers
                 if (authorisation == null)
                 {
                     ViewBag.Message = "Device not authorised!";
-                    return View();
+                    return Redirect("../Devices/Index");
                 }
-                DeviceType deviceType = findDeviceTypeByName(DeviceName());
+                DeviceType deviceType = deviceService.FindDeviceTypeByName(DeviceName());
                 if (deviceType == null)
                 {
                     ViewBag.Message = "Could not find " + DeviceName() + " connectivity settings!";
-                    return View();
+                    return Redirect("../Devices/Index");
                 }
 
                 Device device = new Device();
@@ -202,61 +187,72 @@ namespace GoAber.Controllers
                     authorisation.AccessTokenExpirationUtc,
                     user.Id);
 
-                Device temp = FindDevice(user.Id); // mock user ID for now - should be getting this from session?
+                // if a device of this type already exisits for this user, update it
+                Device deviceToUpdate = deviceService.FindDevice(user.Id, DeviceName()); // mock user ID for now - should be getting this from session?
 
-                if (temp != null)
+                if (deviceToUpdate != null)
                 {
-                    temp.refreshToken = device.refreshToken;
-                    temp.tokenExpiration = device.tokenExpiration;
-                    temp.accessToken = device.accessToken;
-                    temp.deviceTypeId = device.deviceTypeId;
+                    deviceToUpdate.refreshToken = device.refreshToken;
+                    deviceToUpdate.tokenExpiration = device.tokenExpiration;
+                    deviceToUpdate.accessToken = device.accessToken;
+                    deviceToUpdate.deviceTypeId = device.deviceTypeId;
                 }
                 else
                 {
                     db.Devices.Add(device);
                 }
                 db.SaveChanges();
-                return RedirectToAction("Index"); // redirect to list of actions
+               // return RedirectToAction("Index"); // redirect to list of actions
             }
             catch (Exception e)
             {
                 ViewBag.Message += "Exception accessing the code. " + e.Message;
             }
-            return View();
+
+            return Redirect("../Devices/Index");
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ls_path">Relative path to the walking steps (e.g. /Moves)</param>
+        /// <param name="jsonPath">JSON xPath to the avtivity data</param>
+        /// <param name="userID"></param>
+        /// <param name="day"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
         public ActivityData GetWalkingSteps(string ls_path, string jsonPath, string userID, int day, int month, int year)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
 
-            CategoryUnit categoryUnit = GetCategoryUnit("Walking", "Steps");
+            CategoryUnit categoryUnit = categoryUnitService.GetCategoryUnit("Walking", "Steps");
 
             ActivityData activityDay = GetDayActivity(ls_path, jsonPath, user.Id, day, month, year, categoryUnit);
             return activityDay;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ls_path">Relative path to the walking steps (e.g. /Moves)</param>
+        /// <param name="jsonPath">JSON xPath to the avtivity data</param>
+        /// <param name="userID"></param>
+        /// <param name="day"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
         public ActivityData GetHeartRate(string ls_path, string jsonPath, string userID, int day, int month, int year)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
 
-            CategoryUnit categoryUnit = GetCategoryUnit("HeartRate", "Beats");
+            CategoryUnit categoryUnit = categoryUnitService.GetCategoryUnit("HeartRate", "Beats");
 
             ActivityData activityDay = GetDayActivity(ls_path, jsonPath, user.Id, day, month, year, categoryUnit);
             return activityDay;
         }
 
-        //TODO this should be moved to somewhere related to the CategoryUnit
-        public CategoryUnit GetCategoryUnit(string category, string unit)
-        {
-            var query = from d in db.CategoryUnits
-                        where (d.category.name.Equals(category)
-                                && d.unit.name.Equals(unit)
-                                )
-                        select d;
-            CategoryUnit categoryUnit = query.FirstOrDefault();
-            return categoryUnit;
-        }
+        
 
         public ActivityData GetDayActivity(string ls_path, string jsonPath, string userID, int day, int month, int year, CategoryUnit categoryUnit )
         {
@@ -269,14 +265,20 @@ namespace GoAber.Controllers
             string result = String.Empty;
             HttpClient client = getAuthorisedClient(token);
 
-            DeviceType deviceType = findDeviceTypeByName(DeviceName());
+            DeviceType deviceType = deviceService.FindDeviceTypeByName(DeviceName());
             ViewBag.RequestingUrl = deviceType.apiEndpoint + ls_path;
             var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
             if (apiResponse.IsSuccessStatusCode)
             {
                 result = apiResponse.Content.ReadAsStringAsync().Result;
                 JToken jToken = JObject.Parse(result);
-                int value = (int)jToken.SelectToken(jsonPath);
+
+                int value = 0;
+                try
+                {
+                    value = (int)jToken.SelectToken(jsonPath);
+                }
+                catch{/* 0 steps for given date */}
                 
                 DateTime date = new DateTime(year, month, day);
                 ActivityData data = new ActivityData(categoryUnit.categoryId, userID, date, DateTime.Now, value);
@@ -287,61 +289,7 @@ namespace GoAber.Controllers
             ViewBag.Result = apiResponse.StatusCode;
             return null;
         }
-
-        /*
-        public ActivityData GetDayActivities(string ls_path, string jsonPath, string userID, int day, int month, int year)
-        {
-            string token = GetCurrentUserAccessToken(userID);
-            if (String.IsNullOrEmpty(token))
-                return null;
-            //-----------------------------
-            string result = String.Empty;
-            HttpClient client = getAuthorisedClient(token);
-
-            DeviceType deviceType = findDeviceTypeByName(DeviceName());
-            ViewBag.RequestingUrl = deviceType.apiEndpoint + ls_path;//"/moves?date={0}{1}{2}", year, month, day);
-            var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
-            if (apiResponse.IsSuccessStatusCode)
-            {
-                result = apiResponse.Content.ReadAsStringAsync().Result;
-                JToken jToken = JObject.Parse(result);
-                int steps = (int)jToken.SelectToken(jsonPath);
-                int categoryUnitID = 0;
-                DateTime date = new DateTime(year, month, day);
-                ActivityData data = new ActivityData(categoryUnitID, userID, date, DateTime.Now, steps);
-                return data;
-            }
-            ViewBag.Result = apiResponse.StatusCode;
-            return null;
-        }
-
-        public ActivityData GetDayHeart(string ls_path, string jsonPath, string userID, int day, int month, int year)
-        {
-            string token = GetCurrentUserAccessToken(userID);
-            if (String.IsNullOrEmpty(token))
-                return null;
-            //-----------------------------
-            string result = String.Empty;
-            HttpClient client = getAuthorisedClient(token);
-            DeviceType deviceType = findDeviceTypeByName(DeviceName());
-            ViewBag.RequestingUrl = deviceType.apiEndpoint + ls_path;//"/heartrates?date={0}{1}{2}", year, month, day);
-            var apiResponse = client.GetAsync(ViewBag.RequestingUrl).Result;
-            if (apiResponse.IsSuccessStatusCode)
-            {
-                result = apiResponse.Content.ReadAsStringAsync().Result;
-                JToken jToken = JObject.Parse(result);
-                JToken summary = jToken.SelectToken(jsonPath);
-                JToken first = jToken.First;
-                int restingHeartRate = 0;
-                int categoryUnitID = 0;
-                DateTime date = new DateTime(year, month, day);
-                ActivityData data = new ActivityData(categoryUnitID, userID, date, DateTime.Now, restingHeartRate);
-                return data;
-            }
-            ViewBag.Result = apiResponse.StatusCode;
-            return null;
-        }
-     */
+        
         private HttpClient getAuthorisedClient(string token)
         {
             HttpClient client = new HttpClient();

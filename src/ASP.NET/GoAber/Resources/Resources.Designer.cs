@@ -692,6 +692,123 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Connection.
+        /// </summary>
+        public static string Device_ConnectToDevice {
+            get {
+                return ResourceManager.GetString("Device_ConnectToDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revoke Access.
+        /// </summary>
+        public static string Device_DeleteConnection {
+            get {
+                return ResourceManager.GetString("Device_DeleteConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect to FitBit.
+        /// </summary>
+        public static string Device_FitBitConnect {
+            get {
+                return ResourceManager.GetString("Device_FitBitConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FitBit is Connected.
+        /// </summary>
+        public static string Device_FitBitConnected {
+            get {
+                return ResourceManager.GetString("Device_FitBitConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FitBit not connected.
+        /// </summary>
+        public static string Device_FitBitNotConnected {
+            get {
+                return ResourceManager.GetString("Device_FitBitNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get number of steps for :.
+        /// </summary>
+        public static string Device_GetNumberOfStepsLabel {
+            get {
+                return ResourceManager.GetString("Device_GetNumberOfStepsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Steps.
+        /// </summary>
+        public static string Device_GetStepsButton {
+            get {
+                return ResourceManager.GetString("Device_GetStepsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Devices.
+        /// </summary>
+        public static string Device_IndexNavigation {
+            get {
+                return ResourceManager.GetString("Device_IndexNavigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Devices.
+        /// </summary>
+        public static string Device_IndexTitle {
+            get {
+                return ResourceManager.GetString("Device_IndexTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect to Jawbone.
+        /// </summary>
+        public static string Device_JawboneConnect {
+            get {
+                return ResourceManager.GetString("Device_JawboneConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JawBone is Connected.
+        /// </summary>
+        public static string Device_JawboneConnected {
+            get {
+                return ResourceManager.GetString("Device_JawboneConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JawBone is not connected.
+        /// </summary>
+        public static string Device_JawboneNotConnected {
+            get {
+                return ResourceManager.GetString("Device_JawboneNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of steps :.
+        /// </summary>
+        public static string Device_NumberOfSteps {
+            get {
+                return ResourceManager.GetString("Device_NumberOfSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {

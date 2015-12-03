@@ -535,4 +535,43 @@
   <data name="Challenges_completedgroupChallenges" xml:space="preserve">
     <value>Group Challenges</value>
   </data>
+  <data name="Device_FitBitConnect" xml:space="preserve">
+    <value>Connect to FitBit</value>
+  </data>
+  <data name="Device_IndexNavigation" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Device_JawboneConnect" xml:space="preserve">
+    <value>Connect to Jawbone</value>
+  </data>
+  <data name="Device_ConnectToDevice" xml:space="preserve">
+    <value>Create Connection</value>
+  </data>
+  <data name="Device_DeleteConnection" xml:space="preserve">
+    <value>Revoke Access</value>
+  </data>
+  <data name="Device_FitBitConnected" xml:space="preserve">
+    <value>FitBit is Connected</value>
+  </data>
+  <data name="Device_FitBitNotConnected" xml:space="preserve">
+    <value>FitBit not connected</value>
+  </data>
+  <data name="Device_GetNumberOfStepsLabel" xml:space="preserve">
+    <value>Get number of steps for :</value>
+  </data>
+  <data name="Device_GetStepsButton" xml:space="preserve">
+    <value>Get Steps</value>
+  </data>
+  <data name="Device_IndexTitle" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Device_JawboneConnected" xml:space="preserve">
+    <value>JawBone is Connected</value>
+  </data>
+  <data name="Device_JawboneNotConnected" xml:space="preserve">
+    <value>JawBone is not connected</value>
+  </data>
+  <data name="Device_NumberOfSteps" xml:space="preserve">
+    <value>Number of steps :</value>
+  </data>
 </root>
