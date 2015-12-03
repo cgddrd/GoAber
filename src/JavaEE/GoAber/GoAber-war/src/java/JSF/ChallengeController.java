@@ -95,25 +95,6 @@ public class ChallengeController implements Serializable {
     private ChallengeFacade getFacade() {
         return ejbFacade;
     }
-    /*
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
-                }
-            };
-        }
-        return pagination;
-    }*/
-    
     
     public PaginationHelper getPaginationChallenges() {
         if (pagination == null) {
