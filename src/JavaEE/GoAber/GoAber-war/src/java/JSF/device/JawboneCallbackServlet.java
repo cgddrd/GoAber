@@ -49,6 +49,7 @@ public class JawboneCallbackServlet extends HttpServlet {
         User user = authService.getActiveUser();
         deviceApi.getAndSaveTokens(code, user);
         
+        //response.sendRedirect("faces/Jawbone/index.xhtml");
         response.sendRedirect("faces/Jawbone/index.xhtml");
     }
 

@@ -123,10 +123,9 @@ public class UserController implements Serializable {
      * @return the items
      */
     public List<User> getItems() {
-        //items = ejbFacade.findAll();
         return items;
     }
-
+   
     public User getSelected() {
         if (current == null) {
             current = new User();
@@ -143,26 +142,14 @@ public class UserController implements Serializable {
         return urEJBFacade;
     }
     
-//    public PaginationHelper getPagination() {
-//        
-//        //getFacade().flushCache();
-//        
-//        if (pagination == null) {
-//            pagination = new PaginationHelper(10) {
-//
-//                @Override
-//                public int getItemsCount() {
-//                    return getFacade().count();
-//                }
-//
-//                @Override
-//                public DataModel createPageDataModel() {
-//                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem()+getPageSize()}));
-//                }
-//            };
-//        }
-//        return pagination;
-//    }
+    public void redirectView() {
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(externalContext.getRequestContextPath() + "/myaccount/View.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(WebServiceAuthController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public String prepareList() {
         recreateItems();
@@ -177,8 +164,6 @@ public class UserController implements Serializable {
     }
 
     public String prepareView(User item) {
-        //current = (User)getItems().getRowData();
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         current = item;
         return "View";
     }
@@ -190,8 +175,6 @@ public class UserController implements Serializable {
         
         current = new User();
 
-        //selectedItemIndex = -1;
-        
         if (!authService.isLoggedIn()) {
             // CG - Make sure that the 'user registration success' message is displayed to the user in the login page.
             // See: http://stackoverflow.com/a/12485381 for more information.
@@ -290,9 +273,7 @@ public class UserController implements Serializable {
     }
 
     public String prepareEdit(User item) {
-        //current = (User)getItems().getRowData();
         current = item;
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
     
@@ -341,33 +322,38 @@ public class UserController implements Serializable {
     }
 
     public String destroy(User item) {
-        //current = (User)getItems().getRowData();
+        
         current = item;
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        //recreatePagination();
-        //recreateModel();
+        boolean destroySuccess = performDestroy();
+        
+        if (destroySuccess && authService.isUserIdActiveUser(current)) {
+            try {
+                authService.logoutUser(false);
+            } catch (IOException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         recreateItems();
+        
         return "List";
     }
-
-    public String destroyAndView() {
-        performDestroy();
-        //recreateModel();
-        updateCurrentItem();
+    
+    public String destroyOwnAccount(User item) {
         
-        recreateItems();
+        current = item;
+        boolean destroySuccess = performDestroy();
         
-        return "List";
+        if (destroySuccess) {
+            try {
+                authService.logoutUser(false);
+                return null;
+            } catch (IOException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
-//        if (selectedItemIndex >= 0) {
-//            return "View";
-//        } else {
-//            // all items were removed - go back to list
-//            recreateModel();
-//            return "List";
-//        }
+        return "Index";
     }
     
     /**
@@ -384,20 +370,24 @@ public class UserController implements Serializable {
         this.current = current;
     }
 
-    private void performDestroy() {
+    private boolean performDestroy() {
         try {
             
             // CG - Prevent active user from removing their own account whilst still logged in.
-            if (authService.getActiveUser().getIdUser() == current.getIdUser()) {
+            if (authService.isUserIdActiveUser(current) && authService.isAdmin()) {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("ErrorMessageNoDeleteActiveUser"));
+                return false;
             } else {
                 getFacade().remove(current);
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserDeleted"));  
+                return true;
             }
             
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
+        
+        return false;
     }
 
     private void updateCurrentItem() {
@@ -415,13 +405,6 @@ public class UserController implements Serializable {
         }
     }
 
-//    public DataModel getItems() {
-//        if (items == null) {
-//            items = getPagination().createPageDataModel();
-//        }
-//        return items;
-//    }
-
     private void recreateModel() {
         items = null;
     }
@@ -429,18 +412,6 @@ public class UserController implements Serializable {
     private void recreatePagination() {
         pagination = null;
     }
-
-//    public String next() {
-//        getPagination().nextPage();
-//        recreateModel();
-//        return "List";
-//    }
-
-//    public String previous() {
-//        getPagination().previousPage();
-//        recreateModel();
-//        return "List";
-//    }
 
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);

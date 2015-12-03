@@ -31,7 +31,15 @@
 
                     <ul class="nav navbar-nav">
                         <li><h:link outcome="/index" value="Home"/></li>
-                        <li><h:link outcome="/activityData/WeeklySummary" value="Activity Data"/></li>
+                        
+                        <c:choose>
+                            
+                            <c:when test="#{authService.loggedIn}">
+                                <li><h:link outcome="/activityData/WeeklySummary" value="Activity Data"/></li>
+                                <li><h:link outcome="/webServiceAuth/index" value="Web Service Tokens"/></li>
+                            </c:when>
+                            
+                        </c:choose>
                         
                         <c:choose>
                             
@@ -40,15 +48,7 @@
                             </c:when>
                             
                         </c:choose>
-                        
-                        <c:choose>
-                            
-                            <c:when test="#{authService.loggedIn}">
-                                <li><h:link outcome="/webServiceAuth/index" value="Web Service Tokens"/></li>
-                            </c:when>
-                            
-                        </c:choose>
-                        
+
                     </ul>
 
                     <h:form>
