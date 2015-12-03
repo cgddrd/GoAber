@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -27,6 +27,7 @@
                     <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Home, "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_ActivityData, "WeeklySummary", "ActivityDatas", new { area = "" }, null)</li>
                     <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_LeaderBoards, "Index", "LeaderBoards", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Challenges, "Index", "Challenge", new { area = "" }, null)</li>
                     <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_FitBit, "Index", "FitBit", new { area = "" }, null)</li>
                     <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Jobs, "Index", "Jobs", new { area = "" }, null)</li>
                     <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_WebServiceAuth, "Index", "WebServiceAuths", new { area = "" }, null)</li>
