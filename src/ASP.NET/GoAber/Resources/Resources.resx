@@ -541,4 +541,10 @@
   <data name="_Layout_cshtml_Execute_Challenges" xml:space="preserve">
     <value>Challenges</value>
   </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>To Date</value>
+  </data>
 </root>

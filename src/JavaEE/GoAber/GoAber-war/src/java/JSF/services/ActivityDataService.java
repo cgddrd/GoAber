@@ -6,6 +6,7 @@
 package JSF.services;
 
 import GoAberDatabase.ActivityData;
+import GoAberDatabase.Team;
 import GoAberDatabase.User;
 import JSF.util.DateUtils;
 import SessionBean.ActivityDataFacade;
@@ -75,6 +76,16 @@ public class ActivityDataService {
      */
     public List<ActivityData> findAllForUserInDateRange(User user, String unit, Date startDate, Date endDate) {
         return getFacade().getAllForUserInDateRange(user.getIdUser(), unit, startDate, endDate);
+    }
+    
+    /** Get all activity data matching a specific group.
+     * 
+     * @param group the team to find activity data for
+     * @param unit the unit to find activity data for
+     * @return list of activity data items
+     */
+    public List<ActivityData> findAllForGroup(Team group, String unit) {
+        return getFacade().getAllForGroup(group.getIdGroup(), unit);
     }
     
     /** Get all activity data items for a user matching the specified unit
