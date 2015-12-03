@@ -65,7 +65,7 @@ namespace GoAber.Controllers
             if (jawbone == null)
             {
                 ViewBag.Message += "Got token<br />";
-                return View();
+                return Redirect("../Devices/Index");
             }
             ViewBag.Message = String.Format("Started Callback with Code: {0}  ", code);
             try
@@ -97,14 +97,14 @@ namespace GoAber.Controllers
                 if (authorisation == null)
                 {
                     ViewBag.Message = "Device not authorised!";
-                    return View();
+                    return Redirect("../Devices/Index");
                 }
 
                 DeviceType deviceType = deviceService.FindDeviceTypeByName(DeviceName());
                 if(deviceType == null)
                 {
                     ViewBag.Message = "Could not find jawbone connectivity settings!";
-                    return View();
+                    return Redirect("../Devices/Index");
                 }
 
                 Device device = new Device();
@@ -120,13 +120,13 @@ namespace GoAber.Controllers
                 
                 db.Devices.Add(device);
                 db.SaveChanges();
-                return RedirectToAction("Index"); // redirect to list of actions
+                return Redirect("../Devices/Index"); // redirect to list of actions
             }
             catch (Exception e)
             {
                 ViewBag.Message += "Exception accessing the code. " + e.Message;
             }
-            return View();
+            return Redirect("../Devices/Index");
         }
 
 

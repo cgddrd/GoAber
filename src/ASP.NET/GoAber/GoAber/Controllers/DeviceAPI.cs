@@ -81,7 +81,7 @@ namespace GoAber.Controllers
             {
                 RefreshToken(user.Id); // Token needs refreshing
             }
-            return View();
+            return Redirect("../Devices/Index");
         }
 
         protected String GetCurrentUserAccessToken(string userID)
@@ -148,9 +148,9 @@ namespace GoAber.Controllers
 
                 ViewBag.Message = "Redirecting you shortly...";
             }
-            return View();
+            return Redirect("../Devices/Index");
         }
-
+        
 
         public virtual ActionResult Callback(string code)
         {
@@ -159,8 +159,7 @@ namespace GoAber.Controllers
             WebServerClient client = GetClient();
             if (client == null)
             {
-                ViewBag.Message += "Got token<br />";
-                return View();
+                return Redirect("../Devices/Index");
             }
             ViewBag.Message = String.Format("Started Callback with Code: {0}<br />", code);
             try
@@ -202,7 +201,8 @@ namespace GoAber.Controllers
                     db.Devices.Add(device);
                 }
                 db.SaveChanges();
-               // return RedirectToAction("Index"); // redirect to list of actions
+                return Redirect("../Devices/Index");
+                // return RedirectToAction("Index"); // redirect to list of actions
             }
             catch (Exception e)
             {
