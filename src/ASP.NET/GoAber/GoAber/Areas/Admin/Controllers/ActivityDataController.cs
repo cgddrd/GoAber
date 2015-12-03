@@ -54,7 +54,11 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View(activityData.ToPagedList(pageNumber, pageSize));
+
+            ActivityDataListViewModel model = new ActivityDataListViewModel();
+            model.Data = activityData.ToPagedList(pageNumber, pageSize);
+            model.FilterParams = new FilterViewModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -68,7 +72,11 @@ namespace GoAber.Areas.Admin.Controllers
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View("Index", activityData.ToPagedList(pageNumber, pageSize));
+
+            ActivityDataListViewModel model = new ActivityDataListViewModel();
+            model.Data = activityData.ToPagedList(pageNumber, pageSize);
+            model.FilterParams = filterParams;
+            return View("Index", model);
         }
 
 
