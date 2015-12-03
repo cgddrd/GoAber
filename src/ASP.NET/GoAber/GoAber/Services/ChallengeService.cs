@@ -1,5 +1,6 @@
 ﻿using GoAber.App_Code.Scheduling.Jobs;
 using GoAber.Models;
+using GoAber.Models.ViewModels;
 using GoAber.Scheduling;
 using GoAber.WebService.ChallengesWS;
 using System;
@@ -273,6 +274,42 @@ namespace GoAber.Services
                         select d;
             db.UserChallenges.Remove(query.FirstOrDefault());
             db.SaveChanges();
+        }
+
+        public IEnumerable<LeaderViewModel> getCommunityChallengeLeaders(Challenge challenge)
+        {
+            ActivityDataService dataService = new ActivityDataService();
+
+            // first get all acitivty data matching the unit
+            var activityData = dataService.GetAllActivityData();
+            activityData = activityData.Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id);
+
+            IEnumerable<LeaderViewModel> model = challenge.communityChallenges.Select(c => new LeaderViewModel
+            {
+                Name = c.community.name,
+                Total = activityData.Where(a => a.User.Team.communityId == c.communityId).Sum(a => a.value).GetValueOrDefault(),
+                NumMembers = activityData.Where(a => a.User.Team.communityId == c.communityId).GroupBy(a => a.User.Id).Count()
+            });
+
+            return model.OrderByDescending(m => m.Total);
+        }
+
+        public IEnumerable<LeaderViewModel> getGroupChallengeLeaders(Challenge challenge)
+        {
+            ActivityDataService dataService = new ActivityDataService();
+
+            // first get all acitivty data matching the unit
+            var activityData = dataService.GetAllActivityData();
+            activityData = activityData.Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id);
+
+            IEnumerable<LeaderViewModel> model = challenge.groupchallenges.Select(c => new LeaderViewModel
+            {
+                Name = c.group.name,
+                Total = activityData.Where(a => a.User.TeamId == c.group.Id).Sum(a => a.value).GetValueOrDefault(),
+                NumMembers = activityData.Where(a => a.User.TeamId == c.group.Id).GroupBy(a => a.User.Id).Count()
+            });
+
+            return model.OrderByDescending(m => m.Total);
         }
 
 

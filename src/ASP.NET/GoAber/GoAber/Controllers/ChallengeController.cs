@@ -222,20 +222,7 @@ namespace GoAber
         public ActionResult ViewGroupLeaderBoard(int? page, string id)
         {
             Challenge challenge = challengeService.getChallengeById(id);
-            ActivityDataService dataService = new ActivityDataService();
-
-            // first get all acitivty data matching the unit
-            var activityData = dataService.GetAllActivityData();
-            activityData = activityData.Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id);
-
-            IEnumerable<LeaderViewModel> model = challenge.groupchallenges.Select(c => new LeaderViewModel
-            {
-                Name = c.group.name,
-                Total = activityData.Where(a => a.User.TeamId == c.group.Id).Sum(a => a.value).GetValueOrDefault(),
-                NumMembers = activityData.Where(a => a.User.TeamId == c.group.Id).GroupBy(a => a.User.Id).Count()
-            });
-
-            model = model.OrderByDescending(m => m.Total);
+            var model = challengeService.getGroupChallengeLeaders(challenge);
 
             int pageNumber = (page ?? 1);
             return View("LeaderBoard", model.ToPagedList(pageNumber, pageSize));
@@ -244,20 +231,7 @@ namespace GoAber
         public ActionResult ViewCommunityLeaderBoard(int? page, string id)
         {
             Challenge challenge = challengeService.getChallengeById(id);
-            ActivityDataService dataService = new ActivityDataService();
-
-            // first get all acitivty data matching the unit
-            var activityData = dataService.GetAllActivityData();
-            activityData = activityData.Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id);
-
-            IEnumerable<LeaderViewModel> model = challenge.communityChallenges.Select(c => new LeaderViewModel
-            {
-                Name = c.community.name,
-                Total = activityData.Where(a => a.User.Team.communityId == c.communityId).Sum(a => a.value).GetValueOrDefault(),
-                NumMembers = activityData.Where(a => a.User.Team.communityId == c.communityId).GroupBy(a => a.User.Id).Count()
-            });
-
-            model = model.OrderByDescending(m => m.Total);
+            var model = challengeService.getCommunityChallengeLeaders(challenge);
 
             int pageNumber = (page ?? 1);
             return View("LeaderBoard", model.ToPagedList(pageNumber, pageSize));
