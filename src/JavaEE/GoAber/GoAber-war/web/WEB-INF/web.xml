@@ -58,10 +58,14 @@
     </login-config>
     
     -->
+   
+    
     <security-constraint>
-        <display-name>ChallengeArea</display-name>
+        <display-name>UserAccountAuth</display-name>
         <web-resource-collection>
-            <web-resource-name>ChallengePages</web-resource-name>
+            <web-resource-name>UserAccountPages</web-resource-name>
+            <url-pattern>/account/*</url-pattern>
+            <url-pattern>/faces/account/*</url-pattern>
             <url-pattern>/challenge/*</url-pattern>
             <url-pattern>/faces/challenge/*</url-pattern>
         </web-resource-collection>
@@ -73,21 +77,7 @@
     </security-constraint>
     
     <security-constraint>
-        <display-name>UserAccountAuth</display-name>
-        <web-resource-collection>
-            <web-resource-name>UserAccountPages</web-resource-name>
-            <url-pattern>/account/*</url-pattern>
-            <url-pattern>/faces/account/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>administrator</role-name>
-            <role-name>coordinator</role-name>
-            <role-name>participant</role-name>
-        </auth-constraint>
-    </security-constraint>
-    
-    <security-constraint>
-        <display-name>CoordinatorArea</display-name>
+        <display-name>CoordinatorAreaAuth</display-name>
         <web-resource-collection>
             <web-resource-name>CoordinatorPages</web-resource-name>
             <url-pattern>/challenge/coordinator/*</url-pattern>

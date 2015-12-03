@@ -61,7 +61,7 @@ public abstract class DeviceApi extends DefaultApi20
     SessionBean.UserFacade userFacade;
     @ManagedProperty(value="#{authService}")
     AuthService authService;
-    int steps;
+    int steps = 0;
     
     public int getSteps()
     {
