@@ -63,7 +63,11 @@ namespace GoAber
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View(data.ToPagedList(pageNumber, pageSize));
+
+            ActivityDataListViewModel model = new ActivityDataListViewModel();
+            model.Data = data.ToPagedList(pageNumber, pageSize);
+            model.FilterParams = new FilterViewModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -85,7 +89,12 @@ namespace GoAber
 
             var categories = categoryUnitService.CreateCategoryUnitList();
             ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
-            return View("Manage", activityData.ToPagedList(pageNumber, pageSize));
+
+            ActivityDataListViewModel model = new ActivityDataListViewModel();
+            model.Data = activityData.ToPagedList(pageNumber, pageSize);
+            model.FilterParams = filterParams;
+            //note: must manually redirect view here because of the MultipleButton annotation.
+            return View("Manage", model);
         }
 
         // GET: ActivityDatas/Create
@@ -214,7 +223,7 @@ namespace GoAber
             return View("BatchDelete", filterParams);
         }
 
-        // POST: Admin/ActivityData/BatchDelete
+        // POST: ActivityDatas/BatchDelete
         [HttpPost, ActionName("BatchDelete")]
         [ValidateAntiForgeryToken]
         public ActionResult BatchDelete(FilterViewModel filterParams, string message)

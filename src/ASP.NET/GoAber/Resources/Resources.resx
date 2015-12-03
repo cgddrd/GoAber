@@ -535,4 +535,10 @@
   <data name="Challenges_completedgroupChallenges" xml:space="preserve">
     <value>Group Challenges</value>
   </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>To Date</value>
+  </data>
 </root>
