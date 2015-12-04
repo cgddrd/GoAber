@@ -307,9 +307,9 @@
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\LeaderBoardsController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
-    <Compile Include="Migrations\201512012248393_GoAber.cs" />
-    <Compile Include="Migrations\201512012248393_GoAber.Designer.cs">
-      <DependentUpon>201512012248393_GoAber.cs</DependentUpon>
+    <Compile Include="Migrations\201512031642059_GoAber.cs" />
+    <Compile Include="Migrations\201512031642059_GoAber.Designer.cs">
+      <DependentUpon>201512031642059_GoAber.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
@@ -338,16 +338,17 @@
     <Compile Include="Models\ViewModels\GroupLeaderViewModel.cs" />
     <Compile Include="Models\ViewModels\ParticipantLeaderViewModel.cs" />
     <Compile Include="Models\WebServiceAuth.cs" />
-    <Compile Include="Services\UserService.cs" />
     <Compile Include="Service References\RemoteChallengeWS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\ResultService.cs" />
     <Compile Include="WebService\ActivityDataWS\ActivityData.cs" />
     <Compile Include="WebService\AuthHeader.cs" />
     <Compile Include="WebService\ChallengesWS\ChallengeData.cs" />
+    <Compile Include="WebService\ChallengesWS\CommunityData.cs" />
     <Compile Include="WebService\ChallengesWS\GoAberChallengesWS.asmx.cs">
       <DependentUpon>GoAberChallengesWS.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -389,6 +390,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\DataRemovalAuditsController.cs" />
     <Compile Include="WebService\ChallengesWS\Consumer\GoAberChallengeWSConsumer.cs" />
+    <Compile Include="WebService\ChallengesWS\HandleContract.cs" />
     <Compile Include="WebService\ChallengesWS\HandleResult.cs" />
     <Compile Include="WebService\ChallengesWS\ResultData.cs" />
   </ItemGroup>
@@ -478,7 +480,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Service References\RemoteChallengeWS\GoAber.RemoteChallengeWS.CommunityData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <Content Include="Service References\RemoteChallengeWS\GoAber.RemoteChallengeWS.RecieveChallengeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\RemoteChallengeWS\GoAber.RemoteChallengeWS.RecieveCommunityContractResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Service References\RemoteChallengeWS\GoAber.RemoteChallengeWS.RecieveResultResponse.datasource">
@@ -625,7 +633,6 @@
     <Content Include="Views\LeaderBoards\ParticipantLeaderBoard.cshtml" />
     <Content Include="Views\LeaderBoards\Index.cshtml" />
     <Content Include="Views\LeaderBoards\GroupLeaderBoard.cshtml" />
-    <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
     <Content Include="Views\Challenge\AllChallenges.cshtml" />
     <Content Include="Views\Challenge\CreateGroup.cshtml" />
     <Content Include="Views\Challenge\Delete.cshtml" />
@@ -638,6 +645,7 @@
     <Content Include="Views\Results\Edit.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
     <Content Include="Views\Challenge\CreateCommunity.cshtml" />
+    <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
@@ -684,8 +692,8 @@
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512012248393_GoAber.resx">
-      <DependentUpon>201512012248393_GoAber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512031642059_GoAber.resx">
+      <DependentUpon>201512031642059_GoAber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -12,6 +12,7 @@ import SessionBean.CategoryUnitFacade;
 import SessionBean.ChallengeFacade;
 import SessionBean.CommunityFacade;
 import WebServices.ChallengeService;
+import WebServices.HandleContract;
 import WebServices.HandleResult;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -24,7 +25,7 @@ import javax.jws.WebService;
 @WebService(serviceName = "GoAberChallengesWS", portName = "GoAberChallengesWSSoap", endpointInterface = "org.goaberchallenges.GoAberChallengesWSSoap", targetNamespace = "http://goaberchallenges.org/", wsdlLocation = "META-INF/wsdl/GoAberChallengesWS/localhost_50121/WebService/ChallengesWS/GoAberChallengesWS.asmx.wsdl")
 @Stateless
 public class GoAberChallengesWS {
-    
+
     @EJB
     private HandleResult io_handleResult;
     
@@ -40,13 +41,15 @@ public class GoAberChallengesWS {
     @EJB
     private CommunityFacade io_communityFacade;
     
+    @EJB
+    private HandleContract io_handleContract;
+    
     private static Community io_homecom = null;
     
     public GoAberChallengesWS() 
     {
     }
-
-
+    
     public boolean recieveChallenge(org.goaberchallenges.ChallengeData challenge, int userGroup) {
         try {
             if (io_homecom == null) {
@@ -61,7 +64,9 @@ public class GoAberChallengesWS {
             lo_chalmod.setStartTime(challenge.getStartTime().toGregorianCalendar().getTime());
             lo_chalmod.setIdChallenge(challenge.getId());
             io_challengeFacade.create(lo_chalmod);
-            io_chalservice.addCommunityChallenges(null, lo_chalmod, new Integer[]{io_homecom.getIdCommunity(), challenge.getCommunityId()}, false);
+            
+            Community lo_senderCommunity = io_communityFacade.findByAuthToken(challenge.getAuthtoken()).get(0);
+            io_chalservice.addCommunityChallenges(null, lo_chalmod, new Integer[]{io_homecom.getIdCommunity(), lo_senderCommunity.getIdCommunity()}, false);
             //lo_chalmod.setIdChallenge(userGroup); = challenge.id;
             return true;
         } catch (Exception e) {
@@ -83,4 +88,11 @@ public class GoAberChallengesWS {
         }
     }
 
+    public org.goaberchallenges.CommunityData recieveCommunityContract(org.goaberchallenges.CommunityData community) {
+            if (io_homecom == null) {
+               io_homecom = io_communityFacade.findByHome().get(0);
+            }
+            return io_handleContract.RecieveContract(community, io_homecom);
+    }
+    
 }

@@ -41,7 +41,7 @@ public class HandleResult {
     public ResultData RecieveResult(ResultData ao_result, Community ao_homecom) {
         CategoryUnit lo_catunit = catunitFacade.find(ao_result.getCategoryUnitId());
         Challenge lo_challenge = challengeFacade.find(ao_result.getChallengeId());
-        Community lo_community = communityFacade.find(ao_result.getCommunityId());
+        Community lo_community = communityFacade.findByAuthToken(ao_result.getAuthtoken()).get(0);
 
         Result lo_resmodel = new Result();
         lo_resmodel.setCategoryUnitId(lo_catunit);
@@ -56,7 +56,7 @@ public class HandleResult {
         lo_homeresult.setCommunityId(ao_homecom);
 
         List<ActivityData> lo_datalist = activityFacade.getAllInDateRange(
-                lo_challenge.getCategoryUnitId().getIdCategoryUnit().toString(),
+                lo_challenge.getCategoryUnitId().getIdCategoryUnit(),
                 lo_challenge.getStartTime(),
                 lo_challenge.getEndTime()
         );
@@ -69,11 +69,13 @@ public class HandleResult {
         lo_homeresult.setValue(li_value);
         
         resultFacade.create(lo_homeresult);
+        lo_challenge.setComplete(true);
+        challengeFacade.edit(lo_challenge);
 
         ResultData lo_resultdata = new ResultData();
         lo_resultdata.setCategoryUnitId(lo_homeresult.getCategoryUnitId().getIdCategoryUnit());
         lo_resultdata.setChallengeId(lo_homeresult.getChallengeId().getIdChallenge());
-        lo_resultdata.setCommunityId(lo_homeresult.getCommunityId().getIdCommunity());
+        lo_resultdata.setAuthtoken(ao_result.getAuthtoken());
         lo_resultdata.setValue(lo_homeresult.getValue());
         
         return lo_resultdata;

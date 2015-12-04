@@ -27,9 +27,9 @@ namespace GoAber.WebService.ChallengesWS
                                                      select c;
                 Challenge lo_challenge = lo_chalquery.First();
 
-                int li_comid = result.communityId;
+                string ls_authtoken = result.authtoken;
                 IQueryable<Community> lo_comquery = from c in db.Communities
-                                                    where c.Id == li_comid
+                                                    where c.authtoken == ls_authtoken
                                                     select c;
                 Community lo_community = lo_comquery.First();
 
@@ -40,7 +40,7 @@ namespace GoAber.WebService.ChallengesWS
                 lo_resmodel.categoryUnit = lo_catunit;
                 lo_resmodel.challengeId = result.challengeId;
                 lo_resmodel.challenge = lo_challenge;
-                lo_resmodel.communityId = result.communityId;
+                lo_resmodel.communityId = lo_community.Id;
                 lo_resmodel.community = lo_community;
                 lo_resmodel.value = result.value;
 
@@ -57,7 +57,7 @@ namespace GoAber.WebService.ChallengesWS
                 lo_respresdata.categoryUnitId = lo_respres.categoryUnitId;
                 lo_respresdata.challengeId = lo_respres.challengeId;
 
-                lo_respresdata.communityId = lo_homecomquery.First().Id;
+                lo_respresdata.authtoken = result.authtoken;
 
                 lo_respresdata.value = lo_respres.value.Value;
 

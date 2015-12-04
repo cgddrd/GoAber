@@ -88,7 +88,7 @@ public class ChallengeJob extends AbstractJob {
             lo_res.setCategoryUnitId(lo_challenge.getCategoryUnitId());
 
             List<ActivityData> lo_datalist = io_activityFacade.getAllInDateRange(
-                    lo_challenge.getCategoryUnitId().getIdCategoryUnit().toString(), 
+                    lo_challenge.getCategoryUnitId().getIdCategoryUnit(), 
                     lo_challenge.getStartTime(), 
                     lo_challenge.getEndTime()
             );
@@ -98,7 +98,7 @@ public class ChallengeJob extends AbstractJob {
                 li_value += lo_data.getValue();
             }
             lo_res.setValue(li_value);
-
+            lo_challenge.setComplete(true);
             io_resultFacade.create(lo_res);
 
             for (CommunityChallenge lo_comchal : lo_challenge.getCommunityChallengeCollection()) {
@@ -109,6 +109,7 @@ public class ChallengeJob extends AbstractJob {
                 Result lo_foreignResult = io_challengeWSConsumer.sendResult(lo_res, lo_comchal.getCommunityId());
                 io_resultFacade.create(lo_foreignResult);
             }
+            io_challengeFacade.edit(lo_challenge);
         } catch (Exception e) {
             e.printStackTrace();
         }

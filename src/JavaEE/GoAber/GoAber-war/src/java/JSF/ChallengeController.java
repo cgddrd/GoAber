@@ -290,9 +290,10 @@ public class ChallengeController implements Serializable {
 
     public String createCommunity() {
         try {
+            //current.setComplete(false);
+            User currentUser = auth.getActiveUser();
             current.setIdChallenge(challengeService.createChallengeID());
             getFacade().create(current);
-            User currentUser = auth.getActiveUser();
             current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges, true));
             getFacade().edit(current);
             challengeService.AddChallengeJob(current);
@@ -305,9 +306,10 @@ public class ChallengeController implements Serializable {
     }
     public String createGroup() {
         try {
+            //current.setComplete(false);
+            User currentUser = auth.getActiveUser();
             current.setIdChallenge(challengeService.createChallengeID());
             getFacade().create(current);
-            User currentUser = auth.getActiveUser();
             current.setGroupChallengeCollection(challengeService.addGroupChallenges(currentUser, current, groupChallenges));
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeCreated"));

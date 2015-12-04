@@ -213,6 +213,7 @@ namespace GoAber.Services
                     communityId = Int32.Parse(item),
                     challengeId = challenge.Id
                 };
+                
                 if (Int32.Parse(item) == usersGroup)
                 {
                     communityChallenge.startedChallenge = true;
@@ -244,17 +245,19 @@ namespace GoAber.Services
                 }
 
             }
-
-            if (!communities.Contains(usersGroup.ToString()))
+            if (usersGroup > 0)
             {
-                CommunityChallenge communityChallenge = new CommunityChallenge()
+                if (!communities.Contains(usersGroup.ToString()))
                 {
-                    communityId = usersGroup,
-                    challengeId = challenge.Id,
-                    startedChallenge = true
-                };
-                db.CommunityChallenges.Add(communityChallenge);
-                db.SaveChanges();
+                    CommunityChallenge communityChallenge = new CommunityChallenge()
+                    {
+                        communityId = usersGroup,
+                        challengeId = challenge.Id,
+                        startedChallenge = true
+                    };
+                    db.CommunityChallenges.Add(communityChallenge);
+                    db.SaveChanges();
+                }
             }
             return true;
         }

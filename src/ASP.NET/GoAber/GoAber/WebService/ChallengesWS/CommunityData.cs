@@ -5,16 +5,15 @@ using System.Web;
 
 namespace GoAber.WebService.ChallengesWS
 {
-    public class ResultData
+    public class CommunityData
     {
-        public ResultData()
+        public CommunityData()
         {
 
         }
-
-        public int categoryUnitId { get; set; }
-        public int value { get; set; }
-        public string challengeId { get; set; }
+        public string name { get; set; }
+        public string domain { get; set; }
+        public string challengesEndpoint { get; set; }
         public string authtoken { get; set; }
     }
 }

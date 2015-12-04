@@ -36,7 +36,9 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundleResults.ListResultTitle_categoryUnitId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.categoryUnitId}"/>
+                            <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
+                            &nbsp;
+                            <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -48,7 +50,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundleResults.ListResultTitle_communityId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.communityId}"/>
+                            <h:outputText value="#{item.communityId.name}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">

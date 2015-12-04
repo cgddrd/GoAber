@@ -50,5 +50,13 @@ public class CommunityFacade extends AbstractFacade<Community> {
             return null;
         }
     }
+    
+        public List<Community> findByAuthToken(String as_authtoken) {
+        try {
+            return em.createNamedQuery("Community.findByAuthtoken").setParameter("authtoken", as_authtoken).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
 }

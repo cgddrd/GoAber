@@ -34,7 +34,8 @@ namespace GoAber.RemoteChallengeWS {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string nameField;
         
-        private int communityIdField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string authtokenField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -111,15 +112,15 @@ namespace GoAber.RemoteChallengeWS {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=5)]
-        public int communityId {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=5)]
+        public string authtoken {
             get {
-                return this.communityIdField;
+                return this.authtokenField;
             }
             set {
-                if ((this.communityIdField.Equals(value) != true)) {
-                    this.communityIdField = value;
-                    this.RaisePropertyChanged("communityId");
+                if ((object.ReferenceEquals(this.authtokenField, value) != true)) {
+                    this.authtokenField = value;
+                    this.RaisePropertyChanged("authtoken");
                 }
             }
         }
@@ -150,7 +151,8 @@ namespace GoAber.RemoteChallengeWS {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string challengeIdField;
         
-        private int communityIdField;
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string authtokenField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -201,15 +203,108 @@ namespace GoAber.RemoteChallengeWS {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
-        public int communityId {
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string authtoken {
             get {
-                return this.communityIdField;
+                return this.authtokenField;
             }
             set {
-                if ((this.communityIdField.Equals(value) != true)) {
-                    this.communityIdField = value;
-                    this.RaisePropertyChanged("communityId");
+                if ((object.ReferenceEquals(this.authtokenField, value) != true)) {
+                    this.authtokenField = value;
+                    this.RaisePropertyChanged("authtoken");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CommunityData", Namespace="http://goaberchallenges.org/")]
+    [System.SerializableAttribute()]
+    public partial class CommunityData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string domainField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string challengesEndpointField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string authtokenField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string name {
+            get {
+                return this.nameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nameField, value) != true)) {
+                    this.nameField = value;
+                    this.RaisePropertyChanged("name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string domain {
+            get {
+                return this.domainField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.domainField, value) != true)) {
+                    this.domainField = value;
+                    this.RaisePropertyChanged("domain");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string challengesEndpoint {
+            get {
+                return this.challengesEndpointField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.challengesEndpointField, value) != true)) {
+                    this.challengesEndpointField = value;
+                    this.RaisePropertyChanged("challengesEndpoint");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string authtoken {
+            get {
+                return this.authtokenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.authtokenField, value) != true)) {
+                    this.authtokenField = value;
+                    this.RaisePropertyChanged("authtoken");
                 }
             }
         }
@@ -241,6 +336,13 @@ namespace GoAber.RemoteChallengeWS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://goaberchallenges.org/RecieveResult", ReplyAction="*")]
         System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveResultResponse> RecieveResultAsync(GoAber.RemoteChallengeWS.RecieveResultRequest request);
+        
+        // CODEGEN: Generating message contract since element name community from namespace http://goaberchallenges.org/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://goaberchallenges.org/RecieveCommunityContract", ReplyAction="*")]
+        GoAber.RemoteChallengeWS.RecieveCommunityContractResponse RecieveCommunityContract(GoAber.RemoteChallengeWS.RecieveCommunityContractRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://goaberchallenges.org/RecieveCommunityContract", ReplyAction="*")]
+        System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveCommunityContractResponse> RecieveCommunityContractAsync(GoAber.RemoteChallengeWS.RecieveCommunityContractRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -383,6 +485,74 @@ namespace GoAber.RemoteChallengeWS {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RecieveCommunityContractRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveCommunityContract", Namespace="http://goaberchallenges.org/", Order=0)]
+        public GoAber.RemoteChallengeWS.RecieveCommunityContractRequestBody Body;
+        
+        public RecieveCommunityContractRequest() {
+        }
+        
+        public RecieveCommunityContractRequest(GoAber.RemoteChallengeWS.RecieveCommunityContractRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://goaberchallenges.org/")]
+    public partial class RecieveCommunityContractRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public GoAber.RemoteChallengeWS.CommunityData community;
+        
+        public RecieveCommunityContractRequestBody() {
+        }
+        
+        public RecieveCommunityContractRequestBody(GoAber.RemoteChallengeWS.CommunityData community) {
+            this.community = community;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class RecieveCommunityContractResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="RecieveCommunityContractResponse", Namespace="http://goaberchallenges.org/", Order=0)]
+        public GoAber.RemoteChallengeWS.RecieveCommunityContractResponseBody Body;
+        
+        public RecieveCommunityContractResponse() {
+        }
+        
+        public RecieveCommunityContractResponse(GoAber.RemoteChallengeWS.RecieveCommunityContractResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://goaberchallenges.org/")]
+    public partial class RecieveCommunityContractResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public GoAber.RemoteChallengeWS.CommunityData RecieveCommunityContractResult;
+        
+        public RecieveCommunityContractResponseBody() {
+        }
+        
+        public RecieveCommunityContractResponseBody(GoAber.RemoteChallengeWS.CommunityData RecieveCommunityContractResult) {
+            this.RecieveCommunityContractResult = RecieveCommunityContractResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface GoAberChallengesWSSoapChannel : GoAber.RemoteChallengeWS.GoAberChallengesWSSoap, System.ServiceModel.IClientChannel {
     }
@@ -460,6 +630,31 @@ namespace GoAber.RemoteChallengeWS {
             inValue.Body = new GoAber.RemoteChallengeWS.RecieveResultRequestBody();
             inValue.Body.result = result;
             return ((GoAber.RemoteChallengeWS.GoAberChallengesWSSoap)(this)).RecieveResultAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        GoAber.RemoteChallengeWS.RecieveCommunityContractResponse GoAber.RemoteChallengeWS.GoAberChallengesWSSoap.RecieveCommunityContract(GoAber.RemoteChallengeWS.RecieveCommunityContractRequest request) {
+            return base.Channel.RecieveCommunityContract(request);
+        }
+        
+        public GoAber.RemoteChallengeWS.CommunityData RecieveCommunityContract(GoAber.RemoteChallengeWS.CommunityData community) {
+            GoAber.RemoteChallengeWS.RecieveCommunityContractRequest inValue = new GoAber.RemoteChallengeWS.RecieveCommunityContractRequest();
+            inValue.Body = new GoAber.RemoteChallengeWS.RecieveCommunityContractRequestBody();
+            inValue.Body.community = community;
+            GoAber.RemoteChallengeWS.RecieveCommunityContractResponse retVal = ((GoAber.RemoteChallengeWS.GoAberChallengesWSSoap)(this)).RecieveCommunityContract(inValue);
+            return retVal.Body.RecieveCommunityContractResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveCommunityContractResponse> GoAber.RemoteChallengeWS.GoAberChallengesWSSoap.RecieveCommunityContractAsync(GoAber.RemoteChallengeWS.RecieveCommunityContractRequest request) {
+            return base.Channel.RecieveCommunityContractAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<GoAber.RemoteChallengeWS.RecieveCommunityContractResponse> RecieveCommunityContractAsync(GoAber.RemoteChallengeWS.CommunityData community) {
+            GoAber.RemoteChallengeWS.RecieveCommunityContractRequest inValue = new GoAber.RemoteChallengeWS.RecieveCommunityContractRequest();
+            inValue.Body = new GoAber.RemoteChallengeWS.RecieveCommunityContractRequestBody();
+            inValue.Body.community = community;
+            return ((GoAber.RemoteChallengeWS.GoAberChallengesWSSoap)(this)).RecieveCommunityContractAsync(inValue);
         }
     }
 }

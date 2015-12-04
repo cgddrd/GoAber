@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
 --
--- Host: localhost    Database: goaber
+-- Host: localhost    Database: goaber2
 -- ------------------------------------------------------
 -- Server version	5.5.42
 
@@ -15,11 +15,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-USE `goaber`;
+USE `goaber2`;
 
 LOCK TABLES `Community` WRITE;
 /*!40000 ALTER TABLE `Community` DISABLE KEYS */;
-INSERT INTO `Community` VALUES (1, 'AberUni','http://localhost:8080/','1','GoAberChallengesWS/GoAberChallengesWS', null);
+INSERT INTO `Community` VALUES (1, 'AberUni','http://localhost:8080/','1','goaber2ChallengesWS/goaber2ChallengesWS', null);
 /*!40000 ALTER TABLE `Community` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,10 +66,10 @@ INSERT INTO `tasktype` VALUES ('Fitbit', 'Fitbit'),('Challenge', 'Challenge');
 UNLOCK TABLES;
 
 
-INSERT INTO `goaber`.`community` (`name`,`domain`,`home`,`challengesEndPoint`) VALUES ('AberUni','http://localhost:8080/','1','GoAberChallengesWS/GoAberChallengesWS');
+INSERT INTO `goaber2`.`community` (`name`,`domain`,`home`,`challengesEndPoint`) VALUES ('AberUni','http://localhost:8080/','1','goaber2ChallengesWS/goaber2ChallengesWS');
 
-INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('AberCompSci', '1');
-INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('AberIBERS', '1');
+INSERT INTO `goaber2`.`team` (`name`, `communityId`) VALUES ('AberCompSci', '1');
+INSERT INTO `goaber2`.`team` (`name`, `communityId`) VALUES ('AberIBERS', '1');
 
 
 --
@@ -104,8 +104,8 @@ INSERT INTO `devicetype` (`name`,`tokenEndpoint`,`consumerKey`,`consumerSecret`,
 
 -- Dump completed on 2015-11-10 14:41:17
 
-INSERT INTO `goaber`.`category` (`name`) VALUES ('Walking');
+INSERT INTO `goaber2`.`category` (`name`) VALUES ('Walking');
 
-INSERT INTO `goaber`.`unit` (`name`) VALUES ('steps');
+INSERT INTO `goaber2`.`unit` (`name`) VALUES ('steps');
 
-INSERT INTO `goaber`.`categoryunit` (`categoryId`, `unitId`) VALUES ('1', '1');
+INSERT INTO `goaber2`.`categoryunit` (`categoryId`, `unitId`) VALUES ('1', '1');

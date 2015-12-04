@@ -459,7 +459,6 @@ C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\log4net.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Web.Optimization.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.xml
-C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Security.xml
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Owin.Security.Cookies.xml

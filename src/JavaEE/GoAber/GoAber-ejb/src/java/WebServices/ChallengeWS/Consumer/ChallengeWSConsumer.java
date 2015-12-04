@@ -11,6 +11,7 @@ import GoAberDatabase.Community;
 import GoAberDatabase.CommunityChallenge;
 import GoAberDatabase.Result;
 import SessionBean.CategoryUnitFacade;
+import SessionBean.CommunityFacade;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
 import org.goaberchallenges.ChallengeData;
+import org.goaberchallenges.CommunityData;
 import org.goaberchallenges.GoAberChallengesWS;
 import org.goaberchallenges.GoAberChallengesWSSoap;
 import org.goaberchallenges.ResultData;
@@ -37,10 +39,12 @@ import org.goaberchallenges.ResultData;
  *
  * @author Dan
  */
+
 @Stateless
 public class ChallengeWSConsumer {
 
-    
+
+        
     public ChallengeWSConsumer() {
 
     }
@@ -59,9 +63,10 @@ public class ChallengeWSConsumer {
                     lo_chaldata.setEndTime(getGregorianDate(ao_challenge.getEndTime()));
                 }
                 lo_chaldata.setStartTime(getGregorianDate(ao_challenge.getStartTime()));
-                lo_chaldata.setCommunityId(lo_comchal.getCommunityId().getIdCommunity());
                 lo_chaldata.setId(ao_challenge.getIdChallenge());
                 lo_chaldata.setName(ao_challenge.getName());
+                
+                lo_chaldata.setAuthtoken(lo_comchal.getCommunityId().getAuthtoken());
 
                 boolean lb_res = getSOAPClient(lo_comchal.getCommunityId()).recieveChallenge(lo_chaldata, ai_userGroup);
                 System.out.println("Service returned: " + lb_res);
@@ -81,18 +86,30 @@ public class ChallengeWSConsumer {
         ResultData lo_resdata = new ResultData();
         lo_resdata.setCategoryUnitId(ao_res.getCategoryUnitId().getIdCategoryUnit());
         lo_resdata.setChallengeId(ao_res.getChallengeId().getIdChallenge());
-        lo_resdata.setCommunityId(ao_res.getCommunityId().getIdCommunity());
+        lo_resdata.setAuthtoken(ao_sendTo.getAuthtoken());
         lo_resdata.setValue(ao_res.getValue());
-        
+
         ResultData lo_resultresp = getSOAPClient(ao_sendTo).recieveResult(lo_resdata);
-        
+
         Result lo_response = new Result();
         lo_response.setCommunityId(ao_sendTo);
         lo_response.setChallengeId(ao_res.getChallengeId());
         lo_response.setCategoryUnitId(ao_res.getCategoryUnitId());
         lo_response.setValue(lo_resultresp.getValue());
-        
+
         return lo_response;
+    }
+
+    public Community RequestContract(Community ao_community, Community ao_homecom) {
+        CommunityData ao_comdata = new CommunityData();
+        ao_comdata.setChallengesEndpoint(ao_homecom.getChallengesEndpoint());
+        ao_comdata.setDomain(ao_homecom.getDomain());
+        ao_comdata.setName(ao_homecom.getName());
+        CommunityData lo_responsedata = getSOAPClient(ao_community).recieveCommunityContract(ao_comdata);
+        ao_community.setAuthtoken(lo_responsedata.getAuthtoken());
+
+        return ao_community;
+
     }
 
     private XMLGregorianCalendar getGregorianDate(Date ada_date) {

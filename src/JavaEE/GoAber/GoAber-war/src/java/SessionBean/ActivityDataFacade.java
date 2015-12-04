@@ -50,7 +50,7 @@ public class ActivityDataFacade extends AbstractFacade<ActivityData> {
                     .getResultList();
     }
     
-    public List<ActivityData> getAllInDateRange(String unit, Date startDate, Date endDate) {
+    public List<ActivityData> getAllInDateRange(int unit, Date startDate, Date endDate) {
         return em.createNamedQuery("ActivityData.getAllInDateRange")
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)

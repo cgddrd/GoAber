@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using GoAber.Models;
 using PagedList;
 using WebGrease.Css.Extensions;
+using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -16,6 +17,7 @@ namespace GoAber.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private const int pageSize = 100;
+        private CommunitiesService io_comservice = new CommunitiesService();
 
         // GET: Admin/Communities
         public ActionResult Index(int? page)
@@ -55,6 +57,7 @@ namespace GoAber.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                community = io_comservice.RequestContract(community);
                 db.Communities.Add(community);
                 db.SaveChanges();
                 return RedirectToAction("Index");
