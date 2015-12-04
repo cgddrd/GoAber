@@ -12,6 +12,7 @@ import GoAberDatabase.GroupChallenge;
 import GoAberDatabase.Team;
 import GoAberDatabase.User;
 import GoAberDatabase.UserChallenge;
+import SessionBean.ActivityDataFacade;
 import SessionBean.ChallengeFacade;
 import SessionBean.CommunityChallengeFacade;
 import SessionBean.CommunityFacade;
@@ -24,7 +25,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -43,6 +43,7 @@ public class ChallengeService {
     @EJB CommunityFacade communityFacade;//=lookupCommunityFacadeBean();
     @EJB TeamFacade groupFacade;// = lookupTeamFacadeFacadeBean();
     @EJB UserChallengeFacade userChallengeFacade;// = lookupUserChallengeFacadeFacadeBean();
+    @EJB ActivityDataFacade activityDataFacade;
 
     public ChallengeService(){
         ejbFacade = lookupChallengeFacadeBean();

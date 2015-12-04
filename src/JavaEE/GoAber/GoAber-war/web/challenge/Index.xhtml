@@ -88,6 +88,10 @@
                             <h:commandLink action="#{challengeController.prepareEdit}" value="#{bundle.ListChallengeEditLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{challengeController.destroy}" value="#{bundle.ListChallengeDestroyLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{challengeController.prepareGroupLeaderBoard(item)}" value="#{bundle.ListChallengeGroupLeadersLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{challengeController.prepareCommunityLeaderBoard(item)}" value="#{bundle.ListChallengeCommunityLeadersLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
