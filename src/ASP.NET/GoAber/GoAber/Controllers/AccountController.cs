@@ -160,6 +160,7 @@ namespace GoAber.Controllers
 
             var teamList = teamsService.CreateTeamList();
             ViewBag.TeamList = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
+
             return View();
         }
 
@@ -194,6 +195,10 @@ namespace GoAber.Controllers
                 }
                 AddErrors(result);
             }
+
+            // CG - Make sure that we re-generate the team SelectList incase something fails and the user gets redirected back to the register page.
+            var teamList = teamsService.CreateTeamList();
+            ViewBag.TeamList = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
 
             // If we got this far, something failed, redisplay form
             return View(model);

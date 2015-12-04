@@ -221,8 +221,7 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BatchDelete(FilterViewModel filterParams, string message)
         {
-            ApplicationUserService userService = new ApplicationUserService();
-            ApplicationUser user = userService.GetUserById(User.Identity.GetUserId());
+            ApplicationUser user = ApplicationUserService.GetApplicationUserById(User.Identity.GetUserId());
 
             if (user == null)
             {
