@@ -353,7 +353,7 @@ public class UserController implements Serializable {
             }
         }
         
-        return "Index";
+        return "View";
     }
     
     /**
