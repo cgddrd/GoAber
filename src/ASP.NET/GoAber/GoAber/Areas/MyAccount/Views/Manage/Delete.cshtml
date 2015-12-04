@@ -1,0 +1,20 @@
+﻿@model GoAber.Models.ApplicationUser
+
+@{
+    ViewBag.Title = Resources.Delete_User_Title;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@Resources.Delete_User_Prompt</h3>
+<p>@Html.Encode(Resources.Delete_User_Prompt_Warning)</p>
+<div>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@Resources.Delete_User_Prompt_Button" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

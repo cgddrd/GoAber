@@ -21,11 +21,10 @@
                 <div class="btn-group" role="group" >
                     <h:commandLink class="btn btn-default" action="#{userController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
                     <h:commandLink class="btn btn-default" action="#{userController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
-                    <!--<h:commandLink class="btn btn-default" action="{userController.prepareBatchDestroy}" value="{admin.ListActivityDataBatchDeleteLink}"/>-->
                 </div>
 
                 <p:dataTable id="usersTable" class="table" value="#{userController.items}" 
-                             emptyMessage="#{admin.ActivityDataNoItems}"
+                             emptyMessage="#{bundle.UserDataTableNoItems}"
                              filteredValue="#{userController.filteredItems}" widgetVar="usersTable" var="item"
                              rows="100" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

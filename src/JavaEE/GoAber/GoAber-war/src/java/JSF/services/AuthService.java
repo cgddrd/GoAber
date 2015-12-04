@@ -1,8 +1,6 @@
 package JSF.services;
 
-import GoAberDatabase.ActivityData;
 import GoAberDatabase.User;
-import JSF.exceptions.NonexistentEntityException;
 import JSF.util.JsfUtil;
 import java.io.IOException;
 import java.io.Serializable;
@@ -37,8 +35,8 @@ public class AuthService implements Serializable {
 
     @EJB
     private SessionBean.UserFacade userFacade;
-    
-    
+
+
     @PostConstruct
     public void init() {
 
@@ -47,7 +45,7 @@ public class AuthService implements Serializable {
         // CG - Removed this temporarily to prevent forwarding issues. - Need to look at this again.
         //forwardURL = (String) externalContext.getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
         if (forwardURL == null) {
-            forwardURL = externalContext.getRequestContextPath() + "/faces/index.xhtml";
+            forwardURL = externalContext.getRequestContextPath() + "/index.xhtml";
 
         } else {
 
@@ -59,7 +57,7 @@ public class AuthService implements Serializable {
 
         }
     }
-    
+
     public User getActiveUser() {
         activeUser = userFacade.find(activeUser.getIdUser());
 
@@ -78,6 +76,15 @@ public class AuthService implements Serializable {
 
     }
 
+    public void redirectLogin() {
+        try {
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect(externalContext.getRequestContextPath() + "/login/index.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(AuthService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public String getUsername() {
         return username;
     }
@@ -92,6 +99,11 @@ public class AuthService implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isUserIdActiveUser(User currentUser) {
+
+        return isLoggedIn() && (this.activeUser.getIdUser() == currentUser.getIdUser());
     }
 
     public boolean isLoggedIn() {
@@ -117,12 +129,12 @@ public class AuthService implements Serializable {
     public void checkLogoutStatus() {
 
         Map<String, String> urlParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        
+
         // CG - Check to see if the logout was normal, or is it was triggered by an error on the active user's account.
         if (urlParameterMap.containsKey("logoutStatus")) {
 
             String logoutStatusParam = urlParameterMap.get("logoutStatus");
-            
+
             if (logoutStatusParam.equals("error")) {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("LogoutDueToError"));
             }
@@ -146,6 +158,7 @@ public class AuthService implements Serializable {
 
             this.activeUser = (User) userFacade.findUserByEmailOrNull(this.username);
 
+            // JSON API requires the user to being the Session Map
             externalContext.getSessionMap().put("loggedInUser", this.activeUser);
             externalContext.redirect(forwardURL);
 
@@ -165,26 +178,32 @@ public class AuthService implements Serializable {
 
     public void logoutUser(boolean logoutDueToError) throws IOException {
 
-        // CG - Invalidate the current session (i.e. log the user out.)
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
 
-        /* 
+        // CG - Invalidate the current session (i.e. log the user out.)
+        externalContext.invalidateSession();
+
+        /*
          * CG - In order to prevent getting an 'IllegalStateException' when trying to use 'faces-redirect=true' after logging out,
          * we apparantly need to make sure that we create a new session instance BEFORE trying to re-direct the page.
-         * 
+         *
          * See: http://stackoverflow.com/a/9687525 for more information.
          */
-        FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+        externalContext.getSession(true);
+        externalContext.getFlash().setKeepMessages(true);
+
+        // CG - Make sure to remove the loggedInUser key from the session store once we log the user out.
+        // On second thoughts, do we need to do this at all if we are creating an entrely new session?
+        //externalContext.getSessionMap().remove("loggedInUser");
 
         if (logoutDueToError) {
-
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login/index.xhtml?faces-redirect=true&logoutStatus=error");
+            externalContext.redirect(externalContext.getRequestContextPath() + "/login/index.xhtml?faces-redirect=true&logoutStatus=error");
 
         } else {
 
-            // CG - Redirect to homepage once the user has logged out. (Use 'faces-redirect=true' to ensure we remain in the scope of the current application root URL.)
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login/index.xhtml?faces-redirect=true&logoutStatus=success");
+            // CG - Redirect to login page once the user has logged out. (Use 'faces-redirect=true' to ensure we remain in the scope of the current application root URL.)
+            externalContext.redirect(externalContext.getRequestContextPath() + "/login/index.xhtml?faces-redirect=true&logoutStatus=success");
 
         }
 
