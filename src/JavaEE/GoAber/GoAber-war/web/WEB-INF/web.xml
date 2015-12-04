@@ -15,19 +15,10 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <!--CG - Defining the user session logout servlet.-->
-    <servlet>
-        <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>JSF.LogoutServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-    <!--CG - Defining the URL routing for the logout servlet.-->
-    <servlet-mapping>
-        <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -35,7 +26,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
     
     <!--CG - Setting up of the form-based user authentication.-->    
@@ -44,8 +35,8 @@
         <auth-method>FORM</auth-method>
         <realm-name>GoAberRealm</realm-name>
         <form-login-config>
-            <form-login-page>/faces/login/index.xhtml</form-login-page>
-            <form-error-page>/faces/login/error.xhtml</form-error-page>
+            <form-login-page>/login/index.xhtml</form-login-page>
+            <form-error-page>/login/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
 
@@ -63,8 +54,7 @@
         <display-name>UserAccountAuth</display-name>
         <web-resource-collection>
             <web-resource-name>UserAccountPages</web-resource-name>
-            <url-pattern>/account/*</url-pattern>
-            <url-pattern>/faces/account/*</url-pattern>
+            <url-pattern>/myaccount/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>administrator</role-name>
@@ -78,17 +68,28 @@
         <web-resource-collection>
             <web-resource-name>AdminPages</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
-            <url-pattern>/faces/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-constraint>
+        <display-name>ChallengesAuth</display-name>
+        <web-resource-collection>
+            <web-resource-name>ChallengesPages</web-resource-name>
+            <url-pattern>/challenge/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>administrator</role-name>
+            <role-name>coordinator</role-name>
         </auth-constraint>
     </security-constraint>
 
     <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
     <error-page>
         <error-code>403</error-code>
-        <location>/faces/index.xhtml</location>
+        <location>/index.xhtml</location>
     </error-page>
     
     <servlet>

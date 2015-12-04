@@ -33,23 +33,24 @@
                         <li><h:link outcome="/index" value="Home"/></li>
                         <li><h:link outcome="/activityData/WeeklySummary" value="Activity Data"/></li>
                         <li><h:link outcome="/leaderBoards/Index" value="#{bundle.LeaderBoards}"/></li>
-                        
+
                         <c:choose>
-                            
+
+                            <c:when test="#{authService.loggedIn}">
+                                <li><h:link outcome="/activityData/WeeklySummary" value="Activity Data"/></li>
+                                <li><h:link outcome="/webServiceAuth/index" value="Web Service Tokens"/></li>
+                            </c:when>
+
+                        </c:choose>
+
+                        <c:choose>
+
                             <c:when test="#{authService.admin}">
                                 <li><h:link outcome="/admin/index" value="Admin"/></li>
                             </c:when>
-                            
+
                         </c:choose>
-                        
-                        <c:choose>
-                            
-                            <c:when test="#{authService.loggedIn}">
-                                <li><h:link outcome="/webServiceAuth/index" value="Web Service Tokens"/></li>
-                            </c:when>
-                            
-                        </c:choose>
-                        
+
                     </ul>
 
                     <h:form>
@@ -59,21 +60,21 @@
                             <c:choose>
 
                                 <c:when test="#{authService.loggedIn}">
-                                    
+
                                     <!-- CG - Either use 'authService.loggedInUser' to get email address, or access 'loggedInUser' session object to access all user properties. -->
                                     <li><h:commandLink action="#{userController.prepareAccountView()}" value="#{authBundle.AuthenticationNavbarUsername_Label} #{authService.activeUser.nickname}!"/></li>
 
                                     <li><h:commandLink action="#{authService.logoutUser(false)}" value="#{authBundle.AuthenticationLogoutButton_Label}"/></li>
-                                
-                                </c:when> 
+
+                                </c:when>
 
                                 <c:otherwise>
-                                    
+
                                     <ul class="nav navbar-nav navbar-right">
                                         <li><h:link outcome="/Register" value="Register"/></li>
                                         <li><h:link outcome="/login/index" value="Login"/></li>
                                     </ul>
-                                    
+
                                 </c:otherwise>
 
                             </c:choose>
