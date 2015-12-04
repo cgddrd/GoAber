@@ -1,4 +1,5 @@
-﻿@model GoAber.Models.ViewModels.FilterViewModel
+﻿@using GoAber.Models.ViewModels;
+@model FilterViewModel
 
 <h3>Filter</h3>
 
@@ -9,28 +10,29 @@
     // Slight hack to hide email for non-admins
     if (this.ViewData["Action"].ToString() == "Index")
     {
-        @Html.LabelFor(x => x.Email, "Email: ", htmlAttributes: new { @class = "control-label" })
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
         <div class="form-group">
-            @Html.EditorFor(x => x.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
     }
 
-    @Html.LabelFor(x => x.CategoryUnitId, "Unit: ", htmlAttributes: new { @class = "control-label" })
+    @Html.LabelFor(model => model.CategoryUnitId, "Category", htmlAttributes: new { @class = "control-label" })
     <div class="form-group">
-        @Html.DropDownListFor(x => x.CategoryUnitId, (IEnumerable<SelectListItem>)ViewBag.categoryUnits, string.Empty, htmlAttributes: new { @class = "form-control" })
-        @Html.ValidationMessage("idCategoryUnit", "", new { @class = "text-danger" })
+        @Html.DropDownList("categoryUnitId", (IEnumerable<SelectListItem>)ViewBag.categoryUnits, string.Empty, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CategoryUnitId, "", new { @class = "text-danger" })
     </div>
 
-    @Html.LabelFor(x => x.FromDate, "From: ", htmlAttributes: new { @class = "control-label" })
+    @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label" })
     <div class="form-group">
-        @Html.TextBoxFor(x => x.FromDate, ViewData.TemplateInfo.FormattedModelValue.ToString(), new { type = "date", @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.FromDate, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control", } })
+        @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
     </div>
 
-    @Html.LabelFor(x => x.ToDate, "To: ", htmlAttributes: new { @class = "control-label" })
+    @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label" })
     <div class="form-group">
-        @Html.TextBoxFor(x => x.ToDate, ViewData.TemplateInfo.FormattedModelValue.ToString(), new { type = "date", @class = "form-control" })
-        @Html.ValidationMessageFor(x => x.ToDate, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control", } })
+        @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">

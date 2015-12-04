@@ -50,13 +50,7 @@ public class ActivityDataFacade extends AbstractFacade<ActivityData> {
                     .getResultList();
     }
     
-    public List<ActivityData> getAllForGroup(int id, String unit) {
-        return em.createNamedQuery("ActivityData.findActivityDataForGroup")
-                    .setParameter("id", id)
-                    .setParameter("unit", unit)
-                    .getResultList();
-    }
-    
+<<<<<<< HEAD
     public List<ActivityData> getAllInDateRange(int unit, Date startDate, Date endDate) {
         return em.createNamedQuery("ActivityData.getAllInDateRange")
                 .setParameter("startDate", startDate)
@@ -65,4 +59,12 @@ public class ActivityDataFacade extends AbstractFacade<ActivityData> {
                 .getResultList();
     }
 
+=======
+    public List<ActivityData> getAllForGroup(int id, String unit) {
+        return em.createNamedQuery("ActivityData.findActivityDataForGroup")
+                    .setParameter("id", id)
+                    .setParameter("unit", unit)
+                    .getResultList();
+    }
+>>>>>>> develop
 }
