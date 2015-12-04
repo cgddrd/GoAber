@@ -54,7 +54,7 @@
             </td>
             <td>
                 @Html.ActionLink("Leave Challenge", "LeaveChallenge", new { id = item.Id })
-
+                @Html.ActionLink("View Leaderboard", "ViewGroupLeaderBoard", new { id = item.Id })
             </td>
         </tr>
     }
@@ -109,7 +109,7 @@
             </td>
             <td>
                 @Html.ActionLink("Leave Challenge", "LeaveChallenge", new { id = item.Id })
-
+                @Html.ActionLink("View Leaderboard", "ViewCommunityLeaderBoard", new { id = item.Id })
             </td>
         </tr>
     }
@@ -170,6 +170,7 @@
             </td>
             <td>
                 @Html.ActionLink("Enter Challenge", "EnterChallenge", new { id = item.Id })
+                @Html.ActionLink("View Leaderboard", "ViewGroupLeaderBoard", new { id = item.Id })
             </td>
         </tr>
     }
@@ -229,6 +230,7 @@
             
             <td>
                 @Html.ActionLink("Enter Challenge", "EnterChallenge", new { id = item.Id })
+                @Html.ActionLink("View Leaderboard", "ViewCommunityLeaderBoard", new { id = item.Id })
             </td>
         </tr>
     }
@@ -288,6 +290,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Enter Challenge", "EnterChallenge", new { id = item.Id })
+                    @Html.ActionLink("View Leaderboard", "ViewGroupLeaderBoard", new { id = item.Id })
                 </td>
             </tr>
         }
@@ -345,6 +348,7 @@
 
                 <td>
                     @Html.ActionLink("Enter Challenge", "EnterChallenge", new { id = item.Id })
+                    @Html.ActionLink("View Leaderboard", "ViewCommunityLeaderBoard", new { id = item.Id })
                 </td>
             </tr>
         }

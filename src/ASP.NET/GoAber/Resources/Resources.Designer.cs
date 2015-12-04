@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Challenges.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_Challenges {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_Challenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact.
         /// </summary>
         public static string _Layout_cshtml_Execute_Contact {
@@ -832,6 +841,15 @@ namespace Resources {
         public static string LeaderBoards_IndexParticipantTitle {
             get {
                 return ResourceManager.GetString("LeaderBoards_IndexParticipantTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leader Board.
+        /// </summary>
+        public static string LeaderBoards_LeaderBoardTitle {
+            get {
+                return ResourceManager.GetString("LeaderBoards_LeaderBoardTitle", resourceCulture);
             }
         }
         
