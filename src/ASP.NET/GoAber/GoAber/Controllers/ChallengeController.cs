@@ -71,7 +71,7 @@ namespace GoAber
         }
 
         // GET: Challenge/Create
-        public ActionResult Create()
+        public ActionResult CreateCommunity()
         {
             ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
             IEnumerable< SelectListItem > communities = communitiesService.getAllCommunities().Select(c => new SelectListItem
@@ -80,7 +80,19 @@ namespace GoAber
                 Text = c.name
             });
             ViewBag.communities = communities;
-             IEnumerable<SelectListItem> groups = teamService.GetTeamsByCommunity(appUser.Team.community).Select(c => new SelectListItem
+            
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
+
+            return View();
+        }
+
+        public ActionResult CreateGroup()
+        {
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+            
+            IEnumerable<SelectListItem> groups = teamService.GetTeamsByCommunity(appUser.Team.community).Select(c => new SelectListItem
             {
                 Value = c.Id.ToString(),
                 Text = c.name
@@ -98,22 +110,31 @@ namespace GoAber
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,categoryUnitId,startTime,endTime,name")] Challenge challenge, string[] groupChallenges, string[] communityChallenges)
+        public ActionResult CreateGroup([Bind(Include = "Id,categoryUnitId,startTime,endTime,name")] Challenge challenge, string[] groupChallenges)
         {
             ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
                 challengeService.createChallenge(challenge);
 
-                if ( groupChallenges != null )
-                {
-                    challengeService.addChallengeToGroups(challenge, groupChallenges, user.Team.Id);
-                }
+                challengeService.addChallengeToGroups(challenge, groupChallenges, user.Team.Id);
 
-                if (communityChallenges != null )
-                {
-                    challengeService.addChallengeToCommunities(challenge, communityChallenges, user.Team.community.Id);
-                }
+                return RedirectToAction("Index");
+            }
+            return View(challenge);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateCommunity([Bind(Include = "Id,categoryUnitId,startTime,endTime,name")] Challenge challenge, string[] communityChallenges)
+        {
+            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+            if (ModelState.IsValid)
+            {
+                challengeService.createChallenge(challenge);
+                
+                challengeService.addChallengeToCommunities(challenge, communityChallenges, user.Team.community.Id);
+                
                 return RedirectToAction("Index");
             }
             return View(challenge);

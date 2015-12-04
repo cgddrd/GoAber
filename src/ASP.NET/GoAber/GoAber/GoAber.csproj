@@ -307,7 +307,16 @@
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\LeaderBoardsController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
+    <Compile Include="Migrations\201512022231591_Init.cs" />
+    <Compile Include="Migrations\201512022231591_Init.Designer.cs">
+      <DependentUpon>201512022231591_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512022234189_Init1.cs" />
+    <Compile Include="Migrations\201512022234189_Init1.Designer.cs">
+      <DependentUpon>201512022234189_Init1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Result.cs" />
+    <Compile Include="Models\ViewModels\ActivityDataListViewModel.cs" />
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
@@ -583,12 +592,10 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Areas\MyAccount\Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\ChangePassword.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\EditAccount.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\ManageLogins.cshtml" />
     <Content Include="Areas\MyAccount\Views\Manage\SetPassword.cshtml" />
-    <Content Include="Areas\MyAccount\Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
@@ -625,7 +632,7 @@
     <Content Include="Views\LeaderBoards\GroupLeaderBoard.cshtml" />
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
     <Content Include="Views\Challenge\AllChallenges.cshtml" />
-    <Content Include="Views\Challenge\Create.cshtml" />
+    <Content Include="Views\Challenge\CreateGroup.cshtml" />
     <Content Include="Views\Challenge\Delete.cshtml" />
     <Content Include="Views\Challenge\Details.cshtml" />
     <Content Include="Views\Challenge\Edit.cshtml" />
@@ -635,6 +642,7 @@
     <Content Include="Views\Results\Details.cshtml" />
     <Content Include="Views\Results\Edit.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
+    <Content Include="Views\Challenge\CreateCommunity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
@@ -679,6 +687,14 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512022231591_Init.resx">
+      <DependentUpon>201512022231591_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512022234189_Init1.resx">
+      <DependentUpon>201512022234189_Init1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,8 +1,10 @@
 
 package JSF.services;
 
+import GoAberDatabase.Team;
 import GoAberDatabase.User;
 import SessionBean.UserFacade;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -20,6 +22,14 @@ import javax.ejb.Stateless;
 public class UserService {
     @EJB
      UserFacade ejbFacade;
+    
+    /** Get all users in the database
+     * 
+     * @return list of activity data items
+     */
+    public List<User> findAll() {
+        return getFacade().findAll();
+    }
     
     /** Get a user by their id.
      * 

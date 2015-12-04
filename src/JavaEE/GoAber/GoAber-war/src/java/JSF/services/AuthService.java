@@ -146,7 +146,8 @@ public class AuthService implements Serializable {
 
             this.activeUser = (User) userFacade.findUserByEmailOrNull(this.username);
 
-            //externalContext.getSessionMap().put("loggedInUser", this.activeUser);
+            // JSON API requires the user to being the Session Map
+            externalContext.getSessionMap().put("loggedInUser", this.activeUser);
             externalContext.redirect(forwardURL);
 
         } catch (ServletException e) {
