@@ -308,11 +308,8 @@
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\LeaderBoardsController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
-    <Compile Include="Migrations\201511302059087_init.cs" />
-    <Compile Include="Migrations\201511302059087_init.Designer.cs">
-      <DependentUpon>201511302059087_init.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\Result.cs" />
+    <Compile Include="Models\ViewModels\ActivityDataListViewModel.cs" />
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
@@ -683,11 +680,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201511302059087_init.resx">
-      <DependentUpon>201511302059087_init.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
