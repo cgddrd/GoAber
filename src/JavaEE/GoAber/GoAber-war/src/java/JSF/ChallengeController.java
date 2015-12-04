@@ -8,6 +8,7 @@ import GoAberDatabase.GroupChallenge;
 import GoAberDatabase.Team;
 import GoAberDatabase.Unit;
 import GoAberDatabase.User;
+import GoAberDatabase.UserChallenge;
 import JSF.services.ActivityDataService;
 import JSF.services.AuthService;
 import JSF.util.JsfUtil;
@@ -374,7 +375,14 @@ public class ChallengeController implements Serializable {
         for (GroupChallenge tc : challenge.getGroupChallengeCollection()) {
             Team team = tc.getGroupId();
             Unit unit = challenge.getCategoryUnitId().getUnitId();
-            List<ActivityData> data = dataService.findAllForGroupInDateRange(team, unit, challenge.getStartTime(), challenge.getEndTime());
+            
+            List<ActivityData> data = new ArrayList<>();
+            for(UserChallenge uc : challenge.getUserChallengeCollection()) {
+                User user = uc.getUserId();
+                List<ActivityData> sublist = dataService.findAllForGroupInDateRange(team, user, unit, challenge.getStartTime(), challenge.getEndTime());
+                data.addAll(sublist);
+            }
+            
             
             LeaderItemViewModel model = new LeaderItemViewModel(team.getName(), data);
             viewModels.add(model);
@@ -392,7 +400,13 @@ public class ChallengeController implements Serializable {
         for (CommunityChallenge cc : challenge.getCommunityChallengeCollection()) {
             Community community = cc.getCommunityId();
             Unit unit = challenge.getCategoryUnitId().getUnitId();
-            List<ActivityData> data = dataService.findAllForCommunityInDateRange(community, unit, challenge.getStartTime(), challenge.getEndTime());
+           
+            List<ActivityData> data = new ArrayList<>();
+            for(UserChallenge uc : challenge.getUserChallengeCollection()) {
+                User user = uc.getUserId();
+                List<ActivityData> sublist = dataService.findAllForCommunityInDateRange(community, user, unit, challenge.getStartTime(), challenge.getEndTime());
+                data.addAll(sublist);
+            }
             
             LeaderItemViewModel model = new LeaderItemViewModel(community.getName(), data);
             viewModels.add(model);

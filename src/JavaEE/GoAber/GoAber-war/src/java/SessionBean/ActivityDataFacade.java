@@ -57,18 +57,20 @@ public class ActivityDataFacade extends AbstractFacade<ActivityData> {
                     .getResultList();
     }
     
-    public List<ActivityData> getAllForGroupInDateRange(int id, String unit, Date startDate, Date endDate) {
+    public List<ActivityData> getAllForGroupInDateRange(int id, int userId, String unit, Date startDate, Date endDate) {
         return em.createNamedQuery("ActivityData.findActivityDataForGroupInDateRange")
             .setParameter("id", id)
+            .setParameter("userId", userId)
             .setParameter("unit", unit)
             .setParameter("startDate", startDate)
             .setParameter("endDate", endDate)
             .getResultList();
     }
     
-    public List<ActivityData> getAllForCommunityInDateRange(int id, String unit, Date startDate, Date endDate) {
+    public List<ActivityData> getAllForCommunityInDateRange(int id, int userId, String unit, Date startDate, Date endDate) {
         return em.createNamedQuery("ActivityData.findActivityDataForCommunityInDateRange")
             .setParameter("id", id)
+            .setParameter("userId", userId)
             .setParameter("unit", unit)
             .setParameter("startDate", startDate)
             .setParameter("endDate", endDate)

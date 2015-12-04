@@ -229,11 +229,11 @@ public class ActivityDataService {
         return ejbFacade;
     }
 
-    public List<ActivityData> findAllForGroupInDateRange(Team team, Unit unit, Date startDate, Date endDate) {
-        return getFacade().getAllForGroupInDateRange(team.getIdGroup(), unit.getName(), startDate, endDate);
+    public List<ActivityData> findAllForGroupInDateRange(Team team, User user, Unit unit, Date startDate, Date endDate) {
+        return getFacade().getAllForGroupInDateRange(team.getIdGroup(), user.getIdUser(), unit.getName(), startDate, endDate);
     }
 
-    public List<ActivityData> findAllForCommunityInDateRange(Community community, Unit unit, Date startDate, Date endDate) {
-        return getFacade().getAllForCommunityInDateRange(community.getIdCommunity(), unit.getName(), startDate, endDate);
+    public List<ActivityData> findAllForCommunityInDateRange(Community community, User user, Unit unit, Date startDate, Date endDate) {
+        return getFacade().getAllForCommunityInDateRange(community.getIdCommunity(), user.getIdUser(), unit.getName(), startDate, endDate);
     }
 }
