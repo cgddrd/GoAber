@@ -89,6 +89,10 @@ namespace GoAber.Models
         [Display(Name = "DoB")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        [Display(Name = "Team ID")]
+        public int TeamId { get; set; }
     }
 
     public class ResetPasswordViewModel

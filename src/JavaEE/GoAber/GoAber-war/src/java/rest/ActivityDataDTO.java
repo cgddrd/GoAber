@@ -2,9 +2,6 @@ package rest;
 
 import GoAberDatabase.ActivityData;
 import JSF.util.DateUtils;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
        
 public class ActivityDataDTO {
