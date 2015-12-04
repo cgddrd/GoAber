@@ -154,13 +154,9 @@ public class ActivityDataController implements Serializable {
         }
     }
     
-    public String prepareViewUser() {
-        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance()
-                         .getExternalContext().getRequest();
-        String param = req.getParameter("id");
-        int userId = Integer.parseInt(param);
-        viewUser = userService.getUserById(userId);
-        return "ViewUser";
+    public String prepareViewUser(User user) {
+        viewUser = userService.getUserById(user.getIdUser());
+        return "/activityData/ViewUser?faces-redirect=true";
     }
     
     private void recreateItems() {

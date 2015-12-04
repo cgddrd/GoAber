@@ -299,6 +299,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModels\EditApplicationUserViewModel.cs" />
     <Compile Include="AuditAttribute.cs" />
     <Compile Include="Controllers\AuditsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
@@ -308,6 +309,7 @@
     <Compile Include="Controllers\LeaderBoardsController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Models\Result.cs" />
+    <Compile Include="Models\ViewModels\ActivityDataListViewModel.cs" />
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
     <Compile Include="Areas\MyAccount\MyAccountAreaRegistration.cs" />
@@ -483,6 +485,8 @@
     <Content Include="Service References\RemoteChallengeWS\GoAber.RemoteChallengeWS.ResultData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Areas\MyAccount\Views\Manage\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.disco" />
     <None Include="Service References\RemoteChallengeWS\configuration91.svcinfo" />
     <None Include="Service References\RemoteChallengeWS\configuration.svcinfo" />
@@ -665,8 +669,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\MyAccount\Views\Shared\" />
     <Folder Include="Views\API\" />
     <Folder Include="Views\BaseAPI\" />

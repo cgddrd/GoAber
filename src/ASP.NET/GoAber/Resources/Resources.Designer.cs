@@ -521,7 +521,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage Users.
+        ///   Looks up a localized string similar to Manage User Accounts.
         /// </summary>
         public static string ApplicationUsersController_Index_Title {
             get {
@@ -674,6 +674,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you wish to delete your account?.
+        /// </summary>
+        public static string Delete_User_Prompt {
+            get {
+                return ResourceManager.GetString("Delete_User_Prompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes, delete my account..
+        /// </summary>
+        public static string Delete_User_Prompt_Button {
+            get {
+                return ResourceManager.GetString("Delete_User_Prompt_Button", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please be aware that your data will be NON-RECOVERABLE if you proceed..
+        /// </summary>
+        public static string Delete_User_Prompt_Warning {
+            get {
+                return ResourceManager.GetString("Delete_User_Prompt_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Your Account.
+        /// </summary>
+        public static string Delete_User_Title {
+            get {
+                return ResourceManager.GetString("Delete_User_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this?.
         /// </summary>
         public static string DeleteConfirmation {
@@ -715,6 +751,15 @@ namespace Resources {
         public static string Error_cshtml_Execute_Error {
             get {
                 return ResourceManager.GetString("Error_cshtml_Execute_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Date.
+        /// </summary>
+        public static string FromDate {
+            get {
+                return ResourceManager.GetString("FromDate", resourceCulture);
             }
         }
         
@@ -1241,6 +1286,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Role Type.
+        /// </summary>
+        public static string RoleType_Label {
+            get {
+                return ResourceManager.GetString("RoleType_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -1250,11 +1304,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To Date.
+        /// </summary>
+        public static string ToDate {
+            get {
+                return ResourceManager.GetString("ToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unit.
         /// </summary>
         public static string Unit {
             get {
                 return ResourceManager.GetString("Unit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Account.
+        /// </summary>
+        public static string UserDelete_Title {
+            get {
+                return ResourceManager.GetString("UserDelete_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account Details.
+        /// </summary>
+        public static string UserDetails_Title {
+            get {
+                return ResourceManager.GetString("UserDetails_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Account Details.
+        /// </summary>
+        public static string UserEdit_Title {
+            get {
+                return ResourceManager.GetString("UserEdit_Title", resourceCulture);
             }
         }
         
