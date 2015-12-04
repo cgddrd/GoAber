@@ -281,14 +281,17 @@ namespace GoAber.Services
             ActivityDataService dataService = new ActivityDataService();
 
             // first get all acitivty data matching the unit
-            var activityData = dataService.GetAllActivityData();
-            activityData = activityData.Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id);
+            var activityData = dataService.GetAllActivityData()
+                                .Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id)
+                                .ToList();
+
+            var data = activityData.Where(a => challenge.userchallenges.Any(x => x.User.Id.Equals(a.User.Id)));
 
             IEnumerable<LeaderViewModel> model = challenge.communityChallenges.Select(c => new LeaderViewModel
             {
                 Name = c.community.name,
-                Total = activityData.Where(a => a.User.Team.communityId == c.communityId).Sum(a => a.value).GetValueOrDefault(),
-                NumMembers = activityData.Where(a => a.User.Team.communityId == c.communityId).GroupBy(a => a.User.Id).Count()
+                Total = data.Where(a => a.User.Team.communityId == c.communityId).Sum(a => a.value).GetValueOrDefault(),
+                NumMembers = data.Where(a => a.User.Team.communityId == c.communityId).GroupBy(a => a.User.Id).Count()
             });
 
             return model.OrderByDescending(m => m.Total);
@@ -299,14 +302,17 @@ namespace GoAber.Services
             ActivityDataService dataService = new ActivityDataService();
 
             // first get all acitivty data matching the unit
-            var activityData = dataService.GetAllActivityData();
-            activityData = activityData.Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id);
+            var activityData = dataService.GetAllActivityData()
+                                .Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id)
+                                .ToList();
 
-            IEnumerable<LeaderViewModel> model = challenge.groupchallenges.Select(c => new LeaderViewModel
+            var data = activityData.Where(a => challenge.userchallenges.Any(x => x.User.Id.Equals(a.User.Id)));
+
+            IEnumerable <LeaderViewModel> model = challenge.groupchallenges.Select(c => new LeaderViewModel
             {
                 Name = c.group.name,
-                Total = activityData.Where(a => a.User.TeamId == c.group.Id).Sum(a => a.value).GetValueOrDefault(),
-                NumMembers = activityData.Where(a => a.User.TeamId == c.group.Id).GroupBy(a => a.User.Id).Count()
+                Total = data.Where(a => a.User.TeamId == c.group.Id).Sum(a => a.value).GetValueOrDefault(),
+                NumMembers = data.Where(a => a.User.TeamId == c.group.Id).GroupBy(a => a.User.Id).Count()
             });
 
             return model.OrderByDescending(m => m.Total);
