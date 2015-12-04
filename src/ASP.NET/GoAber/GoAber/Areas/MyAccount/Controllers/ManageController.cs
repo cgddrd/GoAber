@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -21,6 +22,8 @@ namespace GoAber.Areas.MyAccount.Controllers
         private ApplicationUserManager _userManager;
 
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        private ApplicationUserService applicationUserService = new ApplicationUserService();
 
         private TeamsService teamsService = new TeamsService();
 
@@ -75,6 +78,18 @@ namespace GoAber.Areas.MyAccount.Controllers
                 DateOfBirth = UserManager.FindById(userId).DateOfBirth,
                 Team = user.Team
             };
+
+            // CG - Use the ASP.NET 'TempData' dictionary to pass a value IMMEDIATELY from a re-direct back to this controller. (Set in the 'Delete' action)
+            // See: http://stackoverflow.com/a/15958277 for more information.
+            if (TempData != null)
+            {
+                if (TempData.ContainsKey("Error") && TempData["Error"] != null)
+                {
+                    ViewBag.FailureMessage = TempData["Error"].ToString();
+                    TempData["Error"] = null;
+                }
+
+            }
 
             return View(model);
 
@@ -146,6 +161,41 @@ namespace GoAber.Areas.MyAccount.Controllers
             }
 
             return View(editModel);
+        }
+
+        // GET: Admin/ApplicationUsers/Delete/5
+        public ActionResult Delete()
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            ApplicationUser applicationUser = db.Users.Find(ApplicationUserService.GetCurrentApplicationUser().Id);
+            if (applicationUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(applicationUser);
+        }
+
+        // POST: Admin/ApplicationUsers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed()
+        {
+
+            if (!ApplicationUserService.IsCurrentApplicationUserInRole("Administrator"))
+            {
+                applicationUserService.DeleteCurrentApplicationUser();
+
+                // CG - Once we have deleted their account, make sure to log the current user out and return to the homepage.
+                return ApplicationUserService.LogoutCurrentApplicationUser();
+            }
+
+            TempData["Error"] = "You are currently attempting to an administrator account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account.";
+
+            return RedirectToAction("Index");
+
         }
 
 

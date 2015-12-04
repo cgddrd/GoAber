@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GoAber.Models.ApplicationUser>
+﻿@using GoAber.Services
+@model IEnumerable<GoAber.Models.ApplicationUser>
 
 @{
     ViewBag.Title = Resources.Resources.ApplicationUsersController_Index_Title;
@@ -6,12 +7,7 @@
 
 <h2>Index</h2>
 
-@*
-    CG - Don't think we want the admins to be able to create new accounts? TODO: Check this.
-
-    <p>
-    @Html.ActionLink(Resources.Resources.CreateNew, "Create")
-</p> *@
+<p>@Html.ActionLink(Resources.Resources.CreateNew, "Create")</p>
 
 @{Html.RenderPartial("_Filter");}
 
@@ -33,6 +29,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Team.name)
         </th>
+        <th>
+            @Resources.Resources.RoleType_Label
+        </th>
         <th></th>
     </tr>
 
@@ -50,6 +49,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Team.name)
         </td>
+        <td>
+            @ApplicationUserService.GetAssignedRoleForApplicationUser(item.Id)
+        </td> 
         <td>
             @Html.ActionLink(Resources.Resources.Edit, "Edit", new {id = item.Id}) |
             @Html.ActionLink(Resources.Resources.Details, "Details", new {id = item.Id}) |
