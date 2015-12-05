@@ -91,7 +91,8 @@
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
                             <h:commandLink action="#{challengeController.leaveChallege(item)}" value="#{bundle.LeaveChallenge}"/>
-                            
+                            <br />
+                            <h:commandLink action="#{challengeController.prepareGroupLeaderBoard(item)}" value="#{bundle.ListChallengeGroupLeadersLink}"/>
                         </p:column>
                     </p:dataTable>
             </h:form>

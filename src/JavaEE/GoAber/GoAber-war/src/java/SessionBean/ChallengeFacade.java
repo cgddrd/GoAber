@@ -6,8 +6,6 @@
 package SessionBean;
 
 import GoAberDatabase.Challenge;
-import GoAberDatabase.Community;
-import GoAberDatabase.Team;
 import GoAberDatabase.User;
 import java.util.ArrayList;
 import java.util.List;

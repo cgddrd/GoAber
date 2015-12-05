@@ -25,7 +25,8 @@
                 </div>
 
                 <p:dataTable id="usersTable" class="table" value="#{userController.items}" 
-                             emptyMessage="#{bundle.ActivityDataNoItems}"
+                             emptyMessage="#{bundle.UserDataTableNoItems}"
+
                              filteredValue="#{userController.filteredItems}" widgetVar="usersTable" var="item"
                              rows="100" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

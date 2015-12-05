@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.LeaderBoard_Title}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">          
+            <h3>
+                <h:outputFormat value="#{bundle.LeaderBoard_SubTitle}" escape="false">
+                    <f:param value="#{challengeController.leaderViewModel.unit.name}" />
+                </h:outputFormat>
+            </h3>
+            <h:form>
+                <p:dataTable id="activityDataTable" class="table" value="#{challengeController.leaderViewModel.items}" 
+                             emptyMessage="#{bundle.LeaderBoardNoItems}"
+                             widgetVar="leaderBoard" var="item" 
+                             rows="100" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10, 100, 200">
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.LeaderBoard_Rank}"/>
+                        </f:facet>
+                        <h:outputText value="#{challengeController.leaderViewModel.items.rowIndex+1}"/>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.LeaderBoard_Name}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.LeaderBoard_NumMembers}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.numMembers}"/>
+                    </p:column>
+                    
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.LeaderBoard_Total}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.total}"/>
+                    </p:column>
+                </p:dataTable>
+                
+                <h:link outcome="/challenge/Index" value="#{bundle.LeaderBoardsIndex_Link}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

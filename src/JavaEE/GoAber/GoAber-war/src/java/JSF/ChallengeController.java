@@ -1,13 +1,26 @@
 package JSF;
 
+import GoAberDatabase.ActivityData;
 import GoAberDatabase.Challenge;
+import GoAberDatabase.Community;
+import GoAberDatabase.CommunityChallenge;
+import GoAberDatabase.GroupChallenge;
+import GoAberDatabase.Team;
+import GoAberDatabase.Unit;
 import GoAberDatabase.User;
+import GoAberDatabase.UserChallenge;
+import JSF.services.ActivityDataService;
 import JSF.services.AuthService;
 import JSF.util.JsfUtil;
 import SessionBean.ChallengeFacade;
+import ViewModel.LeaderItemViewModel;
+import ViewModel.LeaderViewModel;
 import WebServices.ChallengeService;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,12 +33,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
 
 @ManagedBean(name="challengeController")
 @SessionScoped
 public class ChallengeController implements Serializable {
+    @EJB
+    private ActivityDataService dataService;
 
     private Challenge current;
     @EJB private SessionBean.ChallengeFacade ejbFacade;
@@ -39,12 +55,16 @@ public class ChallengeController implements Serializable {
     
     private List<Challenge> challenges;
     
-    private ChallengeService challengeService = new ChallengeService();
+
+    private LeaderViewModel leaderViewModel;    
+    ChallengeService challengeService = new ChallengeService();
+
     
  
     @ManagedProperty(value="#{authService}")
     private AuthService auth;
  
+
     public ChallengeController() {
     }
     
@@ -91,7 +111,6 @@ public class ChallengeController implements Serializable {
         if (challenges == null) {
             User currentUser = auth.getActiveUser();
             challenges = challengeService.getUnEnteredGroupChalleneges(currentUser);
-            //items = getPaginationChallenges().createPageDataModel();
         }
         return challenges;
     }
@@ -104,8 +123,7 @@ public class ChallengeController implements Serializable {
     public List<Challenge> getUnEnteredCommunityChallenges() {
         if (challenges == null) {
             User currentUser = auth.getActiveUser();
-            challenges = challengeService.getUnEnteredCommunityChalleneges(currentUser);//getFacade().getUnEnteredCommunityChalleneges(currentUser);
-            //items = getPaginationChallenges().createPageDataModel();
+            challenges = challengeService.getUnEnteredCommunityChalleneges(currentUser);
         }
         return challenges;
     }
@@ -133,8 +151,7 @@ public class ChallengeController implements Serializable {
     public List<Challenge> getEnteredCommunityChallenges() {
         if (challenges == null) {
             User currentUser = auth.getActiveUser();
-            challenges = challengeService.getEnteredCommunityChalleneges(currentUser);//getFacade().getEnteredCommunityChalleneges(currentUser);
-            //items = getPaginationChallenges().createPageDataModel();
+            challenges = challengeService.getEnteredCommunityChalleneges(currentUser);
         }
         return challenges;
     }
@@ -193,6 +210,7 @@ public class ChallengeController implements Serializable {
             return null;
         }
     }
+   
     public String createGroup() {
         try {
             getFacade().create(current);
@@ -206,8 +224,7 @@ public class ChallengeController implements Serializable {
             return null;
         }
     }
-    
-   
+     
 
     public String prepareEdit(Challenge data) {
         current = data;
@@ -248,7 +265,7 @@ public class ChallengeController implements Serializable {
         }
     }
 
-    /**
+	/**
      * Get all challenges. Used in coordinator view
      * @return 
      */
@@ -259,6 +276,70 @@ public class ChallengeController implements Serializable {
         return challenges;
        
     }
+
+    public String prepareGroupLeaderBoard(Challenge challenge) {
+        List<LeaderItemViewModel> viewModels = new ArrayList<>();
+        for (GroupChallenge tc : challenge.getGroupChallengeCollection()) {
+            Team team = tc.getGroupId();
+            Unit unit = challenge.getCategoryUnitId().getUnitId();
+            
+            List<ActivityData> data = new ArrayList<>();
+            for(UserChallenge uc : challenge.getUserChallengeCollection()) {
+                User user = uc.getUserId();
+                List<ActivityData> sublist = dataService.findAllForGroupInDateRange(team, user, unit, challenge.getStartTime(), challenge.getEndTime());
+                data.addAll(sublist);
+            }
+            
+            
+            LeaderItemViewModel model = new LeaderItemViewModel(team.getName(), data);
+            viewModels.add(model);
+        }
+        
+        viewModels = sortLeaderViewModels(viewModels);
+        leaderViewModel = new LeaderViewModel();
+        leaderViewModel.setItems(new ListDataModel(viewModels));
+        leaderViewModel.setUnit(challenge.getCategoryUnitId().getUnitId());
+        return "LeaderBoard";
+    }
+    
+    public String prepareCommunityLeaderBoard(Challenge challenge) {
+        List<LeaderItemViewModel> viewModels = new ArrayList<>();
+        for (CommunityChallenge cc : challenge.getCommunityChallengeCollection()) {
+            Community community = cc.getCommunityId();
+            Unit unit = challenge.getCategoryUnitId().getUnitId();
+           
+            List<ActivityData> data = new ArrayList<>();
+            for(UserChallenge uc : challenge.getUserChallengeCollection()) {
+                User user = uc.getUserId();
+                List<ActivityData> sublist = dataService.findAllForCommunityInDateRange(community, user, unit, challenge.getStartTime(), challenge.getEndTime());
+                data.addAll(sublist);
+            }
+            
+            LeaderItemViewModel model = new LeaderItemViewModel(community.getName(), data);
+            viewModels.add(model);
+        }
+        
+        viewModels = sortLeaderViewModels(viewModels);
+        leaderViewModel = new LeaderViewModel();
+        leaderViewModel.setItems(new ListDataModel(viewModels));
+        leaderViewModel.setUnit(challenge.getCategoryUnitId().getUnitId());
+        return "LeaderBoard";
+    }
+    
+    private List<LeaderItemViewModel> sortLeaderViewModels(List<LeaderItemViewModel> viewModels) {
+        Collections.sort(viewModels, new Comparator<LeaderItemViewModel>() {
+
+            @Override
+            public int compare(LeaderItemViewModel model1, LeaderItemViewModel model2) {
+                // Note: negative sign so that items are sorted in descending order
+                return -Double.compare(model1.getTotal(), model2.getTotal());
+            }
+        });
+        
+        return viewModels;
+    }
+    
+   
 
     private void recreateModel() {
         challenges = null;
@@ -272,6 +353,13 @@ public class ChallengeController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+
+    /**
+     * @return the leaderViewModels
+     */
+    public LeaderViewModel getLeaderViewModel() {
+        return leaderViewModel;
     }
 
 

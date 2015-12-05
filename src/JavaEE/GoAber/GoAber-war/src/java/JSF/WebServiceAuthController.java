@@ -45,8 +45,6 @@ public class WebServiceAuthController implements Serializable {
     public WebServiceAuthController() {
 
     }
-    
-    
 
     public WebServiceAuth getSelected() {
         if (current == null) {

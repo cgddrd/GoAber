@@ -1,7 +1,7 @@
-﻿@model IEnumerable<GoAber.Models.ViewModels.ParticipantLeaderViewModel>
+﻿@model IEnumerable<GoAber.Models.ViewModels.LeaderViewModel>
 
 @{
-    ViewBag.Title = Resources.LeaderBoards_ParticipantLeaderBoardTitle;
+    ViewBag.Title = Resources.LeaderBoards_LeaderBoardTitle;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,12 +15,13 @@
             @Resources.Ranking
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.Nickname)
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumMembers)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Total)
-        </th>
-        <th>
         </th>
     </tr>
 
@@ -33,13 +34,13 @@
                 @i
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Nickname)
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumMembers)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            <td>
-                @Html.ActionLink(Resources.ViewUser, "ViewUser", "ActivityDatas", new { id = item.User.Id }, null)
             </td>
         </tr>
     }
