@@ -58,15 +58,10 @@
                             </f:facet>
                             <h:commandLink action="#{dataRemovalAuditController.prepareView}" value="#{bundle.ListDataRemovalAuditViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{dataRemovalAuditController.prepareEdit}" value="#{bundle.ListDataRemovalAuditEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{dataRemovalAuditController.destroy}" value="#{bundle.ListDataRemovalAuditDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
-                <br />
-                <h:commandLink action="#{dataRemovalAuditController.prepareCreate}" value="#{bundle.ListDataRemovalAuditCreateLink}"/>
-                <br />
+                
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListDataRemovalAuditIndexLink}"/>
             </h:form>

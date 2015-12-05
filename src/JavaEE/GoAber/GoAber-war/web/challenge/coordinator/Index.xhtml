@@ -9,33 +9,33 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.EnteredGroup}"></h:outputText>
+            <h:outputText value="#{bundle.ListChallengeTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-             
-                #{challengeController.loadPage()}
-
+            #{challengeController.loadPage()}
             <h:form>
-                <div class="btn-group" role="group">
-                    <h:link class="btn btn-default"  outcome="NotEnteredGroup" value="#{bundle.UnEnteredGroup}"/> 
-                    <h:link class="btn btn-default" outcome="NotEnteredCommunity" value="#{bundle.UnEnteredCommunity}"/> 
-                    <h:link class="btn btn-default" outcome="EnteredGroup" value="#{bundle.EnteredGroup}"/> 
-                    <h:link class="btn btn-default" outcome="EnteredCommunity" value="#{bundle.EnteredCommunity}"/>
-
-                </div>
-            <br />
+               
                 
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 
+                <div class="btn-group" role="group" >
+                    <h:commandLink class="btn btn-default" action="#{challengeController.prepareCommunityCreate}" value="#{bundle.ListChallengeCommunityCreateLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{challengeController.prepareGroupCreate}" value="#{bundle.ListChallengeGroupCreateLink}"/>
+                </div>
                 
-                        <p:dataTable id="challengeEnteredGroupTable" class="table" value="#{challengeController.enteredGroupChallenges}" 
+                
+                 
+                
+                      
+                        <p:dataTable id="activityDataTable" class="table" value="#{challengeController.items}" 
                              emptyMessage="#{bundle.ListChallengeEmpty}"
-                             filteredValue="#{challengeController.enteredGroupChallenges}" widgetVar="challengeEnteredGroupTable" var="item"
+                             filteredValue="#{challengeController.items}" widgetVar="challengeTable" var="item"
                              rows="100" paginator="true"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="10, 100, 200">
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListChallengeTitle_idChallenge}"/>
@@ -84,17 +84,28 @@
 
                         </p:column>
                         
-                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.CreateComminityChallenge_SelectCommunity}"/>
+                            </f:facet>
+                            <ui:repeat var="community" value="#{item.communityChallengeCollection}">
+                                <h:outputText value="#{community.communityId.name}" />
+                                <br />
+                            </ui:repeat>
+
+                        </p:column>
                         
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{challengeController.leaveChallege(item)}" value="#{bundle.LeaveChallenge}"/>
-                            <br />
-                            <h:commandLink action="#{challengeController.prepareGroupLeaderBoard(item)}" value="#{bundle.ListChallengeGroupLeadersLink}"/>
+                            <h:commandLink action="#{challengeController.prepareEdit(item)}" value="#{bundle.ListChallengeEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{challengeController.destroy(item)}" value="#{bundle.ListChallengeDestroyLink}"/>
                         </p:column>
                     </p:dataTable>
+                
+               
             </h:form>
         </ui:define>
     </ui:composition>

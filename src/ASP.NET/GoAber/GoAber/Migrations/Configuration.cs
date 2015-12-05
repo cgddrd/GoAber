@@ -178,6 +178,15 @@ namespace GoAber.Migrations
                 new ActivityData { date = DateTime.Today.AddDays(-8), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user }
             );
 
+            user = context.Users.Where(x => x.Email == "admin@test.com").SingleOrDefault();
+            context.WebServiceAuths.AddOrUpdate(
+                new WebServiceAuth { authtoken = "admin_token", appname = "TestApp", ApplicationUserId = user.Id }
+            );
+            user = context.Users.Where(x => x.Email == "user1@test.com").SingleOrDefault();
+            context.WebServiceAuths.AddOrUpdate(
+                new WebServiceAuth { authtoken = "user_token", appname = "TestApp", ApplicationUserId = user.Id }
+            );
+
         }
     }
 }

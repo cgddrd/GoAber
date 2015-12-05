@@ -81,3 +81,16 @@ INSERT INTO `devicetype` (`name`,`tokenEndpoint`,`consumerKey`,`consumerSecret`,
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-11-10 14:41:17
+
+INSERT INTO `goaber`.`category` (`name`) VALUES ('Walking');
+
+INSERT INTO `goaber`.`unit` (`name`) VALUES ('steps');
+
+INSERT INTO `goaber`.`categoryunit` (`categoryId`, `unitId`) VALUES ('1', '1');
+
+
+INSERT INTO `goaber`.`webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('admin_token', 'TestApp', '1');
+INSERT INTO `goaber`.`webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('user_token', 'TestApp', '3');
+
