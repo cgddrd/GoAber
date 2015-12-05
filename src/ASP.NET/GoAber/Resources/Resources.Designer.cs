@@ -575,6 +575,78 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Community Challenge.
+        /// </summary>
+        public static string Challeneges_createCommunityChallenge {
+            get {
+                return ResourceManager.GetString("Challeneges_createCommunityChallenge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Group Challenge.
+        /// </summary>
+        public static string Challeneges_createGroupChallenge {
+            get {
+                return ResourceManager.GetString("Challeneges_createGroupChallenge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communities.
+        /// </summary>
+        public static string Challenge_Communities {
+            get {
+                return ResourceManager.GetString("Challenge_Communities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        public static string Challenge_Complete {
+            get {
+                return ResourceManager.GetString("Challenge_Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Time.
+        /// </summary>
+        public static string Challenge_EndTime {
+            get {
+                return ResourceManager.GetString("Challenge_EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups.
+        /// </summary>
+        public static string Challenge_Groups {
+            get {
+                return ResourceManager.GetString("Challenge_Groups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Challenge_Name {
+            get {
+                return ResourceManager.GetString("Challenge_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time.
+        /// </summary>
+        public static string Challenge_StartTime {
+            get {
+                return ResourceManager.GetString("Challenge_StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community challenges.
         /// </summary>
         public static string Challenges_communityChallenges {
@@ -602,11 +674,47 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Group Challenges.
+        ///   Looks up a localized string similar to Completed Community Challenges.
         /// </summary>
-        public static string Challenges_completedgroupChallenges {
+        public static string Challenges_completedCommunityChallenges {
             get {
-                return ResourceManager.GetString("Challenges_completedgroupChallenges", resourceCulture);
+                return ResourceManager.GetString("Challenges_completedCommunityChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed Group Challenges.
+        /// </summary>
+        public static string Challenges_completedGroupChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_completedGroupChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Challenge.
+        /// </summary>
+        public static string Challenges_EnterChallenge {
+            get {
+                return ResourceManager.GetString("Challenges_EnterChallenge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entered Community Challenges.
+        /// </summary>
+        public static string Challenges_enteredCommunityChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_enteredCommunityChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entered Group Challenges.
+        /// </summary>
+        public static string Challenges_enteredGroupChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_enteredGroupChallenges", resourceCulture);
             }
         }
         
@@ -620,11 +728,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Challenges.
+        /// </summary>
+        public static string Challenges_indexTitle {
+            get {
+                return ResourceManager.GetString("Challenges_indexTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave Challenge.
+        /// </summary>
+        public static string Challenges_LeaveChallenge {
+            get {
+                return ResourceManager.GetString("Challenges_LeaveChallenge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Challenges not entered.
         /// </summary>
         public static string Challenges_notEntered {
             get {
                 return ResourceManager.GetString("Challenges_notEntered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community Challenges you have not entered.
+        /// </summary>
+        public static string Challenges_unEnteredCommunityChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_unEnteredCommunityChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Challenges you have not entered.
+        /// </summary>
+        public static string Challenges_unEnteredGroupChallenges {
+            get {
+                return ResourceManager.GetString("Challenges_unEnteredGroupChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Leaderboard.
+        /// </summary>
+        public static string Challenges_viewLeaderBoard {
+            get {
+                return ResourceManager.GetString("Challenges_viewLeaderBoard", resourceCulture);
             }
         }
         
@@ -652,6 +805,33 @@ namespace Resources {
         public static string Clear {
             get {
                 return ResourceManager.GetString("Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed Commuity Challenges.
+        /// </summary>
+        public static string CompletedCommunityChallengesLink {
+            get {
+                return ResourceManager.GetString("CompletedCommunityChallengesLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed Group Challenges.
+        /// </summary>
+        public static string CompletedGroupChallengesLink {
+            get {
+                return ResourceManager.GetString("CompletedGroupChallengesLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinate Challenges.
+        /// </summary>
+        public static string CoordinatorChallengesLink {
+            get {
+                return ResourceManager.GetString("CoordinatorChallengesLink", resourceCulture);
             }
         }
         
@@ -751,6 +931,24 @@ namespace Resources {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entered Community Challenges.
+        /// </summary>
+        public static string EnteredCommunityChallengesLink {
+            get {
+                return ResourceManager.GetString("EnteredCommunityChallengesLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entered Group Challenges.
+        /// </summary>
+        public static string EnteredGroupChallengesLink {
+            get {
+                return ResourceManager.GetString("EnteredGroupChallengesLink", resourceCulture);
             }
         }
         
@@ -1327,6 +1525,24 @@ namespace Resources {
         public static string ToDate {
             get {
                 return ResourceManager.GetString("ToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unentered Community Challenges.
+        /// </summary>
+        public static string UnEnteredCommunityChallengesLink {
+            get {
+                return ResourceManager.GetString("UnEnteredCommunityChallengesLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unentered Group Challenges.
+        /// </summary>
+        public static string UnEnteredGroupChallengesLink {
+            get {
+                return ResourceManager.GetString("UnEnteredGroupChallengesLink", resourceCulture);
             }
         }
         

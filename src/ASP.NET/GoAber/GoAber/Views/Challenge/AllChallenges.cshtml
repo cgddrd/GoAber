@@ -4,9 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <div>
+        @Html.ActionLink(Resources.Challeneges_createCommunityChallenge, "CreateCommunity") | 
+        @Html.ActionLink(Resources.Challeneges_createGroupChallenge, "CreateGroup")
+    </div>
     <table class="table">
         <tr>
             <th>
@@ -24,10 +25,12 @@
             <th></th>
         </tr>
     
-    @foreach (var item in Model) {
+    @foreach (GoAber.Models.Challenge item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.categoryUnit)
+                @Html.DisplayFor(modelItem => item.categoryUnit.category.name)
+                &nbsp;
+                @Html.DisplayFor(modelItem => item.categoryUnit.unit.name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.startTime)

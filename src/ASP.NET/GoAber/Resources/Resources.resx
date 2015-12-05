@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
-
+    
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
+    value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -532,8 +532,8 @@
   <data name="Challenges_completedcomChallenges" xml:space="preserve">
     <value>Community Challenges</value>
   </data>
-  <data name="Challenges_completedgroupChallenges" xml:space="preserve">
-    <value>Group Challenges</value>
+  <data name="Challenges_completedGroupChallenges" xml:space="preserve">
+    <value>Completed Group Challenges</value>
   </data>
   <data name="LeaderBoards_LeaderBoardTitle" xml:space="preserve">
     <value>Leader Board</value>
@@ -570,5 +570,77 @@
   </data>
   <data name="ToDate" xml:space="preserve">
     <value>To Date</value>
+  </data>
+  <data name="Challenges_enteredCommunityChallenges" xml:space="preserve">
+    <value>Entered Community Challenges</value>
+  </data>
+  <data name="Challenges_enteredGroupChallenges" xml:space="preserve">
+    <value>Entered Group Challenges</value>
+  </data>
+  <data name="Challenges_indexTitle" xml:space="preserve">
+    <value>Challenges</value>
+  </data>
+  <data name="Challenges_unEnteredCommunityChallenges" xml:space="preserve">
+    <value>Community Challenges you have not entered</value>
+  </data>
+  <data name="Challenges_unEnteredGroupChallenges" xml:space="preserve">
+    <value>Group Challenges you have not entered</value>
+  </data>
+  <data name="CompletedCommunityChallengesLink" xml:space="preserve">
+    <value>Completed Commuity Challenges</value>
+  </data>
+  <data name="CompletedGroupChallengesLink" xml:space="preserve">
+    <value>Completed Group Challenges</value>
+  </data>
+  <data name="CoordinatorChallengesLink" xml:space="preserve">
+    <value>Coordinate Challenges</value>
+  </data>
+  <data name="EnteredCommunityChallengesLink" xml:space="preserve">
+    <value>Entered Community Challenges</value>
+  </data>
+  <data name="EnteredGroupChallengesLink" xml:space="preserve">
+    <value>Entered Group Challenges</value>
+  </data>
+  <data name="UnEnteredCommunityChallengesLink" xml:space="preserve">
+    <value>Unentered Community Challenges</value>
+  </data>
+  <data name="UnEnteredGroupChallengesLink" xml:space="preserve">
+    <value>Unentered Group Challenges</value>
+  </data>
+  <data name="Challeneges_createCommunityChallenge" xml:space="preserve">
+    <value>Create Community Challenge</value>
+  </data>
+  <data name="Challeneges_createGroupChallenge" xml:space="preserve">
+    <value>Create Group Challenge</value>
+  </data>
+  <data name="Challenges_completedCommunityChallenges" xml:space="preserve">
+    <value>Completed Community Challenges</value>
+  </data>
+  <data name="Challenges_EnterChallenge" xml:space="preserve">
+    <value>Enter Challenge</value>
+  </data>
+  <data name="Challenges_LeaveChallenge" xml:space="preserve">
+    <value>Leave Challenge</value>
+  </data>
+  <data name="Challenges_viewLeaderBoard" xml:space="preserve">
+    <value>View Leaderboard</value>
+  </data>
+  <data name="Challenge_Communities" xml:space="preserve">
+    <value>Communities</value>
+  </data>
+  <data name="Challenge_Complete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="Challenge_EndTime" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="Challenge_Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="Challenge_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Challenge_StartTime" xml:space="preserve">
+    <value>Start time</value>
   </data>
 </root>
