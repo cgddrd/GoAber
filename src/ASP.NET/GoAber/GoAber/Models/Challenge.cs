@@ -30,21 +30,24 @@ namespace GoAber.Models
         [Display(Name = "challenge_categoryUnitId", ResourceType = typeof(Resources.Resources))]
         public virtual CategoryUnit categoryUnit { get; set; }
 
-        [Display(Name = "challenge_startTime", ResourceType = typeof(Resources.Resources))]
-        public System.DateTime startTime { get; set; }
-        [Display(Name = "challenge_endTime", ResourceType = typeof(Resources.Resources))]
-        public Nullable<System.DateTime> endTime { get; set; }
-        public string name { get; set; }
-       // public Nullable<int> communityStartedBy { get; set; }
 
-        [Display(Name = "challenge_complete", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Challenge_StartTime", ResourceType = typeof(Resources.Resources))]
+        public System.DateTime startTime { get; set; }
+        [Display(Name = "Challenge_EndTime", ResourceType = typeof(Resources.Resources))]
+        public Nullable<System.DateTime> endTime { get; set; }
+        [Display(Name = "Challenge_Name", ResourceType = typeof(Resources.Resources))]
+        public string name { get; set; }
+        
+        [Display(Name = "Challenge_Complete", ResourceType = typeof(Resources.Resources))]
         public bool complete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChallenge> userchallenges { get; set; }
-        [Display(Name = "challenge_groupchallenges", ResourceType = typeof(Resources.Resources))]
+
+        [Display(Name = "Challenge_Groups", ResourceType = typeof(Resources.Resources))]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupChallenge> groupchallenges { get; set; }
-        [Display(Name = "challenge_communityChallenges", ResourceType = typeof(Resources.Resources))]
+        [Display(Name = "Challenge_Communities", ResourceType = typeof(Resources.Resources))]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommunityChallenge> communityChallenges { get; set; }
 

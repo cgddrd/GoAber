@@ -1,7 +1,7 @@
 ﻿@using GoAber.Helpers;
 @model GoAber.Models.ViewModels.FilterViewModel
 @{
-    ViewBag.Title = "Batch Delete";
+    ViewBag.Title = Resources.BatchDelete_title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -28,7 +28,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Manage")
+            @Html.ActionLink(Resources.batchDelete_backToList, "Manage")
         </div>
     }
 </div>

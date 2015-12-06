@@ -34,7 +34,9 @@ namespace GoAber.Services
 
         public IEnumerable<Challenge> getAllChallenges()
         {
-           return db.Challenges;
+            var query = from d in db.Challenges select d;
+            IEnumerable<Challenge> challenges = query.ToList();
+            return challenges;
         }
 
         public IEnumerable<Challenge> getCompletedCommunityChallenges(ApplicationUser user)
@@ -248,9 +250,16 @@ namespace GoAber.Services
             db.SaveChanges();
         }
 
-        public void deleteChallenge(int id)
+        public void deleteChallenge(string id)
         {
             Challenge challenge = db.Challenges.Find(id);
+            db.UserChallenges.RemoveRange(
+                        db.UserChallenges.Where(u => u.challengeId.Equals(id)));
+            db.CommunityChallenges.RemoveRange(
+                        db.CommunityChallenges.Where(u => u.challengeId.Equals(id)));
+            db.GroupChallenges.RemoveRange(
+                        db.GroupChallenges.Where(u => u.challengeId.Equals(id)));
+
             db.Challenges.Remove(challenge);
             db.SaveChanges();
         }

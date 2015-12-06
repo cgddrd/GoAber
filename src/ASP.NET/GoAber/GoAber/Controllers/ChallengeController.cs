@@ -42,14 +42,9 @@ namespace GoAber
         public ActionResult Index()
         {
             ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
-            ViewBag.AssignedChallengesCommunity = challengeService.getEnteredCommunityChallenges(appUser);
-            ViewBag.AssignedChallengesGroup = challengeService.getEnteredGroupChallenges(appUser);
-            ViewBag.GroupChallenges = challengeService.getUnEnteredGroupChallenges(appUser);
-            ViewBag.CommunityChallenges = challengeService.getUnEnteredCommunityChallenges(appUser);
-            ViewBag.CompletedComChallenges = challengeService.getCompletedCommunityChallenges(appUser);
-            ViewBag.CompletedGroupChallenges = challengeService.getCompletedGroupChallenges(appUser);
-
-            return View(ViewBag.CommunityChallenges);
+            
+            //ViewBag.IsCoordinator = (ApplicationUserService.IsCurrentApplicationUserInRole("coordinator") || ApplicationUserService.IsCurrentApplicationUserInRole("administrator"));
+            return View();
         }
 
         // GET: Challenge
@@ -58,8 +53,45 @@ namespace GoAber
             return View(challengeService.getAllChallenges());
         }
 
+        public ActionResult EnteredCommunity()
+        {
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+            return View(challengeService.getEnteredCommunityChallenges(appUser));
+        }
+
+        public ActionResult EnteredGroup()
+        {
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+            return View(challengeService.getEnteredGroupChallenges(appUser));
+        }
+
+        public ActionResult UnEnteredCommunity()
+        {
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+            return View(challengeService.getUnEnteredCommunityChallenges(appUser));
+        }
+
+        public ActionResult UnEnteredGroup()
+        {
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+            return View(challengeService.getUnEnteredGroupChallenges(appUser));
+        }
+        public ActionResult CompletedCommunity()
+        {
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+            return View(challengeService.getCompletedCommunityChallenges(appUser));
+        }
+
+        public ActionResult CompletedGroup()
+        {
+            ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
+            return View(challengeService.getCompletedGroupChallenges(appUser));
+        }
+
+
+
         // GET: Challenge/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -144,7 +176,7 @@ namespace GoAber
         }
 
         // GET: Challenge/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -155,6 +187,10 @@ namespace GoAber
             {
                 return HttpNotFound();
             }
+
+            var categories = categoryUnitService.CreateCategoryUnitList();
+            ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
+
             return View(challenge);
         }
 
@@ -163,7 +199,7 @@ namespace GoAber
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,categoryUnit,startTime,endTime,name,communityStartedBy")] Challenge challenge)
+        public ActionResult Edit([Bind(Include = "Id,categoryUnitId,startTime,endTime,name")] Challenge challenge)
         {
             if (ModelState.IsValid)
             {
@@ -174,7 +210,7 @@ namespace GoAber
         }
 
         // GET: Challenge/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -191,7 +227,7 @@ namespace GoAber
         // POST: Challenge/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             challengeService.deleteChallenge(id);
             return RedirectToAction("Index");
