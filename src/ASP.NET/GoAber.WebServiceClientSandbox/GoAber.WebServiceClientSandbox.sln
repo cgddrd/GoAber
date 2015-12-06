@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoAber.WebServiceClientSand
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoAber.WebServiceClientSandbox.Consumer", "GoAber.WebServiceClientSandbox.API\GoAber.WebServiceClientSandbox.Consumer.csproj", "{681B5446-80B1-41FF-9548-2829D8321469}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestService", "UnitTestService\UnitTestService.csproj", "{EE929E8D-E039-4A1D-91A8-C999F31EB5C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{681B5446-80B1-41FF-9548-2829D8321469}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{681B5446-80B1-41FF-9548-2829D8321469}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{681B5446-80B1-41FF-9548-2829D8321469}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE929E8D-E039-4A1D-91A8-C999F31EB5C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE929E8D-E039-4A1D-91A8-C999F31EB5C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE929E8D-E039-4A1D-91A8-C999F31EB5C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE929E8D-E039-4A1D-91A8-C999F31EB5C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

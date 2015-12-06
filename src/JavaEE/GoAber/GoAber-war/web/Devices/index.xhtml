@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -16,6 +17,44 @@
             </h:panelGroup>
             <h:form>
                 <ul style="list-style-type:none;">
+                    
+                   <li>
+                       <c:choose>
+                       <c:when test="${jawboneController.isConnected()}" >
+                           <h1>#{bundle.JawboneConnected}</h1>
+                            <br />
+                             <div class="form-group">
+                                <h:outputLabel class="col-md-2 control-label" value="#{bundle.Device_SelectDeviceDate}" for="deviceDate" />
+                                <div class="col-md-10">
+                                    <p:calendar id="date" pattern="dd/MM/yyy" maxdate="#{now}" value="#{jawboneController.deviceDate}" title="#{bundle.SelectDeviceDate}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel class="col-md-2 control-label" value="#{bundle.Device_NumberOfSteps}" for="steps" />
+                                <h:outputText class="col-md-2 control-label" value="#{jawboneController.steps}"  />
+                            </div> 
+                            <br /><br />
+                            <div  class="btn-group" role="group">
+                                <h:commandLink class="btn btn-default" action="#{jawboneController.getWalkingStepsForEnteredDate}" value="#{bundle.Device_ShowStepsButton}"/>
+                            </div>
+                            <br />       
+                            <br />
+                            <h:commandLink class="btn btn-default" action="#{jawboneController.deleteDevice()}" value="#{bundle.Device_RevokeAuthorization}"/>
+                       </c:when>
+                       <c:otherwise>
+
+                        <h1>#{bundle.JawboneNotConnected}</h1>
+                            <br />
+                            
+                            <a class="btn btn-default" href="../JawboneAccess">#{bundle.Device_ConnectJawbone}</a>
+                  
+                            <!--<a href="../JawboneAccess">Connect Jawbone</a>-->
+                       </c:otherwise>
+                       </c:choose>
+                    </li>
+                    
+                    <hr />
+                    
                     <li>
                         <c:choose>
                        <c:when test="${fitbitController.isConnected()}" >
@@ -29,26 +68,10 @@
 
                         <h1>#{bundle.FitbitNotConnected}</h1>
                             <br />
-                            <a href="../FitbitAccess">Connect Fitbit</a>
+                            <!--<a href="../FitbitAccess">Connect Fitbit</a>-->
+                            <h:outputLabel value="#{bundle.Device_FitbitComingSoon}"/>
                        </c:otherwise>
                         </c:choose>
-                   </li>
-                   <li>
-                       <c:choose>
-                       <c:when test="${jawboneController.isConnected()}" >
-                           <h1>#{bundle.JawboneConnected}</h1>
-                            <br />
-                            <a href="../Jawbone/index.xhtml">Manage Jawbone</a>
-                            <br />
-                            <h:commandLink action="#{jawboneController.deleteDevice()}" value="Revoke authorization"/>
-                       </c:when>
-                       <c:otherwise>
-
-                        <h1>#{bundle.JawboneNotConnected}</h1>
-                            <br />
-                            <a href="../JawboneAccess">Connect Jawbone</a>
-                       </c:otherwise>
-                       </c:choose>
                    </li>
                 </ul>
             </h:form>

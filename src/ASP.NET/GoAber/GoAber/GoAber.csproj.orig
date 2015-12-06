@@ -299,29 +299,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModels\EditApplicationUserViewModel.cs" />
     <Compile Include="AuditAttribute.cs" />
     <Compile Include="Controllers\AuditsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityDataController.cs" />
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
-    <Compile Include="Controllers\LeaderBoardsController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
-<<<<<<< HEAD
-    <Compile Include="Migrations\201512031642059_GoAber.cs" />
-    <Compile Include="Migrations\201512031642059_GoAber.Designer.cs">
-      <DependentUpon>201512031642059_GoAber.cs</DependentUpon>
-=======
-    <Compile Include="Migrations\201512022231591_Init.cs" />
-    <Compile Include="Migrations\201512022231591_Init.Designer.cs">
-      <DependentUpon>201512022231591_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512022234189_Init1.cs" />
-    <Compile Include="Migrations\201512022234189_Init1.Designer.cs">
-      <DependentUpon>201512022234189_Init1.cs</DependentUpon>
->>>>>>> develop
-    </Compile>
     <Compile Include="Models\Result.cs" />
+    <Compile Include="Models\ViewModels\LeaderViewModel.cs" />
     <Compile Include="Models\ViewModels\ActivityDataListViewModel.cs" />
     <Compile Include="Models\ViewModels\FilterViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\TeamsController.cs" />
@@ -506,6 +493,8 @@
     <Content Include="Service References\RemoteChallengeWS\GoAber.RemoteChallengeWS.ResultData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Areas\MyAccount\Views\Manage\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Pager.cshtml" />
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.disco" />
     <None Include="Service References\RemoteChallengeWS\configuration91.svcinfo" />
     <None Include="Service References\RemoteChallengeWS\configuration.svcinfo" />
@@ -641,9 +630,13 @@
     <Content Include="Views\ActivityDatas\AllTimeSummary.cshtml" />
     <Content Include="Views\ActivityDatas\ViewUser.cshtml" />
     <Content Include="Views\ActivityDatas\BatchDelete.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\LeaderBoards\ParticipantLeaderBoard.cshtml" />
     <Content Include="Views\LeaderBoards\Index.cshtml" />
     <Content Include="Views\LeaderBoards\GroupLeaderBoard.cshtml" />
+=======
+    <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
+>>>>>>> develop
     <Content Include="Views\Challenge\AllChallenges.cshtml" />
     <Content Include="Views\Challenge\CreateGroup.cshtml" />
     <Content Include="Views\Challenge\Delete.cshtml" />
@@ -656,7 +649,11 @@
     <Content Include="Views\Results\Edit.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
     <Content Include="Views\Challenge\CreateCommunity.cshtml" />
+<<<<<<< HEAD
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
+=======
+    <Content Include="Views\Challenge\LeaderBoard.cshtml" />
+>>>>>>> develop
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
@@ -688,8 +685,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\MyAccount\Views\Shared\" />
     <Folder Include="Views\API\" />
     <Folder Include="Views\BaseAPI\" />
@@ -701,19 +696,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
-  </ItemGroup>
-  <ItemGroup>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Migrations\201512031642059_GoAber.resx">
-      <DependentUpon>201512031642059_GoAber.cs</DependentUpon>
-=======
-    <EmbeddedResource Include="Migrations\201512022231591_Init.resx">
-      <DependentUpon>201512022231591_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512022234189_Init1.resx">
-      <DependentUpon>201512022234189_Init1.cs</DependentUpon>
->>>>>>> develop
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

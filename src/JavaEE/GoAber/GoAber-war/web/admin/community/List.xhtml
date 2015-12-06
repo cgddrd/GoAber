@@ -38,11 +38,18 @@
                             <h:outputText value="#{item.name}"/>
                         </p:column>
                         
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCommunityTitle_domain}"/>
+                            </f:facet>
+                             <h:outputText value="#{item.domain}"/>
+                        </p:column>
+                    
                          <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCommunityTitle_endpointUrl}"/>
                             </f:facet>
-                             <h:outputText value="#{item.domain}"/>
+                             <h:outputText value="#{item.challengesEndpoint}"/>
                         </p:column>
                         
                         <p:column>

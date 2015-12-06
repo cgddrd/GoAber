@@ -50,14 +50,6 @@ namespace GoAber.Migrations
                 new Team { name = "AberIBERS", community = context.Communities.Where(b => b.name == "AberUni").FirstOrDefault() }
             );
 
-            context.Teams.AddOrUpdate(x => x.Id,
-                new Team { name = "BangorGroup1", community = context.Communities.Where(b => b.name == "BangorUni").FirstOrDefault() }
-            );
-
-            context.Teams.AddOrUpdate(x => x.Id,
-                new Team { name = "BangorGroup2", community = context.Communities.Where(b => b.name == "BangorUni").FirstOrDefault() }
-            );
-
             context.SaveChanges();
 
             if (!context.Roles.Any(r => r.Name == "Administrator"))
@@ -119,7 +111,7 @@ namespace GoAber.Migrations
                     Email = "user1@test.com",
                     Nickname = "user1user",
                     DateOfBirth = DateTime.Now,
-                    Team = context.Teams.Where(b => b.name == "BangorGroup1").FirstOrDefault()
+                    Team = context.Teams.Where(b => b.name == "AberCompSci").FirstOrDefault()
                 };
 
                 userManager.Create(normalUser, "Hello123!");
@@ -176,6 +168,15 @@ namespace GoAber.Migrations
                 new ActivityData { date = DateTime.Today.AddDays(-6), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
                 new ActivityData { date = DateTime.Today.AddDays(-7), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user },
                 new ActivityData { date = DateTime.Today.AddDays(-8), lastUpdated = DateTime.Today, value = rnd.Next(0, 1000), categoryunit = heartbeat, User = user }
+            );
+
+            user = context.Users.Where(x => x.Email == "admin@test.com").SingleOrDefault();
+            context.WebServiceAuths.AddOrUpdate(
+                new WebServiceAuth { authtoken = "admin_token", appname = "TestApp", ApplicationUserId = user.Id }
+            );
+            user = context.Users.Where(x => x.Email == "user1@test.com").SingleOrDefault();
+            context.WebServiceAuths.AddOrUpdate(
+                new WebServiceAuth { authtoken = "user_token", appname = "TestApp", ApplicationUserId = user.Id }
             );
 
         }

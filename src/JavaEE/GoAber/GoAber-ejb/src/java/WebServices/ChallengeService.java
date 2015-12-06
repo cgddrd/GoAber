@@ -16,6 +16,7 @@ import GoAberDatabase.Tasktype;
 import GoAberDatabase.Team;
 import GoAberDatabase.User;
 import GoAberDatabase.UserChallenge;
+import SessionBean.ActivityDataFacade;
 import Jobs.ChallengeJob;
 import Scheduling.Jobs.AbstractJob;
 import SessionBean.ChallengeFacade;
@@ -58,7 +59,11 @@ public class ChallengeService {
     @EJB
     SchedulerSessionBeanRemote schedSessBean;
     @EJB
+    ActivityDataFacade activityDataFacade;
+    
+    @EJB
     ScheduletypeFacade schedtypeFacade;
+    
     @EJB
     TasktypeFacade tasktypeFacade;
 

@@ -11,11 +11,11 @@
     <h:body>
         <c:choose>
 
-            <c:when test="#{authController.loggedIn}">
+            <c:when test="#{authService.loggedIn}">
                 <f:event type="preRenderView" listener="#{webServiceAuthController.redirectList()}" />
             </c:when>
             <c:otherwise>
-                <f:event type="preRenderView" listener="#{webServiceAuthController.redirectLogin()}" />
+                <f:event type="preRenderView" listener="#{authService.redirectLogin()}" />
             </c:otherwise>
         </c:choose>
     </h:body>

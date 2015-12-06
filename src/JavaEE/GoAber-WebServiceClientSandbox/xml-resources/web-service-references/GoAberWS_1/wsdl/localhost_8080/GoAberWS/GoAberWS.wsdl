@@ -16,12 +16,6 @@
 <message name="addActivityDataResponse">
 <part name="parameters" element="tns:addActivityDataResponse"/>
 </message>
-<message name="hello">
-<part name="parameters" element="tns:hello"/>
-</message>
-<message name="helloResponse">
-<part name="parameters" element="tns:helloResponse"/>
-</message>
 <message name="isNotNullEmptyOrWhiteSpace">
 <part name="parameters" element="tns:isNotNullEmptyOrWhiteSpace"/>
 </message>
@@ -36,10 +30,6 @@
 <operation name="addActivityData">
 <input wsam:Action="http://WebServices/GoAberWS/addActivityDataRequest" message="tns:addActivityData"/>
 <output wsam:Action="http://WebServices/GoAberWS/addActivityDataResponse" message="tns:addActivityDataResponse"/>
-</operation>
-<operation name="hello">
-<input wsam:Action="http://WebServices/GoAberWS/helloRequest" message="tns:hello"/>
-<output wsam:Action="http://WebServices/GoAberWS/helloResponse" message="tns:helloResponse"/>
 </operation>
 <operation name="isNotNullEmptyOrWhiteSpace">
 <input wsam:Action="http://WebServices/GoAberWS/isNotNullEmptyOrWhiteSpaceRequest" message="tns:isNotNullEmptyOrWhiteSpace"/>
@@ -58,15 +48,6 @@
 </output>
 </operation>
 <operation name="addActivityData">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="hello">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
