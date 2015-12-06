@@ -178,6 +178,87 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code.
+        /// </summary>
+        public static string account_Code {
+            get {
+                return ResourceManager.GetString("account_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
+        /// </summary>
+        public static string account_ConfirmPassword {
+            get {
+                return ResourceManager.GetString("account_ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DoB.
+        /// </summary>
+        public static string account_DoB {
+            get {
+                return ResourceManager.GetString("account_DoB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string account_Email {
+            get {
+                return ResourceManager.GetString("account_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        public static string account_Nickname {
+            get {
+                return ResourceManager.GetString("account_Nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string account_password {
+            get {
+                return ResourceManager.GetString("account_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember me?.
+        /// </summary>
+        public static string account_RemeberMe {
+            get {
+                return ResourceManager.GetString("account_RemeberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember this browser?.
+        /// </summary>
+        public static string account_RememberBroswer {
+            get {
+                return ResourceManager.GetString("account_RememberBroswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team ID.
+        /// </summary>
+        public static string account_Team {
+            get {
+                return ResourceManager.GetString("account_Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid login attempt..
         /// </summary>
         public static string AccountController_Login_Invalid_login_attempt {
@@ -557,6 +638,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IP Address.
+        /// </summary>
+        public static string Audit_IpAddress {
+            get {
+                return ResourceManager.GetString("Audit_IpAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Parameters.
+        /// </summary>
+        public static string Audit_RequestParams {
+            get {
+                return ResourceManager.GetString("Audit_RequestParams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL Accessed.
+        /// </summary>
+        public static string Audit_UrlAccessed {
+            get {
+                return ResourceManager.GetString("Audit_UrlAccessed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string BackToList {
@@ -571,6 +679,60 @@ namespace Resources {
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity type.
+        /// </summary>
+        public static string challenge_categoryUnitId {
+            get {
+                return ResourceManager.GetString("challenge_categoryUnitId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communities.
+        /// </summary>
+        public static string challenge_communityChallenges {
+            get {
+                return ResourceManager.GetString("challenge_communityChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        public static string challenge_complete {
+            get {
+                return ResourceManager.GetString("challenge_complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End time.
+        /// </summary>
+        public static string challenge_endTime {
+            get {
+                return ResourceManager.GetString("challenge_endTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups.
+        /// </summary>
+        public static string challenge_groupchallenges {
+            get {
+                return ResourceManager.GetString("challenge_groupchallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start time.
+        /// </summary>
+        public static string challenge_startTime {
+            get {
+                return ResourceManager.GetString("challenge_startTime", resourceCulture);
             }
         }
         
@@ -656,6 +818,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Endpoint URL.
+        /// </summary>
+        public static string community_endpointUrl {
+            get {
+                return ResourceManager.GetString("community_endpointUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string community_name {
+            get {
+                return ResourceManager.GetString("community_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Create {
@@ -670,6 +850,33 @@ namespace Resources {
         public static string CreateNew {
             get {
                 return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data removed.
+        /// </summary>
+        public static string dataRemovalAudit_dataRemoved {
+            get {
+                return ResourceManager.GetString("dataRemovalAudit_dataRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date removed.
+        /// </summary>
+        public static string dataRemovalAudit_date {
+            get {
+                return ResourceManager.GetString("dataRemovalAudit_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string dataRemovalAudit_message {
+            get {
+                return ResourceManager.GetString("dataRemovalAudit_message", resourceCulture);
             }
         }
         
@@ -814,6 +1021,78 @@ namespace Resources {
         public static string HomeController_Index_Home_Page {
             get {
                 return ResourceManager.GetString("HomeController_Index_Home_Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of Birth.
+        /// </summary>
+        public static string identityModel_dob {
+            get {
+                return ResourceManager.GetString("identityModel_dob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        public static string identityModel_nickname {
+            get {
+                return ResourceManager.GetString("identityModel_nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string identityModel_Team {
+            get {
+                return ResourceManager.GetString("identityModel_Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unique Name.
+        /// </summary>
+        public static string job_id {
+            get {
+                return ResourceManager.GetString("job_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minutes.
+        /// </summary>
+        public static string job_Minutes {
+            get {
+                return ResourceManager.GetString("job_Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedule Type.
+        /// </summary>
+        public static string job_schedtype {
+            get {
+                return ResourceManager.GetString("job_schedtype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task Type.
+        /// </summary>
+        public static string job_tasktype {
+            get {
+                return ResourceManager.GetString("job_tasktype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Members.
+        /// </summary>
+        public static string Leader_NumMembers {
+            get {
+                return ResourceManager.GetString("Leader_NumMembers", resourceCulture);
             }
         }
         
@@ -1169,6 +1448,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity type.
+        /// </summary>
+        public static string result_categoryUnit {
+            get {
+                return ResourceManager.GetString("result_categoryUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Roles_Create_cshtml_Execute_Create {
@@ -1318,6 +1606,24 @@ namespace Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent Community.
+        /// </summary>
+        public static string team_communityId {
+            get {
+                return ResourceManager.GetString("team_communityId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team Name.
+        /// </summary>
+        public static string team_name {
+            get {
+                return ResourceManager.GetString("team_name", resourceCulture);
             }
         }
         

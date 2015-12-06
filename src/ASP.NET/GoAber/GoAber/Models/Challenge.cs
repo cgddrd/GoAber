@@ -12,6 +12,7 @@ namespace GoAber.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Challenge
     {
@@ -24,27 +25,26 @@ namespace GoAber.Models
         }
     
         public string Id { get; set; }
-        [DisplayName("Activity type")]
+        [Display(Name = "challenge_categoryUnitId", ResourceType = typeof(Resources.Resources))]
         public int categoryUnitId { get; set; }
-        [DisplayName("Activity type")]
+        [Display(Name = "challenge_categoryUnitId", ResourceType = typeof(Resources.Resources))]
         public virtual CategoryUnit categoryUnit { get; set; }
 
-        [DisplayName("Start time")]
+        [Display(Name = "challenge_startTime", ResourceType = typeof(Resources.Resources))]
         public System.DateTime startTime { get; set; }
-        [DisplayName("End time")]
+        [Display(Name = "challenge_endTime", ResourceType = typeof(Resources.Resources))]
         public Nullable<System.DateTime> endTime { get; set; }
         public string name { get; set; }
        // public Nullable<int> communityStartedBy { get; set; }
 
-        [DisplayName("Complete")]
+        [Display(Name = "challenge_complete", ResourceType = typeof(Resources.Resources))]
         public bool complete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChallenge> userchallenges { get; set; }
-        [DisplayName("Groups")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [Display(Name = "challenge_groupchallenges", ResourceType = typeof(Resources.Resources))]
         public virtual ICollection<GroupChallenge> groupchallenges { get; set; }
-        [DisplayName("Communities")]
+        [Display(Name = "challenge_communityChallenges", ResourceType = typeof(Resources.Resources))]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommunityChallenge> communityChallenges { get; set; }
 
