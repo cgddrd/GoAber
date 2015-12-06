@@ -636,6 +636,12 @@
     <Content Include="Views\Results\Index.cshtml" />
     <Content Include="Views\Challenge\CreateCommunity.cshtml" />
     <Content Include="Views\Challenge\LeaderBoard.cshtml" />
+    <Content Include="Views\Challenge\EnteredGroup.cshtml" />
+    <Content Include="Views\Challenge\EnteredCommunity.cshtml" />
+    <Content Include="Views\Challenge\UnEnteredCommunity.cshtml" />
+    <Content Include="Views\Challenge\UnEnteredGroup.cshtml" />
+    <Content Include="Views\Challenge\CompletedCommunity.cshtml" />
+    <Content Include="Views\Challenge\CompletedGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
