@@ -764,13 +764,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activity type.
-        /// </summary>
-        public static string challenge_categoryUnitId {
-            get {
-                return ResourceManager.GetString("challenge_categoryUnitId", resourceCulture);
-			}
-		}
         ///   Looks up a localized string similar to Create Community Challenge.
         /// </summary>
         public static string Challeneges_createCommunityChallenge {
@@ -789,14 +782,17 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activity type.
+        /// </summary>
+        public static string challenge_categoryUnitId {
+            get {
+                return ResourceManager.GetString("challenge_categoryUnitId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Communities.
         /// </summary>
-        public static string challenge_communityChallenges {
-            get {
-                return ResourceManager.GetString("challenge_communityChallenges", resourceCulture);
-			}
-		}
-		
         public static string Challenge_Communities {
             get {
                 return ResourceManager.GetString("Challenge_Communities", resourceCulture);
@@ -806,12 +802,13 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Complete.
         /// </summary>
-        public static string challenge_complete {
+        public static string Challenge_Complete {
             get {
-                return ResourceManager.GetString("challenge_complete", resourceCulture);
+                return ResourceManager.GetString("Challenge_Complete", resourceCulture);
             }
         }
         
+        /// <summary>
         ///   Looks up a localized string similar to End Time.
         /// </summary>
         public static string Challenge_EndTime {
@@ -1015,14 +1012,6 @@ namespace Resources {
         public static string community_endpointUrl {
             get {
                 return ResourceManager.GetString("community_endpointUrl", resourceCulture);
-			}
-		}
-		
-        ///   Looks up a localized string similar to Completed Commuity Challenges.
-        /// </summary>
-        public static string CompletedCommunityChallengesLink {
-            get {
-                return ResourceManager.GetString("CompletedCommunityChallengesLink", resourceCulture);
             }
         }
         
@@ -1036,19 +1025,38 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Coordinate Challenges.
+        ///   Looks up a localized string similar to Completed Commuity Challenges.
         /// </summary>
-        public static string CoordinatorChallengesLink {
+        public static string CompletedCommunityChallengesLink {
             get {
-                return ResourceManager.GetString("CoordinatorChallengesLink", resourceCulture);
-			}
-		}
+                return ResourceManager.GetString("CompletedCommunityChallengesLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Completed Group Challenges.
+        /// </summary>
+        public static string CompletedGroupChallengesLink {
+            get {
+                return ResourceManager.GetString("CompletedGroupChallengesLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thank you for confirming your email..
         /// </summary>
         public static string confirmEmail_thankYou {
             get {
                 return ResourceManager.GetString("confirmEmail_thankYou", resourceCulture);
-
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinate Challenges.
+        /// </summary>
+        public static string CoordinatorChallengesLink {
+            get {
+                return ResourceManager.GetString("CoordinatorChallengesLink", resourceCulture);
             }
         }
         

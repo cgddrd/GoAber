@@ -571,7 +571,6 @@
   <data name="ToDate" xml:space="preserve">
     <value>To Date</value>
   </data>
-<<<<<<< HEAD
   <data name="account_Code" xml:space="preserve">
     <value>Code</value>
   </data>
@@ -634,24 +633,6 @@
   </data>
   <data name="BatchDelete_title" xml:space="preserve">
     <value>Batch Delete</value>
-  </data>
-  <data name="challenge_categoryUnitId" xml:space="preserve">
-    <value>Activity type</value>
-  </data>
-  <data name="challenge_communityChallenges" xml:space="preserve">
-    <value>Communities</value>
-  </data>
-  <data name="challenge_complete" xml:space="preserve">
-    <value>Complete</value>
-  </data>
-  <data name="challenge_endTime" xml:space="preserve">
-    <value>End time</value>
-  </data>
-  <data name="challenge_groupchallenges" xml:space="preserve">
-    <value>Groups</value>
-  </data>
-  <data name="challenge_startTime" xml:space="preserve">
-    <value>Start time</value>
   </data>
   <data name="community_endpointUrl" xml:space="preserve">
     <value>Endpoint URL</value>
@@ -745,6 +726,7 @@
   </data>
   <data name="team_name" xml:space="preserve">
     <value>Team Name</value>
+  </data>
   <data name="Challenges_enteredCommunityChallenges" xml:space="preserve">
     <value>Entered Community Challenges</value>
   </data>
@@ -765,6 +747,9 @@
   </data>
   <data name="CompletedGroupChallengesLink" xml:space="preserve">
     <value>Completed Group Challenges</value>
+  </data>
+  <data name="challenge_categoryUnitId" xml:space="preserve">
+    <value>Activity type</value>
   </data>
   <data name="CoordinatorChallengesLink" xml:space="preserve">
     <value>Coordinate Challenges</value>
