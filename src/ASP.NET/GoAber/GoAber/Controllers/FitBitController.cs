@@ -47,6 +47,30 @@ namespace GoAber.Controllers
 
         }
 
+        [HttpPost, ActionName("GetActivityData")]
+        public ActionResult GetActivityData(DateTime dateFitbit, int fitBitDeviceID, int jawboneDeviceID, int jawboneSteps)
+        {
+            int day = dateFitbit.Day;
+            int month = dateFitbit.Month;
+            int year = dateFitbit.Year;
+
+            ActivityData activityDay = GetWalkingSteps(year, month, day);
+            if (activityDay != null)
+            {
+                ViewBag.FitbitSteps = activityDay.value;
+            }
+            else
+            {
+                ViewBag.FitbitSteps = 0;
+            }
+
+            ViewBag.FitBitConnected = true;
+            ViewBag.JawboneDeviceID = jawboneDeviceID;
+            ViewBag.JawboneSteps = jawboneSteps;
+            ViewBag.FitBitDeviceID = fitBitDeviceID;
+            return View("../Devices/Index");
+        }
+
 
         /////////////////
         //  Test code  //

@@ -634,6 +634,15 @@
   <data name="BatchDelete_title" xml:space="preserve">
     <value>Batch Delete</value>
   </data>
+  <data name="challenge_categoryUnitId" xml:space="preserve">
+    <value>Activity type</value>
+  </data>
+  <data name="challenge_communityChallenges" xml:space="preserve">
+    <value>Communities</value>
+  </data>
+  <data name="challenge_groupchallenges" xml:space="preserve">
+    <value>Groups</value>
+  </data>
   <data name="community_endpointUrl" xml:space="preserve">
     <value>Endpoint URL</value>
   </data>
@@ -864,5 +873,44 @@
   </data>
   <data name="String1" xml:space="preserve">
     <value />
+  </data>
+  <data name="Device_FitBitConnect" xml:space="preserve">
+    <value>Connect to FitBit</value>
+  </data>
+  <data name="Device_IndexNavigation" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Device_JawboneConnect" xml:space="preserve">
+    <value>Connect to Jawbone</value>
+  </data>
+  <data name="Device_ConnectToDevice" xml:space="preserve">
+    <value>Create Connection</value>
+  </data>
+  <data name="Device_DeleteConnection" xml:space="preserve">
+    <value>Revoke Access</value>
+  </data>
+  <data name="Device_FitBitConnected" xml:space="preserve">
+    <value>FitBit is Connected</value>
+  </data>
+  <data name="Device_FitBitNotConnected" xml:space="preserve">
+    <value>FitBit not connected</value>
+  </data>
+  <data name="Device_GetNumberOfStepsLabel" xml:space="preserve">
+    <value>Get number of steps for :</value>
+  </data>
+  <data name="Device_GetStepsButton" xml:space="preserve">
+    <value>Get Steps</value>
+  </data>
+  <data name="Device_IndexTitle" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="Device_JawboneConnected" xml:space="preserve">
+    <value>JawBone is Connected</value>
+  </data>
+  <data name="Device_JawboneNotConnected" xml:space="preserve">
+    <value>JawBone is not connected</value>
+  </data>
+  <data name="Device_NumberOfSteps" xml:space="preserve">
+    <value>Number of steps :</value>
   </data>
 </root>

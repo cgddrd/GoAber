@@ -3,39 +3,58 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Device connections</h2>
+<h2>@Resources.Device_IndexTitle</h2>
 
-<p>
-    <ul>
-        <li>
-        @if (ViewBag.FitBitConnected != true)
+
+    @if (ViewBag.FitBitDeviceID == -1)
+    {
+        <h3>@Resources.Device_FitBitNotConnected</h3>
+            @Html.ActionLink(Resources.Device_ConnectToDevice, "StartOAuth", "FitBit")
+    }
+    else
+    {
+        <h3>@Resources.Device_FitBitConnected</h3>
+
+
+        using (Html.BeginForm("GetActivityData", "FitBit", FormMethod.Post))
         {
-            <h3>FitBit not connected</h3>
-            @Html.ActionLink("Create connection", "StartOAuth", "FitBit")
+            @Html.Label(Resources.Device_GetNumberOfStepsLabel)
+            @Html.TextBox("dateFitbit", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { type = "date", @class = "form-control" })
+            @Html.Hidden("fitBitDeviceID", (int)ViewBag.FitBitDeviceID)
+            @Html.Hidden("jawboneDeviceID", (int)ViewBag.JawboneDeviceID)
+            @Html.Hidden("jawboneSteps", (int)ViewBag.JawboneSteps)
+            <input type="submit" value="@Resources.Device_GetStepsButton" class="btn btn-default" />
         }
-        else
+        <p>
+            @Resources.Device_NumberOfSteps @ViewBag.FitbitSteps
+        </p>
+
+        @Html.ActionLink(@Resources.Device_DeleteConnection, "Delete", "Devices", new { deviceID = ViewBag.FitBitDeviceID }, null)    
+    }
+    <hr />
+
+    @if (ViewBag.JawboneDeviceID == -1)
+    {
+        <h3>@Resources.Device_JawboneNotConnected</h3>
+        @Html.ActionLink(Resources.Device_ConnectToDevice, "StartOAuth", "JawBone")
+    }
+    else
+    {
+        <h3>@Resources.Device_JawboneConnected</h3>
+        using (Html.BeginForm("GetActivityData", "Jawbone", FormMethod.Post))
         {
-            <h3>FitBit is Connected</h3>
-            <ul>
-                <li>@Html.ActionLink("Manage connection", "Index", "FitBit")</li>
-                <li>@Html.ActionLink("Delete connection", "Delete", "Devices", new { deviceID = ViewBag.FitBitDeviceID }, null)</li>
-            </ul>
+            @Html.Label(Resources.Device_GetNumberOfStepsLabel)
+            @Html.TextBox("dateJawbone", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { type = "date", @class = "form-control" })
+            @Html.Hidden("fitBitDeviceID", (int)ViewBag.FitBitDeviceID)
+            @Html.Hidden("jawboneDeviceID", (int)ViewBag.JawboneDeviceID)
+            @Html.Hidden("fitbitSteps", (int)ViewBag.FitbitSteps)
+            <input type="submit" value="@Resources.Device_GetStepsButton" class="btn btn-default" />
         }
-        </li>
-        <li>
-        @if (ViewBag.JawBoneConnected != true)
-        {
-            <h3>JawBone is not connected</h3>
-            @Html.ActionLink("Create connection", "StartOAuth", "JawBone")
-        }
-        else
-        {
-            <h3>JawBone is Connected</h3>
-            <ul>
-                <li>@Html.ActionLink("Manage connection", "Index", "JawBone")</li>
-                <li>@Html.ActionLink("Delete connection", "Delete", "Devices", new { deviceID = ViewBag.JawBoneDeviceID }, null)</li>
-            </ul>
-            }
-       </li>
-    </ul>
-</p>
+        <p>
+            @Resources.Device_NumberOfSteps @ViewBag.JawboneSteps
+        </p>
+
+
+        @Html.ActionLink(@Resources.Device_DeleteConnection, "Delete", "Devices", new { deviceID = ViewBag.JawboneDeviceID }, null)
+        
+    }

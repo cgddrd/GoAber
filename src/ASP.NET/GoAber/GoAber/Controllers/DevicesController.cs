@@ -14,12 +14,14 @@ using System.Web;
 using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using GoAber.Services;
 
 namespace GoAber.Controllers
 {
     public class DevicesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private DeviceService deviceService = new DeviceService();
         private ApplicationUserManager _userManager;
 
         // CG - We need to create our UserManager instance (copied from AccountController). 
@@ -39,23 +41,27 @@ namespace GoAber.Controllers
         public ActionResult Index()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            ViewBag.FitBitConnected = false;
-            ViewBag.JawboneConnected = false;
+           // ViewBag.FitBitConnected = false;
+          //  ViewBag.JawboneConnected = false;
+            ViewBag.FitbitSteps = 0;
+            ViewBag.JawboneSteps = 0;
+            ViewBag.FitBitDeviceID = -1;
+            ViewBag.JawboneDeviceID = -1;
 
-            Device[] devices = FindDevices(user.Id);
+            Device[] devices = deviceService.FindDevices(user.Id);
             foreach (Device device in devices)
             {
                 if (device != null)
                 {
-                    DeviceType deviceType = FindDeviceType(device.deviceTypeId);
-                    if (deviceType.name == "fitbit")
+                    DeviceType deviceType = deviceService.FindDeviceType(device.deviceTypeId);
+                    if (deviceType.name.ToLower() == "fitbit")
                     {
-                        ViewBag.FitBitConnected = true;
+                        //ViewBag.FitBitConnected = true;
                         ViewBag.FitBitDeviceID = device.Id;
                     } 
-                    if (deviceType.name == "jawbone")
+                    if (deviceType.name.ToLower() == "jawbone")
                     {
-                        ViewBag.JawboneConnected = true;
+                       // ViewBag.JawboneConnected = true;
                         ViewBag.JawBoneDeviceID = device.Id;
                     }
                 }
@@ -63,37 +69,11 @@ namespace GoAber.Controllers
             return View();
         }
 
-        private Device[] FindDevices(string userID)
-        {
-            IQueryable<Device> devices = from d in db.Devices
-                        where d.ApplicationUserId == userID
-                        select d;
-            return devices.ToArray();
-        }
-
-        private DeviceType FindDeviceType(int deviceTypeID)
-        {
-            var query = from d in db.DeviceTypes
-                        where d.Id == deviceTypeID 
-                        select d;
-            return query.FirstOrDefault();
-        }
-
-        private Device RemoveDevice(int deviceID)
-        {
-            var query = from d in db.Devices
-                        where d.Id == deviceID 
-                        select d;
-            Device device = query.FirstOrDefault();
-            db.Devices.Remove(device);
-            db.SaveChanges();
-            return device;
-        }
 
         public ActionResult Delete(int deviceID)
         {
-            Device device = RemoveDevice(deviceID);
-            DeviceType deviceType = FindDeviceType(device.deviceTypeId);
+            Device device = deviceService.RemoveDevice(deviceID);
+            DeviceType deviceType = deviceService.FindDeviceType(device.deviceTypeId);
             ViewBag.deviceName = UppercaseFirst(deviceType.name);
             return View();
         }
