@@ -17,13 +17,13 @@
     <resheader name="version">2.0</resheader>
     <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
     <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Name1"><value>[WELSH]this is my long string</value><comment>this is a comment</comment></data>
     <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
+        <value>[WELSH][base64 mime encoded serialized .NET Framework object]</value>
     </data>
     <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <value>[WELSH][base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
                 
@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChooseYourLanguage" xml:space="preserve">
-    <value>[WELSH]Dewis iaith !</value>
+    <value>[WELSH]Choose your language!</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>[WELSH]Create</value>
@@ -177,8 +177,26 @@
   <data name="AccountController_VerifyCode_Invalid_code" xml:space="preserve">
     <value>[WELSH]Invalid code.</value>
   </data>
-  <data name="Error_cshtml_Execute_Error" xml:space="preserve">
-    <value>[WELSH]Error</value>
+  <data name="_Layout_cshtml_Execute_Application_name" xml:space="preserve">
+    <value>[WELSH]Go Aber</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_Home" xml:space="preserve">
+    <value>[WELSH]Home</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_About" xml:space="preserve">
+    <value>[WELSH]About</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_Contact" xml:space="preserve">
+    <value>[WELSH]Contact</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_Admin" xml:space="preserve">
+    <value>[WELSH]Admin</value>
+  </data>
+  <data name="_LoginPartial_cshtml_Execute_Register" xml:space="preserve">
+    <value>[WELSH]Register</value>
+  </data>
+  <data name="_LoginPartial_cshtml_Execute_Log_in" xml:space="preserve">
+    <value>[WELSH]Log in</value>
   </data>
   <data name="HomeController_About_About" xml:space="preserve">
     <value>[WELSH]About</value>
@@ -186,20 +204,14 @@
   <data name="HomeController_Index_Home_Page" xml:space="preserve">
     <value>[WELSH]Home Page</value>
   </data>
+  <data name="Error_cshtml_Execute_Error" xml:space="preserve">
+    <value>[WELSH]Error</value>
+  </data>
   <data name="Lockout_cshtml_Execute_Locked_Out" xml:space="preserve">
     <value>[WELSH]Locked Out</value>
   </data>
   <data name="ManageController_Index_Manage" xml:space="preserve">
-    <value>[WELSH]Manage</value>
-  </data>
-  <data name="Manage_AddPhoneNumber_cshtml_Execute_AddPhoneNumber" xml:space="preserve">
-    <value>[WELSH]AddPhoneNumber</value>
-  </data>
-  <data name="Manage_AddPhoneNumber_cshtml_Execute_Phone_Number" xml:space="preserve">
-    <value>[WELSH]Phone Number</value>
-  </data>
-  <data name="Manage_ChangePassword_cshtml_Execute_Change_Password" xml:space="preserve">
-    <value>[WELSH]Change Password</value>
+    <value>[WELSH]Your Account Details</value>
   </data>
   <data name="Manage_Index_cshtml_Execute_Change_password" xml:space="preserve">
     <value>[WELSH]Change your password</value>
@@ -209,6 +221,15 @@
   </data>
   <data name="Manage_Index_cshtml_Execute_Manage" xml:space="preserve">
     <value>[WELSH]Manage</value>
+  </data>
+  <data name="Manage_AddPhoneNumber_cshtml_Execute_Phone_Number" xml:space="preserve">
+    <value>[WELSH]Phone Number</value>
+  </data>
+  <data name="Manage_AddPhoneNumber_cshtml_Execute_AddPhoneNumber" xml:space="preserve">
+    <value>[WELSH]AddPhoneNumber</value>
+  </data>
+  <data name="Manage_ChangePassword_cshtml_Execute_Change_Password" xml:space="preserve">
+    <value>[WELSH]Change Password</value>
   </data>
   <data name="Manage_ManageLogins_cshtml_Execute_Manage_external_logins" xml:space="preserve">
     <value>[WELSH]Manage your external logins</value>
@@ -231,23 +252,23 @@
   <data name="Roles_Edit_cshtml_Execute_Manage_User_Role" xml:space="preserve">
     <value>[WELSH]Manage User Role</value>
   </data>
+  <data name="Roles_Index_cshtml_Execute_Index" xml:space="preserve">
+    <value>[WELSH]Index</value>
+  </data>
   <data name="Roles_Index_cshtml_Execute_Create_New_Role" xml:space="preserve">
     <value>[WELSH]Create New Role</value>
   </data>
   <data name="Roles_Index_cshtml_Execute_Edit" xml:space="preserve">
     <value>[WELSH]Edit</value>
   </data>
-  <data name="Roles_Index_cshtml_Execute_Index" xml:space="preserve">
-    <value>[WELSH]Index</value>
-  </data>
   <data name="Roles_Index_cshtml_Execute_Manage_User_Role" xml:space="preserve">
     <value>[WELSH]Manage User Role</value>
   </data>
-  <data name="Roles_ManageUserRoles_cshtml_Execute_Create_New_Role" xml:space="preserve">
-    <value>[WELSH]Create New Role</value>
-  </data>
   <data name="Roles_ManageUserRoles_cshtml_Execute_ManageUserRoles" xml:space="preserve">
     <value>[WELSH]ManageUserRoles</value>
+  </data>
+  <data name="Roles_ManageUserRoles_cshtml_Execute_Create_New_Role" xml:space="preserve">
+    <value>[WELSH]Create New Role</value>
   </data>
   <data name="Roles_ManageUserRoles_cshtml_Execute_Manage_User_Role" xml:space="preserve">
     <value>[WELSH]Manage User Role</value>
@@ -255,26 +276,47 @@
   <data name="Roles_ManageUserRoles_cshtml_Execute_Select" xml:space="preserve">
     <value>[WELSH]Select ...</value>
   </data>
-  <data name="_Layout_cshtml_Execute_About" xml:space="preserve">
-    <value>[WELSH]About</value>
+  <data name="AD_Create_cshtml_Execute_Create" xml:space="preserve">
+    <value>[WELSH]Create</value>
   </data>
-  <data name="_Layout_cshtml_Execute_Admin" xml:space="preserve">
-    <value>[WELSH]Admin</value>
+  <data name="AD_Create_cshtml_Execute_Back_to_List" xml:space="preserve">
+    <value>[WELSH]Back to List</value>
   </data>
-  <data name="_Layout_cshtml_Execute_Application_name" xml:space="preserve">
-    <value>[WELSH]Application name</value>
+  <data name="AD_Delete_cshtml_Execute_Delete" xml:space="preserve">
+    <value>[WELSH]Delete</value>
   </data>
-  <data name="_Layout_cshtml_Execute_Contact" xml:space="preserve">
-    <value>[WELSH]Contact</value>
+  <data name="AD_Delete_cshtml_Execute_Back_to_List" xml:space="preserve">
+    <value>[WELSH]Back to List</value>
   </data>
-  <data name="_Layout_cshtml_Execute_Home" xml:space="preserve">
-    <value>[WELSH]Home</value>
+  <data name="AD_Details_cshtml_Execute_Details" xml:space="preserve">
+    <value>[WELSH]Details</value>
   </data>
-  <data name="_LoginPartial_cshtml_Execute_Log_in" xml:space="preserve">
-    <value>[WELSH]Log in</value>
+  <data name="AD_Details_cshtml_Execute_Edit" xml:space="preserve">
+    <value>[WELSH]Edit</value>
   </data>
-  <data name="_LoginPartial_cshtml_Execute_Register" xml:space="preserve">
-    <value>[WELSH]Register</value>
+  <data name="AD_Details_cshtml_Execute_Back_to_List" xml:space="preserve">
+    <value>[WELSH]Back to List</value>
+  </data>
+  <data name="AD_Edit_cshtml_Execute_Edit" xml:space="preserve">
+    <value>[WELSH]Edit</value>
+  </data>
+  <data name="AD_Edit_cshtml_Execute_Back_to_List" xml:space="preserve">
+    <value>[WELSH]Back to List</value>
+  </data>
+  <data name="AD_Index_cshtml_Execute_Index" xml:space="preserve">
+    <value>[WELSH]Index</value>
+  </data>
+  <data name="AD_Index_cshtml_Execute_Create_New" xml:space="preserve">
+    <value>[WELSH]Create New</value>
+  </data>
+  <data name="AD_Index_cshtml_Execute_Edit" xml:space="preserve">
+    <value>[WELSH]Edit</value>
+  </data>
+  <data name="AD_Index_cshtml_Execute_Details" xml:space="preserve">
+    <value>[WELSH]Details</value>
+  </data>
+  <data name="AD_Index_cshtml_Execute_Delete" xml:space="preserve">
+    <value>[WELSH]Delete</value>
   </data>
   <data name="_Layout_cshtml_Execute_FitBit" xml:space="preserve">
     <value>[WELSH]FitBit</value>
@@ -303,6 +345,9 @@
   <data name="AdminCommunitiesController_Index_Title" xml:space="preserve">
     <value>[WELSH]Communities</value>
   </data>
+  <data name="AdminControlPanelTitle" xml:space="preserve">
+    <value>[WELSH]Admin Control Panel</value>
+  </data>
   <data name="BackToList" xml:space="preserve">
     <value>[WELSH]Back to List</value>
   </data>
@@ -324,9 +369,6 @@
   <data name="Save" xml:space="preserve">
     <value>[WELSH]Save</value>
   </data>
-  <data name="AdminControlPanelTitle" xml:space="preserve">
-    <value>[WELSH]Admin Control Panel</value>
-  </data>
   <data name="ManageActivityData" xml:space="preserve">
     <value>[WELSH]Manage Activity Data</value>
   </data>
@@ -346,10 +388,143 @@
     <value>[WELSH]Activity Data</value>
   </data>
   <data name="ManageTeams" xml:space="preserve">
-    <value>[WELSH]ManageTeams</value>
+    <value>[WELSH]Manage Teams</value>
+  </data>
+  <data name="ActivityData" xml:space="preserve">
+    <value>[WELSH]Activity Data</value>
+  </data>
+  <data name="MonthlySummary" xml:space="preserve">
+    <value>[WELSH]Monthly Summary</value>
+  </data>
+  <data name="WeeklySummary" xml:space="preserve">
+    <value>[WELSH]Weekly Summary</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>[WELSH]Manage</value>
+  </data>
+  <data name="WeeklySummaryTitle_TotalBeats" xml:space="preserve">
+    <value>[WELSH]Total Beats This Week</value>
+  </data>
+  <data name="WeeklySummaryTitle_TotalSteps" xml:space="preserve">
+    <value>[WELSH]Total Steps This Week</value>
+  </data>
+  <data name="MonthlySummaryTitle_TotalBeats" xml:space="preserve">
+    <value>[WELSH]Total BeatsThis Month</value>
+  </data>
+  <data name="MonthlySummaryTitle_TotalSteps" xml:space="preserve">
+    <value>[WELSH]Total Steps This Month</value>
+  </data>
+  <data name="AllTimeSummary" xml:space="preserve">
+    <value>[WELSH]All Time Summary</value>
+  </data>
+  <data name="AD_Category" xml:space="preserve">
+    <value>[WELSH]Category</value>
+  </data>
+  <data name="AD_Date" xml:space="preserve">
+    <value>[WELSH]Date</value>
+  </data>
+  <data name="AD_LastUpdated" xml:space="preserve">
+    <value>[WELSH]Last Updated</value>
+  </data>
+  <data name="AD_Unit" xml:space="preserve">
+    <value>[WELSH]Unit</value>
+  </data>
+  <data name="AD_Value" xml:space="preserve">
+    <value>[WELSH]Value</value>
+  </data>
+  <data name="AD_WeeklySummaryStatistics" xml:space="preserve">
+    <value>[WELSH]&lt;li&gt;Total number of {0} this week: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Average number of {0} this week: &lt;span class="statistic" id="{0}-average"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Your best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+      &lt;li&gt;Your worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AD_AllTimeSummaryStatistics" xml:space="preserve">
+    <value>[WELSH]&lt;li&gt;Total number of {0}: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;Your best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+                    &lt;li&gt;Your worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AD_MonthlySummaryStatistics" xml:space="preserve">
+    <value>[WELSH]&lt;li&gt;Total number of {0} this month: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Average number of {0} this month: &lt;span class="statistic" id="{0}-average"&gt;&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;Your best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+      &lt;li&gt;Your worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AD_UnitsPerDaySummary" xml:space="preserve">
+    <value>[WELSH]{0} Per Day</value>
+  </data>
+  <data name="AD_UnitSummary" xml:space="preserve">
+    <value>[WELSH]{0} Summary</value>
+  </data>
+  <data name="ViewUser" xml:space="preserve">
+    <value>[WELSH]View User</value>
+  </data>
+  <data name="AD_ViewUserStatistics" xml:space="preserve">
+    <value>[WELSH]&lt;li&gt;Total number of {0}: &lt;span class="statistic" id="{0}-total"&gt;&lt;/span&gt;&lt;/li&gt;
+                    &lt;li&gt;Their best day was &lt;span class="statistic" id="{0}-max-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-max-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;
+                    &lt;li&gt;Their worst day was &lt;span class="statistic" id="{0}-min-date"&gt;&lt;/span&gt; with &lt;span class="statistic" id="{0}-min-value"&gt;&lt;/span&gt; {0}.&lt;/li&gt;</value>
+  </data>
+  <data name="AreYouSureDelete" xml:space="preserve">
+    <value>[WELSH]Are you sure you want to delete {0} records</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>[WELSH]Clear</value>
+  </data>
+  <data name="ManageController_EditAccount_Manage" xml:space="preserve">
+    <value>[WELSH]Manage Account Details</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_DateOfBirth" xml:space="preserve">
+    <value>[WELSH]Date of Birth</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_EmailAddress" xml:space="preserve">
+    <value>[WELSH]Email Address</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_Nickname" xml:space="preserve">
+    <value>[WELSH]Nickname</value>
+  </data>
+  <data name="ManageController_EditAccount_ManageController_EditAccount_Team" xml:space="preserve">
+    <value>[WELSH]Team</value>
+  </data>
+  <data name="ApplicationUsersController_Index_Title" xml:space="preserve">
+    <value>[WELSH]Manage User Accounts</value>
+  </data>
+  <data name="ApplicationUsersController_Teamname" xml:space="preserve">
+    <value>[WELSH]Team</value>
+  </data>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>[WELSH]Manage Users</value>
+  </data>
+  <data name="Challenges_communityChallenges" xml:space="preserve">
+    <value>[WELSH]Community challenges</value>
+  </data>
+  <data name="Challenges_groupChallenges" xml:space="preserve">
+    <value>[WELSH]Group challenges </value>
+  </data>
+  <data name="Challenges_youAreSignedUpTo" xml:space="preserve">
+    <value>[WELSH]Challenges you have entered</value>
+  </data>
+  <data name="Challenges_notEntered" xml:space="preserve">
+    <value>[WELSH]Challenges not entered</value>
   </data>
   <data name="_Layout_cshtml_Execute_WebServiceAuth" xml:space="preserve">
     <value>[WELSH]Web Service Auth Tokens</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_LeaderBoards" xml:space="preserve">
+    <value>[WELSH]Leader Boards</value>
+  </data>
+  <data name="LeaderBoards_GroupLeaderBoardTitle" xml:space="preserve">
+    <value>[WELSH]Group Leader Board</value>
+  </data>
+  <data name="LeaderBoards_IndexGroupTitle" xml:space="preserve">
+    <value>[WELSH]Group Leader Boards</value>
+  </data>
+  <data name="LeaderBoards_IndexParticipantTitle" xml:space="preserve">
+    <value>[WELSH]Participant Leader Boards</value>
+  </data>
+  <data name="LeaderBoards_ParticipantLeaderBoardTitle" xml:space="preserve">
+    <value>[WELSH]Participant Leader Board</value>
+  </data>
+  <data name="Ranking" xml:space="preserve">
+    <value>[WELSH]Ranking</value>
   </data>
   <data name="Challenges_completedChallenges" xml:space="preserve">
     <value>[WELSH]Completed Challenges</value>
@@ -357,7 +532,337 @@
   <data name="Challenges_completedcomChallenges" xml:space="preserve">
     <value>[WELSH]Community Challenges</value>
   </data>
-  <data name="Challenges_completedgroupChallenges" xml:space="preserve">
-    <value>[WELSH]Group Challenges</value>
+  <data name="Challenges_completedGroupChallenges" xml:space="preserve">
+    <value>[WELSH]Completed Group Challenges</value>
+  </data>
+  <data name="LeaderBoards_LeaderBoardTitle" xml:space="preserve">
+    <value>[WELSH]Leader Board</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_Challenges" xml:space="preserve">
+    <value>[WELSH]Challenges</value>
+  </data>
+  <data name="Delete_User_Prompt" xml:space="preserve">
+    <value>[WELSH]Are you sure you wish to delete your account?</value>
+  </data>
+  <data name="Delete_User_Prompt_Button" xml:space="preserve">
+    <value>[WELSH]Yes, delete my account.</value>
+  </data>
+  <data name="Delete_User_Prompt_Warning" xml:space="preserve">
+    <value>[WELSH]Please be aware that your data will be NON-RECOVERABLE if you proceed.</value>
+  </data>
+  <data name="Delete_User_Title" xml:space="preserve">
+    <value>[WELSH]Delete Your Account</value>
+  </data>
+  <data name="RoleType_Label" xml:space="preserve">
+    <value>[WELSH]Role Type</value>
+  </data>
+  <data name="UserDelete_Title" xml:space="preserve">
+    <value>[WELSH]Delete Account</value>
+  </data>
+  <data name="UserDetails_Title" xml:space="preserve">
+    <value>[WELSH]Account Details</value>
+  </data>
+  <data name="UserEdit_Title" xml:space="preserve">
+    <value>[WELSH]Edit Account Details</value>
+  </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>[WELSH]From Date</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>[WELSH]To Date</value>
+  </data>
+  <data name="account_Code" xml:space="preserve">
+    <value>[WELSH]Code</value>
+  </data>
+  <data name="account_ConfirmPassword" xml:space="preserve">
+    <value>[WELSH]Confirm password</value>
+  </data>
+  <data name="account_DoB" xml:space="preserve">
+    <value>[WELSH]DoB</value>
+  </data>
+  <data name="account_Email" xml:space="preserve">
+    <value>[WELSH]Email</value>
+  </data>
+  <data name="account_Nickname" xml:space="preserve">
+    <value>[WELSH]Nickname</value>
+  </data>
+  <data name="account_password" xml:space="preserve">
+    <value>[WELSH]Password</value>
+  </data>
+  <data name="account_RemeberMe" xml:space="preserve">
+    <value>[WELSH]Remember me?</value>
+  </data>
+  <data name="account_RememberBroswer" xml:space="preserve">
+    <value>[WELSH]Remember this browser?</value>
+  </data>
+  <data name="account_Team" xml:space="preserve">
+    <value>[WELSH]Team ID</value>
+  </data>
+  <data name="AD_Delete_areYouSure" xml:space="preserve">
+    <value>[WELSH]Are you sure you want to delete this?</value>
+  </data>
+  <data name="AD_Delete_Title" xml:space="preserve">
+    <value>[WELSH]Delete</value>
+  </data>
+  <data name="AD_Edit_Heading" xml:space="preserve">
+    <value>[WELSH]ActivityData</value>
+  </data>
+  <data name="AD_Manage_Create" xml:space="preserve">
+    <value>[WELSH]Create New</value>
+  </data>
+  <data name="AD_Manage_Title" xml:space="preserve">
+    <value>[WELSH]Manage Activity Data</value>
+  </data>
+  <data name="audit_details" xml:space="preserve">
+    <value>[WELSH]Details</value>
+  </data>
+  <data name="Audit_IpAddress" xml:space="preserve">
+    <value>[WELSH]IP Address</value>
+  </data>
+  <data name="Audit_RequestParams" xml:space="preserve">
+    <value>[WELSH]Request Parameters</value>
+  </data>
+  <data name="audit_title" xml:space="preserve">
+    <value>[WELSH]Audit</value>
+  </data>
+  <data name="Audit_UrlAccessed" xml:space="preserve">
+    <value>[WELSH]URL Accessed</value>
+  </data>
+  <data name="batchDelete_backToList" xml:space="preserve">
+    <value>[WELSH]Back to List</value>
+  </data>
+  <data name="BatchDelete_title" xml:space="preserve">
+    <value>[WELSH]Batch Delete</value>
+  </data>
+  <data name="community_endpointUrl" xml:space="preserve">
+    <value>[WELSH]Endpoint URL</value>
+  </data>
+  <data name="community_name" xml:space="preserve">
+    <value>[WELSH]Name</value>
+  </data>
+  <data name="confirmEmail_thankYou" xml:space="preserve">
+    <value>[WELSH]Thank you for confirming your email.</value>
+  </data>
+  <data name="dataRemovalAudit_dataRemoved" xml:space="preserve">
+    <value>[WELSH]Data removed</value>
+  </data>
+  <data name="dataRemovalAudit_date" xml:space="preserve">
+    <value>[WELSH]Date removed</value>
+  </data>
+  <data name="dataRemovalAudit_message" xml:space="preserve">
+    <value>[WELSH]Message</value>
+  </data>
+  <data name="ExternalLoginFailed" xml:space="preserve">
+    <value>[WELSH]Unsuccessful login with service</value>
+  </data>
+  <data name="ExternalLoginsTitle" xml:space="preserve">
+    <value>[WELSH]Use another service to log in.</value>
+  </data>
+  <data name="forgotPasswordConfirmation_checkEmailMessage" xml:space="preserve">
+    <value>[WELSH]Please check your email to reset your password.</value>
+  </data>
+  <data name="forgotPasswordConfirmation_title" xml:space="preserve">
+    <value>[WELSH]Forgot Password Confirmation</value>
+  </data>
+  <data name="forgotPasswordTitle" xml:space="preserve">
+    <value>[WELSH]Forgot your password?</value>
+  </data>
+  <data name="identityModel_dob" xml:space="preserve">
+    <value>[WELSH]Date of Birth</value>
+  </data>
+  <data name="identityModel_nickname" xml:space="preserve">
+    <value>[WELSH]Nickname</value>
+  </data>
+  <data name="identityModel_Team" xml:space="preserve">
+    <value>[WELSH]Team</value>
+  </data>
+  <data name="job_id" xml:space="preserve">
+    <value>[WELSH]Unique Name</value>
+  </data>
+  <data name="job_Minutes" xml:space="preserve">
+    <value>[WELSH]Minutes</value>
+  </data>
+  <data name="job_schedtype" xml:space="preserve">
+    <value>[WELSH]Schedule Type</value>
+  </data>
+  <data name="job_tasktype" xml:space="preserve">
+    <value>[WELSH]Task Type</value>
+  </data>
+  <data name="Leader_NumMembers" xml:space="preserve">
+    <value>[WELSH]Number of Members</value>
+  </data>
+  <data name="login_registerNewAccount" xml:space="preserve">
+    <value>[WELSH]Register as a new user</value>
+  </data>
+  <data name="login_title" xml:space="preserve">
+    <value>[WELSH]Log in</value>
+  </data>
+  <data name="login_useLocalAccountToLogin" xml:space="preserve">
+    <value>[WELSH]Use a local account to log in.</value>
+  </data>
+  <data name="register_title" xml:space="preserve">
+    <value>[WELSH]Register</value>
+  </data>
+  <data name="resetPasswordConfirmation" xml:space="preserve">
+    <value>[WELSH]Reset password confirmation</value>
+  </data>
+  <data name="resetPasswordConfirmation_passwordHasBeenReset" xml:space="preserve">
+    <value>[WELSH]Your password has been reset. </value>
+  </data>
+  <data name="resetPassword_restYourPassword" xml:space="preserve">
+    <value>[WELSH]Reset your password.</value>
+  </data>
+  <data name="resetPassword_title" xml:space="preserve">
+    <value>[WELSH]Reset password</value>
+  </data>
+  <data name="result_categoryUnit" xml:space="preserve">
+    <value>[WELSH]Activity type</value>
+  </data>
+  <data name="sendCode_title" xml:space="preserve">
+    <value>[WELSH]Send</value>
+  </data>
+  <data name="team_communityId" xml:space="preserve">
+    <value>[WELSH]Parent Community</value>
+  </data>
+  <data name="team_name" xml:space="preserve">
+    <value>[WELSH]Team Name</value>
+  </data>
+  <data name="Challenges_enteredCommunityChallenges" xml:space="preserve">
+    <value>[WELSH]Entered Community Challenges</value>
+  </data>
+  <data name="Challenges_enteredGroupChallenges" xml:space="preserve">
+    <value>[WELSH]Entered Group Challenges</value>
+  </data>
+  <data name="Challenges_indexTitle" xml:space="preserve">
+    <value>[WELSH]Challenges</value>
+  </data>
+  <data name="Challenges_unEnteredCommunityChallenges" xml:space="preserve">
+    <value>[WELSH]Community Challenges you have not entered</value>
+  </data>
+  <data name="Challenges_unEnteredGroupChallenges" xml:space="preserve">
+    <value>[WELSH]Group Challenges you have not entered</value>
+  </data>
+  <data name="CompletedCommunityChallengesLink" xml:space="preserve">
+    <value>[WELSH]Completed Commuity Challenges</value>
+  </data>
+  <data name="CompletedGroupChallengesLink" xml:space="preserve">
+    <value>[WELSH]Completed Group Challenges</value>
+  </data>
+  <data name="challenge_categoryUnitId" xml:space="preserve">
+    <value>[WELSH]Activity type</value>
+  </data>
+  <data name="CoordinatorChallengesLink" xml:space="preserve">
+    <value>[WELSH]Coordinate Challenges</value>
+  </data>
+  <data name="EnteredCommunityChallengesLink" xml:space="preserve">
+    <value>[WELSH]Entered Community Challenges</value>
+  </data>
+  <data name="EnteredGroupChallengesLink" xml:space="preserve">
+    <value>[WELSH]Entered Group Challenges</value>
+  </data>
+  <data name="UnEnteredCommunityChallengesLink" xml:space="preserve">
+    <value>[WELSH]Unentered Community Challenges</value>
+  </data>
+  <data name="UnEnteredGroupChallengesLink" xml:space="preserve">
+    <value>[WELSH]Unentered Group Challenges</value>
+  </data>
+  <data name="Challeneges_createCommunityChallenge" xml:space="preserve">
+    <value>[WELSH]Create Community Challenge</value>
+  </data>
+  <data name="Challeneges_createGroupChallenge" xml:space="preserve">
+    <value>[WELSH]Create Group Challenge</value>
+  </data>
+  <data name="Challenges_completedCommunityChallenges" xml:space="preserve">
+    <value>[WELSH]Completed Community Challenges</value>
+  </data>
+  <data name="Challenges_EnterChallenge" xml:space="preserve">
+    <value>[WELSH]Enter Challenge</value>
+  </data>
+  <data name="Challenges_LeaveChallenge" xml:space="preserve">
+    <value>[WELSH]Leave Challenge</value>
+  </data>
+  <data name="Challenges_viewLeaderBoard" xml:space="preserve">
+    <value>[WELSH]View Leaderboard</value>
+  </data>
+  <data name="Challenge_Communities" xml:space="preserve">
+    <value>[WELSH]Communities</value>
+  </data>
+  <data name="Challenge_Complete" xml:space="preserve">
+    <value>[WELSH]Complete</value>
+  </data>
+  <data name="Challenge_EndTime" xml:space="preserve">
+    <value>[WELSH]End Time</value>
+  </data>
+  <data name="Challenge_Groups" xml:space="preserve">
+    <value>[WELSH]Groups</value>
+  </data>
+  <data name="Challenge_Name" xml:space="preserve">
+    <value>[WELSH]Name</value>
+  </data>
+  <data name="Challenge_StartTime" xml:space="preserve">
+    <value>[WELSH]Start time</value>
+  </data>
+  <data name="verifyCode_title" xml:space="preserve">
+    <value>[WELSH]Verify</value>
+  </data>
+  <data name="AllChallegnes_Title" xml:space="preserve">
+    <value>[WELSH]Coordinate Challenges</value>
+  </data>
+  <data name="AllChallenges_Delete" xml:space="preserve">
+    <value>[WELSH]Delete</value>
+  </data>
+  <data name="AllChallenges_Details" xml:space="preserve">
+    <value>[WELSH]Details</value>
+  </data>
+  <data name="AllChallenges_Edit" xml:space="preserve">
+    <value>[WELSH]Edit</value>
+  </data>
+  <data name="Challenges_createCommunity_title" xml:space="preserve">
+    <value>[WELSH]Create Community Challenge</value>
+  </data>
+  <data name="Challenges_createGroup_title" xml:space="preserve">
+    <value>[WELSH]Create Group Challenge</value>
+  </data>
+  <data name="Challenge_BackToList" xml:space="preserve">
+    <value>[WELSH]Back to List</value>
+  </data>
+  <data name="Challenge_DeleteAreYouSure" xml:space="preserve">
+    <value>[WELSH]Are you sure you want to delete this?</value>
+  </data>
+  <data name="Challenge_DeleteTitle" xml:space="preserve">
+    <value>[WELSH]Delete</value>
+  </data>
+  <data name="confirmEmail_title" xml:space="preserve">
+    <value>[WELSH]Confirm Email</value>
+  </data>
+  <data name="DataRemovalAudit" xml:space="preserve">
+    <value>[WELSH]Data Removal Audit</value>
+  </data>
+  <data name="DataRemovalAudit_Details" xml:space="preserve">
+    <value>[WELSH]Details</value>
+  </data>
+  <data name="externalLoginsFailed_Title" xml:space="preserve">
+    <value>[WELSH]Login Failur</value>
+  </data>
+  <data name="AuditRm_Details" xml:space="preserve">
+    <value>[WELSH]Details</value>
+  </data>
+  <data name="AuditRm_Title" xml:space="preserve">
+    <value>[WELSH]Data Removal Audit</value>
+  </data>
+  <data name="Audit_BackToList" xml:space="preserve">
+    <value>[WELSH]Back to List</value>
+  </data>
+  <data name="Device_DeleteBack" xml:space="preserve">
+    <value>[WELSH]Back to device management</value>
+  </data>
+  <data name="Device_DeleteConnectionRevoked" xml:space="preserve">
+    <value>[WELSH]has had its connection revoked.</value>
+  </data>
+  <data name="Device_DeleteTitle" xml:space="preserve">
+    <value>[WELSH]Device connections</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
 </root>

@@ -647,6 +647,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coordinate Challenges.
+        /// </summary>
+        public static string AllChallegnes_Title {
+            get {
+                return ResourceManager.GetString("AllChallegnes_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string AllChallenges_Delete {
+            get {
+                return ResourceManager.GetString("AllChallenges_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string AllChallenges_Details {
+            get {
+                return ResourceManager.GetString("AllChallenges_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string AllChallenges_Edit {
+            get {
+                return ResourceManager.GetString("AllChallenges_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Time Summary.
         /// </summary>
         public static string AllTimeSummary {
@@ -679,6 +715,15 @@ namespace Resources {
         public static string AreYouSureDelete {
             get {
                 return ResourceManager.GetString("AreYouSureDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to List.
+        /// </summary>
+        public static string Audit_BackToList {
+            get {
+                return ResourceManager.GetString("Audit_BackToList", resourceCulture);
             }
         }
         
@@ -724,6 +769,24 @@ namespace Resources {
         public static string Audit_UrlAccessed {
             get {
                 return ResourceManager.GetString("Audit_UrlAccessed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string AuditRm_Details {
+            get {
+                return ResourceManager.GetString("AuditRm_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Removal Audit.
+        /// </summary>
+        public static string AuditRm_Title {
+            get {
+                return ResourceManager.GetString("AuditRm_Title", resourceCulture);
             }
         }
         
@@ -782,6 +845,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to List.
+        /// </summary>
+        public static string Challenge_BackToList {
+            get {
+                return ResourceManager.GetString("Challenge_BackToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activity type.
         /// </summary>
         public static string challenge_categoryUnitId {
@@ -814,6 +886,24 @@ namespace Resources {
         public static string Challenge_Complete {
             get {
                 return ResourceManager.GetString("Challenge_Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this?.
+        /// </summary>
+        public static string Challenge_DeleteAreYouSure {
+            get {
+                return ResourceManager.GetString("Challenge_DeleteAreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Challenge_DeleteTitle {
+            get {
+                return ResourceManager.GetString("Challenge_DeleteTitle", resourceCulture);
             }
         }
         
@@ -904,6 +994,24 @@ namespace Resources {
         public static string Challenges_completedGroupChallenges {
             get {
                 return ResourceManager.GetString("Challenges_completedGroupChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Community Challenge.
+        /// </summary>
+        public static string Challenges_createCommunity_title {
+            get {
+                return ResourceManager.GetString("Challenges_createCommunity_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Group Challenge.
+        /// </summary>
+        public static string Challenges_createGroup_title {
+            get {
+                return ResourceManager.GetString("Challenges_createGroup_title", resourceCulture);
             }
         }
         
@@ -1070,6 +1178,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Email.
+        /// </summary>
+        public static string confirmEmail_title {
+            get {
+                return ResourceManager.GetString("confirmEmail_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coordinate Challenges.
         /// </summary>
         public static string CoordinatorChallengesLink {
@@ -1097,6 +1214,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data Removal Audit.
+        /// </summary>
+        public static string DataRemovalAudit {
+            get {
+                return ResourceManager.GetString("DataRemovalAudit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data removed.
         /// </summary>
         public static string dataRemovalAudit_dataRemoved {
@@ -1111,6 +1237,15 @@ namespace Resources {
         public static string dataRemovalAudit_date {
             get {
                 return ResourceManager.GetString("dataRemovalAudit_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string DataRemovalAudit_Details {
+            get {
+                return ResourceManager.GetString("DataRemovalAudit_Details", resourceCulture);
             }
         }
         
@@ -1187,6 +1322,14 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to device management.
+        /// </summary>
+        public static string Device_DeleteBack {
+            get {
+                return ResourceManager.GetString("Device_DeleteBack", resourceCulture);
+			}
+		}
+		
         ///   Looks up a localized string similar to Create Connection.
         /// </summary>
         public static string Device_ConnectToDevice {
@@ -1196,6 +1339,13 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to has had its connection revoked..
+        /// </summary>
+        public static string Device_DeleteConnectionRevoked {
+            get {
+                return ResourceManager.GetString("Device_DeleteConnectionRevoked", resourceCulture);
+			}
+		}
         ///   Looks up a localized string similar to Revoke Access.
         /// </summary>
         public static string Device_DeleteConnection {
@@ -1205,6 +1355,13 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device connections.
+        /// </summary>
+        public static string Device_DeleteTitle {
+            get {
+                return ResourceManager.GetString("Device_DeleteTitle", resourceCulture);
+			}
+		}
         ///   Looks up a localized string similar to Connect to FitBit.
         /// </summary>
         public static string Device_FitBitConnect {
@@ -1354,6 +1511,15 @@ namespace Resources {
         public static string ExternalLoginFailed {
             get {
                 return ResourceManager.GetString("ExternalLoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Failur.
+        /// </summary>
+        public static string externalLoginsFailed_Title {
+            get {
+                return ResourceManager.GetString("externalLoginsFailed_Title", resourceCulture);
             }
         }
         
@@ -2110,6 +2276,15 @@ namespace Resources {
         public static string sendCode_title {
             get {
                 return ResourceManager.GetString("sendCode_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

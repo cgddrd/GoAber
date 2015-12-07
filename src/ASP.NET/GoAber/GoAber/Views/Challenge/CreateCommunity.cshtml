@@ -1,7 +1,7 @@
 ﻿@model GoAber.Models.Challenge
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = Resources.Challenges_createCommunity_title;
 }
 
     @Scripts.Render("~/bundles/jquery")
@@ -71,6 +71,6 @@
     }
     
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink(Resources.Challenge_BackToList, "Index")
     </div>
 
