@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,8 +22,8 @@ namespace GoAber.Controllers
     {
         protected abstract string DeviceName();
         protected abstract string[] Scope();
-        public abstract ActivityData GetWalkingSteps(int year, int month, int day);
-        public abstract ActivityData GetHeartRate(int year, int month, int day);
+        public abstract ActivityData GetWalkingSteps(int year, int month, int day, bool useDB = false);
+        public abstract ActivityData GetHeartRate(int year, int month, int day, bool useDB = false);
 
         protected ApplicationDbContext db = new ApplicationDbContext();
         protected DeviceService deviceService = new DeviceService();
@@ -222,14 +223,30 @@ namespace GoAber.Controllers
         /// <param name="month"></param>
         /// <param name="year"></param>
         /// <returns></returns>
-        public ActivityData GetWalkingSteps(string ls_path, string jsonPath, string userID, int day, int month, int year)
+        public ActivityData GetWalkingSteps(string ls_path, string jsonPath, string userID, int day, int month, int year, bool useDB = false)
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            try {
+                ApplicationUser user;
+                if (String.IsNullOrWhiteSpace(userID))
+                {
+                    user = UserManager.FindById(User.Identity.GetUserId());
+                    userID = user.Id;
+                }
+                else
+                {
+                    //user = UserManager.FindById(userID);
+                }
 
-            CategoryUnit categoryUnit = categoryUnitService.GetCategoryUnit("Walking", "Steps");
 
-            ActivityData activityDay = GetDayActivity(ls_path, jsonPath, user.Id, day, month, year, categoryUnit);
-            return activityDay;
+                CategoryUnit categoryUnit = categoryUnitService.GetCategoryUnit("Walking", "Steps");
+
+                ActivityData activityDay = GetDayActivity(ls_path, jsonPath, userID, day, month, year, categoryUnit, useDB);
+                return activityDay;
+            } catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+                return null;
+            }
         }
 
         /// <summary>
@@ -242,19 +259,26 @@ namespace GoAber.Controllers
         /// <param name="month"></param>
         /// <param name="year"></param>
         /// <returns></returns>
-        public ActivityData GetHeartRate(string ls_path, string jsonPath, string userID, int day, int month, int year)
+        public ActivityData GetHeartRate(string ls_path, string jsonPath, string userID, int day, int month, int year, bool useDB = false)
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            ApplicationUser user;
+            if (String.IsNullOrWhiteSpace(userID))
+            {
+                user = UserManager.FindById(User.Identity.GetUserId());
+            } else
+            {
+                user = UserManager.FindById(userID);
+            }
 
             CategoryUnit categoryUnit = categoryUnitService.GetCategoryUnit("HeartRate", "Beats");
 
-            ActivityData activityDay = GetDayActivity(ls_path, jsonPath, user.Id, day, month, year, categoryUnit);
+            ActivityData activityDay = GetDayActivity(ls_path, jsonPath, user.Id, day, month, year, categoryUnit, useDB);
             return activityDay;
         }
 
         
 
-        public ActivityData GetDayActivity(string ls_path, string jsonPath, string userID, int day, int month, int year, CategoryUnit categoryUnit )
+        public ActivityData GetDayActivity(string ls_path, string jsonPath, string userID, int day, int month, int year, CategoryUnit categoryUnit, Boolean useDB = true)
         {
             string token = GetCurrentUserAccessToken(userID);
             if (String.IsNullOrEmpty(token))
@@ -279,11 +303,13 @@ namespace GoAber.Controllers
                     value = (int)jToken.SelectToken(jsonPath);
                 }
                 catch{/* 0 steps for given date */}
-                
                 DateTime date = new DateTime(year, month, day);
                 ActivityData data = new ActivityData(categoryUnit.categoryId, userID, date, DateTime.Now, value);
-                db.ActivityDatas.Add(data);
-                db.SaveChanges();
+                if (useDB)
+                {
+                    db.ActivityDatas.Add(data);
+                    db.SaveChanges();
+                }
                 return data;
             }
             ViewBag.Result = apiResponse.StatusCode;

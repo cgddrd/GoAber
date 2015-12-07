@@ -31,30 +31,32 @@ namespace GoAber.Scheduling.Jobs
 
         public void Run(string[] args)
         {
-           
-            Debug.WriteLine("CALLED FITBIT");
-            //FitBitController lo_fitbitcont = new FitBitController();
-            //DateTime lda_today = DateTime.Today;
+
+            //Debug.WriteLine("CALLED FITBIT");
+            FitBitController lo_fitbitcont = new FitBitController();
+            DateTime lda_today = DateTime.Today;
 
 
-            //string[] ls_usernames = GetUserNames();
-            //ActivityData lo_days;
+            string[] ls_usernames = GetUserIds();
+            ActivityData lo_steps;
+            ActivityData lo_hearts;
 
-            //for (int i = 0; i < ls_usernames.Length; i++)
-            //{
-            //    lo_days = lo_fitbitcont.GetDayActivities("/activities/date/", ls_usernames[i], lda_today.Day, lda_today.Month, lda_today.Year);
-            //    if (lo_days != null)
-            //    {
-            //        Debug.WriteLine(lo_days.value);
-            //    }
-            //    else
-            //    {
-            //        Debug.WriteLine("Data is null");
-            //    }
-            //}
+            for (int i = 0; i < ls_usernames.Length; i++)
+            {
+                lo_steps = lo_fitbitcont.GetWalkingSteps(lo_fitbitcont.FormatWalkingString(lda_today.Day, lda_today.Month, lda_today.Year), "summary.steps", ls_usernames[i], lda_today.Day, lda_today.Month, lda_today.Year, true);
+                lo_hearts = lo_fitbitcont.GetHeartRate(lo_fitbitcont.FormatHeartRateString(lda_today.Day, lda_today.Month, lda_today.Year), "average[0].heartRate", ls_usernames[i], lda_today.Day, lda_today.Month, lda_today.Year, true);
+                if (lo_steps != null)
+                {
+                    Debug.WriteLine(lo_steps.value);
+                }
+                else
+                {
+                    Debug.WriteLine("Data is null");
+                }
+            }
         }
 
-        private string[] GetUserNames()
+        private string[] GetUserIds()
         {
             var query = from d in io_db.Devices
                         select d.ApplicationUserId;

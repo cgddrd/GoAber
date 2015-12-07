@@ -25,11 +25,13 @@ namespace GoAber.Scheduling.Hangfire
 
         public void CreateRecurringJob(string as_id, Expression<Action> am_methodcall, int ai_minutes)
         {
-            TimeSpan time = new TimeSpan(0, 0, ai_minutes, 0, 0);
+            TimeSpan time = new TimeSpan(1, 1, ai_minutes, 1, 1);
             int days = time.Days % 12;
             int month = time.Days / 12;
+            if (days < 1) days = 1;
+            if (month < 1) month = 1;
             string ls_cronexp = String.Format(
-                "*/{0} */{1} */{2} */{3} */{4}",
+                "{0} */{1} * * *",
                 time.Minutes.ToString(),
                 time.Hours.ToString(),
                 days.ToString(),
