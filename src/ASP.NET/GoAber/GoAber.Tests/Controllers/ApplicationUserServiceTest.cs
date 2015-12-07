@@ -82,6 +82,35 @@ namespace GoAber.Tests.Controllers
 
             mockSet = TestUtilities.TestUtilities.GetQueryableMockDbSet(userList, (keyValues, entity) => entity.Id.Equals((string) keyValues.Single()));
 
+
+            mockContext.Setup(m => m.ActivityDatas)
+                .Returns(TestUtilities.TestUtilities.GetQueryableMockDbSet(new List<ActivityData>(),
+                    (keyValues, entity) => entity.Id == (int)keyValues.Single()));
+
+            mockContext.Setup(m => m.Categories)
+                .Returns(TestUtilities.TestUtilities.GetQueryableMockDbSet(new List<Category>(),
+                    (keyValues, entity) => entity.Id == (int)keyValues.Single()));
+
+            mockContext.Setup(m => m.CategoryUnits)
+               .Returns(TestUtilities.TestUtilities.GetQueryableMockDbSet(new List<CategoryUnit>(),
+                   (keyValues, entity) => entity.Id == (int)keyValues.Single()));
+
+            mockContext.Setup(m => m.Challenges)
+               .Returns(TestUtilities.TestUtilities.GetQueryableMockDbSet(new List<Challenge>(),
+                   (keyValues, entity) => entity.Id.Equals((string)keyValues.Single())));
+
+            mockContext.Setup(m => m.Audit)
+               .Returns(TestUtilities.TestUtilities.GetQueryableMockDbSet(new List<Audit>(),
+                   (keyValues, entity) => entity.AuditId.Equals((Guid)keyValues.Single())));
+
+            mockContext.Setup(m => m.DataRemovalAudits)
+               .Returns(TestUtilities.TestUtilities.GetQueryableMockDbSet(new List<DataRemovalAudit>(),
+                   (keyValues, entity) => entity.Id == (int)keyValues.Single()));
+
+            mockContext.Setup(m => m.WebServiceAuths)
+               .Returns(TestUtilities.TestUtilities.GetQueryableMockDbSet(new List<WebServiceAuth>(),
+                   (keyValues, entity) => entity.appname.Equals((string) keyValues.Single())));
+
             mockContext.Setup(m => m.Users).Returns(mockSet);
 
             mockDBContext = mockContext.Object;

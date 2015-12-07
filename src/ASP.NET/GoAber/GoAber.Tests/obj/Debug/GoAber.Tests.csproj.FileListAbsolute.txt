@@ -477,7 +477,6 @@ C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\cy\Resources.r
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\es\Resources.resources.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.xml
-C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\roslyn\csc.exe
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.CSharp.dll
