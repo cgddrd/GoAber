@@ -9,7 +9,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{authBundle.AuthenticationLoginPage_Title}"></h:outputText>
+            <h:outputText value="#{bundle.AuthenticationLoginPage_Title}"></h:outputText>
         </ui:define>
         <ui:define name="body">
 
@@ -27,16 +27,16 @@
                 <!--<h:outputText value="{param['logoutStatus']}" />-->
                 
                 <div class="form-group">
-                    <h:outputLabel value="#{authBundle.AuthenticationUsername_Label}" for="username"  />
-                    <p:inputText class="form-control" id="username" value="#{authService.username}" title="#{authBundle.AuthenticationUsername_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredUsername_Message}" />
+                    <h:outputLabel value="#{bundle.AuthenticationUsername_Label}" for="username"  />
+                    <p:inputText class="form-control" id="username" value="#{authService.username}" title="#{bundle.AuthenticationUsername_Title}" required="true" requiredMessage="#{bundle.AuthenticationRequiredUsername_Message}" />
                 </div>
 
                 <div class="form-group">
-                    <h:outputLabel value="#{authBundle.AuthenticationPassword_Label}" for="password"  />
-                    <p:password class="form-control" id="password" value="#{authService.password}" title="#{authBundle.AuthenticationPassword_Title}" required="true" requiredMessage="#{authBundle.AuthenticationRequiredPassword_Message}" />
+                    <h:outputLabel value="#{bundle.AuthenticationPassword_Label}" for="password"  />
+                    <p:password class="form-control" id="password" value="#{authService.password}" title="#{bundle.AuthenticationPassword_Title}" required="true" requiredMessage="#{bundle.AuthenticationRequiredPassword_Message}" />
                 </div>
                 
-                <h:commandButton class="btn btn-success" action="#{authService.loginUser}" value="#{authBundle.AuthenticationLoginButton_Label}"/>
+                <h:commandButton class="btn btn-success" action="#{authService.loginUser}" value="#{bundle.AuthenticationLoginButton_Label}"/>
 
             </h:form>
 

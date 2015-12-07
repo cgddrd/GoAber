@@ -47,15 +47,7 @@ public class GoAberWS {
     
     @Resource
     WebServiceContext io_wsctx;
-    /**
-     * This is a sample web service operation
-     * @param txt
-     * @return 
-     */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }
+    
     
     @WebMethod(operationName = "addActivityData")
     public boolean addActivityData(@WebParam(name = "data") List<ActivityDataSOAP> data) 
@@ -70,7 +62,7 @@ public class GoAberWS {
     
     public boolean isAdmin(User ao_user) {    
         
-        return ao_user.getUserRoleId().getRoleId().getIdRole().equals("admin");
+        return ao_user.getUserRoleId().getRoleId().getIdRole().equals("administrator");
 
     }
     
@@ -97,6 +89,7 @@ public class GoAberWS {
                 else {
                     lo_ad.setUserId(lo_user);
                 }
+                lo_ad.setDate(lo_ads.date);
                 lo_ad.setValue(lo_ads.value);
                 io_adf.create(lo_ad);
             }

@@ -485,7 +485,7 @@
     <value>Team</value>
   </data>
   <data name="ApplicationUsersController_Index_Title" xml:space="preserve">
-    <value>Manage Users</value>
+    <value>Manage User Accounts</value>
   </data>
   <data name="ApplicationUsersController_Teamname" xml:space="preserve">
     <value>Team</value>
@@ -532,8 +532,284 @@
   <data name="Challenges_completedcomChallenges" xml:space="preserve">
     <value>Community Challenges</value>
   </data>
-  <data name="Challenges_completedgroupChallenges" xml:space="preserve">
-    <value>Group Challenges</value>
+  <data name="Challenges_completedGroupChallenges" xml:space="preserve">
+    <value>Completed Group Challenges</value>
+  </data>
+  <data name="LeaderBoards_LeaderBoardTitle" xml:space="preserve">
+    <value>Leader Board</value>
+  </data>
+  <data name="_Layout_cshtml_Execute_Challenges" xml:space="preserve">
+    <value>Challenges</value>
+  </data>
+  <data name="Delete_User_Prompt" xml:space="preserve">
+    <value>Are you sure you wish to delete your account?</value>
+  </data>
+  <data name="Delete_User_Prompt_Button" xml:space="preserve">
+    <value>Yes, delete my account.</value>
+  </data>
+  <data name="Delete_User_Prompt_Warning" xml:space="preserve">
+    <value>Please be aware that your data will be NON-RECOVERABLE if you proceed.</value>
+  </data>
+  <data name="Delete_User_Title" xml:space="preserve">
+    <value>Delete Your Account</value>
+  </data>
+  <data name="RoleType_Label" xml:space="preserve">
+    <value>Role Type</value>
+  </data>
+  <data name="UserDelete_Title" xml:space="preserve">
+    <value>Delete Account</value>
+  </data>
+  <data name="UserDetails_Title" xml:space="preserve">
+    <value>Account Details</value>
+  </data>
+  <data name="UserEdit_Title" xml:space="preserve">
+    <value>Edit Account Details</value>
+  </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="account_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="account_ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="account_DoB" xml:space="preserve">
+    <value>DoB</value>
+  </data>
+  <data name="account_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="account_Nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="account_password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="account_RemeberMe" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="account_RememberBroswer" xml:space="preserve">
+    <value>Remember this browser?</value>
+  </data>
+  <data name="account_Team" xml:space="preserve">
+    <value>Team ID</value>
+  </data>
+  <data name="AD_Delete_areYouSure" xml:space="preserve">
+    <value>Are you sure you want to delete this?</value>
+  </data>
+  <data name="AD_Delete_Title" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="AD_Edit_Heading" xml:space="preserve">
+    <value>ActivityData</value>
+  </data>
+  <data name="AD_Manage_Create" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="AD_Manage_Title" xml:space="preserve">
+    <value>Manage Activity Data</value>
+  </data>
+  <data name="audit_details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Audit_IpAddress" xml:space="preserve">
+    <value>IP Address</value>
+  </data>
+  <data name="Audit_RequestParams" xml:space="preserve">
+    <value>Request Parameters</value>
+  </data>
+  <data name="audit_title" xml:space="preserve">
+    <value>Audit</value>
+  </data>
+  <data name="Audit_UrlAccessed" xml:space="preserve">
+    <value>URL Accessed</value>
+  </data>
+  <data name="batchDelete_backToList" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+  <data name="BatchDelete_title" xml:space="preserve">
+    <value>Batch Delete</value>
+  </data>
+  <data name="challenge_categoryUnitId" xml:space="preserve">
+    <value>Activity type</value>
+  </data>
+  <data name="challenge_communityChallenges" xml:space="preserve">
+    <value>Communities</value>
+  </data>
+  <data name="challenge_groupchallenges" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="community_endpointUrl" xml:space="preserve">
+    <value>Endpoint URL</value>
+  </data>
+  <data name="community_name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="confirmEmail_thankYou" xml:space="preserve">
+    <value>Thank you for confirming your email.</value>
+  </data>
+  <data name="dataRemovalAudit_dataRemoved" xml:space="preserve">
+    <value>Data removed</value>
+  </data>
+  <data name="dataRemovalAudit_date" xml:space="preserve">
+    <value>Date removed</value>
+  </data>
+  <data name="dataRemovalAudit_message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="ExternalLoginFailed" xml:space="preserve">
+    <value>Unsuccessful login with service</value>
+  </data>
+  <data name="ExternalLoginsTitle" xml:space="preserve">
+    <value>Use another service to log in.</value>
+  </data>
+  <data name="forgotPasswordConfirmation_checkEmailMessage" xml:space="preserve">
+    <value>Please check your email to reset your password.</value>
+  </data>
+  <data name="forgotPasswordConfirmation_title" xml:space="preserve">
+    <value>Forgot Password Confirmation</value>
+  </data>
+  <data name="forgotPasswordTitle" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="identityModel_dob" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="identityModel_nickname" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="identityModel_Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="job_id" xml:space="preserve">
+    <value>Unique Name</value>
+  </data>
+  <data name="job_Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="job_schedtype" xml:space="preserve">
+    <value>Schedule Type</value>
+  </data>
+  <data name="job_tasktype" xml:space="preserve">
+    <value>Task Type</value>
+  </data>
+  <data name="Leader_NumMembers" xml:space="preserve">
+    <value>Number of Members</value>
+  </data>
+  <data name="login_registerNewAccount" xml:space="preserve">
+    <value>Register as a new user</value>
+  </data>
+  <data name="login_title" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="login_useLocalAccountToLogin" xml:space="preserve">
+    <value>Use a local account to log in.</value>
+  </data>
+  <data name="register_title" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="resetPasswordConfirmation" xml:space="preserve">
+    <value>Reset password confirmation</value>
+  </data>
+  <data name="resetPasswordConfirmation_passwordHasBeenReset" xml:space="preserve">
+    <value>Your password has been reset. </value>
+  </data>
+  <data name="resetPassword_restYourPassword" xml:space="preserve">
+    <value>Reset your password.</value>
+  </data>
+  <data name="resetPassword_title" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+  <data name="result_categoryUnit" xml:space="preserve">
+    <value>Activity type</value>
+  </data>
+  <data name="sendCode_title" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="team_communityId" xml:space="preserve">
+    <value>Parent Community</value>
+  </data>
+  <data name="team_name" xml:space="preserve">
+    <value>Team Name</value>
+  </data>
+  <data name="Challenges_enteredCommunityChallenges" xml:space="preserve">
+    <value>Entered Community Challenges</value>
+  </data>
+  <data name="Challenges_enteredGroupChallenges" xml:space="preserve">
+    <value>Entered Group Challenges</value>
+  </data>
+  <data name="Challenges_indexTitle" xml:space="preserve">
+    <value>Challenges</value>
+  </data>
+  <data name="Challenges_unEnteredCommunityChallenges" xml:space="preserve">
+    <value>Community Challenges you have not entered</value>
+  </data>
+  <data name="Challenges_unEnteredGroupChallenges" xml:space="preserve">
+    <value>Group Challenges you have not entered</value>
+  </data>
+  <data name="CompletedCommunityChallengesLink" xml:space="preserve">
+    <value>Completed Commuity Challenges</value>
+  </data>
+  <data name="CompletedGroupChallengesLink" xml:space="preserve">
+    <value>Completed Group Challenges</value>
+  </data>
+  <data name="CoordinatorChallengesLink" xml:space="preserve">
+    <value>Coordinate Challenges</value>
+  </data>
+  <data name="EnteredCommunityChallengesLink" xml:space="preserve">
+    <value>Entered Community Challenges</value>
+  </data>
+  <data name="EnteredGroupChallengesLink" xml:space="preserve">
+    <value>Entered Group Challenges</value>
+  </data>
+  <data name="UnEnteredCommunityChallengesLink" xml:space="preserve">
+    <value>Unentered Community Challenges</value>
+  </data>
+  <data name="UnEnteredGroupChallengesLink" xml:space="preserve">
+    <value>Unentered Group Challenges</value>
+  </data>
+  <data name="Challeneges_createCommunityChallenge" xml:space="preserve">
+    <value>Create Community Challenge</value>
+  </data>
+  <data name="Challeneges_createGroupChallenge" xml:space="preserve">
+    <value>Create Group Challenge</value>
+  </data>
+  <data name="Challenges_completedCommunityChallenges" xml:space="preserve">
+    <value>Completed Community Challenges</value>
+  </data>
+  <data name="Challenges_EnterChallenge" xml:space="preserve">
+    <value>Enter Challenge</value>
+  </data>
+  <data name="Challenges_LeaveChallenge" xml:space="preserve">
+    <value>Leave Challenge</value>
+  </data>
+  <data name="Challenges_viewLeaderBoard" xml:space="preserve">
+    <value>View Leaderboard</value>
+  </data>
+  <data name="Challenge_Communities" xml:space="preserve">
+    <value>Communities</value>
+  </data>
+  <data name="Challenge_Complete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="Challenge_EndTime" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="Challenge_Groups" xml:space="preserve">
+    <value>Groups</value>
+  </data>
+  <data name="Challenge_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Challenge_StartTime" xml:space="preserve">
+    <value>Start time</value>
+  </data>
+  <data name="verifyCode_title" xml:space="preserve">
+    <value>Verify</value>
   </data>
   <data name="Device_FitBitConnect" xml:space="preserve">
     <value>Connect to FitBit</value>

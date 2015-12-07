@@ -1,0 +1,71 @@
+﻿@model IEnumerable<GoAber.Models.Challenge>
+    
+@{
+    ViewBag.Title = "Index";
+}
+<h2>@Resources.Challenges_completedCommunityChallenges</h2>
+<div>
+    @Html.ActionLink(Resources.EnteredCommunityChallengesLink, "EnteredCommunity") |
+    @Html.ActionLink(Resources.EnteredGroupChallengesLink, "EnteredGroup")|
+    @Html.ActionLink(Resources.UnEnteredCommunityChallengesLink, "UnEnteredCommunity")|
+    @Html.ActionLink(Resources.UnEnteredGroupChallengesLink, "UnEnteredGroup")|
+    <br />
+    @Html.ActionLink(Resources.CompletedCommunityChallengesLink, "CompletedCommunity")|
+    @Html.ActionLink(Resources.CompletedGroupChallengesLink, "CompletedGroup")
+</div>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.categoryUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.startTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.endTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.communityChallenges)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (GoAber.Models.Challenge item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoryUnit.category.name)
+                 &nbsp;
+                @Html.DisplayFor(modelItem => item.categoryUnit.unit.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.startTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.endTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            
+
+            <td>
+                @foreach (GoAber.Models.CommunityChallenge cItem in item.communityChallenges)
+                {
+                    @Html.DisplayFor(modelItem => cItem.community.name)
+                    <br />
+                }
+            </td>
+            <td>
+                 @Html.ActionLink(Resources.Challenges_viewLeaderBoard, "ViewCommunityLeaderBoard", new { id = item.Id })
+            </td>
+        </tr>
+    }
+    </table>
+
+<hr />

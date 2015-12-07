@@ -31,5 +31,10 @@ namespace GoAber.WebServiceClientSandbox.Consumer
             }
             ConsumerUpdate(this, lo_event);
         }
+
+
+
+
+
     }
 }
