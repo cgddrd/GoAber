@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<GoAber.Models.Challenge>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = Resources.AllChallegnes_Title;
 }
 
     <div>
@@ -42,9 +42,9 @@
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink(Resources.AllChallenges_Edit, "Edit", new { id=item.Id }) |
+                @Html.ActionLink(Resources.AllChallenges_Details, "Details", new { id=item.Id }) |
+                @Html.ActionLink(Resources.AllChallenges_Delete, "Delete", new { id=item.Id })
             </td>
         </tr>
     }

@@ -1,7 +1,7 @@
 ﻿@model GoAber.Models.Challenge
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Resources.AllChallenges_Details;
 }
 
     <div>
@@ -45,7 +45,6 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink(Resources.AllChallenges_Edit, "Edit", new { id = Model.Id }) |
+        @Html.ActionLink(Resources.Challenge_BackToList, "Index")
     </p>
-</body>

@@ -12,6 +12,7 @@ namespace GoAber.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Community
     {
@@ -23,9 +24,9 @@ namespace GoAber.Models
         }
     
         public int Id { get; set; }
-        [DisplayName("Name")]
+        [Display(Name = "community_name", ResourceType = typeof(Resources.Resources))]
         public string name { get; set; }
-        [DisplayName("Endpoint URL")]
+        [Display(Name = "community_endpointUrl", ResourceType = typeof(Resources.Resources))]
         public string endpointUrl { get; set; }
 
         public bool home { get; set; }

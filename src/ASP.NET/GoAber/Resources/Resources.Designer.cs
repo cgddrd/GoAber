@@ -178,6 +178,87 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code.
+        /// </summary>
+        public static string account_Code {
+            get {
+                return ResourceManager.GetString("account_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
+        /// </summary>
+        public static string account_ConfirmPassword {
+            get {
+                return ResourceManager.GetString("account_ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DoB.
+        /// </summary>
+        public static string account_DoB {
+            get {
+                return ResourceManager.GetString("account_DoB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string account_Email {
+            get {
+                return ResourceManager.GetString("account_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        public static string account_Nickname {
+            get {
+                return ResourceManager.GetString("account_Nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string account_password {
+            get {
+                return ResourceManager.GetString("account_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember me?.
+        /// </summary>
+        public static string account_RemeberMe {
+            get {
+                return ResourceManager.GetString("account_RemeberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember this browser?.
+        /// </summary>
+        public static string account_RememberBroswer {
+            get {
+                return ResourceManager.GetString("account_RememberBroswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team ID.
+        /// </summary>
+        public static string account_Team {
+            get {
+                return ResourceManager.GetString("account_Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid login attempt..
         /// </summary>
         public static string AccountController_Login_Invalid_login_attempt {
@@ -252,6 +333,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this?.
+        /// </summary>
+        public static string AD_Delete_areYouSure {
+            get {
+                return ResourceManager.GetString("AD_Delete_areYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
         public static string AD_Delete_cshtml_Execute_Back_to_List {
@@ -266,6 +356,15 @@ namespace Resources {
         public static string AD_Delete_cshtml_Execute_Delete {
             get {
                 return ResourceManager.GetString("AD_Delete_cshtml_Execute_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string AD_Delete_Title {
+            get {
+                return ResourceManager.GetString("AD_Delete_Title", resourceCulture);
             }
         }
         
@@ -311,6 +410,15 @@ namespace Resources {
         public static string AD_Edit_cshtml_Execute_Edit {
             get {
                 return ResourceManager.GetString("AD_Edit_cshtml_Execute_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ActivityData.
+        /// </summary>
+        public static string AD_Edit_Heading {
+            get {
+                return ResourceManager.GetString("AD_Edit_Heading", resourceCulture);
             }
         }
         
@@ -365,6 +473,24 @@ namespace Resources {
         public static string AD_LastUpdated {
             get {
                 return ResourceManager.GetString("AD_LastUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New.
+        /// </summary>
+        public static string AD_Manage_Create {
+            get {
+                return ResourceManager.GetString("AD_Manage_Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Activity Data.
+        /// </summary>
+        public static string AD_Manage_Title {
+            get {
+                return ResourceManager.GetString("AD_Manage_Title", resourceCulture);
             }
         }
         
@@ -530,6 +656,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coordinate Challenges.
+        /// </summary>
+        public static string AllChallegnes_Title {
+            get {
+                return ResourceManager.GetString("AllChallegnes_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string AllChallenges_Delete {
+            get {
+                return ResourceManager.GetString("AllChallenges_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string AllChallenges_Details {
+            get {
+                return ResourceManager.GetString("AllChallenges_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string AllChallenges_Edit {
+            get {
+                return ResourceManager.GetString("AllChallenges_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Time Summary.
         /// </summary>
         public static string AllTimeSummary {
@@ -568,9 +730,99 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Back to List.
         /// </summary>
+        public static string Audit_BackToList {
+            get {
+                return ResourceManager.GetString("Audit_BackToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string audit_details {
+            get {
+                return ResourceManager.GetString("audit_details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP Address.
+        /// </summary>
+        public static string Audit_IpAddress {
+            get {
+                return ResourceManager.GetString("Audit_IpAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Parameters.
+        /// </summary>
+        public static string Audit_RequestParams {
+            get {
+                return ResourceManager.GetString("Audit_RequestParams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audit.
+        /// </summary>
+        public static string audit_title {
+            get {
+                return ResourceManager.GetString("audit_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL Accessed.
+        /// </summary>
+        public static string Audit_UrlAccessed {
+            get {
+                return ResourceManager.GetString("Audit_UrlAccessed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string AuditRm_Details {
+            get {
+                return ResourceManager.GetString("AuditRm_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Removal Audit.
+        /// </summary>
+        public static string AuditRm_Title {
+            get {
+                return ResourceManager.GetString("AuditRm_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to List.
+        /// </summary>
         public static string BackToList {
             get {
                 return ResourceManager.GetString("BackToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to List.
+        /// </summary>
+        public static string batchDelete_backToList {
+            get {
+                return ResourceManager.GetString("batchDelete_backToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch Delete.
+        /// </summary>
+        public static string BatchDelete_title {
+            get {
+                return ResourceManager.GetString("BatchDelete_title", resourceCulture);
             }
         }
         
@@ -602,11 +854,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to List.
+        /// </summary>
+        public static string Challenge_BackToList {
+            get {
+                return ResourceManager.GetString("Challenge_BackToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity type.
+        /// </summary>
+        public static string challenge_categoryUnitId {
+            get {
+                return ResourceManager.GetString("challenge_categoryUnitId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Communities.
         /// </summary>
         public static string Challenge_Communities {
             get {
                 return ResourceManager.GetString("Challenge_Communities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communities.
+        /// </summary>
+        public static string challenge_communityChallenges {
+            get {
+                return ResourceManager.GetString("challenge_communityChallenges", resourceCulture);
             }
         }
         
@@ -620,11 +899,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this?.
+        /// </summary>
+        public static string Challenge_DeleteAreYouSure {
+            get {
+                return ResourceManager.GetString("Challenge_DeleteAreYouSure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Challenge_DeleteTitle {
+            get {
+                return ResourceManager.GetString("Challenge_DeleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Time.
         /// </summary>
         public static string Challenge_EndTime {
             get {
                 return ResourceManager.GetString("Challenge_EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups.
+        /// </summary>
+        public static string challenge_groupchallenges {
+            get {
+                return ResourceManager.GetString("challenge_groupchallenges", resourceCulture);
             }
         }
         
@@ -697,6 +1003,24 @@ namespace Resources {
         public static string Challenges_completedGroupChallenges {
             get {
                 return ResourceManager.GetString("Challenges_completedGroupChallenges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Community Challenge.
+        /// </summary>
+        public static string Challenges_createCommunity_title {
+            get {
+                return ResourceManager.GetString("Challenges_createCommunity_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Group Challenge.
+        /// </summary>
+        public static string Challenges_createGroup_title {
+            get {
+                return ResourceManager.GetString("Challenges_createGroup_title", resourceCulture);
             }
         }
         
@@ -818,6 +1142,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Endpoint URL.
+        /// </summary>
+        public static string community_endpointUrl {
+            get {
+                return ResourceManager.GetString("community_endpointUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string community_name {
+            get {
+                return ResourceManager.GetString("community_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Completed Commuity Challenges.
         /// </summary>
         public static string CompletedCommunityChallengesLink {
@@ -832,6 +1174,24 @@ namespace Resources {
         public static string CompletedGroupChallengesLink {
             get {
                 return ResourceManager.GetString("CompletedGroupChallengesLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for confirming your email..
+        /// </summary>
+        public static string confirmEmail_thankYou {
+            get {
+                return ResourceManager.GetString("confirmEmail_thankYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Email.
+        /// </summary>
+        public static string confirmEmail_title {
+            get {
+                return ResourceManager.GetString("confirmEmail_title", resourceCulture);
             }
         }
         
@@ -859,6 +1219,51 @@ namespace Resources {
         public static string CreateNew {
             get {
                 return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Removal Audit.
+        /// </summary>
+        public static string DataRemovalAudit {
+            get {
+                return ResourceManager.GetString("DataRemovalAudit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data removed.
+        /// </summary>
+        public static string dataRemovalAudit_dataRemoved {
+            get {
+                return ResourceManager.GetString("dataRemovalAudit_dataRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date removed.
+        /// </summary>
+        public static string dataRemovalAudit_date {
+            get {
+                return ResourceManager.GetString("dataRemovalAudit_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string DataRemovalAudit_Details {
+            get {
+                return ResourceManager.GetString("DataRemovalAudit_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string dataRemovalAudit_message {
+            get {
+                return ResourceManager.GetString("dataRemovalAudit_message", resourceCulture);
             }
         }
         
@@ -926,6 +1331,145 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to device management.
+        /// </summary>
+        public static string Device_DeleteBack {
+            get {
+                return ResourceManager.GetString("Device_DeleteBack", resourceCulture);
+			}
+		}
+		
+        ///   Looks up a localized string similar to Create Connection.
+        /// </summary>
+        public static string Device_ConnectToDevice {
+            get {
+                return ResourceManager.GetString("Device_ConnectToDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to has had its connection revoked..
+        /// </summary>
+        public static string Device_DeleteConnectionRevoked {
+            get {
+                return ResourceManager.GetString("Device_DeleteConnectionRevoked", resourceCulture);
+			}
+		}
+        ///   Looks up a localized string similar to Revoke Access.
+        /// </summary>
+        public static string Device_DeleteConnection {
+            get {
+                return ResourceManager.GetString("Device_DeleteConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device connections.
+        /// </summary>
+        public static string Device_DeleteTitle {
+            get {
+                return ResourceManager.GetString("Device_DeleteTitle", resourceCulture);
+			}
+		}
+        ///   Looks up a localized string similar to Connect to FitBit.
+        /// </summary>
+        public static string Device_FitBitConnect {
+            get {
+                return ResourceManager.GetString("Device_FitBitConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FitBit is Connected.
+        /// </summary>
+        public static string Device_FitBitConnected {
+            get {
+                return ResourceManager.GetString("Device_FitBitConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FitBit not connected.
+        /// </summary>
+        public static string Device_FitBitNotConnected {
+            get {
+                return ResourceManager.GetString("Device_FitBitNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get number of steps for :.
+        /// </summary>
+        public static string Device_GetNumberOfStepsLabel {
+            get {
+                return ResourceManager.GetString("Device_GetNumberOfStepsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Steps.
+        /// </summary>
+        public static string Device_GetStepsButton {
+            get {
+                return ResourceManager.GetString("Device_GetStepsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Devices.
+        /// </summary>
+        public static string Device_IndexNavigation {
+            get {
+                return ResourceManager.GetString("Device_IndexNavigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Devices.
+        /// </summary>
+        public static string Device_IndexTitle {
+            get {
+                return ResourceManager.GetString("Device_IndexTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect to Jawbone.
+        /// </summary>
+        public static string Device_JawboneConnect {
+            get {
+                return ResourceManager.GetString("Device_JawboneConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JawBone is Connected.
+        /// </summary>
+        public static string Device_JawboneConnected {
+            get {
+                return ResourceManager.GetString("Device_JawboneConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JawBone is not connected.
+        /// </summary>
+        public static string Device_JawboneNotConnected {
+            get {
+                return ResourceManager.GetString("Device_JawboneNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of steps :.
+        /// </summary>
+        public static string Device_NumberOfSteps {
+            get {
+                return ResourceManager.GetString("Device_NumberOfSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -967,6 +1511,60 @@ namespace Resources {
         public static string Error_cshtml_Execute_Error {
             get {
                 return ResourceManager.GetString("Error_cshtml_Execute_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsuccessful login with service.
+        /// </summary>
+        public static string ExternalLoginFailed {
+            get {
+                return ResourceManager.GetString("ExternalLoginFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Failur.
+        /// </summary>
+        public static string externalLoginsFailed_Title {
+            get {
+                return ResourceManager.GetString("externalLoginsFailed_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use another service to log in..
+        /// </summary>
+        public static string ExternalLoginsTitle {
+            get {
+                return ResourceManager.GetString("ExternalLoginsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please check your email to reset your password..
+        /// </summary>
+        public static string forgotPasswordConfirmation_checkEmailMessage {
+            get {
+                return ResourceManager.GetString("forgotPasswordConfirmation_checkEmailMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot Password Confirmation.
+        /// </summary>
+        public static string forgotPasswordConfirmation_title {
+            get {
+                return ResourceManager.GetString("forgotPasswordConfirmation_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot your password?.
+        /// </summary>
+        public static string forgotPasswordTitle {
+            get {
+                return ResourceManager.GetString("forgotPasswordTitle", resourceCulture);
             }
         }
         
@@ -1025,6 +1623,78 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date of Birth.
+        /// </summary>
+        public static string identityModel_dob {
+            get {
+                return ResourceManager.GetString("identityModel_dob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nickname.
+        /// </summary>
+        public static string identityModel_nickname {
+            get {
+                return ResourceManager.GetString("identityModel_nickname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string identityModel_Team {
+            get {
+                return ResourceManager.GetString("identityModel_Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unique Name.
+        /// </summary>
+        public static string job_id {
+            get {
+                return ResourceManager.GetString("job_id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minutes.
+        /// </summary>
+        public static string job_Minutes {
+            get {
+                return ResourceManager.GetString("job_Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedule Type.
+        /// </summary>
+        public static string job_schedtype {
+            get {
+                return ResourceManager.GetString("job_schedtype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task Type.
+        /// </summary>
+        public static string job_tasktype {
+            get {
+                return ResourceManager.GetString("job_tasktype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Members.
+        /// </summary>
+        public static string Leader_NumMembers {
+            get {
+                return ResourceManager.GetString("Leader_NumMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group Leader Board.
         /// </summary>
         public static string LeaderBoards_GroupLeaderBoardTitle {
@@ -1075,6 +1745,33 @@ namespace Resources {
         public static string Lockout_cshtml_Execute_Locked_Out {
             get {
                 return ResourceManager.GetString("Lockout_cshtml_Execute_Locked_Out", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register as a new user.
+        /// </summary>
+        public static string login_registerNewAccount {
+            get {
+                return ResourceManager.GetString("login_registerNewAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string login_title {
+            get {
+                return ResourceManager.GetString("login_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use a local account to log in..
+        /// </summary>
+        public static string login_useLocalAccountToLogin {
+            get {
+                return ResourceManager.GetString("login_useLocalAccountToLogin", resourceCulture);
             }
         }
         
@@ -1376,6 +2073,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string register_title {
+            get {
+                return ResourceManager.GetString("register_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset your password..
+        /// </summary>
+        public static string resetPassword_restYourPassword {
+            get {
+                return ResourceManager.GetString("resetPassword_restYourPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset password.
+        /// </summary>
+        public static string resetPassword_title {
+            get {
+                return ResourceManager.GetString("resetPassword_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset password confirmation.
+        /// </summary>
+        public static string resetPasswordConfirmation {
+            get {
+                return ResourceManager.GetString("resetPasswordConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been reset. .
+        /// </summary>
+        public static string resetPasswordConfirmation_passwordHasBeenReset {
+            get {
+                return ResourceManager.GetString("resetPasswordConfirmation_passwordHasBeenReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activity type.
+        /// </summary>
+        public static string result_categoryUnit {
+            get {
+                return ResourceManager.GetString("result_categoryUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
         public static string Roles_Create_cshtml_Execute_Create {
@@ -1529,6 +2280,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string sendCode_title {
+            get {
+                return ResourceManager.GetString("sendCode_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent Community.
+        /// </summary>
+        public static string team_communityId {
+            get {
+                return ResourceManager.GetString("team_communityId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team Name.
+        /// </summary>
+        public static string team_name {
+            get {
+                return ResourceManager.GetString("team_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To Date.
         /// </summary>
         public static string ToDate {
@@ -1606,6 +2393,15 @@ namespace Resources {
         public static string UserEdit_Title {
             get {
                 return ResourceManager.GetString("UserEdit_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify.
+        /// </summary>
+        public static string verifyCode_title {
+            get {
+                return ResourceManager.GetString("verifyCode_title", resourceCulture);
             }
         }
         
