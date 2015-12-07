@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Auth;
 using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -15,6 +16,7 @@ using PagedList;
 
 namespace GoAber
 {
+    [GAAuthorize]
     public class ChallengeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -48,6 +50,7 @@ namespace GoAber
         }
 
         // GET: Challenge
+        [GAAuthorize(Roles = "Administrator, Coordinator")]
         public ActionResult AllChallenges()
         {
             return View(challengeService.getAllChallenges());
@@ -106,6 +109,7 @@ namespace GoAber
         }
 
         // GET: Challenge/Create
+        [GAAuthorize(Roles = "Administrator, Coordinator")]
         public ActionResult CreateCommunity()
         {
             ApplicationUser appUser = UserManager.FindById(User.Identity.GetUserId());
@@ -176,6 +180,7 @@ namespace GoAber
         }
 
         // GET: Challenge/Edit/5
+        [GAAuthorize(Roles = "Administrator, Coordinator")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -199,6 +204,7 @@ namespace GoAber
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [GAAuthorize(Roles = "Administrator, Coordinator")]
         public ActionResult Edit([Bind(Include = "Id,categoryUnitId,startTime,endTime,name")] Challenge challenge)
         {
             if (ModelState.IsValid)
@@ -210,6 +216,7 @@ namespace GoAber
         }
 
         // GET: Challenge/Delete/5
+        [GAAuthorize(Roles = "Administrator, Coordinator")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -227,6 +234,7 @@ namespace GoAber
         // POST: Challenge/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [GAAuthorize(Roles = "Administrator, Coordinator")]
         public ActionResult DeleteConfirmed(string id)
         {
             challengeService.deleteChallenge(id);
