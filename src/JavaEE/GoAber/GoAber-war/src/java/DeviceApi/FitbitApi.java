@@ -81,7 +81,6 @@ public class FitbitApi extends DeviceApi{
             con.setDoOutput(true);
             int responseCode = con.getResponseCode();
             String err = con.getResponseMessage();
-            System.out.println("Craig "+ responseCode);
             try (InputStream is = url.openStream(); 
                     JsonReader jsonReader = Json.createReader(is)) {
  
@@ -93,9 +92,6 @@ public class FitbitApi extends DeviceApi{
                 date.setSeconds(date.getSeconds() + expiresIn);
                 Device device = new Device(user, deviceType, accessToken, refreshToken, date);
                 deviceFacade.create(device);
-                System.out.println("access_token " + accessToken);
-                System.out.println("refreshToken " + refreshToken);
-                System.out.println("expiresIn " + expiresIn);
             }
            
         } catch (MalformedURLException ex) {

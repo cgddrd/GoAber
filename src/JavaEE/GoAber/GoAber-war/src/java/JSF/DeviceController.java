@@ -131,20 +131,6 @@ public class DeviceController implements Serializable {
         }
     }
     
-    private void getActiveDevices() {
-        DataModel model = getItems();
-        Iterator<Device> deviceIterator = model.iterator();
-        while(deviceIterator.hasNext()){
-            DeviceType deviceType = deviceIterator.next().getDeviceTypeId();
-            if(deviceType.getName().equals("FitBit")){
-                
-            }
-            else if(deviceType.getName().equals("JawBone")){
-                
-            }
-        }
-                
-    }
 
     private void performDestroy() {
         try {
