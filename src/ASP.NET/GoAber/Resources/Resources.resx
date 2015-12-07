@@ -805,4 +805,64 @@
   <data name="verifyCode_title" xml:space="preserve">
     <value>Verify</value>
   </data>
+  <data name="AllChallegnes_Title" xml:space="preserve">
+    <value>Coordinate Challenges</value>
+  </data>
+  <data name="AllChallenges_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="AllChallenges_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="AllChallenges_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Challenges_createCommunity_title" xml:space="preserve">
+    <value>Create Community Challenge</value>
+  </data>
+  <data name="Challenges_createGroup_title" xml:space="preserve">
+    <value>Create Group Challenge</value>
+  </data>
+  <data name="Challenge_BackToList" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+  <data name="Challenge_DeleteAreYouSure" xml:space="preserve">
+    <value>Are you sure you want to delete this?</value>
+  </data>
+  <data name="Challenge_DeleteTitle" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="confirmEmail_title" xml:space="preserve">
+    <value>Confirm Email</value>
+  </data>
+  <data name="DataRemovalAudit" xml:space="preserve">
+    <value>Data Removal Audit</value>
+  </data>
+  <data name="DataRemovalAudit_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="externalLoginsFailed_Title" xml:space="preserve">
+    <value>Login Failur</value>
+  </data>
+  <data name="AuditRm_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="AuditRm_Title" xml:space="preserve">
+    <value>Data Removal Audit</value>
+  </data>
+  <data name="Audit_BackToList" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+  <data name="Device_DeleteBack" xml:space="preserve">
+    <value>Back to device management</value>
+  </data>
+  <data name="Device_DeleteConnectionRevoked" xml:space="preserve">
+    <value>has had its connection revoked.</value>
+  </data>
+  <data name="Device_DeleteTitle" xml:space="preserve">
+    <value>Device connections</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
 </root>

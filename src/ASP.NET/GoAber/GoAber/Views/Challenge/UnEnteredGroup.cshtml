@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<GoAber.Models.Challenge>
     
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = Resources.Challenges_unEnteredGroupChallenges;
 }
 
 
-<h2>@Resources.Challenges_unEnteredGroupChallenges </h2>
+<h2>@Resources.Challenges_unEnteredGroupChallenges</h2>
 <div>
     @Html.ActionLink(Resources.EnteredCommunityChallengesLink, "EnteredCommunity") |
     @Html.ActionLink(Resources.EnteredGroupChallengesLink, "EnteredGroup")|
