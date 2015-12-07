@@ -12,6 +12,7 @@ namespace GoAber.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Team
     {
@@ -23,10 +24,10 @@ namespace GoAber.Models
         }
     
         public int Id { get; set; }
-        [DisplayName("Team Name")]
+        [Display(Name = "team_name", ResourceType = typeof(Resources.Resources))]
         public string name { get; set; }
 
-        [DisplayName("Parent Community")]
+        [Display(Name = "team_communityId", ResourceType = typeof(Resources.Resources))]
         public Nullable<int> communityId { get; set; }
         public virtual Community community { get; set; }
 

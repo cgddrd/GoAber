@@ -25,9 +25,9 @@ namespace GoAber.Models
         }
     
         public string Id { get; set; }
-        [DisplayName("Activity type")]
+        [Display(Name = "challenge_categoryUnitId", ResourceType = typeof(Resources.Resources))]
         public int categoryUnitId { get; set; }
-        [DisplayName("Activity type")]
+        [Display(Name = "challenge_categoryUnitId", ResourceType = typeof(Resources.Resources))]
         public virtual CategoryUnit categoryUnit { get; set; }
 
 
@@ -37,13 +37,13 @@ namespace GoAber.Models
         public Nullable<System.DateTime> endTime { get; set; }
         [Display(Name = "Challenge_Name", ResourceType = typeof(Resources.Resources))]
         public string name { get; set; }
-        // public Nullable<int> communityStartedBy { get; set; }
-
+        
         [Display(Name = "Challenge_Complete", ResourceType = typeof(Resources.Resources))]
         public bool complete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserChallenge> userchallenges { get; set; }
+
         [Display(Name = "Challenge_Groups", ResourceType = typeof(Resources.Resources))]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupChallenge> groupchallenges { get; set; }
