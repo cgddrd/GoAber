@@ -477,7 +477,7 @@ C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\cy\Resources.r
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\es\Resources.resources.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.dll
 C:\Users\Dan\Git\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Hangfire.SqlServer.xml
-C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.csprojResolveAssemblyReference.cache
+C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\roslyn\csc.exe
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -573,7 +573,6 @@ C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNetOpenAuth.OpenId.UI.xml
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNetOpenAuth.OpenIdInfoCard.UI.xml
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNetOpenAuth.OpenIdOAuth.xml
-C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Moq.xml
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Net.Http.xml
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Net.Http.WebRequest.xml
@@ -601,5 +600,6 @@ C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Mono.Math.xml
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\cy\Resources.resources.dll
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\es\Resources.resources.dll
+C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.csprojResolveAssemblyReference.cache
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.dll
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.pdb

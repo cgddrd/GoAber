@@ -35,54 +35,5 @@ namespace GoAber.Tests.Controllers
             Assert.IsNotNull(result);
 
         }
-
-        [TestMethod]
-        public void test()
-        {
-            //var mockSet = new Mock<DbSet<ApplicationUser>>();
-
-            List<ApplicationUser> userList = new List<ApplicationUser>
-            {
-                new ApplicationUser
-                {
-                    Id = "1",
-                    Email = "connor@test.com",
-                    Nickname = "connor",
-                    UserName = "connor"
-                }
-            };
-
-            DbSet<ApplicationUser> mockSet = TestUtilities.TestUtilities.GetQueryableMockDbSet(userList);
-            var mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(m => m.Users).Returns(mockSet);
-
-            //mockSet.Object.Add(new ApplicationUser
-            //{
-            //    Id = "1",
-            //    Email = "connor@test.com",
-            //    Nickname = "connor",
-            //    UserName = "connor"
-            //});
-
-            //mockContext.Object.Users.Add(new ApplicationUser
-            //{
-            //    Id = "1",
-            //    Email = "connor@test.com",
-            //    Nickname = "connor",
-            //    UserName = "connor"
-            //});
-
-           // mockContext.Object.SaveChanges();
-
-            var service = new ApplicationUserService(mockContext.Object);
-
-            var user = service.GetApplicationUserById("1");
-
-            Assert.IsNotNull(user);
-
-            Assert.AreEqual(user.Nickname, "connor");
-
-        }
-
     }
 }

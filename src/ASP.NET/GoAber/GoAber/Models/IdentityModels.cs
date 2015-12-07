@@ -52,10 +52,10 @@ namespace GoAber.Models
         public DbSet<CategoryUnit> CategoryUnits { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Challenge> Challenges { get; set; }
-        public DbSet<Community> Communities { get; set; }
+        public virtual DbSet<Community> Communities { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<DeviceType> DeviceTypes { get; set; }
-        public DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
         public DbSet<GroupChallenge> GroupChallenges { get; set; }
         public DbSet<CommunityChallenge> CommunityChallenges { get; set; }
         public DbSet<Unit> Units { get; set; }
