@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using GoAber.Areas.Admin.Controllers;
 using GoAber.Controllers;
@@ -37,21 +39,50 @@ namespace GoAber.Tests.Controllers
         [TestMethod]
         public void test()
         {
-            var mockSet = new Mock<DbSet<ApplicationUser>>();
+            //var mockSet = new Mock<DbSet<ApplicationUser>>();
 
-            mockSet.Object.Add(new ApplicationUser
+            List<ApplicationUser> userList = new List<ApplicationUser>
             {
-                Id = "1",
-                Email = "connor@test.com",
-                Nickname = "connor",
-                UserName = "connor"
-            });
+                new ApplicationUser
+                {
+                    Id = "1",
+                    Email = "connor@test.com",
+                    Nickname = "connor",
+                    UserName = "connor"
+                }
+            };
 
+            DbSet<ApplicationUser> mockSet = TestUtilities.TestUtilities.GetQueryableMockDbSet(userList);
             var mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(m => m.Users).Returns(mockSet);
+
+            //mockSet.Object.Add(new ApplicationUser
+            //{
+            //    Id = "1",
+            //    Email = "connor@test.com",
+            //    Nickname = "connor",
+            //    UserName = "connor"
+            //});
+
+            //mockContext.Object.Users.Add(new ApplicationUser
+            //{
+            //    Id = "1",
+            //    Email = "connor@test.com",
+            //    Nickname = "connor",
+            //    UserName = "connor"
+            //});
+
+           // mockContext.Object.SaveChanges();
 
             var service = new ApplicationUserService(mockContext.Object);
 
-           // ApplicationUserService.GetApplicationUserById("1", mockContext.Object);
+            var user = service.GetApplicationUserById("1");
+
+            Assert.IsNotNull(user);
+
+            Assert.AreEqual(user.Nickname, "connor");
+
         }
+
     }
 }
