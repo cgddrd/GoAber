@@ -449,6 +449,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are currently attempting to delete your own administrator account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account..
+        /// </summary>
+        public static string Admin_Delete_Warning {
+            get {
+                return ResourceManager.GetString("Admin_Delete_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Community.
         /// </summary>
         public static string AdminCommunitiesController_Create_Title {
@@ -1525,6 +1534,24 @@ namespace Resources {
         public static string ToDate {
             get {
                 return ResourceManager.GetString("ToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not able to access this area with your current credentials..
+        /// </summary>
+        public static string Unauthorised_Message {
+            get {
+                return ResourceManager.GetString("Unauthorised_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unauthorised.
+        /// </summary>
+        public static string Unauthorised_Title {
+            get {
+                return ResourceManager.GetString("Unauthorised_Title", resourceCulture);
             }
         }
         

@@ -14,11 +14,13 @@ using GoAber.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using GoAber.ActionFilters;
+using GoAber.Auth;
 using GoAber.Models.ViewModels;
 using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
 {
+    [GAAuthorize(Roles = "Administrator")]
     public class ActivityDataController : BaseController
     {
         private const int pageSize = 100;

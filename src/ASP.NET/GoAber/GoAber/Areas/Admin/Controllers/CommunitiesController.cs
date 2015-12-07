@@ -6,18 +6,21 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Auth;
 using GoAber.Models;
 using PagedList;
 using WebGrease.Css.Extensions;
 
 namespace GoAber.Areas.Admin.Controllers
 {
+    [GAAuthorize(Roles = "Administrator")]
     public class CommunitiesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private const int pageSize = 100;
 
         // GET: Admin/Communities
+        [Audit]
         public ActionResult Index(int? page)
         {
             int pageNumber = (page ?? 1);
@@ -26,6 +29,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/Communities/Details/5
+        [Audit]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -51,6 +55,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Create([Bind(Include = "Id,name,endpointUrl")] Community community)
         {
             if (ModelState.IsValid)
@@ -64,6 +69,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/Communities/Edit/5
+        [Audit]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,6 +89,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Edit([Bind(Include = "Id,name,endpointUrl")] Community community)
         {
             if (ModelState.IsValid)
@@ -112,6 +119,7 @@ namespace GoAber.Areas.Admin.Controllers
         // POST: Admin/Communities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult DeleteConfirmed(int id)
         {
             Community community = db.Communities.Find(id);

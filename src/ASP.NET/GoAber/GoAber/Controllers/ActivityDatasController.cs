@@ -11,9 +11,11 @@ using GoAber.Services;
 using PagedList;
 using GoAber.Models.ViewModels;
 using GoAber.ActionFilters;
+using GoAber.Auth;
 
 namespace GoAber
 {
+    [GAAuthorize]
     public class ActivityDatasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

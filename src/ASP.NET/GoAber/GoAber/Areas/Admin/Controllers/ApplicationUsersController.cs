@@ -7,12 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GoAber.Areas.Admin.Models.ViewModels;
+using GoAber.Auth;
 using GoAber.Models;
 using GoAber.Services;
 using PagedList;
 
 namespace GoAber.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Provides CRUD-related operations associated with a administrative management of system users.
+    /// </summary>
+    [GAAuthorize(Roles = "Administrator")]
     public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -23,6 +28,7 @@ namespace GoAber.Areas.Admin.Controllers
         private const int pageSize = 100;
 
         // GET: Admin/ApplicationUsers
+        [Audit]
         public ActionResult Index(int? page)
         {
             var applicationUsers = applicationUserService.GetAllApplicationUsers();
@@ -49,6 +55,7 @@ namespace GoAber.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Index(string email, string nickname, int? teamId)
         {
             var applicationUsers = applicationUserService.GetAllApplicationUsers();
@@ -82,6 +89,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ApplicationUsers/Details/5
+        [Audit]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -97,6 +105,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ApplicationUsers/Create
+        [Audit]
         public ActionResult Create()
         {
             ViewBag.TeamId = new SelectList(db.Teams, "Id", "name");
@@ -108,6 +117,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Create([Bind(Include = "Id,Nickname,DateOfBirth,TeamId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
@@ -122,6 +132,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ApplicationUsers/Edit/5
+        [Audit]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -155,6 +166,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Edit([Bind(Include = "User,RoleId,RoleName,Id,Nickname,DateOfBirth,TeamId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] EditApplicationUserViewModel editApplicationUserViewModel)
         {
             var currentUser = db.Users.Find(editApplicationUserViewModel.User.Id);
@@ -196,6 +208,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ApplicationUsers/Delete/5
+        [Audit]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -213,13 +226,14 @@ namespace GoAber.Areas.Admin.Controllers
         // POST: Admin/ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult DeleteConfirmed(string id)
         {
 
             // CG - Prevent an administrator user from deleting their own account whilst still logged in.
             if (ApplicationUserService.IsApplicationUserIdLoggedIn(id) && ApplicationUserService.IsCurrentApplicationUserInRole("Administrator"))
             {
-                TempData["Error"] = "You are currently attempting to delete your own administrator account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account.";
+                TempData["Error"] = Resources.Resources.Admin_Delete_Warning;
 
             }
             else
