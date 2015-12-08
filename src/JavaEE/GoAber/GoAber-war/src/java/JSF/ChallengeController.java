@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -43,7 +44,11 @@ public class ChallengeController implements Serializable {
     @EJB
     private ActivityDataService dataService;
 
+    @EJB
+    private ChallengeService challengeService;
+
     private Challenge current;
+    
     @EJB private SessionBean.ChallengeFacade ejbFacade;
 
     
@@ -57,7 +62,6 @@ public class ChallengeController implements Serializable {
     
 
     private LeaderViewModel leaderViewModel;    
-    ChallengeService challengeService = new ChallengeService();
 
     
  
@@ -199,10 +203,13 @@ public class ChallengeController implements Serializable {
 
     public String createCommunity() {
         try {
-            getFacade().create(current);
+            //current.setComplete(false);
             User currentUser = auth.getActiveUser();
-            current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges));
+            current.setIdChallenge(challengeService.createChallengeID());
+            getFacade().create(current);
+            current.setCommunityChallengeCollection(challengeService.addCommunityChallenges(currentUser, current, communityChallenges, true));
             getFacade().edit(current);
+            challengeService.AddChallengeJob(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeCreated"));
             return prepareIndex();
         } catch (Exception e) {
@@ -213,8 +220,10 @@ public class ChallengeController implements Serializable {
    
     public String createGroup() {
         try {
-            getFacade().create(current);
+            //current.setComplete(false);
             User currentUser = auth.getActiveUser();
+            current.setIdChallenge(challengeService.createChallengeID());
+            getFacade().create(current);
             current.setGroupChallengeCollection(challengeService.addGroupChallenges(currentUser, current, groupChallenges));
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ChallengeCreated"));
@@ -382,7 +391,7 @@ public class ChallengeController implements Serializable {
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();

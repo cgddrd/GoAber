@@ -10,6 +10,7 @@ using GoAber.Auth;
 using GoAber.Models;
 using PagedList;
 using WebGrease.Css.Extensions;
+using GoAber.Services;
 
 namespace GoAber.Areas.Admin.Controllers
 {
@@ -18,6 +19,7 @@ namespace GoAber.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private const int pageSize = 100;
+        private CommunitiesService io_comservice = new CommunitiesService();
 
         // GET: Admin/Communities
         [Audit]
@@ -56,15 +58,23 @@ namespace GoAber.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Audit]
-        public ActionResult Create([Bind(Include = "Id,name,endpointUrl")] Community community)
+        public ActionResult Create([Bind(Include = "Id,name,domain,home,challengesEndpoint")] Community community)
         {
             if (ModelState.IsValid)
             {
+                community = io_comservice.RequestContract(community);
+                if (community == null)
+                {
+                    ViewBag.error = "Failed to add community, check the endpoints are set correctly.";
+                    return View(community);
+
+                }
                 db.Communities.Add(community);
                 db.SaveChanges();
+                ViewBag.error = "";
                 return RedirectToAction("Index");
             }
-
+            ViewBag.error = "";
             return View(community);
         }
 
@@ -89,8 +99,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Audit]
-        public ActionResult Edit([Bind(Include = "Id,name,endpointUrl")] Community community)
+        public ActionResult Edit([Bind(Include = "Id,name,domain,home,challengesEndpoint")] Community community)
         {
             if (ModelState.IsValid)
             {

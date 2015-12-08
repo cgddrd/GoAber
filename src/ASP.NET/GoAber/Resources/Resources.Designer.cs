@@ -151,6 +151,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_Results {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Web Service Auth Tokens.
         /// </summary>
         public static string _Layout_cshtml_Execute_WebServiceAuth {

@@ -6,6 +6,8 @@
 package SessionBean;
 
 import GoAberDatabase.ActivityData;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,34 @@ public class ActivityDataFacade extends AbstractFacade<ActivityData> {
 
     public ActivityDataFacade() {
         super(ActivityData.class);
+    }
+    
+    public List<ActivityData> getAllForUser(int id) {
+        return em.createNamedQuery("ActivityData.findAllForUser").setParameter("id", id).getResultList();
+    }
+
+    public List<ActivityData> getAllForUserInDateRange(int id, String unit, Date startDate, Date endDate) {
+        return em.createNamedQuery("ActivityData.getAllForUserInDateRange")
+                    .setParameter("id", id)
+                    .setParameter("startDate", startDate)
+                    .setParameter("endDate", endDate)
+                    .setParameter("unit", unit)
+                    .getResultList();
+    }
+    
+    public List<ActivityData> getAllInDateRange(int unit, Date startDate, Date endDate) {
+        return em.createNamedQuery("ActivityData.getAllInDateRange")
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("unit", unit)
+                .getResultList();
+    }
+
+    public List<ActivityData> getAllForUserWithUnit(int id, String unit) {
+        return em.createNamedQuery("ActivityData.findAllForUserWithUnit")
+                    .setParameter("id", id)
+                    .setParameter("unit", unit)
+                    .getResultList();
     }
     
 }

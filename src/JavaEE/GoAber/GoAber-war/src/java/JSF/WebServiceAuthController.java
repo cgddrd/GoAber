@@ -2,45 +2,35 @@ package JSF;
 
 import GoAberDatabase.User;
 import GoAberDatabase.WebServiceAuth;
+import JSF.services.AuthService;
 import JSF.util.JsfUtil;
-import JSF.util.PaginationHelper;
 import SessionBean.WebServiceAuthFacade;
-import java.io.IOException;
 
 import java.io.Serializable;
-import java.security.Principal;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
-@Named("webServiceAuthController")
+@ManagedBean(name="webServiceAuthController")
 @SessionScoped
 public class WebServiceAuthController implements Serializable {
 
     private WebServiceAuth current;
-    private DataModel items = null;
+    private List<WebServiceAuth> items = null;
     @EJB
     private SessionBean.WebServiceAuthFacade ejbFacade;
-
-    @EJB
-    private SessionBean.UserFacade ejbUsers;
-
-    private PaginationHelper pagination;
-    private int selectedItemIndex;
+    
+    @ManagedProperty(value="#{authService}")
+    private AuthService auth;
 
     public WebServiceAuthController() {
 
@@ -49,111 +39,36 @@ public class WebServiceAuthController implements Serializable {
     public WebServiceAuth getSelected() {
         if (current == null) {
             current = new WebServiceAuth();
-            selectedItemIndex = -1;
         }
         return current;
-    }
-    
-    public void redirectLogin() {
-        try {
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            FacesContext.getCurrentInstance().getExternalContext().redirect(externalContext.getRequestContextPath() + "/faces/login/index.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(WebServiceAuthController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void redirectList() {
-        try {
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-            FacesContext.getCurrentInstance().getExternalContext().redirect(externalContext.getRequestContextPath() + "/faces/webServiceAuth/List.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(WebServiceAuthController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private WebServiceAuthFacade getFacade() {
         return ejbFacade;
     }
 
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-
-            User lo_user = (User) ejbUsers.findUserByEmailOrNull(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
-            pagination = new PaginationHelper(10) {
-
-                @Override
-                public int getItemsCount() {
-                    if (isAdmin(lo_user)) {
-                        return getFacade().count();
-                    } else {
-                        return getFacade().countUser(lo_user.getIdUser());
-                    }
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    if (isAdmin(lo_user)) {
-                        return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                    } else {
-                        return new ListDataModel(getFacade().findRangeUser(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}, lo_user.getIdUser()));
-                    }
-                }
-            };
-        }
-        return pagination;
-    }
-
+    
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
-    public String prepareView() {
-        current = (WebServiceAuth) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(WebServiceAuth data) {
+        current = data;
         return "View";
     }
 
     public String prepareCreate() {
-        if (isLoggedIn()) {
-            prepareList();
-            current = new WebServiceAuth();
-            selectedItemIndex = -1;
-            return "Create";
-        } else {
-            redirectLogin();
-            return "List";
-        }
+        prepareList();
+        current = new WebServiceAuth();
+        return "Create";
     }
 
-//    public void redirectLogin() {
-//        try {
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            ExternalContext externalContext = context.getExternalContext();
-//            externalContext.redirect("/GoAber-war/faces/login/index.xhtml");
-//        } catch (IOException ex) {
-//            Logger.getLogger(WebServiceAuthController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-
-    private boolean isLoggedIn() {
-        return (FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal() != null);
-    }
-
-    public boolean isAdmin(User ao_user) {
-        return this.isLoggedIn() && ao_user.getUserRoleId().getRoleId().getIdRole().equals("admin");
-
-    }
 
     public String create() {
         try {
-            if (!isLoggedIn()) {
-                return "";
-            }
-
-            User lo_user = (User) ejbUsers.findUserByEmailOrNull(FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName());
-
+            User lo_user = auth.getActiveUser();
+            
             current.setUserid(lo_user.getIdUser());
 
             current.setAuthtoken(UUID.randomUUID().toString());
@@ -166,9 +81,8 @@ public class WebServiceAuthController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
-        current = (WebServiceAuth) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(WebServiceAuth data) {
+        current = data;
         return "Edit";
     }
 
@@ -183,11 +97,9 @@ public class WebServiceAuthController implements Serializable {
         }
     }
 
-    public String destroy() {
-        current = (WebServiceAuth) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String destroy(WebServiceAuth data) {
+        current = data;
         performDestroy();
-        recreatePagination();
         recreateModel();
         return "List";
     }
@@ -195,14 +107,7 @@ public class WebServiceAuthController implements Serializable {
     public String destroyAndView() {
         performDestroy();
         recreateModel();
-        updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
-        }
+        return "List";
     }
 
     private void performDestroy() {
@@ -214,64 +119,21 @@ public class WebServiceAuthController implements Serializable {
         }
     }
 
-    private void updateCurrentItem() {
-        int count = getFacade().count();
-        if (selectedItemIndex >= count) {
-            // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
-            // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
+    public List<WebServiceAuth> getItems() {
+        User currentUser = auth.getActiveUser();
+        if (items == null){
+            if(auth.isAdmin()){
+                items = getFacade().findAll();
             }
-        }
-        if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
-        }
-    }
-
-    public DataModel getItems() {
-        if (!isLoggedIn()) {
-            redirectLogin();
-            PaginationHelper lo_pag = new PaginationHelper(0) {
-
-                @Override
-                public int getItemsCount() {
-                    return 0;
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel();
-
-                }
-            };
-            return lo_pag.createPageDataModel();
-        }
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
+            else {
+                items = getFacade().findByUser(currentUser.getIdUser());
+            }
+        }     
         return items;
-
     }
 
     private void recreateModel() {
         items = null;
-    }
-
-    private void recreatePagination() {
-        pagination = null;
-    }
-
-    public String next() {
-        getPagination().nextPage();
-        recreateModel();
-        return "List";
-    }
-
-    public String previous() {
-        getPagination().previousPage();
-        recreateModel();
-        return "List";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -326,4 +188,12 @@ public class WebServiceAuthController implements Serializable {
 
     }
 
+    public AuthService getAuth() {    
+        return auth;
+    }
+
+
+    public void setAuth(AuthService auth) {    
+        this.auth = auth;    
+    }
 }
