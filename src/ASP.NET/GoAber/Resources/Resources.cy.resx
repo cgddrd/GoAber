@@ -189,6 +189,9 @@
   <data name="_Layout_cshtml_Execute_Contact" xml:space="preserve">
     <value>[WELSH]Contact</value>
   </data>
+  <data name="_Layout_cshtml_Execute_Results" xml:space="preserve">
+    <value>[WELSH]Results</value>
+  </data>
   <data name="_Layout_cshtml_Execute_Admin" xml:space="preserve">
     <value>[WELSH]Admin</value>
   </data>

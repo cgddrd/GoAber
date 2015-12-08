@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author connorgoddard
+ * @author Dan
  */
 @Entity
 @Table(name = "Challenge")
@@ -38,11 +38,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Challenge.findAll", query = "SELECT c FROM Challenge c"),
     @NamedQuery(name = "Challenge.findByIdChallenge", query = "SELECT c FROM Challenge c WHERE c.idChallenge = :idChallenge"),
-    @NamedQuery(name = "Challenge.findByCategoryUnit", query = "SELECT c FROM Challenge c WHERE c.categoryUnitId = :categoryUnitId"),
     @NamedQuery(name = "Challenge.findByStartTime", query = "SELECT c FROM Challenge c WHERE c.startTime = :startTime"),
     @NamedQuery(name = "Challenge.findByEndTime", query = "SELECT c FROM Challenge c WHERE c.endTime = :endTime"),
     @NamedQuery(name = "Challenge.findByName", query = "SELECT c FROM Challenge c WHERE c.name = :name"),
-    @NamedQuery(name = "Challenge.unEnteredGroup", query = "SELECT d FROM Challenge d "
+    @NamedQuery(name = "Challenge.findByComplete", query = "SELECT c FROM Challenge c WHERE c.complete = :complete"),
+     @NamedQuery(name = "Challenge.unEnteredGroup", query = "SELECT d FROM Challenge d "
                                                + "INNER JOIN GroupChallenge g on d = g.challengeId "
                                                //+ " JOIN UserChallenge u on d = u.challengeId "
                                                + "WHERE g.groupId = :groupId"),// u.userId != :userId AND 
@@ -63,16 +63,14 @@ import javax.xml.bind.annotation.XmlTransient;
         
     })
 public class Challenge implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idChallenge")
-    private Integer idChallenge;
-    /*@Basic(optional = false)
     @NotNull
-    @Column(name = "categoryUnit")
-    private int categoryUnit;*/
+    @Size(min = 1, max = 100)
+    @Column(name = "idChallenge")
+    private String idChallenge;
     @Basic(optional = false)
     @NotNull
     @Column(name = "startTime")
@@ -84,6 +82,8 @@ public class Challenge implements Serializable {
     @Size(max = 100)
     @Column(name = "name")
     private String name;
+    @Column(name = "complete")
+    private Integer complete = 0;
     @JoinColumn(name = "categoryUnitId", referencedColumnName = "idCategoryUnit")
     @ManyToOne(optional = false)
     private CategoryUnit categoryUnitId;
@@ -94,34 +94,29 @@ public class Challenge implements Serializable {
     private Collection<GroupChallenge> groupChallengeCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "challengeId")
     private Collection<CommunityChallenge> communityChallengeCollection;
-    
+
     public Challenge() {
+        this.complete = 0;
     }
 
-    public Challenge(Integer idChallenge) {
+    public Challenge(String idChallenge) {
+        this.complete = 0;
         this.idChallenge = idChallenge;
     }
 
-    public Challenge(Integer idChallenge, CategoryUnit categoryUnitId, Date startTime) {
+    public Challenge(String idChallenge, CategoryUnit categoryUnitId,  Date startTime) {
+        this.complete = 0;
         this.idChallenge = idChallenge;
         this.categoryUnitId = categoryUnitId;
         this.startTime = startTime;
     }
 
-    public Integer getIdChallenge() {
+    public String getIdChallenge() {
         return idChallenge;
     }
 
-    public void setIdChallenge(Integer idChallenge) {
+    public void setIdChallenge(String idChallenge) {
         this.idChallenge = idChallenge;
-    }
-
-    public CategoryUnit getCategoryUnitId() {
-        return categoryUnitId;
-    }
-
-    public void setCategoryUnitId(CategoryUnit categoryUnitId) {
-        this.categoryUnitId = categoryUnitId;
     }
 
     public Date getStartTime() {
@@ -141,7 +136,6 @@ public class Challenge implements Serializable {
     }
 
     public String getName() {
-        System.out.println("getName()");
         return name;
     }
 
@@ -149,7 +143,30 @@ public class Challenge implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
+    public boolean getComplete() {
+        if (complete == null) {
+            complete = 0;
+        }
+        return complete != 0;
+    }
+
+    public void setComplete(boolean complete) {
+        if  (complete) {
+            this.complete = 1;   
+        } else {
+            this.complete = 0;
+        }
+    }
+
+    public CategoryUnit getCategoryUnitId() {
+        return categoryUnitId;
+    }
+
+    public void setCategoryUnitId(CategoryUnit categoryUnitId) {
+        this.categoryUnitId = categoryUnitId;
+    }
+    
+        @XmlTransient
     public Collection<UserChallenge> getUserChallengeCollection() {
         return userChallengeCollection;
     }
@@ -176,7 +193,7 @@ public class Challenge implements Serializable {
     public void setCommunityChallengeCollection(Collection<CommunityChallenge> communityChallengeCollection) {
         this.communityChallengeCollection = communityChallengeCollection;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

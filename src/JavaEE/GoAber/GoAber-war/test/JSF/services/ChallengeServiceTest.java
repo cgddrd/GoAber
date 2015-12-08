@@ -185,7 +185,7 @@ public class ChallengeServiceTest {
     @Test
     public void testAddCommunitiesChallengesNoCommunities(){//Only user's Group should be added 
         Challenge challenge = new Challenge();
-        Collection<CommunityChallenge> result = challengeService.addCommunityChallenges(u, challenge, new Integer[0]);
+        Collection<CommunityChallenge> result = challengeService.addCommunityChallenges(u, challenge, new Integer[0], true);
         
         Assert.assertEquals(1, result.size());
         CommunityChallenge communityChallenge = (CommunityChallenge) result.toArray()[0];
@@ -196,7 +196,7 @@ public class ChallengeServiceTest {
     public void testAddCommunityChallengesWithUsersCommunity(){//Only user's Group should be added 
         Challenge challenge = new Challenge();
         Integer communityIds[] = {u.getGroupId().getCommunityId().getIdCommunity()};
-        Collection<CommunityChallenge> result = challengeService.addCommunityChallenges(u, challenge, communityIds);
+        Collection<CommunityChallenge> result = challengeService.addCommunityChallenges(u, challenge, communityIds, true);
         
         Assert.assertEquals(1, result.size());
         CommunityChallenge communityChallenge = (CommunityChallenge) result.toArray()[0];
@@ -207,7 +207,7 @@ public class ChallengeServiceTest {
     public void testAddCommunityChallengesWithMultipleCommunities(){
         Challenge challenge = new Challenge();
         Integer communityIds[] = {communities.get(0).getIdCommunity(), communities.get(1).getIdCommunity()};
-        Collection<CommunityChallenge> result = challengeService.addCommunityChallenges(u, challenge, communityIds);
+        Collection<CommunityChallenge> result = challengeService.addCommunityChallenges(u, challenge, communityIds, true);
         
         Assert.assertEquals(2, result.size());
         CommunityChallenge communityChallenge = (CommunityChallenge) result.toArray()[0];

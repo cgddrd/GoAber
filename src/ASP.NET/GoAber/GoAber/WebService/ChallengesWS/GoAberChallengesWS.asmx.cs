@@ -3,6 +3,7 @@ using GoAber.Services;
 using GoAber.WebService.ChallengesWS;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,7 +15,7 @@ namespace GoAber.WebService
     /// <summary>
     /// Summary description for GoAberChallengesWS
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "http://goaberchallenges.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -25,8 +26,7 @@ namespace GoAber.WebService
     {
         private CommunitiesService io_communitiesService;
         private ChallengeService io_challengeService;
-        private IEnumerable<Community> io_communities;
-        private string[] io_comChallenges;
+        private static ApplicationDbContext db = new ApplicationDbContext();
 
         public GoAberChallengesWS()
         {
@@ -47,7 +47,29 @@ namespace GoAber.WebService
                 lo_chalmod.startTime = challenge.startTime;
                 lo_chalmod.Id = challenge.id;
                 io_challengeService.createChallenge(lo_chalmod);
-                io_challengeService.addChallengeToCommunities(lo_chalmod, new string[] { challenge.communityId.ToString() }, userGroup, false);
+
+                string ls_authtoken = challenge.authtoken;
+                IQueryable<Community> lo_comquery = from c in db.Communities
+                                                    where c.authtoken == ls_authtoken
+                                                    select c;
+                Community lo_community = lo_comquery.First();
+
+                IQueryable<Community> lo_homecomquery = from c in db.Communities
+                                                        where c.home == true
+                                                        select c;
+
+                Community lo_homecom = lo_homecomquery.First();
+
+                List<string> lo_errors = new List<string>();
+                io_challengeService.addChallengeToCommunities(lo_chalmod, new string[] { lo_community.Id.ToString(), lo_homecom.Id.ToString() }, 0, ref lo_errors, false);
+                if (lo_errors.Count > 0)
+                {
+                    for (int i = 0; i < lo_errors.Count; i++)
+                    {
+                        Debug.WriteLine(lo_errors[i]);
+                    }
+                    return false;
+                }
                 return true;
             } catch (Exception ex)
             {
@@ -70,6 +92,19 @@ namespace GoAber.WebService
                 return HandleResult.RecieveResult(result);
             }
             catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [WebMethod]
+        [XmlInclude(typeof(CommunityData))]
+        public CommunityData RecieveCommunityContract(CommunityData community)
+        {
+            try
+            {
+                return HandleContract.RecieveContract(community);
+            } catch (Exception ex)
             {
                 return null;
             }

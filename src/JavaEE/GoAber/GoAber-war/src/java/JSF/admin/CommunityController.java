@@ -4,6 +4,7 @@ import GoAberDatabase.Community;
 import JSF.AuditController;
 import JSF.util.JsfUtil;
 import SessionBean.CommunityFacade;
+import WebServices.CommunitiesService;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +27,10 @@ public class CommunityController implements Serializable {
 
     @EJB
     private SessionBean.CommunityFacade ejbFacade;
+    
+    @EJB
+    private CommunitiesService io_communityService;
+    
     private Community current;
     private List<Community> items = null;
     private List<Community> filteredItems = null;
@@ -81,6 +86,7 @@ public class CommunityController implements Serializable {
 
     public String create() {
         try {
+            current = io_communityService.RequestContract(current);
             getFacade().create(getCurrent());
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CommunityCreated"));
             audit.createAudit("community/Create", "Created: IdCommunity="+getCurrent().getIdCommunity());

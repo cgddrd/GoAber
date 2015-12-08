@@ -33,11 +33,11 @@ namespace GoAber.Migrations
             var userManager = new UserManager<ApplicationUser>(userStore);
 
             context.Communities.AddOrUpdate(x => x.Id,
-               new Community { name = "AberUni", endpointUrl = "http://localhost:50121/", home = true}
+               new Community { name = "AberUni", domain = "http://localhost:50121/", challengesEndpoint = "WebService/ChallengesWS/GoAberChallengesWS.asmx", home = true}
             );
 
             context.Communities.AddOrUpdate(x => x.Id,
-              new Community { name = "BangorUni", endpointUrl = "http://localhost:50122/" }
+              new Community { name = "BangorUni", domain = "http://localhost:8080/", challengesEndpoint = "GoAberChallengesWS/GoAberChallengesWS", home = false }
             );
 
             context.SaveChanges();
@@ -48,14 +48,6 @@ namespace GoAber.Migrations
 
             context.Teams.AddOrUpdate(x => x.Id,
                 new Team { name = "AberIBERS", community = context.Communities.Where(b => b.name == "AberUni").FirstOrDefault() }
-            );
-
-            context.Teams.AddOrUpdate(x => x.Id,
-                new Team { name = "BangorGroup1", community = context.Communities.Where(b => b.name == "BangorUni").FirstOrDefault() }
-            );
-
-            context.Teams.AddOrUpdate(x => x.Id,
-                new Team { name = "BangorGroup2", community = context.Communities.Where(b => b.name == "BangorUni").FirstOrDefault() }
             );
 
             context.SaveChanges();
@@ -119,7 +111,7 @@ namespace GoAber.Migrations
                     Email = "user1@test.com",
                     Nickname = "user1user",
                     DateOfBirth = DateTime.Now,
-                    Team = context.Teams.Where(b => b.name == "BangorGroup1").FirstOrDefault()
+                    Team = context.Teams.Where(b => b.name == "AberCompSci").FirstOrDefault()
                 };
 
                 userManager.Create(normalUser, "Hello123!");
