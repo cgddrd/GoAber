@@ -819,6 +819,7 @@
   </data>
   <data name="Admin_Delete_Warning" xml:space="preserve">
     <value>You are currently attempting to delete your own administrator account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account.</value>
+  </data>
   <data name="verifyCode_title" xml:space="preserve">
     <value>Verify</value>
   </data>
