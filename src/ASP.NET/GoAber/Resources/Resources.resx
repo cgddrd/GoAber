@@ -757,9 +757,6 @@
   <data name="CompletedGroupChallengesLink" xml:space="preserve">
     <value>Completed Group Challenges</value>
   </data>
-  <data name="challenge_categoryUnitId" xml:space="preserve">
-    <value>Activity type</value>
-  </data>
   <data name="CoordinatorChallengesLink" xml:space="preserve">
     <value>Coordinate Challenges</value>
   </data>
@@ -819,6 +816,7 @@
   </data>
   <data name="Admin_Delete_Warning" xml:space="preserve">
     <value>You are currently attempting to delete your own administrator account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account.</value>
+  </data>
   <data name="verifyCode_title" xml:space="preserve">
     <value>Verify</value>
   </data>
@@ -920,5 +918,11 @@
   </data>
   <data name="Device_NumberOfSteps" xml:space="preserve">
     <value>Number of steps :</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="YourGroup" xml:space="preserve">
+    <value>Your Group</value>
   </data>
 </root>

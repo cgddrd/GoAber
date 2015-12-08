@@ -59,5 +59,19 @@ namespace GoAber.Services
 
             return transformedGroups.OrderByDescending(m => m.Total);
         }
+
+        public IEnumerable<ParticipantLeaderViewModel> GetUsersForGroup(int id)
+        {
+            ApplicationUserService service = new ApplicationUserService();
+            var users = service.GetAllApplicationUsers()
+                                .Where(u => u.Team.Id == id)
+                                .Select(u => new ParticipantLeaderViewModel
+                                {
+                                    User = u,
+                                    Total = 0
+                                });
+
+            return users.OrderBy(x => x.User.Nickname);
+        }
     }
 }
