@@ -151,6 +151,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_Results {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Web Service Auth Tokens.
         /// </summary>
         public static string _Layout_cshtml_Execute_WebServiceAuth {
@@ -1331,14 +1340,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to device management.
-        /// </summary>
-        public static string Device_DeleteBack {
-            get {
-                return ResourceManager.GetString("Device_DeleteBack", resourceCulture);
-			}
-		}
-		
         ///   Looks up a localized string similar to Create Connection.
         /// </summary>
         public static string Device_ConnectToDevice {
@@ -1348,13 +1349,15 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to has had its connection revoked..
+        ///   Looks up a localized string similar to Back to device management.
         /// </summary>
-        public static string Device_DeleteConnectionRevoked {
+        public static string Device_DeleteBack {
             get {
-                return ResourceManager.GetString("Device_DeleteConnectionRevoked", resourceCulture);
-			}
-		}
+                return ResourceManager.GetString("Device_DeleteBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Revoke Access.
         /// </summary>
         public static string Device_DeleteConnection {
@@ -1364,13 +1367,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to has had its connection revoked..
+        /// </summary>
+        public static string Device_DeleteConnectionRevoked {
+            get {
+                return ResourceManager.GetString("Device_DeleteConnectionRevoked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device connections.
         /// </summary>
         public static string Device_DeleteTitle {
             get {
                 return ResourceManager.GetString("Device_DeleteTitle", resourceCulture);
-			}
-		}
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect to FitBit.
         /// </summary>
         public static string Device_FitBitConnect {

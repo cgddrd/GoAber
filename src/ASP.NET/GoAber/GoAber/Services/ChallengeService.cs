@@ -158,7 +158,30 @@ namespace GoAber.Services
 
 
         }
+        public void setupRemoteChallenge(Challenge challenge, string[] communities, int usersGroup, ref List<string> errors, bool local = true)
+        {
+            createChallenge(challenge);
+            if (addChallengeToCommunities(challenge, communities, usersGroup, ref errors, local)) return;
 
+            //Try to rollback if request doesn't work.
+            //The remote challenge may have been set wrong so make sure we delete that as well if it exists.
+            try {
+                IQueryable<Challenge> query = from c in db.Challenges
+                                              where c.Id == challenge.Id
+                                              select c;
+                List<Challenge> challenges = query.ToList();
+                for (int i = 0; i < challenges.Count; i++)
+                {
+                    db.Challenges.Remove(challenges[i]);
+                }
+                db.SaveChanges();
+            } catch (Exception ex)
+            {
+                Debug.Write(ex.StackTrace);
+            }
+
+
+        }
         public void addChallengeToGroups(Challenge challenge, string[] groupChallenges, int usersGroup)
         {
             foreach (string item in groupChallenges)
@@ -189,56 +212,67 @@ namespace GoAber.Services
             }
         }
 
-        public void addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup, bool local = true)
+        public bool addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup, ref List<string> errors, bool local = true)
         {
-            foreach (string item in communities)
-            {
-                CommunityChallenge communityChallenge = new CommunityChallenge()
+            try {
+                foreach (string item in communities)
                 {
-                    communityId = Int32.Parse(item),
-                    challengeId = challenge.Id
-                };
-                if (Int32.Parse(item) == usersGroup)
-                {
-                    communityChallenge.startedChallenge = true;
-                }
-                db.CommunityChallenges.Add(communityChallenge);
-                db.SaveChanges();
-
-                if (local)
-                {
-                    bool lb_goremote = false;
-
-                    for (int i = 0; i < communities.Length; i++)
+                    CommunityChallenge communityChallenge = new CommunityChallenge()
                     {
-                        if (int.Parse(communities[i]) != usersGroup)
+                        communityId = Int32.Parse(item),
+                        challengeId = challenge.Id
+                    };
+
+                    if (Int32.Parse(item) == usersGroup)
+                    {
+                        communityChallenge.startedChallenge = true;
+                    }
+                    db.CommunityChallenges.Add(communityChallenge);
+                    db.SaveChanges();
+
+                    if (local)
+                    {
+                        bool lb_goremote = false;
+
+                        for (int i = 0; i < communities.Length; i++)
                         {
-                            lb_goremote = true;
+                            if (int.Parse(communities[i]) != usersGroup)
+                            {
+                                lb_goremote = true;
+                            }
+                        }
+
+                        if (!lb_goremote) return true;
+
+                        GoAberChallengeWSConsumer lo_chalconsumer = GoAberChallengeWSConsumer.GetInstance();
+
+                        if (!lo_chalconsumer.AddChallenge(challenge, usersGroup))
+                        {
+                            return false;
                         }
                     }
 
-                    if (!lb_goremote) return;
-
-                    GoAberChallengeWSConsumer lo_chalconsumer = GoAberChallengeWSConsumer.GetInstance();
-
-                    if (!lo_chalconsumer.AddChallenge(challenge, usersGroup))
-                    {
-                        Debug.WriteLine("Cross community challenge failed!");
-                    }
-                }
-
             }
-
-            if (!communities.Contains(usersGroup.ToString()))
+            if (usersGroup > 0)
             {
-                CommunityChallenge communityChallenge = new CommunityChallenge()
+                if (!communities.Contains(usersGroup.ToString()))
                 {
-                    communityId = usersGroup,
-                    challengeId = challenge.Id,
-                    startedChallenge = true
-                };
-                db.CommunityChallenges.Add(communityChallenge);
-                db.SaveChanges();
+                    CommunityChallenge communityChallenge = new CommunityChallenge()
+                    {
+                        communityId = usersGroup,
+                        challengeId = challenge.Id,
+                        startedChallenge = true
+                    };
+                    db.CommunityChallenges.Add(communityChallenge);
+                    db.SaveChanges();
+                }
+            }
+            return true;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.StackTrace);
+                return false;
             }
         }
 

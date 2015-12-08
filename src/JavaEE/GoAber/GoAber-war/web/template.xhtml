@@ -30,7 +30,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
 
                     <ul class="nav navbar-nav">
-                        <li><h:link outcome="/index" value="Home"/></li>
+                        <li><h:link outcome="/index" value="#{bundle.TemplatePage_Home}"/></li>
                         
                       
                         <c:choose>
@@ -40,6 +40,7 @@
                                 
                                 <li><h:link outcome="/Devices/index.xhtml" value="#{bundle.TemplatePage_Devices}"/></li>
                                 <li><h:link outcome="/challenge/Index" value="#{bundle.TemplatePage_Challenges}"/></li>
+                                <li><h:link outcome="/result/List.xhtml" value="#{bundle.TemplatePage_Results}"/></li>
                                 <li><h:link outcome="/webServiceAuth/List" value="#{bundle.TemplatePage_WebServiceTokens}"/></li>
                             </c:when>
 			</c:choose>

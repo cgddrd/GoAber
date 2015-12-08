@@ -23,7 +23,7 @@ public class ScheduleJobs {
         try {
             IScheduler lo_scheduler = SchedulerFactory.Instance(null).GetScheduler();
                 
-            if (ao_job.getJobDetails().getSchedtype() == 0) {
+            if ("R".equals(ao_job.getJobDetails().getSchedtype())) {
                 lo_scheduler.CreateRecurringJob(ao_job);
             } else {
                 lo_scheduler.CreateOnceJob(ao_job);
@@ -38,7 +38,7 @@ public class ScheduleJobs {
     public boolean RemoveJob(IJobDetail ao_jobdetails) {
         try {
             IScheduler lo_scheduler = SchedulerFactory.Instance(null).GetScheduler();
-            if (ao_jobdetails.getSchedtype() == 0) {
+            if ("R".equals(ao_jobdetails.getSchedtype())) {
                 lo_scheduler.RemoveRecurringJob(ao_jobdetails);
             } else {
               lo_scheduler.RemoveOnceJob(ao_jobdetails);
