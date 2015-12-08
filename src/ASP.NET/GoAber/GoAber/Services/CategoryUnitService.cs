@@ -35,7 +35,17 @@ namespace GoAber.Services
 
             return categoryUnits;
         }
-       
+        
+        public CategoryUnit GetCategoryUnit(string category, string unit)
+        {
+            var query = from d in db.CategoryUnits
+                        where (d.category.name.Equals(category)
+                                && d.unit.name.Equals(unit)
+                                )
+                        select d;
+            CategoryUnit categoryUnit = query.FirstOrDefault();
+            return categoryUnit;
+        }
 
         public IEnumerable CreateCategoryUnitList()
         {

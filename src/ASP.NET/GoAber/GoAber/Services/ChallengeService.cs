@@ -34,7 +34,9 @@ namespace GoAber.Services
 
         public IEnumerable<Challenge> getAllChallenges()
         {
-           return db.Challenges;
+            var query = from d in db.Challenges select d;
+            IEnumerable<Challenge> challenges = query.ToList();
+            return challenges;
         }
 
         public IEnumerable<Challenge> getCompletedCommunityChallenges(ApplicationUser user)
@@ -212,43 +214,43 @@ namespace GoAber.Services
 
         public bool addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup, ref List<string> errors, bool local = true)
         {
-            foreach (string item in communities)
-            {
-                CommunityChallenge communityChallenge = new CommunityChallenge()
+            try {
+                foreach (string item in communities)
                 {
-                    communityId = Int32.Parse(item),
-                    challengeId = challenge.Id
-                };
-                
-                if (Int32.Parse(item) == usersGroup)
-                {
-                    communityChallenge.startedChallenge = true;
-                }
-                db.CommunityChallenges.Add(communityChallenge);
-                db.SaveChanges();
-
-                if (local)
-                {
-                    bool lb_goremote = false;
-
-                    for (int i = 0; i < communities.Length; i++)
+                    CommunityChallenge communityChallenge = new CommunityChallenge()
                     {
-                        if (int.Parse(communities[i]) != usersGroup)
+                        communityId = Int32.Parse(item),
+                        challengeId = challenge.Id
+                    };
+
+                    if (Int32.Parse(item) == usersGroup)
+                    {
+                        communityChallenge.startedChallenge = true;
+                    }
+                    db.CommunityChallenges.Add(communityChallenge);
+                    db.SaveChanges();
+
+                    if (local)
+                    {
+                        bool lb_goremote = false;
+
+                        for (int i = 0; i < communities.Length; i++)
                         {
-                            lb_goremote = true;
+                            if (int.Parse(communities[i]) != usersGroup)
+                            {
+                                lb_goremote = true;
+                            }
+                        }
+
+                        if (!lb_goremote) return true;
+
+                        GoAberChallengeWSConsumer lo_chalconsumer = GoAberChallengeWSConsumer.GetInstance();
+
+                        if (!lo_chalconsumer.AddChallenge(challenge, usersGroup))
+                        {
+                            return false;
                         }
                     }
-
-                    if (!lb_goremote) return true;
-
-                    GoAberChallengeWSConsumer lo_chalconsumer = GoAberChallengeWSConsumer.GetInstance();
-
-                    if (!lo_chalconsumer.AddChallenge(challenge, usersGroup))
-                    {
-                        errors.Add("Failed to send challenge to opposition community!");
-                        return false;
-                    }
-                }
 
             }
             if (usersGroup > 0)
@@ -266,6 +268,12 @@ namespace GoAber.Services
                 }
             }
             return true;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.StackTrace);
+                return false;
+            }
         }
 
 
@@ -276,9 +284,16 @@ namespace GoAber.Services
             db.SaveChanges();
         }
 
-        public void deleteChallenge(int id)
+        public void deleteChallenge(string id)
         {
             Challenge challenge = db.Challenges.Find(id);
+            db.UserChallenges.RemoveRange(
+                        db.UserChallenges.Where(u => u.challengeId.Equals(id)));
+            db.CommunityChallenges.RemoveRange(
+                        db.CommunityChallenges.Where(u => u.challengeId.Equals(id)));
+            db.GroupChallenges.RemoveRange(
+                        db.GroupChallenges.Where(u => u.challengeId.Equals(id)));
+
             db.Challenges.Remove(challenge);
             db.SaveChanges();
         }

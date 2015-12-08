@@ -18,10 +18,15 @@ namespace GoAber.Services
 
         public Community RequestContract(Community ao_community)
         {
-            if (ao_community.home) return ao_community;
+            try {
+                if (ao_community.home) return ao_community;
 
-            GoAberChallengeWSConsumer lo_challengeconsumer = GoAberChallengeWSConsumer.GetInstance();
-            return lo_challengeconsumer.RequestContract(ao_community);
+                GoAberChallengeWSConsumer lo_challengeconsumer = GoAberChallengeWSConsumer.GetInstance();
+                return lo_challengeconsumer.RequestContract(ao_community);
+            } catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }
