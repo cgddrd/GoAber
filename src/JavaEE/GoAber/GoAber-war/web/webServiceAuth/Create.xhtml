@@ -14,12 +14,19 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateWebServiceAuthLabel_appname}" for="appname" />
-                    <h:inputText id="appname" value="#{webServiceAuthController.selected.appname}" title="#{bundle.CreateWebServiceAuthTitle_appname}" required="true" requiredMessage="#{bundle.CreateWebServiceAuthRequiredMessage_appname}"/>
-                </h:panelGrid>
+                <div class="form-group">
+                    <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateWebServiceAuthLabel_appname}" for="appname" />
+                    <div class="col-md-10">
+                        <h:inputText class="form-control" id="appname" value="#{webServiceAuthController.selected.appname}" title="#{bundle.CreateWebServiceAuthTitle_appname}" required="true" requiredMessage="#{bundle.CreateWebServiceAuthRequiredMessage_appname}"/>
+                    </div>
+                </div>
                 <br />
-                <h:commandLink action="#{webServiceAuthController.create}" value="#{bundle.CreateWebServiceAuthSaveLink}" />
+                <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <h:commandLink class="btn btn-default" action="#{webServiceAuthController.create}" value="#{bundle.CreateWebServiceAuthSaveLink}" />
+                        </div>
+                    </div>
+                <br />
                 <br />
                 <br />
                 <h:commandLink action="#{webServiceAuthController.prepareList}" value="#{bundle.CreateWebServiceAuthShowAllLink}" immediate="true"/>

@@ -5,20 +5,22 @@
  */
 package GoAberDatabase;
 
-//From GoAber-Sheduler project.
 import DTO.IJobDetail;
-
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,70 +30,37 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "jobdetail")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "JobDetail.findAll", query = "SELECT j FROM JobDetail j"),
-    @NamedQuery(name = "JobDetail.findByJobid", query = "SELECT j FROM JobDetail j WHERE j.jobid = :jobid"),
+    @NamedQuery(name = "Jobdetail.findAll", query = "SELECT j FROM JobDetail j"),
     @NamedQuery(name = "JobDetail.findByTasktype", query = "SELECT j FROM JobDetail j WHERE j.tasktype = :tasktype"),
     @NamedQuery(name = "JobDetail.findBySchedtype", query = "SELECT j FROM JobDetail j WHERE j.schedtype = :schedtype"),
-    @NamedQuery(name = "JobDetail.findByShcedtimemins", query = "SELECT j FROM JobDetail j WHERE j.shcedtimemins = :shcedtimemins"),
-    @NamedQuery(name = "JobDetail.findByStartnow", query = "SELECT j FROM JobDetail j WHERE j.startnow = :startnow")})
+    @NamedQuery(name = "Jobdetail.findByJobid", query = "SELECT j FROM JobDetail j WHERE j.jobid = :jobid"),
+    @NamedQuery(name = "Jobdetail.findByShcedtimemins", query = "SELECT j FROM JobDetail j WHERE j.shcedtimemins = :shcedtimemins"),
+    @NamedQuery(name = "Jobdetail.findByStartnow", query = "SELECT j FROM JobDetail j WHERE j.startnow = :startnow")})
 public class JobDetail implements Serializable, IJobDetail {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 255)
     @Column(name = "jobid")
     private String jobid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "tasktype")
-    private int tasktype;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "schedtype")
-    private int schedtype;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "shcedtimemins")
-    private int shcedtimemins;
+    private Integer shcedtimemins;
     @Column(name = "startnow")
-    private Boolean startnow = false;
+    private Boolean startnow;
+    @JoinColumn(name = "schedtype", referencedColumnName = "shedId")
+    @ManyToOne
+    private Scheduletype schedtype;
+    @JoinColumn(name = "tasktype", referencedColumnName = "taskId")
+    @ManyToOne
+    private Tasktype tasktype;
 
     public JobDetail() {
     }
 
-    
     public JobDetail(String jobid) {
         this.jobid = jobid;
-    }
-
-    public JobDetail(String jobid, int tasktype, int schedtype, int shcedtimemins) {
-        this.jobid = jobid;
-        this.tasktype = tasktype;
-        this.schedtype = schedtype;
-        this.shcedtimemins = shcedtimemins;
-    }
-    
-    public String getSchedTypeString()
-    {
-        switch (schedtype) {
-            case 0:
-                return "Recurring";
-            default:
-                return "Once";
-        }
-    }
-    
-    public String getTaskTypeString() {
-        switch (tasktype) {
-            case 0:
-                return "FitBit";
-            case 1:
-                return "JawBone";
-            default:
-                return "Email";
-        }
     }
 
     public String getJobid() {
@@ -102,27 +71,11 @@ public class JobDetail implements Serializable, IJobDetail {
         this.jobid = jobid;
     }
 
-    public int getTasktype() {
-        return tasktype;
-    }
-
-    public void setTasktype(int tasktype) {
-        this.tasktype = tasktype;
-    }
-
-    public int getSchedtype() {
-        return schedtype;
-    }
-
-    public void setSchedtype(int schedtype) {
-        this.schedtype = schedtype;
-    }
-
     public int getShcedtimemins() {
         return shcedtimemins;
     }
 
-    public void setShcedtimemins(int shcedtimemins) {
+    public void setShcedtimemins(Integer shcedtimemins) {
         this.shcedtimemins = shcedtimemins;
     }
 
@@ -132,6 +85,22 @@ public class JobDetail implements Serializable, IJobDetail {
 
     public void setStartnow(Boolean startnow) {
         this.startnow = startnow;
+    }
+
+    public String getSchedtype() {
+        return schedtype.getShedId();
+    }
+
+    public void setSchedtype(Scheduletype schedtype) {
+        this.schedtype = schedtype;
+    }
+
+    public String getTasktype() {
+        return tasktype.getTaskId();
+    }
+
+    public void setTasktype(Tasktype tasktype) {
+        this.tasktype = tasktype;
     }
 
     @Override
@@ -157,6 +126,17 @@ public class JobDetail implements Serializable, IJobDetail {
     @Override
     public String toString() {
         return "GoAberDatabase.Jobdetail[ jobid=" + jobid + " ]";
+    }
+    
+    //Pass arguments to scheduler.
+    @Transient
+    private String[] is_args;
+    public void setSchedulerArgs(String[] as_args) {
+        is_args = as_args;
+    }
+    @Override
+    public String[] scheduler_args() {
+        return is_args;
     }
     
 }

@@ -23,7 +23,7 @@
 
                  <c:choose>       
                     <c:when test="#{authService.coordinator}">
-                        <h:link outcome="/challenge/coordinator/Index" value="Coordinate Challenges"/>
+                        <h:link outcome="/challenge/coordinator/Index" value="#{bundle.CoordinateChallengesLink}"/>
                     </c:when>                         
                 </c:choose>
             </h:form>
