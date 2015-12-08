@@ -261,20 +261,27 @@ namespace GoAber.Controllers
         /// <returns></returns>
         public ActivityData GetHeartRate(string ls_path, string jsonPath, string userID, int day, int month, int year, bool useDB = false)
         {
-            ApplicationUser user;
+            try
+            {
+                ApplicationUser user;
             if (String.IsNullOrWhiteSpace(userID))
             {
                 user = UserManager.FindById(User.Identity.GetUserId());
             } else
             {
-                user = UserManager.FindById(userID);
+                //user = UserManager.FindById(userID);
             }
 
             CategoryUnit categoryUnit = categoryUnitService.GetCategoryUnit("HeartRate", "Beats");
 
-            ActivityData activityDay = GetDayActivity(ls_path, jsonPath, user.Id, day, month, year, categoryUnit, useDB);
+            ActivityData activityDay = GetDayActivity(ls_path, jsonPath, userID, day, month, year, categoryUnit, useDB);
             return activityDay;
-        }
+        } catch (Exception e)
+            {
+                Debug.WriteLine(e.StackTrace);
+                return null;
+            }
+}
 
         
 
