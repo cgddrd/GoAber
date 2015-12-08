@@ -168,11 +168,19 @@ namespace GoAber.Services
 
             if (data.Count() > 0)
             {
-                ActivityData minItem = data.Aggregate((c, d) => c.value < d.value ? c : d);
+                var formattedData = data
+                    .GroupBy(a => a.date)
+                    .Select(a => new
+                    {
+                        value = a.Sum(x => x.value),
+                        date = a.Select(x => x.date).First()
+                    });
+
+                var minItem = formattedData.Aggregate((c, d) => c.value < d.value ? c : d);
                 summaryStats.Min = minItem.value.GetValueOrDefault(0);
                 summaryStats.MinDate = minItem.date.GetValueOrDefault(new DateTime());
 
-                ActivityData maxItem = data.Aggregate((c, d) => c.value > d.value ? c : d);
+                var maxItem = formattedData.Aggregate((c, d) => c.value > d.value ? c : d);
                 summaryStats.Max = maxItem.value.GetValueOrDefault(0);
                 summaryStats.MaxDate = maxItem.date.GetValueOrDefault(new DateTime());
             }

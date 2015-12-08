@@ -7,7 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{admin.CreateActivityDataTitle}"></h:outputText>
+            <h:outputText value="#{bundle.CreateActivityDataTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
@@ -17,32 +17,32 @@
                 <div class="form-horizontal">
                     
                     <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_value}" for="value" />
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateActivityDataLabel_value}" for="value" />
                         <div class="col-md-10">
-                            <h:inputText class="form-control" id="value" value="#{adminActivityDataController.selected.value}" title="#{admin.CreateActivityDataTitle_value}" />
+                            <h:inputText class="form-control" id="value" value="#{adminActivityDataController.selected.value}" title="#{bundle.CreateActivityDataTitle_value}" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_date}" for="date" />
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateActivityDataLabel_date}" for="date" />
                         <div class="col-md-10">
-                             <p:calendar id="date" pattern="dd/MM/yyy" maxdate="#{now}" value="#{adminActivityDataController.selected.date}" title="#{admin.CreateActivityDataTitle_date}" />
+                             <p:calendar id="date" pattern="dd/MM/yyy" maxdate="#{now}" value="#{adminActivityDataController.selected.date}" title="#{bundle.CreateActivityDataTitle_date}" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateActivityDataLabel_categoryUnitId}" for="categoryUnitId" />
                         <div class="col-md-10">
-                            <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{adminActivityDataController.selected.categoryUnitId}" title="#{admin.CreateActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
+                            <h:selectOneMenu class="form-control" id="categoryUnitId" value="#{adminActivityDataController.selected.categoryUnitId}" title="#{bundle.CreateActivityDataTitle_categoryUnitId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_categoryUnitId}" converter="categoryUnitConverter">
                                 <f:selectItems value="#{categoryUnitService.getDisplayItems()}"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{admin.CreateActivityDataLabel_userId}" for="userId" />
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateActivityDataLabel_userId}" for="userId" />
                         <div class="col-md-10">
-                            <h:selectOneMenu class="form-control" id="userId" value="#{adminActivityDataController.selected.userId}" title="#{admin.CreateActivityDataTitle_userId}" required="true" requiredMessage="#{admin.CreateActivityDataRequiredMessage_userId}" converter="userConverter">
+                            <h:selectOneMenu class="form-control" id="userId" value="#{adminActivityDataController.selected.userId}" title="#{bundle.CreateActivityDataTitle_userId}" required="true" requiredMessage="#{bundle.CreateActivityDataRequiredMessage_userId}" converter="userConverter">
                                 <f:selectItems value="#{userController.items}" var="user" itemLabel="#{user.email}" itemValue="#{user}"/>
                             </h:selectOneMenu>
                         </div>
@@ -50,13 +50,13 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <h:commandLink class="btn btn-default" action="#{adminActivityDataController.create}" value="#{admin.CreateActivityDataSaveLink}" />
+                            <h:commandLink class="btn btn-default" action="#{adminActivityDataController.create}" value="#{bundle.CreateActivityDataSaveLink}" />
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-10">
-                            <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{admin.CreateActivityDataShowAllLink}" immediate="true"/>
+                            <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{bundle.CreateActivityDataShowAllLink}" immediate="true"/>
                         </div>
                     </div>
                 </div>

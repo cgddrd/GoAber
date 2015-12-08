@@ -43,7 +43,7 @@ public class WebServiceAuthFacade extends AbstractFacade<WebServiceAuth> {
         return ((Long) q.getSingleResult()).intValue();
     }
     
-     public List<WebServiceAuth> findRangeUser(int[] range, int ai_userid) {
+    public List<WebServiceAuth> findRangeUser(int[] range, int ai_userid) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery cq = cb.createQuery();
         Root<WebServiceAuth> rt = cq.from(WebServiceAuth.class);
@@ -52,6 +52,16 @@ public class WebServiceAuthFacade extends AbstractFacade<WebServiceAuth> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         q.setMaxResults(range[1] - range[0] + 1);
         q.setFirstResult(range[0]);
+        return q.getResultList();
+    }
+    
+    public List<WebServiceAuth> findByUser(int ai_userid) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery cq = cb.createQuery();
+        Root<WebServiceAuth> rt = cq.from(WebServiceAuth.class);
+        cq.select(rt);
+        cq.where(cb.equal(rt.get("userid"), ai_userid));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
         return q.getResultList();
     }
     

@@ -2,12 +2,14 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Auth;
 using Microsoft.AspNet.Identity;
 using GoAber.Models;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace GoAber.Controllers
 {
+    [GAAuthorize(Roles = "Administrator")]
     public class RolesController : BaseController
     {
         ApplicationDbContext context;
