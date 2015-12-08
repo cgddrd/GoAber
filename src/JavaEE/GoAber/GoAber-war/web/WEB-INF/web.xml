@@ -60,6 +60,8 @@
             <url-pattern>/challenge/*</url-pattern>
             <url-pattern>/faces/challenge/*</url-pattern>
             <url-pattern>/myaccount/*</url-pattern>
+            <url-pattern>/faces/webServiceAuth/*</url-pattern>
+            <url-pattern>/webServiceAuth/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>administrator</role-name>
