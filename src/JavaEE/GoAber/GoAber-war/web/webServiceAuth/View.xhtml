@@ -14,27 +14,31 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewWebServiceAuthLabel_authtoken}"/>
+                
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.ViewWebServiceAuthLabel_authtoken}"/>
                     <h:outputText value="#{webServiceAuthController.selected.authtoken}" title="#{bundle.ViewWebServiceAuthTitle_authtoken}"/>
-                    <h:outputText value="#{bundle.ViewWebServiceAuthLabel_appname}"/>
+                </div>    
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.ViewWebServiceAuthLabel_appname}"/>
                     <h:outputText value="#{webServiceAuthController.selected.appname}" title="#{bundle.ViewWebServiceAuthTitle_appname}"/>
-                    <h:outputText value="#{bundle.ViewWebServiceAuthLabel_userid}"/>
+                </div>    
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.ViewWebServiceAuthLabel_userid}"/>
                     <h:outputText value="#{webServiceAuthController.selected.userid}" title="#{bundle.ViewWebServiceAuthTitle_userid}"/>
-                    <h:outputText value="#{bundle.ViewWebServiceAuthLabel_expire}"/>
+                </div>    
+                <div class="form-group">
+                    <h:outputLabel value="#{bundle.ViewWebServiceAuthLabel_expire}"/>
                     <h:outputText value="#{webServiceAuthController.selected.expire}" title="#{bundle.ViewWebServiceAuthTitle_expire}">
                         <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                     </h:outputText>
-                </h:panelGrid>
+                </div> 
                 <br />
-                <h:commandLink action="#{webServiceAuthController.destroyAndView}" value="#{bundle.ViewWebServiceAuthDestroyLink}"/>
+                <div class="btn-group" role="group" >
+                    <h:commandLink class="btn btn-default" action="#{webServiceAuthController.prepareList}" value="#{bundle.ViewWebServiceAuthShowAllLink}"/>
+                    
+                </div>   
                 <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewWebServiceAuthEditLink}"/>
-                <br />
-                <h:commandLink action="#{webServiceAuthController.prepareCreate}" value="#{bundle.ViewWebServiceAuthCreateLink}" />
-                <br />
-                <h:commandLink action="#{webServiceAuthController.prepareList}" value="#{bundle.ViewWebServiceAuthShowAllLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ViewWebServiceAuthIndexLink}"/>

@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Web;
+using GoAber.Auth;
 using GoAber.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -18,6 +19,7 @@ using GoAber.Services;
 
 namespace GoAber.Controllers
 {
+    [GAAuthorize]
     public class DevicesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

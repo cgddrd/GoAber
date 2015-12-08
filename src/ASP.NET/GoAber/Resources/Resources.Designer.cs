@@ -151,6 +151,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string _Layout_cshtml_Execute_Results {
+            get {
+                return ResourceManager.GetString("_Layout_cshtml_Execute_Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Web Service Auth Tokens.
         /// </summary>
         public static string _Layout_cshtml_Execute_WebServiceAuth {
@@ -571,6 +580,15 @@ namespace Resources {
         public static string AD_WeeklySummaryStatistics {
             get {
                 return ResourceManager.GetString("AD_WeeklySummaryStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are currently attempting to delete your own administrator account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account..
+        /// </summary>
+        public static string Admin_Delete_Warning {
+            get {
+                return ResourceManager.GetString("Admin_Delete_Warning", resourceCulture);
             }
         }
         
@@ -1322,14 +1340,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to device management.
-        /// </summary>
-        public static string Device_DeleteBack {
-            get {
-                return ResourceManager.GetString("Device_DeleteBack", resourceCulture);
-			}
-		}
-		
         ///   Looks up a localized string similar to Create Connection.
         /// </summary>
         public static string Device_ConnectToDevice {
@@ -1339,13 +1349,15 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to has had its connection revoked..
+        ///   Looks up a localized string similar to Back to device management.
         /// </summary>
-        public static string Device_DeleteConnectionRevoked {
+        public static string Device_DeleteBack {
             get {
-                return ResourceManager.GetString("Device_DeleteConnectionRevoked", resourceCulture);
-			}
-		}
+                return ResourceManager.GetString("Device_DeleteBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Revoke Access.
         /// </summary>
         public static string Device_DeleteConnection {
@@ -1355,13 +1367,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to has had its connection revoked..
+        /// </summary>
+        public static string Device_DeleteConnectionRevoked {
+            get {
+                return ResourceManager.GetString("Device_DeleteConnectionRevoked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device connections.
         /// </summary>
         public static string Device_DeleteTitle {
             get {
                 return ResourceManager.GetString("Device_DeleteTitle", resourceCulture);
-			}
-		}
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect to FitBit.
         /// </summary>
         public static string Device_FitBitConnect {
@@ -2312,6 +2335,24 @@ namespace Resources {
         public static string ToDate {
             get {
                 return ResourceManager.GetString("ToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not able to access this area with your current credentials..
+        /// </summary>
+        public static string Unauthorised_Message {
+            get {
+                return ResourceManager.GetString("Unauthorised_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unauthorised.
+        /// </summary>
+        public static string Unauthorised_Title {
+            get {
+                return ResourceManager.GetString("Unauthorised_Title", resourceCulture);
             }
         }
         

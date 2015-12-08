@@ -42,7 +42,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActivityData.getAllForUserInDateRange", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :id AND a.date > :startDate AND a.date < :endDate AND a.categoryUnitId.unitId.name = :unit"),
     @NamedQuery(name = "ActivityData.findActivityDataForGroup", query = "SELECT a FROM ActivityData a WHERE a.userId.groupId.idGroup = :id AND a.categoryUnitId.unitId.name = :unit"),
     @NamedQuery(name = "ActivityData.findActivityDataForGroupInDateRange", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :userId AND a.userId.groupId.idGroup = :id AND a.categoryUnitId.unitId.name = :unit AND a.date >= :startDate AND a.date <= :endDate"),
-    @NamedQuery(name = "ActivityData.findActivityDataForCommunityInDateRange", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :userId AND a.userId.groupId.communityId.idCommunity = :id AND a.categoryUnitId.unitId.name = :unit AND a.date >= :startDate AND a.date <= :endDate")})
+    @NamedQuery(name = "ActivityData.findActivityDataForCommunityInDateRange", query = "SELECT a FROM ActivityData a WHERE a.userId.idUser = :userId AND a.userId.groupId.communityId.idCommunity = :id AND a.categoryUnitId.unitId.name = :unit AND a.date >= :startDate AND a.date <= :endDate"),
+    @NamedQuery(name = "ActivityData.getAllInDateRange", query = "SELECT a FROM ActivityData a WHERE a.date > :startDate AND a.date < :endDate AND a.categoryUnitId.unitId.idUnit = :unit")})
+
+    
 public class ActivityData implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

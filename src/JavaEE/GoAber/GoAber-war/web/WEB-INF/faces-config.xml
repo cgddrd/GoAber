@@ -13,5 +13,13 @@
             <var>bundle</var>
         </resource-bundle>
         
+        <resource-bundle>
+            <base-name>/BundleResults</base-name>
+            <var>bundleResults</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleResults</base-name>
+            <var>bundleResults</var>
+        </resource-bundle>
     </application>
 </faces-config>

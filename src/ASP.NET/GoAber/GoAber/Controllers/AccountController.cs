@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Auth;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -13,7 +14,7 @@ using GoAber.Services;
 
 namespace GoAber.Controllers
 {
-    [Authorize]
+    [GAAuthorize]
     public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;

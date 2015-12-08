@@ -792,7 +792,7 @@ exists or setup the property manually. For example like this:
         </ant>
     </target>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
-    <target depends="init,deps-jar" name="-pre-pre-compile">
+    <target depends="init,deps-jar,wsimport-service-generate" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
         <mkdir dir="${build.ear.classes.dir}"/>
     </target>
