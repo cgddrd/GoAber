@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go Aber.
+        ///   Looks up a localized string similar to GoAber!.
         /// </summary>
         public static string _Layout_cshtml_Execute_Application_name {
             get {
