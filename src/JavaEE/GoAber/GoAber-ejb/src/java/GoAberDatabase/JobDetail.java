@@ -65,6 +65,7 @@ public class JobDetail implements Serializable, IJobDetail {
         this.jobid = jobid;
     }
 
+    @Override
     public String getJobid() {
         return jobid;
     }
@@ -73,6 +74,7 @@ public class JobDetail implements Serializable, IJobDetail {
         this.jobid = jobid;
     }
 
+    @Override
     public int getShcedtimemins() {
         return shcedtimemins;
     }
@@ -81,6 +83,7 @@ public class JobDetail implements Serializable, IJobDetail {
         this.shcedtimemins = shcedtimemins;
     }
 
+    @Override
     public Boolean getStartnow() {
         return startnow;
     }
@@ -97,6 +100,7 @@ public class JobDetail implements Serializable, IJobDetail {
         this.schedtype = schedtype;
     }
 
+    @Override
     public String getSchedtype() {
         if (schedtype == null) {
             schedtype = new Scheduletype();
@@ -125,6 +129,7 @@ public class JobDetail implements Serializable, IJobDetail {
     }
 
 
+    @Override
     public String getTasktype() {
          if (tasktype == null) {
             tasktype = new Tasktype();
