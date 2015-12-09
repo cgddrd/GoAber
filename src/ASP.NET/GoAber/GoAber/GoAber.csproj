@@ -308,6 +308,10 @@
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
+    <Compile Include="Migrations\201512091959303_GoAber.cs" />
+    <Compile Include="Migrations\201512091959303_GoAber.Designer.cs">
+      <DependentUpon>201512091959303_GoAber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\ViewModels\LeaderViewModel.cs" />
     <Compile Include="Models\ViewModels\ActivityDataListViewModel.cs" />
@@ -638,10 +642,6 @@
     <Content Include="Views\Challenge\Details.cshtml" />
     <Content Include="Views\Challenge\Edit.cshtml" />
     <Content Include="Views\Challenge\Index.cshtml" />
-    <Content Include="Views\Results\Create.cshtml" />
-    <Content Include="Views\Results\Delete.cshtml" />
-    <Content Include="Views\Results\Details.cshtml" />
-    <Content Include="Views\Results\Edit.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
     <Content Include="Views\Challenge\CreateCommunity.cshtml" />
     <Content Include="Views\Challenge\LeaderBoard.cshtml" />
@@ -695,6 +695,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512091959303_GoAber.resx">
+      <DependentUpon>201512091959303_GoAber.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
