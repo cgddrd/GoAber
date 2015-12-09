@@ -5,31 +5,33 @@
  */
 package Jobs;
 
-import Scheduling.Jobs.AbstractJob;
 import DTO.IJobDetail;
+import Scheduling.Jobs.AbstractJob;
 import SessionBean.ActivityDataFacade;
+import SessionBean.UserFacade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-
 /**
  *
  * @author Dan
  */
-public class FitBitJob extends AbstractJob {
+public class JawBoneJob extends AbstractJob  {
     
     ActivityDataFacade io_activityFacade;
-
-    public FitBitJob(IJobDetail ao_jobdetails) {
-        super(ao_jobdetails);
+    UserFacade io_userFacade;
+    //FitbitApi io_fitbitapi;
         
-       io_activityFacade = lookupBean(ActivityDataFacade.class);
+    public JawBoneJob(IJobDetail ao_jobdetails) {
+        super(ao_jobdetails);
+        io_activityFacade = lookupBean(ActivityDataFacade.class);
+        io_userFacade = lookupBean(UserFacade.class);
     }
-
-    @Override
+    
+        @Override
     public String getJobType() {
        return "Fitbit";
     }
@@ -37,6 +39,8 @@ public class FitBitJob extends AbstractJob {
     @Override
     public void run() {
         System.out.println("I HAVE BEEN CALLED! " + getJobDetails().getJobid());
+        
+        
     }
 
     private <T> T lookupBean(Class<T> clazz) {
@@ -49,7 +53,5 @@ public class FitBitJob extends AbstractJob {
             throw new RuntimeException(ne);
         }
     }
-
-
     
 }

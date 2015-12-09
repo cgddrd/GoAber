@@ -8,10 +8,28 @@ package DeviceApi;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.User;
+import JSF.device.JawboneEJB;
+import JSF.services.AuthService;
+import SessionBean.ActivityDataFacade;
+import SessionBean.CategoryUnitFacade;
+import SessionBean.DeviceFacade;
+import SessionBean.DeviceTypeFacade;
+import SessionBean.TeamFacade;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.json.JsonObject;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -21,31 +39,60 @@ import javax.persistence.TemporalType;
  * @author helen
  */
 @ManagedBean(name = "jawboneController")
+//@Stateless
 @SessionScoped
-public class JawboneApi extends DeviceApi{
-    private Date deviceDate = new Date();
+public class JawboneApi {
 
+    @EJB JawboneEJB jawboneEJB;
+    
+    @ManagedProperty(value="#{authService}")
+    public AuthService authService;
+    
+    public JawboneApi() {
+        
+    }
+    
+    public void setauthService(AuthService authService)
+    {
+       this.authService = authService;
+    }
+   
+    public AuthService getauthService()
+    {
+       return this.authService;
+    }
+    
+    
+    public boolean isConnected() {
+        jawboneEJB.setauthService(authService);
+        return jawboneEJB.isConnected();
+    }
+    
+    public int getSteps() {
+        return jawboneEJB.steps;
+    }
+    
+    public void setSteps(int steps) {
+        jawboneEJB.steps = steps;
+    }
     public Date getDeviceDate() {
-        return deviceDate;
+        return jawboneEJB.getDeviceDate();
     }
 
     public void setDeviceDate(Date deviceDate) {
-        this.deviceDate = deviceDate;
+        jawboneEJB.setDeviceDate(deviceDate);
     }
     
-    @Override
     public String getType() {
-        return "Jawbone";
+        return jawboneEJB.getType();
     }
 
-    @Override
     public String getScope() {
-        return "move_read basic_read heartrate_read";
+        return jawboneEJB.getScope();
     }
 
-    @Override
     public Class getProviderClass() {
-        return JawboneApi.class;
+        return jawboneEJB.getProviderClass();
     }
     
     /**
@@ -58,42 +105,13 @@ public class JawboneApi extends DeviceApi{
      */
     public ActivityData getWalkingSteps(int day, int month, int year, int userID)
     {
-        String url = "/moves?date=" + year + month + day;
-        User user = userFacade.findUserById(userID);
-        if(user == null)
-        {
-           return null;
-        }
-        JsonObject jsonObject = getActivityData(url, day, month, year, user);
-        try
-        {
-            steps = jsonObject.getJsonObject("data").getJsonArray("items").getJsonObject(0).getJsonObject("details").getInt("steps");
-        }
-        catch(IndexOutOfBoundsException ex)
-        { // indexOutOfBounds will be thrown when the user has done 0 steps
-            steps = 0;
-        }
-       Date date = new Date(year, month, day);
-       CategoryUnit categoryUnitId = new CategoryUnit();
-       ActivityData activityData = new ActivityData(steps, new Date(), date, user, categoryUnitId);
-       return activityData;
+        return jawboneEJB.getWalkingSteps(day, month, year, userID);
     }
     
     
      public String getWalkingStepsForEnteredDate()
     {
-        int day = deviceDate.getDate();
-        int month = deviceDate.getMonth()+1;
-        int year = deviceDate.getYear()+1900;
-        User user = authService.getActiveUser();
-        if(user == null)
-        { //should not be able to reach here without being logged in, but just in case
-            return "";
-        }
-        int userID = user.getIdUser();
-        ActivityData activityData = getWalkingSteps(day, month, year, userID);
-        this.steps = activityData.getValue();
-        return "";
+        return jawboneEJB.getWalkingStepsForEnteredDate();
     }
      
     /**
@@ -102,17 +120,13 @@ public class JawboneApi extends DeviceApi{
      */
     public String getWalkingSteps()
     {
-        int day = 26;
-        int month = 10;
-        int year = 2015;
-        User user = authService.getActiveUser();
-        if(user == null)
-        {
-            return "index";
-        }
-        int userID = user.getIdUser();
-        ActivityData activityData = getWalkingSteps(day, month, year, userID);
-        this.steps = activityData.getValue();
-        return "ViewActivity";
+        return jawboneEJB.getWalkingSteps();
     }
+    
+    public void deleteDevice() {
+        jawboneEJB.deleteDevice();
+    }
+    
+    
+    
 }

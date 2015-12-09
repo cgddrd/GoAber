@@ -10,6 +10,11 @@ import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.Device;
 import GoAberDatabase.DeviceType;
 import GoAberDatabase.User;
+import JSF.services.AuthService;
+import SessionBean.ActivityDataFacade;
+import SessionBean.CategoryUnitFacade;
+import SessionBean.DeviceFacade;
+import SessionBean.DeviceTypeFacade;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -17,9 +22,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -34,6 +42,27 @@ import javax.net.ssl.HttpsURLConnection;
 @SessionScoped
 public class FitbitApi extends DeviceApi{
 
+    @EJB DeviceTypeFacade deviceTypeFacade; //= lookupDeviceTypeFacadeBean();
+    @EJB DeviceFacade deviceFacade; //= lookupDeviceFacadeBean();
+    @EJB ActivityDataFacade activityDataFacade; //= lookupActivityDataFacadeBean();
+    @EJB CategoryUnitFacade categoryUnitFacade; //= lookupCategoryUnitFacadeBean();
+    //@ManagedProperty(value="#{authService}")
+    //public AuthService authServiceManaged;
+        
+    public FitbitApi() {
+        System.out.println("THIS IS A TEST!");  
+    }
+    
+//    public void setauthServiceManaged(AuthService authServiceManaged)
+//    {
+//       this.authServiceManaged = authService;
+//    }
+//   
+//    public AuthService getauthServiceManaged()
+//    {
+//       return this.authServiceManaged;
+//    }
+    
     @Override
     public String getType() {
         return "Fitbit";
@@ -47,6 +76,11 @@ public class FitbitApi extends DeviceApi{
     @Override
     public Class getProviderClass() {
         return FitbitApi.class;
+    }
+    
+    @Override
+    public boolean isConnected() {
+        return false;
     }
     
     @Override
@@ -129,5 +163,25 @@ public class FitbitApi extends DeviceApi{
         ActivityData activityData = getWalkingSteps(day, month, year, userID);
         this.steps = activityData.getValue();
         return "ViewActivity";
+    }
+    
+    @Override
+    public DeviceTypeFacade getDeviceTypeFacade() {
+        return deviceTypeFacade;
+    }
+
+    @Override
+    public DeviceFacade getDeviceFacade() {
+        return deviceFacade;
+    }
+
+    @Override
+    public ActivityDataFacade getActivityDataFacade() {
+        return activityDataFacade;
+    }
+
+    @Override
+    public CategoryUnitFacade getCategoryUnitFacade() {
+        return categoryUnitFacade;
     }
 }

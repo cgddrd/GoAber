@@ -8,6 +8,14 @@ package JSF.device;
 import DeviceApi.DeviceApi;
 import DeviceApi.JawboneApi;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +30,7 @@ import org.scribe.oauth.OAuthService;
  */
 @WebServlet("/JawboneAccess")
 public class JawboneServlet extends HttpServlet {
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,10 +40,13 @@ public class JawboneServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB JawboneEJB deviceApi;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        DeviceApi deviceApi = new JawboneApi();
+        //DeviceApi deviceApi = new JawboneApi();
+        //JawboneApi deviceApi = (JawboneApi) request.getSession(true).getAttribute("jawboneController");
+        //JawboneApi deviceApi = lookupBean(JawboneApi.class);
         OAuthService serviceBuilder = deviceApi.getOAuthService();
         HttpSession session = request.getSession();
         session.setAttribute("DeviceApi", deviceApi);
