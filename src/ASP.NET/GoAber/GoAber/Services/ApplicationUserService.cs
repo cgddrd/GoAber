@@ -27,6 +27,16 @@ namespace GoAber.Services
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ApplicationUserService()
+        {
+            
+        }
+
+        public ApplicationUserService(ApplicationDbContext db)
+        {
+            this.db = db;
+        }
+
         public static ApplicationUser GetCurrentApplicationUser()
         {
 

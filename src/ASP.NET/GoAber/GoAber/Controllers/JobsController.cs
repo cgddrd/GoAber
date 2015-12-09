@@ -6,11 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Auth;
 using GoAber.Models;
 using GoAber.Scheduling;
 
 namespace GoAber.Controllers
 {
+    [GAAuthorize(Roles = "Administrator")]
     public class JobsController : BaseController
     {
         protected static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

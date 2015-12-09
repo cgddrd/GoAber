@@ -192,7 +192,7 @@ namespace GoAber.Areas.MyAccount.Controllers
                 return ApplicationUserService.LogoutCurrentApplicationUser();
             }
 
-            TempData["Error"] = "You are currently attempting to an administrator account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account.";
+            TempData["Error"] = Resources.Resources.Admin_Delete_Warning;
 
             return RedirectToAction("Index");
 

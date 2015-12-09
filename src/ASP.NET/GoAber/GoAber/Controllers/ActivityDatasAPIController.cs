@@ -80,16 +80,20 @@ namespace GoAber.Controllers
 
         private IEnumerable FormatActivityData(IEnumerable<ActivityData> data)
         {
-            return data.Select(a => new
+            var formattedData = data
+                .GroupBy(a => a.date)
+                .Select(a => new
             {
-                id = a.Id,
-                value = a.value,
-                category = a.categoryunit.category.name,
-                unit = a.categoryunit.unit.name,
-                activityDate = a.date.ToString(),
-                lastUpdated = a.lastUpdated.ToString(),
-                user = a.User.Nickname
+                value = a.Sum(x => x.value),
+                category = a.Select(x => x.categoryunit.category.name).First(),
+                unit = a.Select(x => x.categoryunit.unit.name).First(),
+                activityDate = a.Select(x => x.date).First(),
+                lastUpdated = a.Select(x => x.lastUpdated).First(),
+                user = a.Select(x => x.User.Nickname).First()
+
             }).ToList();
+
+            return formattedData;
         }
     }
 }

@@ -25,17 +25,21 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author connorgoddard
+ * @author Dan
  */
 @Entity
-@Table(name = "Community")
+@Table(name = "community")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Community.findAll", query = "SELECT c FROM Community c"),
     @NamedQuery(name = "Community.findByIdCommunity", query = "SELECT c FROM Community c WHERE c.idCommunity = :idCommunity"),
     @NamedQuery(name = "Community.findByName", query = "SELECT c FROM Community c WHERE c.name = :name"),
-    @NamedQuery(name = "Community.findByEndpointUrl", query = "SELECT c FROM Community c WHERE c.endpointUrl = :endpointUrl")})
+    @NamedQuery(name = "Community.findByDomain", query = "SELECT c FROM Community c WHERE c.domain = :domain"),
+    @NamedQuery(name = "Community.findByHome", query = "SELECT c FROM Community c WHERE c.home = :home"),
+    @NamedQuery(name = "Community.findByChallengesEndpoint", query = "SELECT c FROM Community c WHERE c.challengesEndpoint = :challengesEndpoint"),
+    @NamedQuery(name = "Community.findByAuthtoken", query = "SELECT c FROM Community c WHERE c.authtoken = :authtoken")})
 public class Community implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,21 +52,21 @@ public class Community implements Serializable {
     @Column(name = "name")
     private String name;
     @Size(max = 250)
-    @Column(name = "endpointUrl")
-    private String endpointUrl;
+    @Column(name = "domain")
+    private String domain;
+    @Column(name = "home")
+    private Integer home = 0;
+    @Size(max = 250)
+    @Column(name = "challengesEndpoint")
+    private String challengesEndpoint;
+    @Size(max = 250)
+    @Column(name = "authtoken")
+    private String authtoken;
     @OneToMany(mappedBy = "communityId")
     private Collection<Team> teamCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "communityId")
     private Collection<CommunityChallenge> communityChallengeCollection;
-
-    public Collection<CommunityChallenge> getCommunityChallengeCollection() {
-        return communityChallengeCollection;
-    }
-
-    public void setCommunityChallengeCollection(Collection<CommunityChallenge> communityChallengeCollection) {
-        this.communityChallengeCollection = communityChallengeCollection;
-    }
-
+    
     public Community() {
     }
 
@@ -91,23 +95,40 @@ public class Community implements Serializable {
         this.name = name;
     }
 
-    public String getEndpointUrl() {
-        return endpointUrl;
+    public String getDomain() {
+        return domain;
     }
 
-    public void setEndpointUrl(String endpointUrl) {
-        this.endpointUrl = endpointUrl;
-    }
-/*
-    @XmlTransient
-    public Collection<CommunityChallenge> getCommunityChallengeCollection() {
-        return communityChallengeCollection;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
-    public void setCommunityChallengeCollection(Collection<CommunityChallenge> communityChallengeCollection) {
-        this.communityChallengeCollection = communityChallengeCollection;
-    }*/
+    public boolean getHome() {
+        if (home == null) home = 0;
+        return home == 1;
+    }
 
+    public void setHome(boolean home) {
+        if (home) this.home = 1;
+        else this.home = 0;
+    }
+
+    public String getChallengesEndpoint() {
+        return challengesEndpoint;
+    }
+
+    public void setChallengesEndpoint(String challengesEndpoint) {
+        this.challengesEndpoint = challengesEndpoint;
+    }
+
+    public String getAuthtoken() {
+        return authtoken;
+    }
+
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
+    }
+    
     @XmlTransient
     public Collection<Team> getTeamCollection() {
         return teamCollection;

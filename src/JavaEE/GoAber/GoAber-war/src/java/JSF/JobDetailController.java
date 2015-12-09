@@ -92,6 +92,7 @@ public class JobDetailController implements Serializable {
         try {
             getScheduler().AddJob(current);
             getFacade().create(current);
+            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("JobDetailCreated"));
             return prepareCreate();
         } catch (Exception e) {

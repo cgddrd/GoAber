@@ -2,7 +2,7 @@
 @model ActivityDataListViewModel
 
 @{
-    ViewBag.Title = "Manage Activity Data";
+    ViewBag.Title = Resources.AD_Manage_Title;
     Layout = "~/Views/ActivityDatas/_ActivityDataLayout.cshtml";
 }
 
@@ -12,7 +12,7 @@
 
 
 <div class="btn-group btn-bar" role="group">
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+    @Html.ActionLink(@Resources.AD_Manage_Create, "Create", null, new { @class = "btn btn-default" })
 </div>
 
 <h3>Results</h3>

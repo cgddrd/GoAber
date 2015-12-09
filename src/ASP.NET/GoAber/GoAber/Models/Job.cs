@@ -16,16 +16,16 @@ namespace GoAber.Models
             status_flag = true;
         }
         [MaxLength(100)]
-        [DisplayName("Unique Name")]
+        [Display(Name = "job_id", ResourceType = typeof(Resources.Resources))]
         public string id { get; set; }
         public string secretid { get; set; }
 
-        [DisplayName("Task Type")]
+        [Display(Name = "job_tasktype", ResourceType = typeof(Resources.Resources))]
         public JobType tasktype { get; set; }
-        [DisplayName("Schedule Type")]
+        [Display(Name = "job_schedtype", ResourceType = typeof(Resources.Resources))]
         public ScheduleType schedtype { get; set; }
 
-        [DisplayName("Minutes")]
+        [Display(Name = "job_Minutes", ResourceType = typeof(Resources.Resources))]
         public int minutes { get; set; }
 
         public DateTimeOffset date { get; set; }

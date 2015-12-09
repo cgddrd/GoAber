@@ -52,7 +52,7 @@ public class JawboneCallbackServlet extends HttpServlet {
         deviceApi.getAndSaveTokens(code, user);
         
         //response.sendRedirect("faces/Jawbone/index.xhtml");
-        response.sendRedirect("faces/Jawbone/index.xhtml");
+        response.sendRedirect("faces/Devices/index.xhtml");
     }
 
     /**

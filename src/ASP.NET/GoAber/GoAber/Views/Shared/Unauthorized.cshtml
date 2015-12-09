@@ -1,0 +1,12 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = Resources.Unauthorised_Title;
+}
+
+<hgroup>
+    <h1 class="text-danger">@Resources.Unauthorised_Title</h1>
+    <h2>You are not able to access this area with your current credentials.</h2>
+
+    @Html.ActionLink(Resources._Layout_cshtml_Execute_Home, "Index", "Home", new { area = "" }, null)
+</hgroup>
