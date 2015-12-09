@@ -48,6 +48,8 @@ public class JawboneApi {
     @ManagedProperty(value="#{authService}")
     public AuthService authService;
     
+    public int steps = 0;
+    
     public JawboneApi() {
         
     }
@@ -69,11 +71,11 @@ public class JawboneApi {
     }
     
     public int getSteps() {
-        return jawboneEJB.steps;
+        return this.steps;
     }
     
     public void setSteps(int steps) {
-        jawboneEJB.steps = steps;
+        this.steps = steps;
     }
     public Date getDeviceDate() {
         return jawboneEJB.getDeviceDate();
@@ -111,7 +113,8 @@ public class JawboneApi {
     
      public String getWalkingStepsForEnteredDate()
     {
-        return jawboneEJB.getWalkingStepsForEnteredDate(authService.getActiveUser());
+        this.steps = jawboneEJB.getWalkingStepsForEnteredDate(authService.getActiveUser());
+        return "";
     }
      
     /**

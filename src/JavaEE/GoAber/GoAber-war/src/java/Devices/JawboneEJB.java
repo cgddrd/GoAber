@@ -74,7 +74,7 @@ public class JawboneEJB extends DeviceApi implements Serializable {
     }
     
     
-     public String getWalkingStepsForEnteredDate(User user)
+     public int getWalkingStepsForEnteredDate(User user)
     {
         int day = deviceDate.getDate();
         int month = deviceDate.getMonth()+1;
@@ -82,12 +82,12 @@ public class JawboneEJB extends DeviceApi implements Serializable {
         //User user = authService.getActiveUser();
         if(user == null)
         { //should not be able to reach here without being logged in, but just in case
-            return "";
+            return 0;
         }
         int userID = user.getIdUser();
         ActivityData activityData = getWalkingSteps(day, month, year, user);
         this.steps = activityData.getValue();
-        return "";
+        return this.steps;
     }
      
     /**
