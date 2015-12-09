@@ -5,7 +5,8 @@
  */
 package JSF.device;
 
-import DeviceApi.DeviceApi;
+import Devices.DeviceApi;
+import Devices.DeviceApi;
 import GoAberDatabase.User;
 import JSF.services.AuthService;
 import java.io.IOException;

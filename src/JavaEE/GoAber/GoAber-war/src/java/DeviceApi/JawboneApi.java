@@ -8,7 +8,7 @@ package DeviceApi;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.User;
-import JSF.device.JawboneEJB;
+import Devices.JawboneEJB;
 import JSF.services.AuthService;
 import SessionBean.ActivityDataFacade;
 import SessionBean.CategoryUnitFacade;
@@ -64,8 +64,8 @@ public class JawboneApi {
     
     
     public boolean isConnected() {
-        jawboneEJB.setauthService(authService);
-        return jawboneEJB.isConnected();
+        //jawboneEJB.setauthService(authService);
+        return jawboneEJB.isConnected(authService.getActiveUser());
     }
     
     public int getSteps() {
@@ -103,15 +103,16 @@ public class JawboneApi {
      * @param userID
      * @return 
      */
-    public ActivityData getWalkingSteps(int day, int month, int year, int userID)
-    {
-        return jawboneEJB.getWalkingSteps(day, month, year, userID);
-    }
+//    public ActivityData getWalkingSteps(int day, int month, int year, int userID)
+//    {
+//        return jawboneEJB.getWalkingSteps(day, month, year, userID);
+//    }
     
     
      public String getWalkingStepsForEnteredDate()
     {
-        return jawboneEJB.getWalkingStepsForEnteredDate();
+        
+        return jawboneEJB.getWalkingStepsForEnteredDate(authService.getActiveUser());
     }
      
     /**
@@ -120,11 +121,11 @@ public class JawboneApi {
      */
     public String getWalkingSteps()
     {
-        return jawboneEJB.getWalkingSteps();
+        return jawboneEJB.getWalkingSteps(authService.getActiveUser());
     }
     
     public void deleteDevice() {
-        jawboneEJB.deleteDevice();
+        jawboneEJB.deleteDevice(authService.getActiveUser());
     }
     
     

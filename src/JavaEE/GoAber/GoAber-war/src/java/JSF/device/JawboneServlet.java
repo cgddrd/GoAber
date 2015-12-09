@@ -5,8 +5,10 @@
  */
 package JSF.device;
 
-import DeviceApi.DeviceApi;
-import DeviceApi.JawboneApi;
+import Devices.JawboneEJB;
+import Devices.DeviceApi;
+import Devices.JawboneEJB;
+//import DeviceApi.JawboneApi;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -5,8 +5,7 @@
  */
 package JSF.device;
 
-import DeviceApi.DeviceApi;
-import DeviceApi.FitbitApi;
+import Devices.DeviceApi;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,11 +33,11 @@ public class FitBitServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DeviceApi deviceApi = new FitbitApi();
-        OAuthService serviceBuilder = deviceApi.getOAuthService();
-        HttpSession session = request.getSession();
-        session.setAttribute("DeviceApi", deviceApi);
-        response.sendRedirect(serviceBuilder.getAuthorizationUrl(null));
+//        DeviceApi deviceApi = new FitbitApi();
+//        OAuthService serviceBuilder = deviceApi.getOAuthService();
+//        HttpSession session = request.getSession();
+//        session.setAttribute("DeviceApi", deviceApi);
+//        response.sendRedirect(serviceBuilder.getAuthorizationUrl(null));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

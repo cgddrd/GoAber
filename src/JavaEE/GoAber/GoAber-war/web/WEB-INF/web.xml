@@ -162,23 +162,32 @@
         <local>SessionBean.ChallengeFacade</local>
         <ejb-link>ChallengeFacade</ejb-link>
     </ejb-local-ref>
+    
     <ejb-local-ref>
         <ejb-ref-name>ejb/ResultFacade</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
         <local>SessionBean.ResultFacade</local>
         <ejb-link>ResultFacade</ejb-link>
     </ejb-local-ref>
+    
     <ejb-local-ref>
         <ejb-ref-name>ejb/ChallengeWSConsumer</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
         <local>WebServices.ChallengeWS.Consumer.ChallengeWSConsumer</local>
         <ejb-link>ChallengeWSConsumer</ejb-link>
     </ejb-local-ref>
+    
     <ejb-local-ref>
         <ejb-ref-name>ejb/JawboneEJB</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local-home>Devices.JawboneEJB</local-home>
         <local>Devices.JawboneEJB</local>
         <ejb-link>JawboneEJB</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/UserFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.UserFacade</local>
+        <ejb-link>UserFacade</ejb-link>
     </ejb-local-ref>
 </web-app>

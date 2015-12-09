@@ -3,16 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DeviceApi;
+package Devices;
 
 import GoAberDatabase.Device;
 import GoAberDatabase.DeviceType;
 import GoAberDatabase.User;
-import JSF.services.AuthService;
+//import Services.AuthService;
 import SessionBean.ActivityDataFacade;
 import SessionBean.CategoryUnitFacade;
 import SessionBean.DeviceFacade;
 import SessionBean.DeviceTypeFacade;
+import SessionBean.UserFacade;
 import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -60,12 +61,12 @@ public abstract class DeviceApi extends DefaultApi20
     public abstract ActivityDataFacade getActivityDataFacade();
 
     public abstract CategoryUnitFacade getCategoryUnitFacade();
-
+    
+    public abstract UserFacade getUserFacade();
    
-    @EJB 
-    public SessionBean.UserFacade userFacade;
+
     //@ManagedProperty(value="#{authService}")
-    public AuthService authService;
+    //public AuthService authService;
     public int steps = 0;
     
     public DeviceApi() {
@@ -194,10 +195,11 @@ public abstract class DeviceApi extends DefaultApi20
      * @param userId
      * @return JsonObject 
      */
-    public JsonObject getActivityData(String requestUrl, int day, int month, int year, User userId)//, CategoryUnit categoryUnitId
+    public JsonObject getActivityData(String requestUrl, int day, int month, int year, User user)//, CategoryUnit categoryUnitId
     {
+        //User user = getUserFacade().find(userId);
         DeviceType deviceType = getDeviceTypeFacade().findByName(getType());
-        Device device = getDeviceFacade().findByUserAndDeviceType(authService.getActiveUser(), deviceType);
+        Device device = getDeviceFacade().findByUserAndDeviceType(user, deviceType);
         if(device == null)
         {
             return null;
@@ -242,12 +244,13 @@ public abstract class DeviceApi extends DefaultApi20
     
     /**
      * Checks if the user has a device already assigned to them.
+     * @param user
      * @return 
      */
-    public boolean isConnected()
+    public boolean isConnected(User user)
     {
-        
-       User currentUser = authService.getActiveUser();
+       //User user = getUserFacade().find(userId);
+       User currentUser = user;
        DeviceType deviceType = getDeviceTypeFacade().findByName(getType());
        if(currentUser == null || deviceType == null)
        {
@@ -261,9 +264,10 @@ public abstract class DeviceApi extends DefaultApi20
        return true;
     }
    
-    public void deleteDevice()
+    public void deleteDevice(User user)
     {
-        User currentUser = authService.getActiveUser();
+        //User user = getUserFacade().find(userId);
+        User currentUser = user;
         DeviceType deviceType = getDeviceTypeFacade().findByName(getType());
         if(currentUser == null || deviceType == null)
         {
@@ -276,15 +280,15 @@ public abstract class DeviceApi extends DefaultApi20
         }
     }
    
-    public void setauthService(AuthService authService)
-    {
-       this.authService = authService;
-    }
-   
-    public AuthService getauthService()
-    {
-       return this.authService;
-    }
+//    public void setauthService(AuthService authService)
+//    {
+//       this.authService = authService;
+//    }
+//   
+//    public AuthService getauthService()
+//    {
+//       return this.authService;
+//    }
 
     private String refreshToken() 
     {

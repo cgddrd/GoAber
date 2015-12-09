@@ -16,6 +16,8 @@ public class JobFactory {
     
     public static AbstractJob CreateJob(IJobDetail ao_jobdetail) {
         switch (ao_jobdetail.getTasktype()) {
+            case "Jawbone":
+                return new JawBoneJob(ao_jobdetail);
             case "Fitbit":
                 return new FitBitJob(ao_jobdetail);    
             case "Challenge":

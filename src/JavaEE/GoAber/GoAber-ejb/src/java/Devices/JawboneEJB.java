@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JSF.device;
+package Devices;
 
-import DeviceApi.DeviceApi;
-import DeviceApi.JawboneApi;
-import DeviceApi.DeviceApi;
+import Devices.DeviceApi;
+//import DeviceApi.JawboneApi;
+import Devices.DeviceApi;
 import GoAberDatabase.ActivityData;
 import GoAberDatabase.CategoryUnit;
 import GoAberDatabase.User;
@@ -41,6 +41,7 @@ public class JawboneEJB extends DeviceApi implements Serializable {
         @EJB DeviceFacade deviceFacade; //= lookupDeviceFacadeBean();
         @EJB ActivityDataFacade activityDataFacade; //= lookupActivityDataFacadeBean();
         @EJB CategoryUnitFacade categoryUnitFacade; //= lookupCategoryUnitFacadeBean();
+        @EJB SessionBean.UserFacade userFacade;
         
         private Date deviceDate = new Date();
         
@@ -48,10 +49,10 @@ public class JawboneEJB extends DeviceApi implements Serializable {
             
         }
     
-        public ActivityData getWalkingSteps(int day, int month, int year, int userID)
+        public ActivityData getWalkingSteps(int day, int month, int year, User user)
     {
         String url = "/moves?date=" + year + month + day;
-        User user = userFacade.findUserById(userID);
+        //User user = userFacade.findUserById(userID);
         if(user == null)
         {
            return null;
@@ -72,18 +73,18 @@ public class JawboneEJB extends DeviceApi implements Serializable {
     }
     
     
-     public String getWalkingStepsForEnteredDate()
+     public String getWalkingStepsForEnteredDate(User user)
     {
         int day = deviceDate.getDate();
         int month = deviceDate.getMonth()+1;
         int year = deviceDate.getYear()+1900;
-        User user = authService.getActiveUser();
+        //User user = authService.getActiveUser();
         if(user == null)
         { //should not be able to reach here without being logged in, but just in case
             return "";
         }
         int userID = user.getIdUser();
-        ActivityData activityData = getWalkingSteps(day, month, year, userID);
+        ActivityData activityData = getWalkingSteps(day, month, year, user);
         this.steps = activityData.getValue();
         return "";
     }
@@ -92,18 +93,17 @@ public class JawboneEJB extends DeviceApi implements Serializable {
      * Method for testing steps can be retrieved from jawbone
      * @return 
      */
-    public String getWalkingSteps()
+    public String getWalkingSteps(User user)
     {
         int day = 26;
         int month = 10;
         int year = 2015;
-        User user = authService.getActiveUser();
         if(user == null)
         {
             return "index";
         }
         int userID = user.getIdUser();
-        ActivityData activityData = getWalkingSteps(day, month, year, userID);
+        ActivityData activityData = getWalkingSteps(day, month, year, user);
         this.steps = activityData.getValue();
         return "ViewActivity";
     }
@@ -189,6 +189,14 @@ public class JawboneEJB extends DeviceApi implements Serializable {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
+    }
+
+    @Override
+    public UserFacade getUserFacade() {
+        if (userFacade == null) {
+            userFacade = lookupBean(UserFacade.class);
+        }
+        return userFacade;
     }
     
 

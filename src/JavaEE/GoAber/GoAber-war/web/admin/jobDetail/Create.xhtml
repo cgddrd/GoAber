@@ -19,14 +19,12 @@
                     <h:inputText id="jobid" value="#{jobDetailController.selected.jobid}" title="#{bundle.CreateJobDetailTitle_jobid}" required="true" requiredMessage="#{bundle.CreateJobDetailRequiredMessage_jobid}"/>
                     <h:outputLabel value="#{bundle.CreateJobDetailLabel_tasktype}" for="tasktype" />
                     <h:selectOneMenu id="tasktype" value="#{jobDetailController.selected.tasktype}">
-                        <f:selectItem itemValue="0" itemLabel="#{bundle.CreateJobDetailSelectTaskType_fitbit}" />
-                        <f:selectItem itemValue="1" itemLabel="#{bundle.CreateJobDetailSelectTaskType_jawbone}" />	
-                        <f:selectItem itemValue="2" itemLabel="#{bundle.CreateJobDetailSelectTaskType_email}" />	                        
+                        <f:selectItem itemValue="Jawbone" itemLabel="#{bundle.CreateJobDetailSelectTaskType_jawbone}" />	                        
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateJobDetailLabel_schedtype}" for="schedtype" />
                     <h:selectOneMenu id="schedtype" value="#{jobDetailController.selected.schedtype}">
-                        <f:selectItem itemValue="0" itemLabel="#{bundle.CreateJobDetailSelectSchedType_recurring}" />
-                        <f:selectItem itemValue="1" itemLabel="#{bundle.CreateJobDetailSelectSchedType_once}" />		                        
+                        <f:selectItem itemValue="R" itemLabel="#{bundle.CreateJobDetailSelectSchedType_recurring}" />
+                        <f:selectItem itemValue="O" itemLabel="#{bundle.CreateJobDetailSelectSchedType_once}" />		                        
                     </h:selectOneMenu>
                      <h:outputLabel value="#{bundle.CreateJobDetailLabel_shcedtimemins}" for="shcedtimemins" />
                     <h:inputText id="shcedtimemins" value="#{jobDetailController.selected.shcedtimemins}" title="#{bundle.CreateJobDetailTitle_shcedtimemins}" required="true" requiredMessage="#{bundle.CreateJobDetailRequiredMessage_shcedtimemins}">
