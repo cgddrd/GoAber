@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoAber.Tests", "GoAber.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{46E1D526-6512-4CC6-BBA5-3E414A177B70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoAber.Specs", "GoAber.Specs\GoAber.Specs.csproj", "{4EF03052-944E-4A0F-ABA4-662D0E14D215}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{46E1D526-6512-4CC6-BBA5-3E414A177B70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46E1D526-6512-4CC6-BBA5-3E414A177B70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46E1D526-6512-4CC6-BBA5-3E414A177B70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4EF03052-944E-4A0F-ABA4-662D0E14D215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4EF03052-944E-4A0F-ABA4-662D0E14D215}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4EF03052-944E-4A0F-ABA4-662D0E14D215}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4EF03052-944E-4A0F-ABA4-662D0E14D215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

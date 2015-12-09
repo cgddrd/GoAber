@@ -71,33 +71,32 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AccountManagement.feature.cs">
+    <Compile Include="B-AccountManagement.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AccountManagement.feature</DependentUpon>
+      <DependentUpon>B-AccountManagement.feature</DependentUpon>
     </Compile>
     <Compile Include="CucumberSteps.cs" />
-    <Compile Include="Register_Login.feature.cs">
+    <Compile Include="A-Register_Login.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Register_Login.feature</DependentUpon>
+      <DependentUpon>A-Register_Login.feature</DependentUpon>
     </Compile>
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AccountManagement.feature">
+    <None Include="B-AccountManagement.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AccountManagement.feature.cs</LastGenOutput>
+      <LastGenOutput>B-AccountManagement.feature.cs</LastGenOutput>
     </None>
     <None Include="App.config" />
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="Register_Login.feature">
+    <None Include="A-Register_Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Register_Login.feature.cs</LastGenOutput>
+      <LastGenOutput>A-Register_Login.feature.cs</LastGenOutput>
     </None>
     <None Include="runtests.cmd" />
     <None Include="SpecRunTestProfile.xsd">
