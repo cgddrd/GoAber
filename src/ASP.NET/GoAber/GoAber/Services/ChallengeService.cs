@@ -1,5 +1,6 @@
 ﻿using GoAber.App_Code.Scheduling.Jobs;
 using GoAber.Models;
+using GoAber.Models.ViewModels;
 using GoAber.Scheduling;
 using GoAber.WebService.ChallengesWS;
 using System;
@@ -26,9 +27,16 @@ namespace GoAber.Services
             return db.Challenges.Find(id);
         }
 
+        public Challenge getChallengeById(string id)
+        {
+            return db.Challenges.Find(id);
+        }
+
         public IEnumerable<Challenge> getAllChallenges()
         {
-           return db.Challenges;
+            var query = from d in db.Challenges select d;
+            IEnumerable<Challenge> challenges = query.ToList();
+            return challenges;
         }
 
         public IEnumerable<Challenge> getCompletedCommunityChallenges(ApplicationUser user)
@@ -150,7 +158,30 @@ namespace GoAber.Services
 
 
         }
+        public void setupRemoteChallenge(Challenge challenge, string[] communities, int usersGroup, ref List<string> errors, bool local = true)
+        {
+            createChallenge(challenge);
+            if (addChallengeToCommunities(challenge, communities, usersGroup, ref errors, local)) return;
 
+            //Try to rollback if request doesn't work.
+            //The remote challenge may have been set wrong so make sure we delete that as well if it exists.
+            try {
+                IQueryable<Challenge> query = from c in db.Challenges
+                                              where c.Id == challenge.Id
+                                              select c;
+                List<Challenge> challenges = query.ToList();
+                for (int i = 0; i < challenges.Count; i++)
+                {
+                    db.Challenges.Remove(challenges[i]);
+                }
+                db.SaveChanges();
+            } catch (Exception ex)
+            {
+                Debug.Write(ex.StackTrace);
+            }
+
+
+        }
         public void addChallengeToGroups(Challenge challenge, string[] groupChallenges, int usersGroup)
         {
             foreach (string item in groupChallenges)
@@ -181,56 +212,67 @@ namespace GoAber.Services
             }
         }
 
-        public void addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup, bool local = true)
+        public bool addChallengeToCommunities(Challenge challenge, string[] communities, int usersGroup, ref List<string> errors, bool local = true)
         {
-            foreach (string item in communities)
-            {
-                CommunityChallenge communityChallenge = new CommunityChallenge()
+            try {
+                foreach (string item in communities)
                 {
-                    communityId = Int32.Parse(item),
-                    challengeId = challenge.Id
-                };
-                if (Int32.Parse(item) == usersGroup)
-                {
-                    communityChallenge.startedChallenge = true;
-                }
-                db.CommunityChallenges.Add(communityChallenge);
-                db.SaveChanges();
-
-                if (local)
-                {
-                    bool lb_goremote = false;
-
-                    for (int i = 0; i < communities.Length; i++)
+                    CommunityChallenge communityChallenge = new CommunityChallenge()
                     {
-                        if (int.Parse(communities[i]) != usersGroup)
+                        communityId = Int32.Parse(item),
+                        challengeId = challenge.Id
+                    };
+
+                    if (Int32.Parse(item) == usersGroup)
+                    {
+                        communityChallenge.startedChallenge = true;
+                    }
+                    db.CommunityChallenges.Add(communityChallenge);
+                    db.SaveChanges();
+
+                    if (local)
+                    {
+                        bool lb_goremote = false;
+
+                        for (int i = 0; i < communities.Length; i++)
                         {
-                            lb_goremote = true;
+                            if (int.Parse(communities[i]) != usersGroup)
+                            {
+                                lb_goremote = true;
+                            }
+                        }
+
+                        if (!lb_goremote) return true;
+
+                        GoAberChallengeWSConsumer lo_chalconsumer = GoAberChallengeWSConsumer.GetInstance();
+
+                        if (!lo_chalconsumer.AddChallenge(challenge, usersGroup))
+                        {
+                            return false;
                         }
                     }
 
-                    if (!lb_goremote) return;
-
-                    GoAberChallengeWSConsumer lo_chalconsumer = GoAberChallengeWSConsumer.GetInstance();
-
-                    if (!lo_chalconsumer.AddChallenge(challenge, usersGroup))
-                    {
-                        Debug.WriteLine("Cross community challenge failed!");
-                    }
-                }
-
             }
-
-            if (!communities.Contains(usersGroup.ToString()))
+            if (usersGroup > 0)
             {
-                CommunityChallenge communityChallenge = new CommunityChallenge()
+                if (!communities.Contains(usersGroup.ToString()))
                 {
-                    communityId = usersGroup,
-                    challengeId = challenge.Id,
-                    startedChallenge = true
-                };
-                db.CommunityChallenges.Add(communityChallenge);
-                db.SaveChanges();
+                    CommunityChallenge communityChallenge = new CommunityChallenge()
+                    {
+                        communityId = usersGroup,
+                        challengeId = challenge.Id,
+                        startedChallenge = true
+                    };
+                    db.CommunityChallenges.Add(communityChallenge);
+                    db.SaveChanges();
+                }
+            }
+            return true;
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e.StackTrace);
+                return false;
             }
         }
 
@@ -242,9 +284,16 @@ namespace GoAber.Services
             db.SaveChanges();
         }
 
-        public void deleteChallenge(int id)
+        public void deleteChallenge(string id)
         {
             Challenge challenge = db.Challenges.Find(id);
+            db.UserChallenges.RemoveRange(
+                        db.UserChallenges.Where(u => u.challengeId.Equals(id)));
+            db.CommunityChallenges.RemoveRange(
+                        db.CommunityChallenges.Where(u => u.challengeId.Equals(id)));
+            db.GroupChallenges.RemoveRange(
+                        db.GroupChallenges.Where(u => u.challengeId.Equals(id)));
+
             db.Challenges.Remove(challenge);
             db.SaveChanges();
         }
@@ -268,6 +317,48 @@ namespace GoAber.Services
                         select d;
             db.UserChallenges.Remove(query.FirstOrDefault());
             db.SaveChanges();
+        }
+
+        public IEnumerable<LeaderViewModel> getCommunityChallengeLeaders(Challenge challenge)
+        {
+            ActivityDataService dataService = new ActivityDataService();
+
+            // first get all acitivty data matching the unit
+            var activityData = dataService.GetAllActivityData()
+                                .Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id)
+                                .ToList();
+
+            var data = activityData.Where(a => challenge.userchallenges.Any(x => x.User.Id.Equals(a.User.Id)));
+
+            IEnumerable<LeaderViewModel> model = challenge.communityChallenges.Select(c => new LeaderViewModel
+            {
+                Name = c.community.name,
+                Total = data.Where(a => a.User.Team.communityId == c.communityId).Sum(a => a.value).GetValueOrDefault(),
+                NumMembers = data.Where(a => a.User.Team.communityId == c.communityId).GroupBy(a => a.User.Id).Count()
+            });
+
+            return model.OrderByDescending(m => m.Total);
+        }
+
+        public IEnumerable<LeaderViewModel> getGroupChallengeLeaders(Challenge challenge)
+        {
+            ActivityDataService dataService = new ActivityDataService();
+
+            // first get all acitivty data matching the unit
+            var activityData = dataService.GetAllActivityData()
+                                .Where(a => a.categoryunit.unit.Id == challenge.categoryUnit.unit.Id)
+                                .ToList();
+
+            var data = activityData.Where(a => challenge.userchallenges.Any(x => x.User.Id.Equals(a.User.Id)));
+
+            IEnumerable <LeaderViewModel> model = challenge.groupchallenges.Select(c => new LeaderViewModel
+            {
+                Name = c.group.name,
+                Total = data.Where(a => a.User.TeamId == c.group.Id).Sum(a => a.value).GetValueOrDefault(),
+                NumMembers = data.Where(a => a.User.TeamId == c.group.Id).GroupBy(a => a.User.Id).Count()
+            });
+
+            return model.OrderByDescending(m => m.Total);
         }
 
 

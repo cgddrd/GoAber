@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Auth;
 using GoAber.Models;
 
 namespace GoAber.Views
 {
+    [GAAuthorize]
     public class DataRemovalAuditsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

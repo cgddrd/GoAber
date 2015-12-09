@@ -19,13 +19,13 @@ USE `goaber`;
 
 LOCK TABLES `Community` WRITE;
 /*!40000 ALTER TABLE `Community` DISABLE KEYS */;
-INSERT INTO `Community` VALUES (1,'AberUni', 'http://aber.ac.uk'), (2,'BangorUni', 'http://bangor.ac.uk');
+INSERT INTO `Community` VALUES (1, 'AberUni','http://localhost:8080/','1','GoAberChallengesWS/GoAberChallengesWS', null);
 /*!40000 ALTER TABLE `Community` ENABLE KEYS */;
 UNLOCK TABLES;
 
 LOCK TABLES `Team` WRITE;
 /*!40000 ALTER TABLE `Team` DISABLE KEYS */;
-INSERT INTO `Team` VALUES (1,'AberCompSci', 1), (2,'AberIBERS', 1), (3,'BangorCompSci', 2), (4,'BangorBiology', 2);
+INSERT INTO `Team` VALUES (1,'AberCompSci', 1), (2,'AberIBERS', 1);
 /*!40000 ALTER TABLE `Team` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,31 +53,34 @@ INSERT INTO `Role` VALUES ('administrator'),('coordinator'),('participant');
 /*!40000 ALTER TABLE `Role` ENABLE KEYS */;
 UNLOCK TABLES;
 
+LOCK TABLES `scheduletype` WRITE;
+/*!40000 ALTER TABLE `scheduletype` DISABLE KEYS */;
+INSERT INTO `scheduletype` VALUES ('O', 'Once'),('R', 'Recurring');
+/*!40000 ALTER TABLE `scheduletype` ENABLE KEYS */;
+UNLOCK TABLES;
 
-INSERT INTO `goaber`.`community` (`name`, `endpointUrl`) VALUES ('AberUni', 'aber.ac.uk');
-INSERT INTO `goaber`.`community` (`name`, `endpointUrl`) VALUES ('BangorUni', 'b@ac.uk');
-
-INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('AberCompSci', '1');
-INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('AberIBERS', '1');
-INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('BCompSci', '2');
-INSERT INTO `goaber`.`team` (`name`, `communityId`) VALUES ('B_IBERS', '2');
-
-
---
--- Dumping data for table `User`
---
+LOCK TABLES `tasktype` WRITE;
+/*!40000 ALTER TABLE `tasktype` DISABLE KEYS */;
+INSERT INTO `tasktype` VALUES ('Fitbit', 'Fitbit'),('Challenge', 'Challenge');
+/*!40000 ALTER TABLE `tasktype` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
+INSERT INTO `goaber`.`community` (`name`,`domain`,`home`,`challengesEndPoint`) VALUES ('AberUni','http://localhost:8080/','1','GoAberChallengesWS/GoAberChallengesWS');
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'admin@test.com','+QUCS9lsdwiBAJ/YeyLdjWgxWVByMSolHNP6N/aGG8U=','admin',1,1),(2,'coord@test.com','+QUCS9lsdwiBAJ/YeyLdjWgxWVByMSolHNP6N/aGG8U=','coord',2,4),(3,'user@test.com','+QUCS9lsdwiBAJ/YeyLdjWgxWVByMSolHNP6N/aGG8U=','user',3,2);
+INSERT INTO `User` VALUES (1,'admin@test.com','+QUCS9lsdwiBAJ/YeyLdjWgxWVByMSolHNP6N/aGG8U=','admin',1,1),
+(2,'coord@test.com','+QUCS9lsdwiBAJ/YeyLdjWgxWVByMSolHNP6N/aGG8U=','coord',2,4),
+(3,'user@test.com','+QUCS9lsdwiBAJ/YeyLdjWgxWVByMSolHNP6N/aGG8U=','user',3,2);
 
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 
 LOCK TABLES `UserRole` WRITE;
 /*!40000 ALTER TABLE `UserRole` DISABLE KEYS */;
-INSERT INTO `UserRole` VALUES (1,'administrator','admin@test.com'),(2,'coordinator','coord@test.com'),(3,'participant','user@test.com');
+INSERT INTO `UserRole` VALUES (1,'administrator','admin@test.com'),
+(2,'coordinator','coord@test.com'),
+(3,'participant','user@test.com');
 /*!40000 ALTER TABLE `UserRole` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -100,3 +103,8 @@ INSERT INTO `goaber`.`category` (`name`) VALUES ('Walking');
 INSERT INTO `goaber`.`unit` (`name`) VALUES ('steps');
 
 INSERT INTO `goaber`.`categoryunit` (`categoryId`, `unitId`) VALUES ('1', '1');
+
+
+INSERT INTO `goaber`.`webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('admin_token', 'TestApp', '1');
+INSERT INTO `goaber`.`webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('user_token', 'TestApp', '3');
+

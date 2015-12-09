@@ -7,7 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{admin.DestroyActivityDataTitle}"></h:outputText>
+            <h:outputText value="#{bundle.DestroyActivityDataTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
@@ -17,77 +17,77 @@
                 <dl class="dl-horizontal">
                     
                     <dt>
-                        <h:outputText value="#{admin.ViewActivityDataLabel_idActivityData}"/>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_idActivityData}"/>
                     </dt>
                     
                     <dd>
-                        <h:outputText value="#{adminActivityDataController.selected.idActivityData}" title="#{admin.ViewActivityDataTitle_idActivityData}"/>
+                        <h:outputText value="#{adminActivityDataController.selected.idActivityData}" title="#{bundle.ViewActivityDataTitle_idActivityData}"/>
                     </dd>
                     
                     <dt>
-                        <h:outputText value="#{admin.ViewActivityDataLabel_value}"/>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_value}"/>
                     </dt>
                     
                     <dd>
-                        <h:outputText value="#{adminActivityDataController.selected.value}" title="#{admin.ViewActivityDataTitle_value}"/>
+                        <h:outputText value="#{adminActivityDataController.selected.value}" title="#{bundle.ViewActivityDataTitle_value}"/>
                     </dd>
                     
                     <dt>
-                        <h:outputText value="#{admin.ViewActivityDataLabel_lastUpdated}"/>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_lastUpdated}"/>
                     </dt>
                     
                     <dd>
-                        <h:outputText value="#{adminActivityDataController.selected.lastUpdated}" title="#{admin.ViewActivityDataTitle_lastUpdated}">
+                        <h:outputText value="#{adminActivityDataController.selected.lastUpdated}" title="#{bundle.ViewActivityDataTitle_lastUpdated}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
                     </dd>
                     
                     <dt>
-                        <h:outputText value="#{admin.ViewActivityDataLabel_date}"/>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_date}"/>
                     </dt>
                     
                     <dd>
-                        <h:outputText value="#{adminActivityDataController.selected.date}" title="#{admin.ViewActivityDataTitle_date}">
+                        <h:outputText value="#{adminActivityDataController.selected.date}" title="#{bundle.ViewActivityDataTitle_date}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                     </dd>
                     
                     <dt>
-                        <h:outputText value="#{admin.ViewActivityDataLabel_unit}"/>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_unit}"/>
                     </dt>
                     
                     <dd>
-                        <h:outputText value="#{adminActivityDataController.selected.categoryUnitId.categoryId.name}" title="#{admin.ViewActivityDataTitle_category}"/>
+                        <h:outputText value="#{adminActivityDataController.selected.categoryUnitId.categoryId.name}" title="#{bundle.ViewActivityDataTitle_category}"/>
                     </dd>
                     
                     <dt>
-                        <h:outputText value="#{admin.ViewActivityDataLabel_category}"/>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_category}"/>
                     </dt>
                     
                     <dd>
-                        <h:outputText value="#{adminActivityDataController.selected.categoryUnitId.unitId.name}" title="#{admin.ViewActivityDataTitle_unit}"/>
+                        <h:outputText value="#{adminActivityDataController.selected.categoryUnitId.unitId.name}" title="#{bundle.ViewActivityDataTitle_unit}"/>
                     </dd>
                     
                     
                     <dt>
-                        <h:outputText value="#{admin.ViewActivityDataLabel_userId}"/>
+                        <h:outputText value="#{bundle.ViewActivityDataLabel_userId}"/>
                     </dt>
                     
                     <dd>
-                        <h:outputText value="#{adminActivityDataController.selected.userId.email}" title="#{admin.ViewActivityDataTitle_userId}"/>
+                        <h:outputText value="#{adminActivityDataController.selected.userId.email}" title="#{bundle.ViewActivityDataTitle_userId}"/>
                     </dd>
                 </dl>
 
                 <div class="form-actions no-color">
                     <div class="form-group">
-                        <h:outputLabel class="control-label col-md-2" value="Message" for="#{admin.ActivityDataDeletedMessage}" />
+                        <h:outputLabel class="control-label col-md-2" value="Message" for="#{bundle.ActivityDataDeletedMessage}" />
                         <div class="col-md-10">
                             <h:inputText class="form-control" id="deletedMessage" value="#{adminActivityDataController.deletedMessage}" title="Deleted_message" />
                         </div>
                     </div>
                     
-                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.destroy}" value="#{admin.DestroyActivityDataLink}" /> |
-                    <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{admin.ViewActivityDataShowAllLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.destroy}" value="#{bundle.DestroyActivityDataLink}" /> |
+                    <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{bundle.ViewActivityDataShowAllLink}"/>
                 </div>
             </h:form>
         </ui:define>

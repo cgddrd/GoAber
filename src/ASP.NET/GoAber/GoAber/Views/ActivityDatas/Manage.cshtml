@@ -1,46 +1,46 @@
 ﻿@using GoAber.Models.ViewModels;
-@model IEnumerable<GoAber.Models.ActivityData>
+@model ActivityDataListViewModel
 
 @{
-    ViewBag.Title = "Manage Activity Data";
+    ViewBag.Title = Resources.AD_Manage_Title;
     Layout = "~/Views/ActivityDatas/_ActivityDataLayout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@{Html.RenderPartial("_Filter", new GoAber.Models.ViewModels.FilterViewModel(), new ViewDataDictionary { { "Controller", "ActivityDatas" }, { "Action", "Manage" }, { "CategoryUnits", ViewBag.categoryUnits } });}
+@{Html.RenderPartial("_Filter", Model.FilterParams, new ViewDataDictionary { { "Controller", "ActivityDatas" }, { "Action", "Manage" }, { "CategoryUnits", ViewBag.categoryUnits } });}
 
 
 <div class="btn-group btn-bar" role="group">
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+    @Html.ActionLink(@Resources.AD_Manage_Create, "Create", null, new { @class = "btn btn-default" })
 </div>
 
 <h3>Results</h3>
-
+@{var dummy = Model.Data.FirstOrDefault(); }
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.value)
+            @Html.DisplayNameFor(model => dummy.value)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.lastUpdated)
+            @Html.DisplayNameFor(model => dummy.lastUpdated)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.date)
+            @Html.DisplayNameFor(model => dummy.date)
         </th>
         <th>
-            Category
+            @Resources.Category
         </th>
         <th>
-            Unit
+            @Resources.Unit
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.Email)
+            @Html.DisplayNameFor(model => dummy.User.Email)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Data)
     {
         <tr>
             <td>
@@ -66,4 +66,4 @@
     }
 </table>
 
-@Html.Partial("_Pager", Model)
+@Html.Partial("_Pager", Model.Data)

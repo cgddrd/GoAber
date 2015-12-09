@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<GoAber.Models.Challenge>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = Resources.AllChallegnes_Title;
 }
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <div>
+        @Html.ActionLink(Resources.Challeneges_createCommunityChallenge, "CreateCommunity") | 
+        @Html.ActionLink(Resources.Challeneges_createGroupChallenge, "CreateGroup")
+    </div>
     <table class="table">
         <tr>
             <th>
@@ -24,10 +25,12 @@
             <th></th>
         </tr>
     
-    @foreach (var item in Model) {
+    @foreach (GoAber.Models.Challenge item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.categoryUnit)
+                @Html.DisplayFor(modelItem => item.categoryUnit.category.name)
+                &nbsp;
+                @Html.DisplayFor(modelItem => item.categoryUnit.unit.name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.startTime)
@@ -39,9 +42,9 @@
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink(Resources.AllChallenges_Edit, "Edit", new { id=item.Id }) |
+                @Html.ActionLink(Resources.AllChallenges_Details, "Details", new { id=item.Id }) |
+                @Html.ActionLink(Resources.AllChallenges_Delete, "Delete", new { id=item.Id })
             </td>
         </tr>
     }

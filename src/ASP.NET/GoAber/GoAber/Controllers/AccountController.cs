@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Auth;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -13,7 +14,7 @@ using GoAber.Services;
 
 namespace GoAber.Controllers
 {
-    [Authorize]
+    [GAAuthorize]
     public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
@@ -21,6 +22,7 @@ namespace GoAber.Controllers
         private ApplicationDbContext context;
         //private GoAberEntities db = new GoAberEntities();
         //private ApplicationDbContext db = new ApplicationDbContext();
+        private TeamsService teamsService = new TeamsService();
 
         public AccountController()
         {
@@ -156,6 +158,10 @@ namespace GoAber.Controllers
         public ActionResult Register()
         {
             ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
+
+            var teamList = teamsService.CreateTeamList();
+            ViewBag.TeamList = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
+
             return View();
         }
 
@@ -170,6 +176,7 @@ namespace GoAber.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
+                    TeamId = model.TeamId,
 
                     //CG - Wire our extended properties from 'ApplicationUser' into the Register view model.
                     Nickname = model.Nickname,
@@ -189,6 +196,10 @@ namespace GoAber.Controllers
                 }
                 AddErrors(result);
             }
+
+            // CG - Make sure that we re-generate the team SelectList incase something fails and the user gets redirected back to the register page.
+            var teamList = teamsService.CreateTeamList();
+            ViewBag.TeamList = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
 
             // If we got this far, something failed, redisplay form
             return View(model);

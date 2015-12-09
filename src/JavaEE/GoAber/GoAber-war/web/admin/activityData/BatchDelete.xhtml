@@ -7,7 +7,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{admin.DestroyActivityDataTitle}"></h:outputText>
+            <h:outputText value="#{bundle.DestroyActivityDataTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
@@ -19,14 +19,14 @@
 
                 <div class="form-actions no-color">
                     <div class="form-group">
-                        <h:outputLabel class="control-label col-md-2" value="Message" for="#{admin.ActivityDataDeletedMessage}" />
+                        <h:outputLabel class="control-label col-md-2" value="Message" for="#{bundle.ActivityDataDeletedMessage}" />
                         <div class="col-md-10">
                             <h:inputText class="form-control" id="deletedMessage" value="#{adminActivityDataController.deletedMessage}" title="Deleted_message" />
                         </div>
                     </div>
                     
-                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.batchDestory()}" value="#{admin.DestroyActivityDataLink}" /> |
-                    <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{admin.ViewActivityDataShowAllLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{adminActivityDataController.batchDestory()}" value="#{bundle.DestroyActivityDataLink}" /> |
+                    <h:commandLink action="#{adminActivityDataController.prepareList}" value="#{bundle.ViewActivityDataShowAllLink}"/>
                 </div>
             </h:form>
         </ui:define>
