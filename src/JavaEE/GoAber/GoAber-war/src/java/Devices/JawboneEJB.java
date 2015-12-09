@@ -66,8 +66,9 @@ public class JawboneEJB extends DeviceApi implements Serializable {
         { // indexOutOfBounds will be thrown when the user has done 0 steps
             steps = 0;
         }
-       Date date = new Date(year, month, day);
-       CategoryUnit categoryUnitId = new CategoryUnit();
+       Date date = new Date(year - 1900, month - 1, day);
+       CategoryUnit categoryUnitId = categoryUnitFacade.find(1);
+       
        ActivityData activityData = new ActivityData(steps, new Date(), date, user, categoryUnitId);
        return activityData;
     }

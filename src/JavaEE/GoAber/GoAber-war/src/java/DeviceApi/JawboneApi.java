@@ -111,7 +111,6 @@ public class JawboneApi {
     
      public String getWalkingStepsForEnteredDate()
     {
-        
         return jawboneEJB.getWalkingStepsForEnteredDate(authService.getActiveUser());
     }
      

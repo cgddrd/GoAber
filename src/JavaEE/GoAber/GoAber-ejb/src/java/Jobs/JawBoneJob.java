@@ -53,13 +53,17 @@ public class JawBoneJob extends AbstractJob  {
         int day = lda_date.getDate();
         int month = lda_date.getMonth()+1;
         int year = lda_date.getYear()+1900;
+
+//        int day = 25;
+//        int month = 11;
+//        int year = 2015;
         for (User lo_user : lo_users) {
             try {
                 ActivityData lo_data = io_jawboneEJB.getWalkingSteps(day, month, year, lo_user);
                 if (lo_data.getValue() == 0) continue;
                 io_activityFacade.create(lo_data);
             } catch (Exception e) {
-                e.printStackTrace();
+               // e.printStackTrace();
             }
         }
         
