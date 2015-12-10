@@ -397,7 +397,6 @@ C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNet
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\EntityFramework.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\GoAber.dll
-C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.Web.Infrastructure.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Moq.dll
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\MySql.Data.dll

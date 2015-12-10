@@ -31,8 +31,8 @@ namespace GoAber.Tests.Controllers
 
             communityList = new List<Community>
             {
-                new Community {Id = 1, name = "Community1", endpointUrl = "http://community1.com"},
-                new Community {Id = 2, name = "Community2", endpointUrl = "http://community2.com"},
+                new Community {Id = 1, name = "Community1", challengesEndpoint = "http://community1.com"},
+                new Community {Id = 2, name = "Community2", challengesEndpoint = "http://community2.com"},
             };
             communityMockSet = TestUtilities.TestUtilities.GetQueryableMockDbSet(communityList, (keyValues, entity) => entity.Id == (int)keyValues.Single());
             mockContext.Setup(m => m.Communities).Returns(communityMockSet);
