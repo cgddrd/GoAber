@@ -602,3 +602,4 @@ C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.csprojResolveAssemblyReference.cache
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.dll
 C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\obj\Debug\GoAber.Tests.pdb
+C:\Users\connorgoddard\Desktop\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml

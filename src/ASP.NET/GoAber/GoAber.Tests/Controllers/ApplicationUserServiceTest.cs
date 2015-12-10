@@ -115,9 +115,6 @@ namespace GoAber.Tests.Controllers
 
             mockDBContext = mockContext.Object;
 
-            // mockDBContext.Teams.First(u => u.Id == 1).users.Add(mockDBContext.Users.First(u => u.Id.Equals("1")));
-            //  mockDBContext.Teams.First(u => u.Id == 2).users.Add(mockDBContext.Users.First(u => u.Id.Equals("2")));
-
             mockDBContext.SaveChanges();
 
             testApplicationUserService = new ApplicationUserService(mockDBContext);
