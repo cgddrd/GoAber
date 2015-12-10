@@ -307,6 +307,7 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Controllers\LeaderBoardsController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\ViewModels\LeaderViewModel.cs" />
@@ -334,7 +335,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ActivityData.cs" />
-    <Compile Include="Models\ViewModels\GroupLeaderViewModel.cs" />
     <Compile Include="Models\ViewModels\ParticipantLeaderViewModel.cs" />
     <Compile Include="Models\WebServiceAuth.cs" />
     <Compile Include="Services\DeviceService.cs" />
@@ -653,6 +653,9 @@
     <Content Include="Views\Challenge\CompletedCommunity.cshtml" />
     <Content Include="Views\Challenge\CompletedGroup.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\LeaderBoards\Index.cshtml" />
+    <Content Include="Views\LeaderBoards\GroupLeaderBoard.cshtml" />
+    <Content Include="Views\LeaderBoards\ParticipantLeaderBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
