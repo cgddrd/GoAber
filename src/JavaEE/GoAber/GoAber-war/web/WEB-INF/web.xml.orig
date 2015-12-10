@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>bootstrap</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <!--<welcome-file>index.xhtml</welcome-file>-->
+        <welcome-file>activityData/WeeklySummary.xhtml</welcome-file>
+    </welcome-file-list>
+    <!--CG - Setting up of the form-based user authentication.-->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>GoAberRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login/index.xhtml</form-login-page>
+            <form-error-page>/login/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+<<<<<<< HEAD
+    <!--
+    CG - Use this approach if we want to perform basic authentication.
+    
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>GoAberRealm</realm-name>
+    </login-config>
+    
+    -->
+=======
+
+>>>>>>> develop
+    <security-constraint>
+        <display-name>UserAccountAuth</display-name>
+        <web-resource-collection>
+            <web-resource-name>UserAccountPages</web-resource-name>
+            <url-pattern>/account/*</url-pattern>
+            <url-pattern>/faces/account/*</url-pattern>
+            <url-pattern>/challenge/*</url-pattern>
+            <url-pattern>/faces/challenge/*</url-pattern>
+            <url-pattern>/myaccount/*</url-pattern>
+            <url-pattern>/faces/webServiceAuth/*</url-pattern>
+            <url-pattern>/webServiceAuth/*</url-pattern>
+            <url-pattern>/activityData/*</url-pattern>
+            <url-pattern>/device/*</url-pattern>
+            <url-pattern>/Devices/*</url-pattern>
+            <url-pattern>/result/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>administrator</role-name>
+            <role-name>coordinator</role-name>
+            <role-name>participant</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>CoordinatorAreaAuth</display-name>
+        <web-resource-collection>
+            <web-resource-name>CoordinatorPages</web-resource-name>
+            <url-pattern>/challenge/coordinator/*</url-pattern>
+            <url-pattern>/faces/challenge/coordinator/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>administrator</role-name>
+            <role-name>coordinator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>AdminAreaAuth</display-name>
+        <web-resource-collection>
+            <web-resource-name>AdminPages</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/audit/*</url-pattern>
+            <url-pattern>/dataRemovalAudit/*</url-pattern>
+            <url-pattern>/userRole/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+<<<<<<< HEAD
+=======
+    
+>>>>>>> develop
+    <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/login/unauthorised.xhtml</location>
+    </error-page>
+    <servlet>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>rest</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/DeviceTypeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.DeviceTypeFacade</local>
+        <ejb-link>DeviceTypeFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/DeviceFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.DeviceFacade</local>
+        <ejb-link>DeviceFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/ActivityDataFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.ActivityDataFacade</local>
+        <ejb-link>ActivityDataFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/CategoryUnitFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.CategoryUnitFacade</local>
+        <ejb-link>CategoryUnitFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/CommunityFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.CommunityFacade</local>
+        <ejb-link>CommunityFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/UserChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.UserChallengeFacade</local>
+        <ejb-link>UserChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/GroupChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.GroupChallengeFacade</local>
+        <ejb-link>GroupChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/TeamFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.TeamFacade</local>
+        <ejb-link>TeamFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/CommunityChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.CommunityChallengeFacade</local>
+        <ejb-link>CommunityChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/ChallengeFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.ChallengeFacade</local>
+        <ejb-link>ChallengeFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/ResultFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.ResultFacade</local>
+        <ejb-link>ResultFacade</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/ChallengeWSConsumer</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>WebServices.ChallengeWS.Consumer.ChallengeWSConsumer</local>
+        <ejb-link>ChallengeWSConsumer</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/JawboneEJB</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>Devices.JawboneEJB</local>
+        <ejb-link>JawboneEJB</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/UserFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.UserFacade</local>
+        <ejb-link>UserFacade</ejb-link>
+    </ejb-local-ref>
+</web-app>

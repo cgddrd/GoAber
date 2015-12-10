@@ -2,6 +2,7 @@
 @using Microsoft.Owin.Security
 
 <h4>@Resources.ExternalLoginsTitle</h4>
+
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();

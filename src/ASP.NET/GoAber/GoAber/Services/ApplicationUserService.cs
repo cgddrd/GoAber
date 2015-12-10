@@ -25,11 +25,11 @@ namespace GoAber.Services
     /// </summary>
     public class ApplicationUserService
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db;
 
         public ApplicationUserService()
         {
-            
+            db = new ApplicationDbContext();
         }
 
         public ApplicationUserService(ApplicationDbContext db)
@@ -39,9 +39,6 @@ namespace GoAber.Services
 
         public static ApplicationUser GetCurrentApplicationUser()
         {
-
-            ApplicationDbContext db = new ApplicationDbContext();
-
             var userId = HttpContext.Current.User.Identity.GetUserId();
 
             ApplicationUser user = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(userId);
@@ -91,10 +88,8 @@ namespace GoAber.Services
             return new RedirectToRouteResult(new RouteValueDictionary(new {action = "Index", controller = "Home", area = ""}));
         }
 
-        public static ApplicationUser GetApplicationUserById(string userId)
+        public ApplicationUser GetApplicationUserById(string userId)
         {
-
-            ApplicationDbContext db = new ApplicationDbContext();
 
             ApplicationUser user = db.Users.FirstOrDefault(u => u.Id.Equals(userId));
 
@@ -109,7 +104,7 @@ namespace GoAber.Services
 
         public bool DeleteCurrentApplicationUser()
         {
-            return this.DeleteApplicationUser(GetCurrentApplicationUser().Id);
+            return DeleteApplicationUser(GetCurrentApplicationUser().Id);
         }
 
         public bool DeleteApplicationUser(string applicationUserId)

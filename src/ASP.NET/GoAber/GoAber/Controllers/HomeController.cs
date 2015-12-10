@@ -12,7 +12,10 @@ namespace GoAber.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = Resources.Resources.HomeController_Index_Home_Page;
-            return View();
+            //return View();
+
+            // CG - Make sure to redirect any requests for the old homepage back to the new homepage.
+            return RedirectToAction("WeeklySummary", "ActivityDatas");
         }
 
         public ActionResult About()

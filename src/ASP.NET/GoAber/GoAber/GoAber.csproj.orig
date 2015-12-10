@@ -307,15 +307,16 @@
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
+    <Compile Include="Controllers\LeaderBoardsController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
 <<<<<<< HEAD
-    <Compile Include="Migrations\201512061307527_GoAber.cs" />
-    <Compile Include="Migrations\201512061307527_GoAber.Designer.cs">
-      <DependentUpon>201512061307527_GoAber.cs</DependentUpon>
+    <Compile Include="Migrations\201512101425389_GoAber.cs" />
+    <Compile Include="Migrations\201512101425389_GoAber.Designer.cs">
+      <DependentUpon>201512101425389_GoAber.cs</DependentUpon>
 =======
-    <Compile Include="Migrations\201512070809496_init.cs" />
-    <Compile Include="Migrations\201512070809496_init.Designer.cs">
-      <DependentUpon>201512070809496_init.cs</DependentUpon>
+    <Compile Include="Migrations\201512101359380_GoAber.cs" />
+    <Compile Include="Migrations\201512101359380_GoAber.Designer.cs">
+      <DependentUpon>201512101359380_GoAber.cs</DependentUpon>
 >>>>>>> develop
     </Compile>
     <Compile Include="Models\Result.cs" />
@@ -336,7 +337,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DeviceAPI.cs" />
     <Compile Include="Controllers\JawboneController.cs" />
-    <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\JobsController.cs" />
     <Compile Include="Areas\MyAccount\Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="App_Code\Scheduling\Hangfire\HangfireContext.cs" />
@@ -344,14 +345,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ActivityData.cs" />
-    <Compile Include="Models\ViewModels\GroupLeaderViewModel.cs" />
     <Compile Include="Models\ViewModels\ParticipantLeaderViewModel.cs" />
     <Compile Include="Models\WebServiceAuth.cs" />
-<<<<<<< HEAD
-=======
     <Compile Include="Services\DeviceService.cs" />
-    <Compile Include="Services\UserService.cs" />
->>>>>>> develop
     <Compile Include="Service References\RemoteChallengeWS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -630,14 +626,14 @@
     <Content Include="Views\FitBit\GetHeartDay.cshtml" />
     <Content Include="Views\FitBit\Index.cshtml" />
     <Content Include="Views\FitBit\StartOAuth.cshtml" />
-    <Content Include="Views\Jobs\Create.cshtml" />
-    <Content Include="Views\Jobs\Delete.cshtml" />
-    <Content Include="Views\Jobs\Details.cshtml" />
-    <Content Include="Views\Jobs\Edit.cshtml" />
-    <Content Include="Views\Jobs\Index.cshtml" />
-    <Content Include="Views\Jobs\Details.cshtml" />
-    <Content Include="Views\Jobs\Edit.cshtml" />
-    <Content Include="Views\Jobs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Jobs\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Jobs\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Jobs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Jobs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Jobs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Jobs\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Jobs\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Jobs\Index.cshtml" />
     <Content Include="Views\Devices\Index.cshtml" />
     <Content Include="Views\Devices\Delete.cshtml" />
     <Content Include="Views\ActivityDatas\_ActivityDataLayout.cshtml" />
@@ -652,16 +648,10 @@
     <Content Include="Views\Challenge\Details.cshtml" />
     <Content Include="Views\Challenge\Edit.cshtml" />
     <Content Include="Views\Challenge\Index.cshtml" />
-    <Content Include="Views\Results\Create.cshtml" />
-    <Content Include="Views\Results\Delete.cshtml" />
-    <Content Include="Views\Results\Details.cshtml" />
-    <Content Include="Views\Results\Edit.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
     <Content Include="Views\Challenge\CreateCommunity.cshtml" />
     <Content Include="Views\Challenge\LeaderBoard.cshtml" />
-<<<<<<< HEAD
     <None Include="Service References\RemoteChallengeWS\GoAberChallengesWS.wsdl" />
-=======
     <Content Include="Views\Challenge\EnteredGroup.cshtml" />
     <Content Include="Views\Challenge\EnteredCommunity.cshtml" />
     <Content Include="Views\Challenge\UnEnteredCommunity.cshtml" />
@@ -669,7 +659,10 @@
     <Content Include="Views\Challenge\CompletedCommunity.cshtml" />
     <Content Include="Views\Challenge\CompletedGroup.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
->>>>>>> develop
+    <Content Include="Views\ActivityDatas\Group.cshtml" />
+    <Content Include="Views\LeaderBoards\Index.cshtml" />
+    <Content Include="Views\LeaderBoards\GroupLeaderBoard.cshtml" />
+    <Content Include="Views\LeaderBoards\ParticipantLeaderBoard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DataRemovalAudits\Details.cshtml" />
@@ -715,12 +708,11 @@
   </ItemGroup>
   <ItemGroup>
 <<<<<<< HEAD
-    <EmbeddedResource Include="Migrations\201512061307527_GoAber.resx">
-      <DependentUpon>201512061307527_GoAber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512101425389_GoAber.resx">
+      <DependentUpon>201512101425389_GoAber.cs</DependentUpon>
 =======
-    <EmbeddedResource Include="Migrations\201512070809496_init.resx">
-      <DependentUpon>201512070809496_init.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Migrations\201512101359380_GoAber.resx">
+      <DependentUpon>201512101359380_GoAber.cs</DependentUpon>
 >>>>>>> develop
     </EmbeddedResource>
   </ItemGroup>
