@@ -7,6 +7,8 @@ package GoAberDatabase;
 
 import DTO.IJobDetail;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,9 +48,9 @@ public class JobDetail implements Serializable, IJobDetail {
     @Column(name = "jobid")
     private String jobid;
     @Column(name = "shcedtimemins")
-    private Integer shcedtimemins;
+    private int shcedtimemins = 0;
     @Column(name = "startnow")
-    private Boolean startnow;
+    private Boolean startnow = true;
     @JoinColumn(name = "schedtype", referencedColumnName = "shedId")
     @ManyToOne
     private Scheduletype schedtype;
@@ -63,6 +65,7 @@ public class JobDetail implements Serializable, IJobDetail {
         this.jobid = jobid;
     }
 
+    @Override
     public String getJobid() {
         return jobid;
     }
@@ -71,14 +74,16 @@ public class JobDetail implements Serializable, IJobDetail {
         this.jobid = jobid;
     }
 
+    @Override
     public int getShcedtimemins() {
         return shcedtimemins;
     }
 
-    public void setShcedtimemins(Integer shcedtimemins) {
+    public void setShcedtimemins(int shcedtimemins) {
         this.shcedtimemins = shcedtimemins;
     }
 
+    @Override
     public Boolean getStartnow() {
         return startnow;
     }
@@ -86,23 +91,61 @@ public class JobDetail implements Serializable, IJobDetail {
     public void setStartnow(Boolean startnow) {
         this.startnow = startnow;
     }
-
-    public String getSchedtype() {
-        return schedtype.getShedId();
+    
+    public Scheduletype getSchedtypeObj() {
+        return schedtype;
     }
 
-    public void setSchedtype(Scheduletype schedtype) {
+    public void setSchedtypeObj(Scheduletype schedtype) {
         this.schedtype = schedtype;
     }
 
-    public String getTasktype() {
-        return tasktype.getTaskId();
+    @Override
+    public String getSchedtype() {
+        if (schedtype == null) {
+            schedtype = new Scheduletype();
+            tasktype.setTaskId("Jawbone");
+        }
+        return schedtype.getShedId();
     }
 
-    public void setTasktype(Tasktype tasktype) {
+    public void setSchedtype(String schedtype) {
+        this.schedtype = new Scheduletype();
+        if ("R".equals(schedtype)) {
+            this.schedtype.setShedName("Recurring");
+        } else {
+            this.schedtype.setShedName("Once");
+            
+        }
+        this.schedtype.setShedId(schedtype);
+    }
+    
+    public Tasktype getTasktypeObj() {
+        return tasktype;
+    }
+
+    public void setTasktypeObj(Tasktype tasktype) {
         this.tasktype = tasktype;
     }
 
+
+    @Override
+    public String getTasktype() {
+         if (tasktype == null) {
+            tasktype = new Tasktype();
+            tasktype.setTaskId("R");
+        }
+        return tasktype.getTaskId();
+    }
+
+    public void setTasktype(String tasktype) {
+        this.tasktype = new Tasktype();
+        this.tasktype.setTaskId(tasktype);
+        this.tasktype.setTaskName(tasktype);
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

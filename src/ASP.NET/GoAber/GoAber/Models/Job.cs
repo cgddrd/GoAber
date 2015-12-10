@@ -31,5 +31,6 @@ namespace GoAber.Models
         public DateTimeOffset date { get; set; }
 
         public bool status_flag { get; set; }
+        public Nullable<System.DateTime> lastUpdated { get; set; }
     }
 }

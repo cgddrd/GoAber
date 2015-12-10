@@ -24,6 +24,13 @@ public class HandleContract {
     @EJB
     CommunityFacade communityFacade;
     
+    /**
+     * Handles a received contract.
+     * Generates a UID, saves contract, sends back UID.
+     * @param ao_comdata
+     * @param ao_homecom
+     * @return 
+     */
     public CommunityData RecieveContract(CommunityData ao_comdata, Community ao_homecom) {
         String ls_authtoken = UUID.randomUUID().toString();
         Community ao_com = new Community();

@@ -21,6 +21,9 @@ namespace GoAber
         private ApplicationDbContext db = new ApplicationDbContext();
         private CategoryUnitService categoryUnitService = new CategoryUnitService();
         private ActivityDataService dataService = new ActivityDataService();
+        private UserService userService = new UserService();
+        private ApplicationUserService authService = new ApplicationUserService();
+
         private ApplicationUserManager _userManager;
         private const int pageSize = 100;
 
@@ -54,6 +57,15 @@ namespace GoAber
         public ActionResult AllTimeSummary()
         {
             return View(categoryUnitService.GetAllCategories());
+        }
+
+        public ActionResult Group(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            var user = authService.GetAllApplicationUsers()
+                                    .Where(x => x.Id == User.Identity.GetUserId()).SingleOrDefault();
+            var groupUsers = userService.GetUsersForGroup(user.Team.Id);
+            return View(groupUsers.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ActivityDatas/Manage

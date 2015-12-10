@@ -37,10 +37,9 @@
 
                             <c:when test="#{authService.loggedIn}">
                                 <li><h:link outcome="/activityData/WeeklySummary" value="#{bundle.TemplatePage_ActivityData}"/></li>
-                                
+                                <li><h:link outcome="/leaderBoards/Index" value="#{bundle.TemplatePage_LeaderBoards}"/></li>
                                 <li><h:link outcome="/Devices/index.xhtml" value="#{bundle.TemplatePage_Devices}"/></li>
                                 <li><h:link outcome="/challenge/Index" value="#{bundle.TemplatePage_Challenges}"/></li>
-                                <li><h:link outcome="/result/List.xhtml" value="#{bundle.TemplatePage_Results}"/></li>
                                 <li><h:link outcome="/webServiceAuth/List" value="#{bundle.TemplatePage_WebServiceTokens}"/></li>
                             </c:when>
 			</c:choose>

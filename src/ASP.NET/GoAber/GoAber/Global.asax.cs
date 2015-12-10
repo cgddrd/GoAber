@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Data.Entity;
+using System.IO;
 using System.Net;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using GoAber.Models;
 
 namespace GoAber
 {

@@ -14,6 +14,13 @@ namespace GoAber.Scheduling
 {
     public class ScheduleJobs
     {
+        /// <summary>
+        /// Creates a job type of job.
+        /// Sends job to scheduler.
+        /// </summary>
+        /// <param name="ao_jobdetail"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static bool AddJob(Job ao_jobdetail, string[] args = null)
         {
             try
@@ -35,6 +42,7 @@ namespace GoAber.Scheduling
                 {
                     lo_job = new EmailJob();
                 }
+
                 IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
                 if (ao_jobdetail.schedtype.Equals(ScheduleType.Repeating))
                 {
@@ -58,7 +66,11 @@ namespace GoAber.Scheduling
             }
         }
 
-
+        /// <summary>
+        /// Asks scheduler to remove job.
+        /// </summary>
+        /// <param name="ao_job"></param>
+        /// <returns></returns>
         public static bool RemoveJob(Job ao_job)
         {
             try

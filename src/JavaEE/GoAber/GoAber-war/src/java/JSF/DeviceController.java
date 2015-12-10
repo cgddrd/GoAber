@@ -33,6 +33,7 @@ public class DeviceController implements Serializable {
     private int selectedItemIndex;
 
     public DeviceController() {
+        
     }
 
     public Device getSelected() {

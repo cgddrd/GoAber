@@ -10,7 +10,12 @@ namespace GoAber.WebService.ChallengesWS
     public class HandleResult
     {
         private static ApplicationDbContext db = new ApplicationDbContext();
-
+        /// <summary>
+        /// Creates a result model object from a passed in result DTO object.
+        /// Responds by creating a result DTO object from its own results.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
         public static ResultData RecieveResult(ResultData result)
         {
             try

@@ -105,8 +105,8 @@ public class ChallengeService {
         JobDetail lo_job = new JobDetail();
         Scheduletype lo_stype = schedtypeFacade.find("O");
         Tasktype lo_ttype = tasktypeFacade.find("Challenge");
-        lo_job.setSchedtype(lo_stype);
-        lo_job.setTasktype(lo_ttype);
+        lo_job.setSchedtypeObj(lo_stype);
+        lo_job.setTasktypeObj(lo_ttype);
         lo_job.setStartnow(false);
         lo_job.setSchedulerArgs(new String[]{challenge.getIdChallenge()});
         lo_job.setShcedtimemins(1);

@@ -26,6 +26,10 @@ import javax.ejb.Stateless;
 @LocalBean
 public class SchedulerMain {
 
+    /***
+     * Takes job from the database when application is started.
+     * Adds each recurring job to the scheduler.
+     */
     @Stateless
     public static class MainClass {     
 
