@@ -9,8 +9,9 @@ using System.Web.Mvc;
 using GoAber.Auth;
 using GoAber.Models;
 using GoAber.Scheduling;
+using GoAber.Controllers;
 
-namespace GoAber.Controllers
+namespace GoAber.Areas.Admin.Controllers
 {
     [GAAuthorize(Roles = "Administrator")]
     public class JobsController : BaseController
