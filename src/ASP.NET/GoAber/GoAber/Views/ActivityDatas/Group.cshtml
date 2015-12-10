@@ -1,0 +1,33 @@
+﻿@using GoAber.Models.ViewModels;
+@model IEnumerable<ParticipantLeaderViewModel>
+@{
+    ViewBag.Title = Resources.Group;
+    Layout = "~/Views/ActivityDatas/_ActivityDataLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Nickname)
+        </th>
+        <th>
+            @Resources.ViewUser
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Nickname)
+            </td>
+            <td>
+                @Html.ActionLink(Resources.ViewUser, "ViewUser", "ActivityDatas", new { id = item.User.Id }, null)
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.Partial("_Pager", Model)
+

@@ -8,47 +8,6 @@
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-@helper selected(string c, string culture)
-{
-if (c == culture)
-{
-        @:checked="checked"
-    }
-}
-
-@using (Html.BeginForm("SetCulture", "Home"))
-{
-    <fieldset>
-        <legend>@Resources.ChooseYourLanguage</legend>
-        <div class="control-group">
-            <div class="controls">
-                <label for="en">
-                    <input name="culture" id="en" value="en" type="radio" @selected("en", culture) /> English
-                </label>
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <label for="cy">
-                    <input name="culture" id="cy" value="cy" type="radio" @selected("cy", culture) /> Welsh
-                </label>
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <label for="es">
-                    <input name="culture" id="es" value="es" type="radio" @selected("es", culture) /> Spanish
-                </label>
-            </div>
-        </div>
-
-    </fieldset>
-
-
-
-}
-
-
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
