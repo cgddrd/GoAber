@@ -126,7 +126,7 @@ public class AuthService implements Serializable {
      * @return 
      */
     public boolean isCoordinator() {
-        return (this.isLoggedIn() && this.activeUser != null && this.activeUser.getUserRoleId().getRoleId().getIdRole().equals("coordinator")) || isAdmin();
+        return ((this.isLoggedIn()) && (this.activeUser != null) && (isAdmin() || this.activeUser.getUserRoleId().getRoleId().getIdRole().equals("coordinator")));
     }
 
     // CG - userController.loggedInUser
