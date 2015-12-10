@@ -45,9 +45,13 @@ public class JawBoneJob extends AbstractJob  {
        return "Jawbone";
     }
 
+    /***
+     * Runs Jawbone job.
+     * Calls jawbone server for each user for that day, saves replies to database.
+     *
+     */
     @Override
     public void run() {
-        System.out.println("I HAVE BEEN CALLED! " + getJobDetails().getJobid());
         List<User> lo_users = io_userFacade.findAll();
         Date lda_date = new Date();
         int day = lda_date.getDate();

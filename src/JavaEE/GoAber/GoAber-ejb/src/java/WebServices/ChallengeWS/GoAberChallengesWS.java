@@ -50,6 +50,13 @@ public class GoAberChallengesWS {
     {
     }
     
+    /**
+     * Gets challenge from remote communities.
+     * Saves challenge to database and returns true/false depending on whether it was successful.
+     * @param challenge
+     * @param userGroup
+     * @return 
+     */
     public boolean recieveChallenge(org.goaberchallenges.ChallengeData challenge, int userGroup) {
         try {
             if (io_homecom == null) {
@@ -75,6 +82,11 @@ public class GoAberChallengesWS {
         }
     }
 
+    /**
+     * Gets result from remote community and passes it to the handler.
+     * @param result
+     * @return 
+     */
     public org.goaberchallenges.ResultData recieveResult(org.goaberchallenges.ResultData result) {
         try {
             if (io_homecom == null) {
@@ -88,6 +100,11 @@ public class GoAberChallengesWS {
         }
     }
 
+    /**
+     * Gets community contract from remote client and passes it to handler.
+     * @param community
+     * @return 
+     */
     public org.goaberchallenges.CommunityData recieveCommunityContract(org.goaberchallenges.CommunityData community) {
             if (io_homecom == null) {
                io_homecom = io_communityFacade.findByHome().get(0);

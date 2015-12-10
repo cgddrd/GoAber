@@ -21,7 +21,7 @@ namespace GoAber.WebService
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
     // [System.Web.Script.Services.ScriptService]
 
-
+    
     public class GoAberChallengesWS : System.Web.Services.WebService
     {
         private CommunitiesService io_communitiesService;
@@ -35,6 +35,12 @@ namespace GoAber.WebService
             io_challengeService = new ChallengeService();
         }
 
+        /// <summary>
+        /// Recieves challenge, saves it and returns true/false based on whether it worked.
+        /// </summary>
+        /// <param name="challenge"></param>
+        /// <param name="userGroup"></param>
+        /// <returns></returns>
         [WebMethod]
         [XmlInclude(typeof(ChallengeData))]
         public bool RecieveChallenge(ChallengeData challenge, int userGroup)
@@ -97,6 +103,11 @@ namespace GoAber.WebService
             }
         }
 
+        /// <summary>
+        /// Recieves a community contract and passes it to contract handler.
+        /// </summary>
+        /// <param name="community"></param>
+        /// <returns></returns>
         [WebMethod]
         [XmlInclude(typeof(CommunityData))]
         public CommunityData RecieveCommunityContract(CommunityData community)
