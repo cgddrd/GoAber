@@ -1,18 +1,33 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Shows the different login \& registration actions that a system user (participant, coordinator or administrator) can take. These actions are associated with D-FR11.}}{9}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Shows the different account administration actions that can be performed by a participant of the system. This references requirements D-FR1 and D-FR10.}}{10}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Shows the actions that can be performed by the three types on activity data. These were taken from requirements D-FR5, 7, 8, 9, 10}}{11}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Shows how actors will interact with groups of users. This is in relation to requirements D-FR1, D-FR10}}{11}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Shows how actors will interact with the system in terms of challenges. These reference requirements C-FR1-4 and E-FR1}}{12}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Shows how a user can authorise a device with an external system (e.g. Jawbone/Fitbit). This relates to requirement D-FR3.}}{13}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Shows some additional uses cases that can be performed by a system administrator. These action are all taken from requirements D-FR1, D-FR8, E-FR3 and E-FR4.}}{14}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces High level conceptual overview of the proposed system.}}{16}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces An entity relationship diagram showing how the data model in both of the applications interact with one another.}}{18}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces An activity diagram showing the states that a user can transition between when authenticating with the system.}}{19}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces An activity diagram showing the states a participant/administrator passes through in order to delete activity data.}}{19}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces An activity diagram showing the workflow for device authorisation.}}{20}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces An activity diagram for the management of user groups in GoAber.}}{21}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces An activity diagram for manually inputting user data into the sytem.}}{21}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces JavaEE unit tests.}}{10}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces .NET unit tests}}{11}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Selection of builds that have been run during the project.}}{12}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Example of a build that has been performed.}}{12}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Example of a pull request}}{13}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Cucumber test scenarios}}{14}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Cucumber steps}}{14}
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Cucumber test results}}{15}
-\contentsline {figure}{\numberline {5.9}{\ignorespaces The .NET SOAP client application.}}{16}
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Unit tests for the SOAP operations in the .NET project.}}{16}
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Unit tests for the SOAP operations in the JavaEE project.}}{16}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces JavaEE unit tests.}}{31}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces .NET unit tests}}{32}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Selection of builds that have been run during the project.}}{33}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Example of a build that has been performed.}}{33}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Example of a pull request}}{34}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Cucumber test scenarios}}{35}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Cucumber steps}}{35}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Cucumber test results}}{36}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Cucumber test results, generated inside HTML pages}}{37}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces The .NET SOAP client application.}}{38}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Unit tests for the SOAP operations in the .NET project.}}{38}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Unit tests for the SOAP operations in the JavaEE project.}}{38}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
