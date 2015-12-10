@@ -15,7 +15,7 @@ Scenario: Register User
 	And I fill in "Password" with "Atestpass!0"
 	And I fill in "ConfirmPassword" with "Atestpass!0"
 	And I fill in "Nickname" with "atestUser"
-	And I fill in "DateOfBirth" with "01-01-1993"
+	And I fill in "DateOfBirth" with "01/01/1993"
 	And I press enter inside "DateOfBirth"
 	Then I should see "Log off"
 
@@ -50,6 +50,8 @@ Scenario: Log in user with valid credentials
 	Then I should see "Hello adminuser!"
 
 Scenario: Log out user
+	Given I navigate to the homepage
+	Then I click on "Log in"
 	Given I am logged in
 	Then I click on "Log off"
 	Then I should not see "Hello adminuser!"

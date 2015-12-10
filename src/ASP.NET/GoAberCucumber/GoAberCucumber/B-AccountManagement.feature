@@ -89,4 +89,4 @@ Scenario: Delete account
 	Then I click on "Manage Account Details"
 	Then I click on "Delete"
 	Then I press delete
-	Then I should see "Log in"
+	Then I should see "You are currently attempting to delete your own administrator account whilst still logged in"

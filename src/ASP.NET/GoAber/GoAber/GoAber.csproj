@@ -308,9 +308,9 @@
     <Compile Include="Areas\Admin\Controllers\CommunitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
-    <Compile Include="Migrations\201512090733588_init.cs" />
-    <Compile Include="Migrations\201512090733588_init.Designer.cs">
-      <DependentUpon>201512090733588_init.cs</DependentUpon>
+    <Compile Include="Migrations\201512101151263_init.cs" />
+    <Compile Include="Migrations\201512101151263_init.Designer.cs">
+      <DependentUpon>201512101151263_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\ViewModels\LeaderViewModel.cs" />
@@ -701,8 +701,8 @@
     <WCFMetadataStorage Include="Service References\RemoteChallengeWS\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512090733588_init.resx">
-      <DependentUpon>201512090733588_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512101151263_init.resx">
+      <DependentUpon>201512101151263_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -317,7 +317,8 @@ this.FeatureBackground();
 #line 91
  testRunner.Then("I press delete", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 92
- testRunner.Then("I should see \"Log in\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see \"You are currently attempting to delete your own administrator accou" +
+                    "nt whilst still logged in\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

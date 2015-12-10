@@ -5,6 +5,9 @@ using OpenQA.Selenium.PhantomJS;
 using System;
 using System.Diagnostics;
 using TechTalk.SpecFlow;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using OpenQA.Selenium.Support.UI;
 
 namespace GoAber.Specs
 {
@@ -14,6 +17,7 @@ namespace GoAber.Specs
         String address = "http://localhost:50121";
 
         IWebDriver driver;
+
         [Given(@"I navigate to the homepage")]
         public void GivenINavigateToTheHomepage()
         {
@@ -68,15 +72,15 @@ namespace GoAber.Specs
         }
 
         [Then(@"I press submit")]
-        public void ThenIPressSubmit(string p0)
+        public void ThenIPressSubmit()
         {
-            driver.FindElement(By.ClassName("btn btn-default")).Click();
+            driver.FindElement(By.ClassName("btn-default")).Click();
         }
 
         [Then(@"I press delete")]
-        public void ThenIPressDelete(string p0)
+        public void ThenIPressDelete()
         {
-            driver.FindElement(By.ClassName("btn btn-danger")).Click();
+            driver.FindElement(By.ClassName("btn-danger")).Click();
         }        
 
         [Given(@"I am logged in")]
@@ -85,6 +89,54 @@ namespace GoAber.Specs
             driver.FindElement(By.Id("Email")).SendKeys("admin@test.com");
             driver.FindElement(By.Id("Password")).SendKeys("Hello123!");
             driver.FindElement(By.Id("Password")).SendKeys(OpenQA.Selenium.Keys.Enter);
+        }
+
+        [Then(@"I click on delete user for element (.*)")]
+        public void ThenIClickOnDeleteUserForElement(int p0)
+        {
+            ReadOnlyCollection<IWebElement> listElements = driver.FindElements(By.PartialLinkText("Delete"));
+            IEnumerator<IWebElement> elements = listElements.GetEnumerator();
+            if (!driver.PageSource.Contains("crh13@aber.ac.uk"))
+                return;
+            for (var i = 1; i < p0; i++) {
+                elements.MoveNext();
+            }
+            elements.Current.Click();
+        }
+
+        [Then(@"I click on delete team for element (.*)")]
+        public void ThenIClickOnDeleteTeamForElement(int p0)
+        {
+            ReadOnlyCollection<IWebElement> listElements = driver.FindElements(By.PartialLinkText("Delete"));
+            IEnumerator<IWebElement> elements = listElements.GetEnumerator();
+            if (p0 > listElements.Count+1)
+                return;
+            for (var i = 1; i < p0; i++)
+            {
+                elements.MoveNext();
+            }
+            elements.Current.Click();
+        }
+
+        [Then(@"I click on edit for element (.*)")]
+        public void ThenIClickOnEditForElement(int p0)
+        {
+            ReadOnlyCollection<IWebElement> listElements = driver.FindElements(By.PartialLinkText("Edit"));
+            IEnumerator<IWebElement> elements = listElements.GetEnumerator();
+            if (p0 > listElements.Count+1)
+                return;
+            for (var i = 0; i < p0; i++)
+            {
+                elements.MoveNext();
+            }
+            elements.Current.Click();
+        }
+
+        [Then(@"I select ""(.*)"" from ""(.*)""")]
+        public void ThenISelectFrom(string p0, string p1)
+        {
+            SelectElement dropdown = new SelectElement(driver.FindElement(By.Id(p1)));
+            dropdown.SelectByValue(p0);
         }
 
     }

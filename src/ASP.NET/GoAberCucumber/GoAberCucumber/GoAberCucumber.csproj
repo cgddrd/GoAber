@@ -71,6 +71,26 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="C-UserManagement - Copy.feature.cs">
+      <DependentUpon>C-UserManagement - Copy.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="F-ActivityData.feature.cs">
+      <DependentUpon>F-ActivityData.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="E-CommunityManagement.feature.cs">
+      <DependentUpon>E-CommunityManagement.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="D-TeamManagement.feature.cs">
+      <DependentUpon>D-TeamManagement.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="B-AccountManagement.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,6 +105,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="C-UserManagement - Copy.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>C-UserManagement - Copy.feature.cs</LastGenOutput>
+    </None>
+    <None Include="F-ActivityData.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>F-ActivityData.feature.cs</LastGenOutput>
+    </None>
+    <None Include="E-CommunityManagement.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>E-CommunityManagement.feature.cs</LastGenOutput>
+    </None>
+    <None Include="D-TeamManagement.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>D-TeamManagement.feature.cs</LastGenOutput>
+    </None>
     <None Include="B-AccountManagement.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>B-AccountManagement.feature.cs</LastGenOutput>
