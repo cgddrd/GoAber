@@ -9,7 +9,7 @@
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.LoginError_Title}"></h:outputText>
+            <h:outputText value="#{bundle.Unauthorised_Title}"></h:outputText>
         </ui:define>
         <ui:define name="body">
 
@@ -17,9 +17,9 @@
                 <p:messages autoUpdate="true" />
             </h:panelGroup>
             
-            <h:outputText value="#{bundle.LoginError_Message}"></h:outputText> 
+            <h:outputText class="text-danger" value="#{bundle.Unauthorised_Message}"></h:outputText> 
             
-            <h:link outcome="/login/index" value="#{bundle.TemplatePage_Login}"/>
+            <h:link outcome="/activityData/WeeklySummary.xhtml" value="#{bundle.TemplatePage_Home}"/>
             
         </ui:define>
     </ui:composition>
