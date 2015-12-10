@@ -9,6 +9,14 @@ namespace GoAber.WebService.ChallengesWS
     public class HandleContract
     {
         private static ApplicationDbContext db = new ApplicationDbContext();
+        /// <summary>
+        /// Creates contract from DTO contract.
+        /// Saves remote community.
+        /// Creates unique id for community.
+        /// Replies with UID.
+        /// </summary>
+        /// <param name="ao_comdata"></param>
+        /// <returns></returns>
         public static CommunityData RecieveContract(CommunityData ao_comdata)
         {
             string ls_authtoken = Guid.NewGuid().ToString();

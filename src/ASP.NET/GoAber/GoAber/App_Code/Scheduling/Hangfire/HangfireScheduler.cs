@@ -23,7 +23,12 @@ namespace GoAber.Scheduling.Hangfire
             return BackgroundJob.Schedule(am_methodcall, adao_date);
         }
 
-
+        /// <summary>
+        /// Creates a job that fires after a certain amount of minutes have passed.
+        /// </summary>
+        /// <param name="as_id"></param>
+        /// <param name="am_methodcall"></param>
+        /// <param name="ai_minutes"></param>
         public void CreateRecurringJob(string as_id, Expression<Action> am_methodcall, int ai_minutes)
         {
             TimeSpan time = new TimeSpan(1, 1, ai_minutes, 1, 1);
@@ -48,6 +53,11 @@ namespace GoAber.Scheduling.Hangfire
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Creates the hangfire database.
+        /// Forces it to be created by adding a dummy table.
+        /// </summary>
+        /// <param name="context"></param>
         public void CreateHangfireDB(HangfireContext context)
         {
             Dummy lo_dummy = new Dummy { DummyId = 0 };
@@ -56,6 +66,11 @@ namespace GoAber.Scheduling.Hangfire
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Initializes hangfire.
+        /// </summary>
+        /// <param name="ao_app"></param>
+        /// <param name="as_constring"></param>
         public void Init(IAppBuilder ao_app, string as_constring)
         {
             using (HangfireContext context = new HangfireContext())

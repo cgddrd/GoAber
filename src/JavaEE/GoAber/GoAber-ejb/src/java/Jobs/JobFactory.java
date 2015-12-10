@@ -14,6 +14,11 @@ import DTO.IJobDetail;
  */
 public class JobFactory {
     
+    /***
+     * Creates a specified type of job.
+     * @param ao_jobdetail
+     * @return 
+     */
     public static AbstractJob CreateJob(IJobDetail ao_jobdetail) {
         switch (ao_jobdetail.getTasktype()) {
             case "Jawbone":

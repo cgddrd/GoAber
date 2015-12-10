@@ -71,6 +71,10 @@ public class ChallengeJob extends AbstractJob {
         return "Challenge";
     }
 
+    /**
+     * Runs challenge job.
+     * Creates a result, sends it to remote community and saves reply.
+     */
     @Override
     public void run() {
         try {

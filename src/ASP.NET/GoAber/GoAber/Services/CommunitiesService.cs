@@ -16,6 +16,11 @@ namespace GoAber.Services
             return db.Communities;
         }
 
+        /// <summary>
+        /// Sends contract to remote community.
+        /// </summary>
+        /// <param name="ao_community"></param>
+        /// <returns></returns>
         public Community RequestContract(Community ao_community)
         {
             try {

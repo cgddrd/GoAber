@@ -34,6 +34,9 @@ public class FitBitJob extends AbstractJob {
        return "Fitbit";
     }
 
+    /***
+     * Runs fitbit job.
+     */
     @Override
     public void run() {
         System.out.println("I HAVE BEEN CALLED! " + getJobDetails().getJobid());
