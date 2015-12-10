@@ -1,0 +1,51 @@
+\contentsline {chapter}{\numberline {1}Project Overview}{1}
+\contentsline {section}{\numberline {1.1}Detailed requirements}{2}
+\contentsline {subsection}{\numberline {1.1.1}Management of users, authentication and authorisation}{2}
+\contentsline {subsection}{\numberline {1.1.2}Activity data}{3}
+\contentsline {subsection}{\numberline {1.1.3}Data auditing}{3}
+\contentsline {subsection}{\numberline {1.1.4}Challenges}{4}
+\contentsline {subsection}{\numberline {1.1.5}Updates and emails}{5}
+\contentsline {subsection}{\numberline {1.1.6}User interface and internationalisation}{5}
+\contentsline {subsection}{\numberline {1.1.7}External endpoint}{5}
+\contentsline {section}{\numberline {1.2}Desired and required libraries}{6}
+\contentsline {chapter}{\numberline {2}Development Methodology}{7}
+\contentsline {chapter}{\numberline {3}Design}{8}
+\contentsline {chapter}{\numberline {4}Implementation}{9}
+\contentsline {chapter}{\numberline {5}Testing}{10}
+\contentsline {section}{\numberline {5.1}Unit Testing}{10}
+\contentsline {subsection}{\numberline {5.1.1}JavaEE}{10}
+\contentsline {subsection}{\numberline {5.1.2}.NET}{10}
+\contentsline {section}{\numberline {5.2}Continuous Integration}{11}
+\contentsline {subsection}{\numberline {5.2.1}Automated Continuous Integration}{11}
+\contentsline {subsubsection}{.NET}{11}
+\contentsline {subsubsection}{JavaEE}{12}
+\contentsline {subsection}{\numberline {5.2.2}Manual Integration Testing}{13}
+\contentsline {section}{\numberline {5.3}User Interface Testing}{14}
+\contentsline {section}{\numberline {5.4}SOAP Communication}{15}
+\contentsline {subsection}{\numberline {5.4.1}.NET}{15}
+\contentsline {subsection}{\numberline {5.4.2}JavaEE}{16}
+\contentsline {section}{\numberline {5.5}Cross Browser Compatibility}{17}
+\contentsline {section}{\numberline {5.6}Community Communication}{17}
+\contentsline {chapter}{\numberline {6}Project Status}{18}
+\contentsline {section}{\numberline {6.1}Incomplete Features}{18}
+\contentsline {subsection}{\numberline {6.1.1}Administrator setup of Categories (D-FR2)}{18}
+\contentsline {subsection}{\numberline {6.1.2}Fitbit (D-FR3)}{18}
+\contentsline {subsection}{\numberline {6.1.3}Email notifications (E-FR3, E-FR4 and C-FR4)}{18}
+\contentsline {subsection}{\numberline {6.1.4}Authentication and authorisation (D-FR11)}{19}
+\contentsline {subsection}{\numberline {6.1.5}Individual Progress (E-FR4)}{19}
+\contentsline {chapter}{\numberline {7}Critical Evaluation}{20}
+\contentsline {section}{\numberline {7.1}Platform Comparison}{20}
+\contentsline {subsection}{\numberline {7.1.1}Implementation}{20}
+\contentsline {subsection}{\numberline {7.1.2}Internationalisation}{21}
+\contentsline {subsection}{\numberline {7.1.3}Database}{21}
+\contentsline {subsection}{\numberline {7.1.4}Configuration}{22}
+\contentsline {subsection}{\numberline {7.1.5}Testing}{22}
+\contentsline {subsection}{\numberline {7.1.6}Conclusion}{22}
+\contentsline {section}{\numberline {7.2}Development Methodology}{23}
+\contentsline {subsection}{\numberline {7.2.1}Design}{23}
+\contentsline {subsection}{\numberline {7.2.2}Setup}{23}
+\contentsline {subsection}{\numberline {7.2.3}Implementation}{24}
+\contentsline {subsection}{\numberline {7.2.4}Agile Practices}{24}
+\contentsline {subsection}{\numberline {7.2.5}Development Tools}{25}
+\contentsline {subsection}{\numberline {7.2.6}Conclusion}{25}
+\contentsline {chapter}{References}{26}
