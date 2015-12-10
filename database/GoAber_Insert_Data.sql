@@ -98,12 +98,11 @@ INSERT INTO `devicetype` (`name`,`tokenEndpoint`,`consumerKey`,`consumerSecret`,
 
 -- Dump completed on 2015-11-10 14:41:17
 
-INSERT INTO `category` (`name`) VALUES ('Walking');
+INSERT INTO `Category` VALUES (3,'Walking');
 
-INSERT INTO `unit` (`name`) VALUES ('steps');
+INSERT INTO `Unit` VALUES (3,'Steps');
 
-INSERT INTO `categoryunit` (`categoryId`, `unitId`) VALUES ('1', '1');
-
+INSERT INTO `CategoryUnit` VALUES (3,3,3);
 
 INSERT INTO `webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('admin_token', 'TestApp', '1');
 INSERT INTO `webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('user_token', 'TestApp', '3');

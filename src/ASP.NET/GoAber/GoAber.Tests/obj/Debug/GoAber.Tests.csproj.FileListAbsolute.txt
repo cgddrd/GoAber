@@ -452,7 +452,6 @@ C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNet
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNetOpenAuth.OpenId.UI.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNetOpenAuth.OpenIdInfoCard.UI.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\DotNetOpenAuth.OpenIdOAuth.xml
-C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\Moq.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Net.Http.xml
 C:\Users\helen\Documents\GoAber\src\ASP.NET\GoAber\GoAber.Tests\bin\Debug\System.Net.Http.WebRequest.xml
