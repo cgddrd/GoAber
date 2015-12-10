@@ -7,9 +7,13 @@ I was expecting a `,' or a `}'---line 68 of file ../bibliography.bib
  :        year = "
  :                2015",
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "VSO"
+Warning--I didn't find a database entry for "Github"
+Warning--I didn't find a database entry for "quartz"
+Warning--I didn't find a database entry for "hangfire"
 You've used 9 entries,
             2118 wiz_defined-function locations,
-            538 strings with 4784 characters,
+            544 strings with 4816 characters,
 and the built_in function-call counts, 1947 in all, are:
 = -- 193
 > -- 63
