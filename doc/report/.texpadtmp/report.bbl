@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{fitbit}
+Fitbit.
+\newblock Developer api.
+\newblock \url{http://dev.fitbit.com/uk/}, year =.
+
+\bibitem{jawbone}
+Jawbone.
+\newblock Jawbone up api.
+\newblock \url{http://jawbone.com/up/developer}, year =.
+
+\bibitem{initialReq}
+Nigel~Hardy Neil~Taylor.
+\newblock Go!aber requirements specification.
+\newblock {\em SEM5640 Group Project}, 2015.
+
+\bibitem{bootstrap}
+Twitter.
+\newblock Get bootstrap.
+\newblock \url{http://getbootstrap.com/}, year =.
+
+\end{thebibliography}

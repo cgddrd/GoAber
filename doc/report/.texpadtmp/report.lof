@@ -1,0 +1,21 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Shows the different login \& registration actions that system user (participant, coordinator or administrator) can take. These actions are associated with D-FR11.\relax }}{14}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Shows the different account administration actions that can be performed by a participant of the system. This references requirements D-FR1 and D-FR10.\relax }}{14}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Shows the actions that can be performed by the three types on activity data. These were taken from requirements D-FR5, 7, 8, 9, 10\relax }}{15}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Shows how actors will interact with groups of users. This is in relation to requirements D-FR1, D-FR10\relax }}{15}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Shows how actors will interact with the system in terms of challenges. These reference requirements C-FR1-4 and E-FR1\relax }}{16}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Shows how a user can authorise a device with an external system (e.g. Jawbone/Fitbit). This relates to requirement D-FR3.\relax }}{16}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Shows some additional uses cases that can be performed by a system administrator. These action are all taken from requirements D-FR1, D-FR8, E-FR3 and E-FR4.\relax }}{17}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces High level conceptual overview of the proposed system.\relax }}{18}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces A entity relationship diagram showing how the data model in both of the applications interact with one another.\relax }}{19}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces An activity diagram showing the states that a user can transition between when authenticating with the system.\relax }}{19}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces An activity diagram showing the states a participant/administrator passes through in order to delete activity data.\relax }}{20}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces An activity diagram showing the workflow for device authorisation.\relax }}{20}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces An activity diagram for the management of user groups in GoAber.\relax }}{21}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces An activity diagram for manually inputting user data into the sytem.\relax }}{21}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
