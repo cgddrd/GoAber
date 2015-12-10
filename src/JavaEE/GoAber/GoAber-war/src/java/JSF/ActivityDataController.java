@@ -8,6 +8,7 @@ import JSF.services.AuthService;
 import JSF.services.ActivityDataService;
 import JSF.services.UserService;
 import JSF.util.JsfUtil;
+import ViewModel.ParticipantLeaderViewModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean(name="activityDataController")
 @SessionScoped
@@ -54,6 +54,7 @@ public class ActivityDataController implements Serializable {
     
     private List<ActivityData> items = null;
     private List<ActivityData> filteredItems = null;
+    private List<ParticipantLeaderViewModel> groupViewModel;
 
 
     public ActivityDataController() {
@@ -144,7 +145,13 @@ public class ActivityDataController implements Serializable {
         recreateItems();
         return "Manage";
     }
-
+    
+    public String prepareGroup() {
+        User user = authService.getActiveUser();
+        groupViewModel = userService.findGroupMembers(user);
+        return "Group";
+    }
+    
     private void performDestroy() {
         try {
             dataService.remove(getCurrent());
@@ -283,6 +290,20 @@ public class ActivityDataController implements Serializable {
      */
     public void setDeletedMessage(String deletedMessage) {
         this.deletedMessage = deletedMessage;
+    }
+
+    /**
+     * @return the groupViewModel
+     */
+    public List<ParticipantLeaderViewModel> getGroupViewModel() {
+        return groupViewModel;
+    }
+
+    /**
+     * @param groupViewModel the groupViewModel to set
+     */
+    public void setGroupViewModel(List<ParticipantLeaderViewModel> groupViewModel) {
+        this.groupViewModel = groupViewModel;
     }
     
     @FacesConverter(forClass = ActivityData.class)

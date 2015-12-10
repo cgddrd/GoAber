@@ -58,7 +58,13 @@ public class ActivityDataService {
      * @return list of activity data items
      */
     public List<ActivityData> findAllForUserWithUnit(User user, String unit) {
-        return getFacade().getAllForUserWithUnit(user.getIdUser(), unit);
+        return findAllForUserWithUnit(user.getIdUser(), unit);
+    }
+    
+    public List<ActivityData> findAllForUserWithUnit(int id, String unit) {
+        List<ActivityData> data =  getFacade().getAllForUserWithUnit(id,  unit);
+        HashMap<Date, List<ActivityData>> groups = groupActivityDataByDate(data);
+        return combineGroupsByDate(groups);   
     }
       
     /** Get a single activity data item by id
@@ -226,7 +232,7 @@ public class ActivityDataService {
      * @return a summary object for all data held by the system.
      */
     public StatisticsSummary userSummary(int id, String unit) {
-       List<ActivityData> data = getFacade().getAllForUserWithUnit(id, unit);
+       List<ActivityData> data = findAllForUserWithUnit(id, unit);
        return new StatisticsSummary(data);
     }
     

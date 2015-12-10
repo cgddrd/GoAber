@@ -31,10 +31,10 @@
                     {
                         <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_ActivityData, "WeeklySummary", "ActivityDatas", new {area = ""}, null)</li>
                         <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Challenges, "Index", "Challenge", new {area = ""}, null)</li>
+                        <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_LeaderBoards, "Index", "LeaderBoards", new { area = "" }, null)</li>
                         <li>@Html.ActionLink(Resources.Device_IndexNavigation, "Index", "Devices", new { area = "" }, null)</li>
                         <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_WebServiceAuth, "Index", "WebServiceAuths", new {area = ""}, null)</li>
-                        <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Results, "Index", "Results", new { area = "" }, null)</li>
-
+                        
                         if (ApplicationUserService.IsCurrentApplicationUserInRole("Administrator"))
                         {
                             @*
