@@ -117,6 +117,15 @@ The steps (shown in figure~\ref{fig:testing_cucumberCodeSteps}) only have to be 
 \end{center}
 \end{figure}
 
+Using the SpecFlow library has also resulted in the automated creation of testing statistics similar to that of standard cucumber. Shown in figure ~\ref{fig:testing_html_results} is the result from running tests, where a useful html page has been created. The page shows run time, number of tests in each feature, alongside descriptions of each of the tests, and reasons for any failures. As the figure shows, no tests failed at the stage of completion of testing. Where failures were found during the testing process, fixes were completed to the application.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{images/testing/specflowResults.jpg} 
+\caption{Cucumber test results, generated inside HTML pages}
+\label{fig:testing_html_results}
+\end{center}
+\end{figure}
 
 \section{SOAP Communication}
 To test that 3rd-party applications can send our application activity data a second application was created. This second application just sends activity data to our main application. 
