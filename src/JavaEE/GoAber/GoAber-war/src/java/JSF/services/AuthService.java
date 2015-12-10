@@ -35,6 +35,14 @@ public class AuthService implements Serializable {
 
     @EJB
     private SessionBean.UserFacade userFacade;
+    
+    public AuthService() {
+       
+    }
+    
+    public AuthService(User newActiveUser) {
+        this.activeUser = newActiveUser;
+    }
 
 
     @PostConstruct
@@ -59,20 +67,27 @@ public class AuthService implements Serializable {
     }
 
     public User getActiveUser() {
-        activeUser = userFacade.find(activeUser.getIdUser());
-
-        if (activeUser == null) {
-
+        
+        try {
+            
+            activeUser = userFacade.find(activeUser.getIdUser());
+            
+            if (activeUser == null) {
+                throw new NullPointerException("ActiveUser set to null. Destroying session.");
+            }
+            
+        } catch (Exception ex) {
+           
             try {
                 logoutUser(true);
                 return null;
-            } catch (IOException ex) {
+            } catch (IOException ioEx) {
                 Logger.getLogger(AuthService.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
         }
-
-        return this.activeUser;
+        
+        return activeUser;
 
     }
 
@@ -137,7 +152,7 @@ public class AuthService implements Serializable {
     public void checkLogoutStatus() {
 
         Map<String, String> urlParameterMap = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-
+        
         // CG - Check to see if the logout was normal, or is it was triggered by an error on the active user's account.
         if (urlParameterMap.containsKey("logoutStatus")) {
 
@@ -150,6 +165,7 @@ public class AuthService implements Serializable {
             if (logoutStatusParam.equals("success")) {
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LogoutSuccess"));
             }
+
         }
 
     }
@@ -215,6 +231,13 @@ public class AuthService implements Serializable {
 
         }
 
+    }
+
+    /**
+     * @param userFacade the userFacade to set
+     */
+    public void setUserFacade(SessionBean.UserFacade userFacade) {
+        this.userFacade = userFacade;
     }
 
 }
