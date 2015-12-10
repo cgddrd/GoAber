@@ -14,10 +14,19 @@ namespace GoAber
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    namespaces: new string[] { "GoAber.Controllers" }
+            //);
+
+            // CG - Changed the default routing to redirect to the 'WeeklySummary' page for user activity data. 
+            // (Redirects to login if user is not logged in).
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                defaults: new { controller = "ActivityDatas", action = "WeeklySummary", id = UrlParameter.Optional },
                 namespaces: new string[] { "GoAber.Controllers" }
             );
         }
