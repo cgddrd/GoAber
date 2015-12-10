@@ -1,2 +1,104 @@
 \chapter{Development Methodology}
 
+Prior to initiating any technical design or implementation, it was first necessary to investigate and select an appropriate development methodology capable of maximising both the feature-set and quality of the end product, whilst managing within the constraints of the allocated project budget.
+
+\section{Analysis of the Project Characteristics}
+
+In evaluating the suitability of a particular software development methodology (SDM), there exists an intrinsic relationship between the individual characteristics of a project, and the overall effectiveness a development methodology demonstrates. With this in mind, a project team must first identify the specific considerations that exist in relation to their project, if they wish to perform an accurate evaluation of a given development methodology.
+
+Within a typical software project, critical areas for consideration tend to focus on aspects including: the predicted level of technical complexity, the type and severity of imposed budget constraints and the level and availability of project resources. Having first completed a thorough analysis of the customer requirements, the team found themselves in a suitable position to define what project-specific criteria a given SDM would need to address, in order for it to be put forward for consideration.
+
+\subsection{Team Resources} 
+
+Consisting of five full-time members, the team represented a size that was standard for projects of similar size and complexity typically seen across the software development industry \cite{scrum}. 
+
+Given that all five members would be participating in a development capacity, it became clear that large bodies of technical work (e.g. an individual customer requirement) would require splitting into a number of smaller and more manageable tasks. As well as providing an opportunity for the team to discuss and establish the exact details of a given requirement (referring back to the customer if required), this process of breaking-down the high-level requirements into more tangible items of work would subsequently provide a level of scope in which individual tasks could be assigned for completion within a relatively short, yet realistic timeframe. Ideally, these distinct blocks of work would remain isolated from one another, so as to negate the risk of bottlenecks forming caused by sequential dependencies on the work undertaken between two or more developers.
+
+For requirements presenting more in-depth functional behaviour, the situation could arise where multiple developers have to work together, either on accomplishing a single task, or in the more likely case, on \textit{individual tasks} that reside within the same \textit{functional domain}. From analysing the requirements specified by the customer, the team identified a number of situations in the project timeline where the latter case was likely to be experienced. 
+
+One such example was predicted for the implementation of challenges (C-FR1, C-FR4), where it was concluded that the various tasks necessary to implement such a feature would become too tightly-integrated to allow for a complete decoupling of those tasks between developers (e.g. in the case of the work between opening a new challenge and closing an existing challenge). In this situation, it is highly likely that a given developer may in fact have tasks assigned to them that focus on entirely different aspects of the end product. A suitable development methodology would therefore have to support the possibility of managing work taking place concurrently across multiple functional domains (e.g. user registration, login and challenges all at the same time).
+
+\subsection{Technical Complexity}
+
+ With the expectation that unforeseen technical issues were likely to arise given the team's lack of experience   with the specified web technologies (ASP.NET and JavaEE), the team were keen to ensure that should the situation call for it, both current and future work could be re-scheduled in response to ongoing technical issues or following a need to conduct redesigns of the architectural structure. 
+ 
+These same concerns were also considered in relation to the design process, where - in considering the overall complexity of the expected systems and the lack of technology-specific experience within the team - it was generally agreed that undertaking too much detailed design up-front was (for the most part) likely be in vain, and also presented a significant risk of causing future design restrictions or complications that would inevitably become greatly more expensive to fix following the implementation of core system components.
+
+Following on from the design and implementation of the two systems, performing appropriate testing was clearly going to be of great importance in guaranteeing delivery of a quality product to the customer. In addition to evaluating the overall stability of the two systems, the team recognised that testing also provided the primary mechanism by which it could be confirmed that the implementations continued to correctly uphold the functional and behavioural requirements initially specified by the customer. With this in consideration, testing was to become directly integrated as part of the overall development process. It was the hope of the team, that by enforcing the successful completion of testing prior to accepting the marked completion of a given task, it would become possible to avoid many of the costly bugs and changes that tend to arise in the absence of sufficient testing. 
+ 
+ \subsection{Project Budget}
+
+Within any software project, arguably the most crucial aspect falls to the level of budget allocated to it. The consequences of failing to correctly manage a software project within the constraints of the available budget have in recent years made headline news \cite{bbc-it}, typically costing vast amounts of time and money that have since far outgrown their originally agreed limits.
+
+In the case of the \textit{GoAber} project, it was to be time, rather than any financial cost, that would represent the primary constraint upon its allocated budget. With a total duration of just under two months, the team quickly realised that given their overall lack of experience with the specific web technologies, delivering all of the expected requirements within this timeframe was likely to become an unachievable goal. For this reason, it therefore became a necessity that work could be prioritised, so to give clear focus and effort on those areas of the system deemed most crucial by both the developers, and more importantly that of the customer. 
+
+ Whilst for this project the customer was able to provide a comprehensive collection of requirements up front, in the event that the customer wished to make alterations or introduce new features much further into the project, then of course it would become highly desirable for the adopted development process to demonstrate a reasonable degree of flexibility in response to sudden changes. Of course, an ability to prioritise tasks would serve little merit if the only time that this was to take place was at the start of the project. Given that there was a high risk of work becoming delayed due to technical challenges, it would become just as important for the adopted development methodology to not only allow for the flexible \textit{re-prioritisation} of work, but also for it to provide \textit{regular} opportunities in which both the team and the customer could discuss together what, if any, priority changes should be agreed.
+ 
+
+\section{Methodology Process}
+
+Following analysis of the considerations set out for the project, it soon became clear that an agile approach would be prove to be much more appropriate than that of a traditional plan-driven approach.
+
+In the case of a plan-driven approach to software development (e.g. Waterfall), the process that a project follows takes the form of a set of distinct lifecycle `stages', in which it is expected that tasks including the design, implementation and testing of a system are conducted in total isolation from one another following a rigid sequential order.
+
+Whilst an agile approach also follows a process of development through iteration, in contrast to plan-driven methodologies, these iterations tend to be much shorter and more frequent. Consequently, the agile process presents a much greater opportunity for development teams to frequently review the current progress and technical status of a project, thereby allowing for appropriate action (such as the re-prioritisation of tasks) to be taken much sooner with the aim of reducing the overall cost that the identified issue has on the overall project. Agile also supports (and actively encourages) the simultaneous design, implementation and testing of multiple system components. This has the major benefit of enabling development teams to distribute their efforts much more efficiently across the range of features to be implemented, and allows for the deployment of specific skill-sets and knowledge to focus more precisely on areas where they would be deemed most effective.
+
+Given the concerns raised over the need to re-prioritise work in the likely event of technical issues, and the lack of confidence shown in producing a detailed design up-front, the sequential nature of a plan-driven approach would be expected to provide very little in the way of useful support. Indeed, it would not be an unfair assessment to state that an approach adopting such a rigid framework would be likely to cause more hindrance than electing to adopt no particular approach at all.
+
+ By choosing to follow an agile approach, development work was able to begin much more quickly, which in turn allowed for key observations and new-found knowledge contribute back into ongoing design and implementation discussions.
+
+
+\subsection{Work Planning}
+The decision was taken to adopt a SCRUM-based approach for the planning, recording and organisation of project tasks. Given that it itself is founded upon the idea of empiricism \cite{scrum}, SCRUM boasts a capacity to appreciate that unpredicted changes (identified as highly probable in the analysis of the project considerations) can not effectively be addressed using a fixed sequential approach. 
+ 
+Having first decomposed the high-level requirements into a collection of individual units of work (known formally as Product Backlog Items), all of the foreseen work planned across the entire project was allocated an initial priority, before being added to a top-level product backlog ready for future partitioning into what would become a series of time-boxed project sprints.
+
+To maximise the focus given by the team on project development rather than on its management, the team chose to utilise a third-party service \footnote{\url{https://cgddrd.visualstudio.com/DefaultCollection/GoAber}} to manage the overall planning of the project and its work. Providing free usage for up to five developers, Visual Studio Online (VSO) \cite{vso} represents a complete suite of web-based tools designed to replicate a fully-comprehensive development ecosystem. As well as providing interactive tools to planning and monitoring project tasks, VSO also boasts an integrated build system and automated testing environment. Further details on some of these features are discussed later in this section.
+ 
+The routine prioritisation of work undertaken for each sprint iteration was typically based upon on discussions conducted internally within the team. However in situations where severe changes in priority were required (e.g. in the case that a feature needed to be dropped), these discussions were naturally also extended to gain the opinion of the customer. In the event that new work items were discovered, these were added immediately to the product backlog, in anticipation for allocation into a future sprint.
+
+Each sprint followed a 6-day development cycle, allowing one full day off a week to allow time for focus on other projects. The only exception to this pattern was that made for the first sprint, where it was decided that a 2-week sprint duration would be more appropriate to allow developers enough time to experiment with the ASP.NET and JavaEE technologies prior to producing worthwhile components.
+
+Sprint planning meetings took place every Tuesday morning, indicating the transition from the end of one sprint, and the start another. These meetings focussed on the planning of work for the coming week, providing an opportunity to discuss any changes that any member of the team (or indeed the customer if necessary) felt were required in light of events take took place over the previous sprint. These meetings also represented the one formal appointment each week to meet with the project manager (Nigel Hardy). Although its main focus was for the manager to ensure that the project remained on track, these appointments also provided an opportunity for the team to gain specific guidance relating to both organisational and technical queries.
+
+On the final day of the sprint (Monday), a sprint review and retrospective meeting was conducted to inspect and discuss the work completed (review) along with any changes that were deemed necessary relating to the process and tools currently in use (retrospective). 
+
+After considering the existing frequency of contact between developers, formal daily scrum meetings were not expected to bring much additional value, and so for this project were not arranged.
+
+Given that all five team members were expected to contribute to the technical development of the two systems, it became inevitable that some members would have to be allocated multiple roles in order for the team to correctly adhere to the principles set out by the SCRUM approach. One team member was selected to become the product owner, who held sole  responsibility for managing the product backlog, and providing the communication link between the team and the external customer. Another developer was selected to become the scrum master, and as such was expected to provide advice and guidance to other team members on how best to conform to the SCRUM principles in order to maximise the overall benefits of adopting the methodology.
+
+\subsection{Design}
+
+Having previously established that a detailed up-front design for the two web-based systems was likely to represent a poor choice for this project, the team instead needed to choose a design strategy that presented regular opportunities for the design to be reviewed and updated appropriately following feedback acquired from previous observations and research.
+
+Held in high regard by those supporting the ideas behind Extreme Programming, evolutionary design describes a design process which allows for the design of a system to be modified as the system is implemented \cite{martin-fowler}. 
+
+By adopting such an approach for this project, the team were able to address identified issues right from within the \textit{underlying design} of the system, rather than been forced to write generally untidy and potentially dangerous patches that could at best, only mask effects of the underlying problem.
+
+
+\subsection{Development \& Testing}
+
+In order for evolutionary design to remain beneficial and not become a hindrance, the team would have to be prepared to perform regular refactoring of code alongside extensive testing of both the stability and functional capabilities of the two systems \cite{martin-fowler}.
+
+Adopting Git as the underlying version control system, all code was pushed to both a primary and secondary remote repository (Visual Studio Online and Github respectively) in case of an event where the team experienced service downtime from either supplier. Due to the maximum user limit enforced by Visual Studio Online, the secondary repository also provided both the project manager and the external customer with access to inspect the current technical state of the project.
+
+With the aim of minimising the risk for poor quality code and bad programming practices to become introduced into the end products, the team defined the use of two `special' branches for protecting the current working state of the project held within the repository. Following principles introduced originally by the \textit{git-flow} workflow \cite{git-flow}, the repository always held the \textit{current working state} of the project inside what is known as the `master' branch. In the event that the customer requested a copy of the system to inspect, it would be the version held inside `master' that the team would provide. In light of this, no changes were permitted to the  `master' branch without explicit approval from at least two other developers. Under normal operating circumstances, the only time that a change to `master' would ever be permitted would be when the team wished to bring across the new feature set that had previously been implemented and thoroughly tested over the last sprint. To allow the opportunity for developers to integrate their new features during a sprint, a second branch called `develop' was defined, that held the latest integration of feature sets  recently completed within the given sprint. 
+
+Whilst it would be permittable (although undesirable) for breaking changes or build errors to be found within `develop' branch, it would be wholly unacceptable for this to be true of the `master' branch. For both the `develop' and `master' branches, automatic policies were setup using Visual Studio Online, that ensured all merge requests for either branch had to be performed via individual pull requests that required approval by two other developers prior to merging.
+
+Continuous integration was also established for the ASP.NET project using the automated build and testing service provided as part of the Visual Studio Online application suite. Unfortunately, this task proved to be much more involved in the case of the JavaEE project, and subsequently become too much work to complete within the available remaining time. 
+
+
+Although no formalised approach to testing was defined within the project, all team members were made aware that responsibility for ensuring the stability of their submitted features fell solely on their shoulders. 
+
+Whilst much of the testing for a given section of code was to be undertaken by the its original author, the submission of a new pull request provided a critical opportunity for other developers to test the submitted code prior to it being merged into the main `develop' branch. With the author providing test instructions directly within a pull request, reviewers were free to either accept or reject the request based upon the results of their testing. By being able to also leave comments on the pull request, it became possible to easily communicate any errors to the author, and if required, engage in dialogue before re-testing submitted fixes.
+
+\subsection{Progress Monitoring}
+
+Accurately tracking the progress of work is an aspect that is vital to the success of any software development project, and as such requires careful consideration in order to provide truly representative and useful performance information. 
+
+As a consequence of managing work via the Visual Studio Online system (and one for which the system was originally selected), data relating to the progress and overall performance of SCRUM sprints were provided via automatically generated burn-down charts representing the measure of work completed against the remaining work outstanding over the time period assigned to the given sprint.
+
+To obtain an estimate as to the team's overall performance in completing assigned tasks, Visual Studio Online also provided a breakdown of the overall velocity demonstrated throughout a given sprint. By comparing these velocity estimates across a range of subsequent sprints, the team was able to identify possible cases of both over and under-estimation of work expectations, that then allowed the accuracy of this estimation to become consistently better as time went on.
+
+
