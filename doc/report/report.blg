@@ -1,12 +1,9 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: report.aux
 The style file: plain.bst
 Database file #1: bibliography.bib
-I was expecting a `,' or a `}'---line 68 of file bibliography.bib
- :        year = "
- :                2015",
+Unbalanced braces---line 86 of file bibliography.bib
+ :        
+ :        }
+(Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "VSO"
-Warning--I didn't find a database entry for "Github"
-Warning--I didn't find a database entry for "quartz"
-Warning--I didn't find a database entry for "hangfire"
 (There was 1 error message)
