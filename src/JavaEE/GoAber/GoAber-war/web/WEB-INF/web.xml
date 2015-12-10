@@ -26,7 +26,8 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <!--<welcome-file>index.xhtml</welcome-file>-->
+        <welcome-file>activityData/WeeklySummary.xhtml</welcome-file>
     </welcome-file-list>
     
     <!--CG - Setting up of the form-based user authentication.-->    
@@ -40,17 +41,6 @@
         </form-login-config>
     </login-config>
 
-    <!--
-    CG - Use this approach if we want to perform basic authentication.
-    
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>GoAberRealm</realm-name>
-    </login-config>
-    
-    -->
-   
-    
     <security-constraint>
         <display-name>UserAccountAuth</display-name>
         <web-resource-collection>
@@ -62,6 +52,10 @@
             <url-pattern>/myaccount/*</url-pattern>
             <url-pattern>/faces/webServiceAuth/*</url-pattern>
             <url-pattern>/webServiceAuth/*</url-pattern>
+            <url-pattern>/activityData/*</url-pattern>
+            <url-pattern>/device/*</url-pattern>
+            <url-pattern>/Devices/*</url-pattern>
+            <url-pattern>/result/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>administrator</role-name>
@@ -88,18 +82,19 @@
         <web-resource-collection>
             <web-resource-name>AdminPages</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/audit/*</url-pattern>
+            <url-pattern>/dataRemovalAudit/*</url-pattern>
+            <url-pattern>/userRole/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>administrator</role-name>
         </auth-constraint>
     </security-constraint>
     
-
-
     <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
     <error-page>
         <error-code>403</error-code>
-        <location>/index.xhtml</location>
+        <location>/login/unauthorised.xhtml</location>
     </error-page>
     
     <servlet>

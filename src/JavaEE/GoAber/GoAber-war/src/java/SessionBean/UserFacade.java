@@ -5,6 +5,7 @@
  */
 package SessionBean;
 
+import GoAberDatabase.Team;
 import GoAberDatabase.User;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -84,6 +85,17 @@ public class UserFacade extends AbstractFacade<User> {
         queryEmployeesByFirstName.setParameter("idUser", id);
         
         User user = (User) queryEmployeesByFirstName.getSingleResult();
+        
+        return user;
+    }
+
+    public List<User> findUsersByTeam(int groupId) {
+        super.flushCache();
+        
+        Query queryEmployeesByTeam = em.createNamedQuery("User.findByTeam");
+        queryEmployeesByTeam.setParameter("groupId", groupId);
+        
+        List<User> user = (List<User>) queryEmployeesByTeam.getResultList();
         
         return user;
     }

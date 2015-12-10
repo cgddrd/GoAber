@@ -192,7 +192,11 @@ namespace GoAber.Controllers
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
+
+                    // CG - Ensure that we direct to the activity data weekly summary page after logging in if we have not specified a return URL.
+                    return RedirectToAction("WeeklySummary", "ActivityDatas");
+
                 }
                 AddErrors(result);
             }
@@ -425,7 +429,11 @@ namespace GoAber.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+
+            //return RedirectToAction("Index", "Home");
+
+            // CG - Ensure that we return to the login screen after logging out.
+            return RedirectToAction("Login");
         }
 
         //
@@ -482,7 +490,11 @@ namespace GoAber.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+
+            //return RedirectToAction("Index", "Home");
+
+            // CG - Ensure that we direct to the activity data weekly summary page after logging in if we have not specified a return URL.
+            return RedirectToAction("WeeklySummary", "ActivityDatas");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

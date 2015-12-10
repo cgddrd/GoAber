@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
+    <title>GoAber - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -21,20 +21,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink(Resources._Layout_cshtml_Execute_Application_name, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(Resources._Layout_cshtml_Execute_Application_name, "WeeklySummary", "ActivityDatas", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Home, "Index", "Home", new {area = ""}, null)</li>
-
+                    
                     @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_ActivityData, "WeeklySummary", "ActivityDatas", new {area = ""}, null)</li>
                         <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Challenges, "Index", "Challenge", new {area = ""}, null)</li>
-                        <li>@Html.ActionLink(Resources.Device_IndexNavigation, "Index", "Devices", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink(Resources.Device_IndexNavigation, "Index", "Devices", new {area = ""}, null)</li>
                         <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_WebServiceAuth, "Index", "WebServiceAuths", new {area = ""}, null)</li>
-                        <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Results, "Index", "Results", new { area = "" }, null)</li>
-
+                        <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Results, "Index", "Results", new {area = ""}, null)</li>
+                        <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_LeaderBoards, "Index", "LeaderBoards", new { area = "" }, null)</li>
+                        
                         if (ApplicationUserService.IsCurrentApplicationUserInRole("Administrator"))
                         {
                             @*
@@ -44,7 +44,7 @@
                             See: http://stackoverflow.com/a/2036325 for more information.
                             *@
                             <li>@Html.ActionLink(Resources._Layout_cshtml_Execute_Admin, "Index", "ControlPanel", new {area = "Admin"}, null)</li>
-    
+
                         }
                     }
                 </ul>
@@ -56,7 +56,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - GoAber! (Aberystwyth University)</p>
         </footer>
     </div>
 </body>

@@ -62,19 +62,9 @@ namespace GoAber.Models
         public DbSet<DataRemovalAudit> DataRemovalAudits { get; set; }
         public DbSet<UserChallenge> UserChallenges { get; set; }
         public DbSet<Job> Jobs { get; set; }
-
-        //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
-
-
-       // public System.Data.Entity.DbSet<GoAber.Models.Job> Jobs { get; set; }
-
         public DbSet<Audit> Audit { get; set; }
-		public System.Data.Entity.DbSet<GoAber.Models.WebServiceAuth> WebServiceAuths { get; set; }
-
-        public System.Data.Entity.DbSet<GoAber.Models.Result> Results { get; set; }
-
-        //public System.Data.Entity.DbSet<GoAber.Models.ApplicationUser> ApplicationUsers { get; set; }
-        //public GoAber.Models.Team Group { get; set; }
+		public DbSet<WebServiceAuth> WebServiceAuths { get; set; }
+        public DbSet<Result> Results { get; set; }
 
     }
 }
