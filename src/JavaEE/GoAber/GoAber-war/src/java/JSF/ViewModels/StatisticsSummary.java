@@ -9,6 +9,7 @@ import GoAberDatabase.ActivityData;
 import JSF.util.DateUtils;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,16 +26,28 @@ public class StatisticsSummary {
     private final String maxDate;
     
     public StatisticsSummary(List<ActivityData> data) {
-        total  = computeTotal(data);
-        average = computeMean(data);
         
-        ActivityData minItem = findMinItem(data);
-        min = minItem.getValue();
-        minDate = DateUtils.convertDateToString(minItem.getDate());
-        
-        ActivityData maxItem = findMaxItem(data);
-        max = maxItem.getValue();
-        maxDate = DateUtils.convertDateToString(maxItem.getDate());
+        if (!data.isEmpty()) {
+            total  = computeTotal(data);
+            average = computeMean(data);
+            
+            ActivityData minItem = findMinItem(data);
+            min = minItem.getValue();
+            minDate = DateUtils.convertDateToString(minItem.getDate());
+
+            ActivityData maxItem = findMaxItem(data);
+            max = maxItem.getValue();
+            maxDate = DateUtils.convertDateToString(maxItem.getDate());            
+        }
+        else {
+            total = 0;
+            average = 0;
+            min = 0;
+            minDate = DateUtils.convertDateToString(new Date());
+            max = 0;
+            maxDate = DateUtils.convertDateToString(new Date());
+        }
+
         
     }
     

@@ -130,20 +130,29 @@ namespace GoAber.Controllers
         }
 
 
+        public String FormatWalkingString(int day, int month, int year)
+        {
+            return String.Format("/moves?date={0}{1}{2}", year, month, day);
+        }
+
+        public String FormatHeartRateString(int day, int month, int year)
+        {
+            return String.Format("/moves?date={0}{1}{2}", year, month, day);
+        }
 
 
-        public override ActivityData GetWalkingSteps(int year, int month, int day)
+        public override ActivityData GetWalkingSteps(int year, int month, int day, bool useDB = false)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
 
-            ActivityData activityDay = GetWalkingSteps(String.Format("/moves?date={0}{1}{2}", year, month, day), "data.items[0].details.steps", user.Id, day, month, year);
+            ActivityData activityDay = GetWalkingSteps(FormatWalkingString(day,month, year), "data.items[0].details.steps", user.Id, day, month, year);
             return activityDay;
         }
 
-        public override ActivityData GetHeartRate(int year, int month, int day)
+        public override ActivityData GetHeartRate(int year, int month, int day, bool useDB = false)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            ActivityData activityHeart = GetHeartRate(String.Format("/heartrates?date={0}{1}{2}", year, month, day), "data.items[0].resting_heartrate", user.Id, day, month, year);
+            ActivityData activityHeart = GetHeartRate(FormatWalkingString(day, month, year), "data.items[0].resting_heartrate", user.Id, day, month, year);
             
             return activityHeart;
         }

@@ -38,7 +38,12 @@ namespace GoAber
             io_ac = new AccountController();
         }
 
-
+        /// <summary>
+        /// Recieves activity data from a client.
+        /// Authenticates them. If authenticated then adds data that they request.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [SoapHeader("Authentication")]
         [WebMethod]
         [XmlInclude(typeof(WebService.ActivityData))]
@@ -68,16 +73,6 @@ namespace GoAber
             io_db.SaveChanges();
             return true;
         }
-
-        //private bool IsAdmin(ApplicationUser ao_user)
-        //{
-        //    List<IdentityUserRole> lo_roles = ao_user.Roles.ToList();
-        //    for (int i = 0; i < lo_roles.Count; i++)
-        //    {
-        //        var query = from r in io_db.Roles
-        //                    where 
-        //    }
-        //}
 
         private WebServiceAuth Authenticate()
         {

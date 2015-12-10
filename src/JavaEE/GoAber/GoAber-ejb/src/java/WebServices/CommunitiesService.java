@@ -20,6 +20,12 @@ public class CommunitiesService {
     
     @EJB CommunityFacade io_comFacade;
     @EJB ChallengeWSConsumer io_challengesConsumer;
+    /**
+     * Requests a community contract with a remote community.
+     * Saves the response.
+     * @param ao_community
+     * @return 
+     */
     public Community RequestContract(Community ao_community) {
         if (ao_community.getHome()) return ao_community;
         

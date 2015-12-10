@@ -7,6 +7,10 @@ using System.Web;
 
 namespace GoAber.Scheduling
 {
+    /// <summary>
+    /// Singleton.
+    /// Creates a new Scheduler.
+    /// </summary>
     public class SchedulerFactory
     {
 

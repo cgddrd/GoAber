@@ -29,6 +29,7 @@ namespace GoAber.Areas.Admin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private ActivityDataService dataService = new ActivityDataService();
         private CategoryUnitService categoryUnitService = new CategoryUnitService();
+        private ApplicationUserService applicationUserService = new ApplicationUserService();
 
         private ApplicationUserManager _userManager;
 
@@ -223,7 +224,8 @@ namespace GoAber.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BatchDelete(FilterViewModel filterParams, string message)
         {
-            ApplicationUser user = ApplicationUserService.GetApplicationUserById(User.Identity.GetUserId());
+
+            ApplicationUser user = applicationUserService.GetApplicationUserById(User.Identity.GetUserId());
 
             if (user == null)
             {

@@ -11,6 +11,7 @@ using System.Web;
 
 namespace GoAber.App_Code.Scheduling.Jobs
 {
+
     public class ChallengeJob : IJob
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -20,7 +21,12 @@ namespace GoAber.App_Code.Scheduling.Jobs
         }
 
 
-
+        /// <summary>
+        /// Runs a challenge job.
+        /// Closes the challenge, sends results to other community if it is a cross community challenge.
+        /// Stores results in database.
+        /// </summary>
+        /// <param name="args"></param>
         public void Run(string[] args)
         {
             try {

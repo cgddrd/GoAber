@@ -9,8 +9,9 @@
 
         See: http://stackoverflow.com/a/26254041 for more information.
     *@
-using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-{
+
+    using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
 
     // CG - Removed temporarily to patch Fitbit initial request issues.
     // Action for CH to look into further (9/11/15)
@@ -35,6 +36,7 @@ using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, n
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
+
 }
 else
 {

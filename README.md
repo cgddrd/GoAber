@@ -16,7 +16,11 @@ Update-Database -ProjectName GoAber
 When this succeeds the project should be rebuilt from scratch and then deployed. By default the system will run on localhost.
 
 ### In JavaEE
-To run the JavaEE project navigate to the JavaEE folder and open the project with Netbeans. In order to make sure the WSDL is available on the front end you must copy the 'WSDL' folder from:
+To run the JavaEE project navigate to the JavaEE folder and open the project with Netbeans.
+
+Firstly you need to create a start the database. Start by setting up and running a MySQL server on your machine. You must then run two database creation files. These are both located in the database folder at the top level directory of the project folder. Run the GoAber_Create_Structure.sql file to create the structure of the database, then run the GoAber_Insert_Data.sql file to seed the database.
+
+In netbeans, in order to make sure the WSDL is available on the front end you must copy the 'WSDL' folder from:
 
 GoAber\src\JavaEE\GoAber\GoAber-ejb\build\classes\META-INF
 
