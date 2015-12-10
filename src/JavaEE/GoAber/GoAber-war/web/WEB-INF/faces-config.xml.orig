@@ -12,49 +12,8 @@
             <base-name>/Bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/AdminBundle</base-name>
-            <var>admin</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
-<<<<<<< HEAD
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
-        <resource-bundle>
-            <base-name>/Bundle</base-name>
-            <var>bundle</var>
-        </resource-bundle>
-=======
         
+<<<<<<< HEAD
         <!-- CG - Declare reference to new bundle file specifically for authentication-related content. -->
         <resource-bundle>
             <base-name>/AuthBundle</base-name>
@@ -64,7 +23,20 @@
         <resource-bundle>
             <base-name>/AccountBundle</base-name>
             <var>accountBundle</var>
-        </resource-bundle>    
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/Bundle</base-name>
+            <var>bundle</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleResults</base-name>
+            <var>bundleResults</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleResults</base-name>
+            <var>bundleResults</var>
+        </resource-bundle>
+=======
 >>>>>>> develop
     </application>
 </faces-config>

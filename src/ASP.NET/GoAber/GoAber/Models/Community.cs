@@ -12,6 +12,7 @@ namespace GoAber.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Community
     {
@@ -23,12 +24,19 @@ namespace GoAber.Models
         }
     
         public int Id { get; set; }
-        [DisplayName("Name")]
+        [Display(Name = "community_name", ResourceType = typeof(Resources.Resources))]
         public string name { get; set; }
-        [DisplayName("Endpoint URL")]
-        public string endpointUrl { get; set; }
+        
+        [Display(Name = "community_endpointUrl", ResourceType = typeof(Resources.Resources))]
+        public string domain { get; set; }
+
+        [DisplayName("Challenges Endpoint")]
+        public string challengesEndpoint { get; set; }
+
+        public string authtoken { get; set; }
 
         public bool home { get; set; }
+
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Team> teams { get; set; }

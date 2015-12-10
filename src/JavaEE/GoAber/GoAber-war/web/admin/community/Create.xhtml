@@ -23,9 +23,23 @@
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateCommunityLabel_endpointUrl}" for="value" />
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateCommunityLabel_domain}" for="value" />
                         <div class="col-md-10">
-                            <h:inputText class="form-control" id="endpointUrl" value="#{adminCommunityController.selected.endpointUrl}" title="#{bundle.CreateCommunityTitle_endpointUrl}" />
+                            <h:inputText class="form-control" id="domain" value="#{adminCommunityController.selected.domain}" title="#{bundle.CreateCommunityTitle_domain}" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateCommunityLabel_challengesEndpoint}" for="value" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="challengesEndpoint" value="#{adminCommunityController.selected.challengesEndpoint}" title="#{bundle.CreateCommunityTitle_challengesEndpoint}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-md-2 control-label" value="#{bundle.CreateCommunityLabel_home}" for="value" />
+                        <div class="col-md-10">
+                            <h:inputText class="form-control" id="home" value="#{adminCommunityController.selected.home}" title="#{bundle.CreateCommunityTitle_home}" />
                         </div>
                     </div>
 
@@ -40,6 +54,7 @@
                             <h:commandLink action="#{adminCommunityController.prepareList}" value="#{bundle.CreateCommunityShowAllLink}" immediate="true"/>
                         </div>
                     </div>
+                    
                 </div>
             </h:form>
         </ui:define>
