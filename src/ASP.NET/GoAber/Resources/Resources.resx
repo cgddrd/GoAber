@@ -178,7 +178,7 @@
     <value>Invalid code.</value>
   </data>
   <data name="_Layout_cshtml_Execute_Application_name" xml:space="preserve">
-    <value>Go Aber</value>
+    <value>GoAber!</value>
   </data>
   <data name="_Layout_cshtml_Execute_Home" xml:space="preserve">
     <value>Home</value>
@@ -760,9 +760,6 @@
   <data name="CompletedGroupChallengesLink" xml:space="preserve">
     <value>Completed Group Challenges</value>
   </data>
-  <data name="challenge_categoryUnitId" xml:space="preserve">
-    <value>Activity type</value>
-  </data>
   <data name="CoordinatorChallengesLink" xml:space="preserve">
     <value>Coordinate Challenges</value>
   </data>
@@ -924,5 +921,20 @@
   </data>
   <data name="Device_NumberOfSteps" xml:space="preserve">
     <value>Number of steps :</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="YourGroup" xml:space="preserve">
+    <value>Your Group</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Results</value>
+  </data>
+  <data name="result_challengeId" xml:space="preserve">
+    <value>Challenge</value>
+  </data>
+  <data name="result_communityId" xml:space="preserve">
+    <value>Community</value>
   </data>
 </root>

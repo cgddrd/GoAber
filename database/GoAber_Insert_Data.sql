@@ -61,7 +61,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `tasktype` WRITE;
 /*!40000 ALTER TABLE `tasktype` DISABLE KEYS */;
-INSERT INTO `tasktype` VALUES ('Fitbit', 'Fitbit'),('Challenge', 'Challenge');
+INSERT INTO `tasktype` VALUES ('Fitbit', 'Fitbit'),('Challenge', 'Challenge'), ('Jawbone', 'Jawbone'); 
 /*!40000 ALTER TABLE `tasktype` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,13 +98,12 @@ INSERT INTO `devicetype` (`name`,`tokenEndpoint`,`consumerKey`,`consumerSecret`,
 
 -- Dump completed on 2015-11-10 14:41:17
 
-INSERT INTO `goaber`.`category` (`name`) VALUES ('Walking');
+INSERT INTO `category` (`name`) VALUES ('Walking');
 
-INSERT INTO `goaber`.`unit` (`name`) VALUES ('steps');
+INSERT INTO `unit` (`name`) VALUES ('steps');
 
-INSERT INTO `goaber`.`categoryunit` (`categoryId`, `unitId`) VALUES ('1', '1');
+INSERT INTO `categoryunit` (`categoryId`, `unitId`) VALUES ('1', '1');
 
 
-INSERT INTO `goaber`.`webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('admin_token', 'TestApp', '1');
-INSERT INTO `goaber`.`webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('user_token', 'TestApp', '3');
-
+INSERT INTO `webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('admin_token', 'TestApp', '1');
+INSERT INTO `webserviceauth` (`authtoken`, `appname`, `userid`) VALUES ('user_token', 'TestApp', '3');

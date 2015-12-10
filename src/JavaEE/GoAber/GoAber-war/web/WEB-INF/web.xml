@@ -4,12 +4,10 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-    
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>bootstrap</param-value>
     </context-param>
-    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -26,11 +24,10 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <!--<welcome-file>index.xhtml</welcome-file>-->
+        <welcome-file>activityData/WeeklySummary.xhtml</welcome-file>
     </welcome-file-list>
-    
-    <!--CG - Setting up of the form-based user authentication.-->    
-
+    <!--CG - Setting up of the form-based user authentication.-->
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>GoAberRealm</realm-name>
@@ -39,18 +36,6 @@
             <form-error-page>/login/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
-
-    <!--
-    CG - Use this approach if we want to perform basic authentication.
-    
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>GoAberRealm</realm-name>
-    </login-config>
-    
-    -->
-   
-    
     <security-constraint>
         <display-name>UserAccountAuth</display-name>
         <web-resource-collection>
@@ -62,6 +47,10 @@
             <url-pattern>/myaccount/*</url-pattern>
             <url-pattern>/faces/webServiceAuth/*</url-pattern>
             <url-pattern>/webServiceAuth/*</url-pattern>
+            <url-pattern>/activityData/*</url-pattern>
+            <url-pattern>/device/*</url-pattern>
+            <url-pattern>/Devices/*</url-pattern>
+            <url-pattern>/result/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>administrator</role-name>
@@ -69,7 +58,6 @@
             <role-name>participant</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <security-constraint>
         <display-name>CoordinatorAreaAuth</display-name>
         <web-resource-collection>
@@ -82,42 +70,37 @@
             <role-name>coordinator</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <security-constraint>
         <display-name>AdminAreaAuth</display-name>
         <web-resource-collection>
             <web-resource-name>AdminPages</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
+            <url-pattern>/audit/*</url-pattern>
+            <url-pattern>/dataRemovalAudit/*</url-pattern>
+            <url-pattern>/userRole/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>administrator</role-name>
         </auth-constraint>
     </security-constraint>
-    
-
-
     <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
     <error-page>
         <error-code>403</error-code>
-        <location>/index.xhtml</location>
+        <location>/login/unauthorised.xhtml</location>
     </error-page>
-    
     <servlet>
         <servlet-name>Jersey Web Application</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-	
-	<init-param>
+        <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
             <param-value>rest</param-value>
-         </init-param>
-    
-         <load-on-startup>1</load-on-startup>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
-
     <ejb-local-ref>
         <ejb-ref-name>ejb/DeviceTypeFacade</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -166,14 +149,12 @@
         <local>SessionBean.TeamFacade</local>
         <ejb-link>TeamFacade</ejb-link>
     </ejb-local-ref>
-    
     <ejb-local-ref>
         <ejb-ref-name>ejb/CommunityChallengeFacade</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
         <local>SessionBean.CommunityChallengeFacade</local>
         <ejb-link>CommunityChallengeFacade</ejb-link>
     </ejb-local-ref>
-    
     <ejb-local-ref>
         <ejb-ref-name>ejb/ChallengeFacade</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -195,4 +176,17 @@
         <ejb-link>ChallengeWSConsumer</ejb-link>
     </ejb-local-ref>
     
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/JawboneEJB</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>Devices.JawboneEJB</local>
+        <ejb-link>JawboneEJB</ejb-link>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/UserFacade</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>SessionBean.UserFacade</local>
+        <ejb-link>UserFacade</ejb-link>
+    </ejb-local-ref>
 </web-app>

@@ -178,7 +178,7 @@
     <value>[WELSH]Invalid code.</value>
   </data>
   <data name="_Layout_cshtml_Execute_Application_name" xml:space="preserve">
-    <value>[WELSH]Go Aber</value>
+    <value>[WELSH]GoAber!</value>
   </data>
   <data name="_Layout_cshtml_Execute_Home" xml:space="preserve">
     <value>[WELSH]Home</value>
@@ -867,6 +867,12 @@
   </data>
   <data name="String1" xml:space="preserve">
     <value />
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="YourGroup" xml:space="preserve">
+    <value>Your Group</value>
   </data>
   <data name="Device_IndexNavigation" xml:space="preserve">
     <value>[WELSH]Devices</value>
