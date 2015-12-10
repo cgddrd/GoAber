@@ -61,7 +61,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `tasktype` WRITE;
 /*!40000 ALTER TABLE `tasktype` DISABLE KEYS */;
-INSERT INTO `tasktype` VALUES ('Fitbit', 'Fitbit'),('Challenge', 'Challenge');
+INSERT INTO `tasktype` VALUES ('Fitbit', 'Fitbit'),('Challenge', 'Challenge'), ('Jawbone', 'Jawbone'); 
 /*!40000 ALTER TABLE `tasktype` ENABLE KEYS */;
 UNLOCK TABLES;
 

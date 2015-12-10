@@ -36,6 +36,19 @@
             <form-error-page>/login/error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
+<<<<<<< HEAD
+    <!--
+    CG - Use this approach if we want to perform basic authentication.
+    
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>GoAberRealm</realm-name>
+    </login-config>
+    
+    -->
+=======
+
+>>>>>>> develop
     <security-constraint>
         <display-name>UserAccountAuth</display-name>
         <web-resource-collection>
@@ -83,6 +96,10 @@
             <role-name>administrator</role-name>
         </auth-constraint>
     </security-constraint>
+<<<<<<< HEAD
+=======
+    
+>>>>>>> develop
     <!--CG - Here we are auto-redirecting back to the homepage if the user is not authorised to view a protected page/resource.-->
     <error-page>
         <error-code>403</error-code>

@@ -1,7 +1,7 @@
 package JSF.services;
 
 import GoAberDatabase.User;
-import JSF.util.JsfUtil;
+import Util.JsfUtil;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
