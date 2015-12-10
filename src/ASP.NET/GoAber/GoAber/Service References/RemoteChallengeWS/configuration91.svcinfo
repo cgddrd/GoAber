@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="BSsRVD0agzdtKP3tSH7IRSg9G5o=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="FyJEoq/Tmf02OBuA7pwAlpuFyuM=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="GoAberChallengesWSSoap">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="GoAberChallengesWSSoap" contract="RemoteChallengeWS.GoAberChallengesWSSoap" bindingType="basicHttpBinding" address="http://localhost:50120/WebService/ChallengesWS/GoAberChallengesWS.asmx" bindingConfiguration="GoAberChallengesWSSoap">
+    <endpoint name="GoAberChallengesWSSoap" contract="RemoteChallengeWS.GoAberChallengesWSSoap" bindingType="basicHttpBinding" address="http://localhost:50122/WebService/ChallengesWS/GoAberChallengesWS.asmx" bindingConfiguration="GoAberChallengesWSSoap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:50120/WebService/ChallengesWS/GoAberChallengesWS.asmx</serializedValue>
+          <serializedValue>http://localhost:50122/WebService/ChallengesWS/GoAberChallengesWS.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

@@ -3,62 +3,68 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.ListWebServiceAuthTitle}"></h:outputText>
         </ui:define>
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
+            <h:form>
+                
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListWebServiceAuthEmpty}" rendered="#{webServiceAuthController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{webServiceAuthController.items.rowCount > 0}">
-                    <h:outputText value="#{webServiceAuthController.pagination.pageFirstItem + 1}..#{webServiceAuthController.pagination.pageLastItem + 1}/#{webServiceAuthController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{webServiceAuthController.previous}" value="#{bundle.Previous} #{webServiceAuthController.pagination.pageSize}" rendered="#{webServiceAuthController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{webServiceAuthController.next}" value="#{bundle.Next} #{webServiceAuthController.pagination.pageSize}" rendered="#{webServiceAuthController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{webServiceAuthController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+                
+                <div class="btn-group" role="group" >
+                    <h:commandLink class="btn btn-default" action="#{webServiceAuthController.prepareCreate}" value="#{bundle.ListWebServiceAuthCreateLink}"/>
+                
+                </div>
+                
+                
+                <p:dataTable id="webAuthTable" class="table" value="#{webServiceAuthController.items}" 
+                             emptyMessage="#{bundle.ListWebServiceAuthEmpty}"
+                             filteredValue="#{webServiceAuthController.items}" widgetVar="webAuthTable" var="item"
+                             rows="100" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10, 100, 200">
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListWebServiceAuthTitle_authtoken}"/>
                             </f:facet>
                             <h:outputText value="#{item.authtoken}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListWebServiceAuthTitle_appname}"/>
                             </f:facet>
                             <h:outputText value="#{item.appname}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListWebServiceAuthTitle_userid}"/>
                             </f:facet>
                             <h:outputText value="#{item.userid}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListWebServiceAuthTitle_expire}"/>
                             </f:facet>
                             <h:outputText value="#{item.expire}">
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{webServiceAuthController.prepareView}" value="#{bundle.ListWebServiceAuthViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{webServiceAuthController.destroy}" value="#{bundle.ListWebServiceAuthDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{webServiceAuthController.prepareCreate}" value="#{bundle.ListWebServiceAuthCreateLink}"/>
-                <br />
+                            <h:commandLink action="#{webServiceAuthController.prepareView(item)}" value="#{bundle.ListWebServiceAuthViewLink}"/>
+                            <br />
+                            <h:commandLink action="#{webServiceAuthController.destroy(item)}" value="#{bundle.ListWebServiceAuthDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
+                
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListWebServiceAuthIndexLink}"/>
             </h:form>

@@ -1,7 +1,7 @@
 ﻿@model GoAber.Models.Challenge
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = Resources.Challenges_createCommunity_title;
 }
 
     @Scripts.Render("~/bundles/jquery")
@@ -64,13 +64,13 @@
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="CreateCommunity" class="btn btn-default" />
+                    <input type="submit" value="@Resources.Create" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
     
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink(Resources.Challenge_BackToList, "Index")
     </div>
 

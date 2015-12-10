@@ -20,10 +20,12 @@
                 <br />
                 <h:link outcome="/challenge/NotEnteredCommunity" value="#{bundle.UnEnteredCommunity}"/>
                 <br /><br />
+                <h:link outcome="/result/List.xhtml" value="#{bundle.TemplatePage_Results}"/>
+                <br /><br />       
 
                  <c:choose>       
                     <c:when test="#{authService.coordinator}">
-                        <h:link outcome="/challenge/coordinator/Index" value="Coordinate Challenges"/>
+                        <h:link outcome="/challenge/coordinator/Index" value="#{bundle.CoordinateChallengesLink}"/>
                     </c:when>                         
                 </c:choose>
             </h:form>

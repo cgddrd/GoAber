@@ -37,13 +37,13 @@ namespace GoAber.Models
 
         public int Id { get; set; }
         
-        [DisplayName("Message")]
+        [Display(Name = "dataRemovalAudit_message", ResourceType = typeof(Resources.Resources))]
         public string message { get; set; }
 
-        [DisplayName("Data removed")]
+        [Display(Name = "dataRemovalAudit_dataRemoved", ResourceType = typeof(Resources.Resources))]
         public string dataRemoved { get; set; }
 
-        [DisplayName("Date removed")]
+        [Display(Name = "dataRemovalAudit_date", ResourceType = typeof(Resources.Resources))]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public Nullable<System.DateTime> date { get; set; }

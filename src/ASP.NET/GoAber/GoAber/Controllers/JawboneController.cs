@@ -34,7 +34,7 @@ namespace GoAber.Controllers
         
          private HttpWebRequest GetRequest(String code)
          {
-            DeviceType deviceType = findDeviceTypeByName(DeviceName());
+            DeviceType deviceType = deviceService.FindDeviceTypeByName(DeviceName());
             List<String[]> formdata = new List<String[]>();
             formdata.Add(new String[] { "client_id", deviceType.clientId });
             formdata.Add(new String[] { "client_secret", deviceType.consumerSecret });
@@ -57,19 +57,19 @@ namespace GoAber.Controllers
          *
          */
         public override ActionResult Callback(string code)
-          {
-              var user = UserManager.FindById(User.Identity.GetUserId());
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
 
-              WebServerClient jawbone = getClient();
+            WebServerClient jawbone = GetClient();
 
-              if (jawbone == null)
-              {
-                  ViewBag.Message += "Got token<br />";
-                  return View();
-              }
-              ViewBag.Message = String.Format("Started Callback with Code: {0}  ", code);
-              try
-              {
+            if (jawbone == null)
+            {
+                ViewBag.Message += "Got token<br />";
+                return Redirect("../Devices/Index");
+            }
+            ViewBag.Message = String.Format("Started Callback with Code: {0}  ", code);
+            try
+            {
                 HttpWebRequest request = GetRequest(code);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -94,40 +94,40 @@ namespace GoAber.Controllers
                 ViewBag.AccessTokenExpiration = DateTime.Now.AddSeconds(authorisation["expires_in"]); 
 
                 
-                  if (authorisation == null)
-                  {
-                      ViewBag.Message = "Device not authorised!";
-                      return View();
-                  }
+                if (authorisation == null)
+                {
+                    ViewBag.Message = "Device not authorised!";
+                    return Redirect("../Devices/Index");
+                }
 
-                  DeviceType deviceType = findDeviceTypeByName(DeviceName());
-                  if(deviceType == null)
-                  {
-                      ViewBag.Message = "Could not find jawbone connectivity settings!";
-                      return View();
-                  }
+                DeviceType deviceType = deviceService.FindDeviceTypeByName(DeviceName());
+                if(deviceType == null)
+                {
+                    ViewBag.Message = "Could not find jawbone connectivity settings!";
+                    return Redirect("../Devices/Index");
+                }
 
-                  Device device = new Device();
+                Device device = new Device();
 
-                  device.ConstructionFactory(
-                      authorisation["access_token"],
-                      authorisation["refresh_token"],
-                      deviceType.Id,
-                      DateTime.Now.AddSeconds(authorisation["expires_in"]),
-                      user.Id);
+                device.ConstructionFactory(
+                    authorisation["access_token"],
+                    authorisation["refresh_token"],
+                    deviceType.Id,
+                    DateTime.Now.AddSeconds(authorisation["expires_in"]),
+                    user.Id);
 
-                  Device temp = FindDevice(user.Id); // mock user ID for now - should be getting this from session?
+                Device temp = deviceService.FindDevice(user.Id, DeviceName()); // mock user ID for now - should be getting this from session?
                 
-                  db.Devices.Add(device);
-                  db.SaveChanges();
-                  return RedirectToAction("Index"); // redirect to list of actions
-              }
-              catch (Exception e)
-              {
-                  ViewBag.Message += "Exception accessing the code. " + e.Message;
-              }
-              return View();
-          }
+                db.Devices.Add(device);
+                db.SaveChanges();
+                return Redirect("../Devices/Index"); // redirect to list of actions
+            }
+            catch (Exception e)
+            {
+                ViewBag.Message += "Exception accessing the code. " + e.Message;
+            }
+            return Redirect("../Devices/Index");
+        }
 
 
 
@@ -148,7 +148,31 @@ namespace GoAber.Controllers
             return activityHeart;
         }
 
-        
+        [HttpPost, ActionName("GetActivityData")]
+        public ActionResult GetActivityData(DateTime dateJawbone, int jawboneDeviceID, int fitBitDeviceID, int fitbitSteps)
+        {
+            int day = dateJawbone.Day;
+            int month = dateJawbone.Month;
+            int year = dateJawbone.Year;
+
+            ActivityData activityDay = GetWalkingSteps(year, month, day);
+            if (activityDay != null)
+            {
+                ViewBag.JawboneSteps = activityDay.value;
+            }
+            else
+            {
+                ViewBag.JawboneSteps = 0;
+            }
+
+            ViewBag.JawboneConnected = true;
+            ViewBag.FitBitDeviceID = fitBitDeviceID;
+            ViewBag.JawboneDeviceID = jawboneDeviceID;
+            ViewBag.FitbitSteps = fitbitSteps;
+            return View("../Devices/Index");
+        }
+
+
         /////////////////
         //  Test code  //
         public ActionResult GetActivityDay()

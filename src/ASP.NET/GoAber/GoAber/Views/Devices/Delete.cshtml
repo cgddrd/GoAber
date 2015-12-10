@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = Resources.Device_DeleteTitle;
 }
 
-<h2>Device connections</h2>
+<h2>@Resources.Device_DeleteTitle</h2>
 
 <p>
-    <h2>@ViewBag.deviceName has had its connection revoked.</h2>
+    <h2>@ViewBag.deviceName @Resources.Device_DeleteConnectionRevoked</h2>
     <hr />
-    @Html.ActionLink("Back to device management", "Index", "Devices")
+    @Html.ActionLink(Resources.Device_DeleteBack, "Index", "Devices")
 </p>

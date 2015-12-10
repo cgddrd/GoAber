@@ -1,7 +1,7 @@
 ﻿@using GoAber.Services
     
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = Resources.Challenges_indexTitle;
 }
 
 <h2>@Resources.Challenges_indexTitle</h2>
@@ -18,7 +18,9 @@
     @Html.ActionLink(Resources.CompletedCommunityChallengesLink, "CompletedCommunity")
     <br />
     @Html.ActionLink(Resources.CompletedGroupChallengesLink, "CompletedGroup")
-    <br />
+    <br /><br />
+    @Html.ActionLink(Resources._Layout_cshtml_Execute_Results, "Index", "Results", new { area = "" }, null)
+    <br /><br />
     
 
     @if (Request.IsAuthenticated && (ApplicationUserService.IsCurrentApplicationUserInRole("Administrator") || ApplicationUserService.IsCurrentApplicationUserInRole("Coordinator")))

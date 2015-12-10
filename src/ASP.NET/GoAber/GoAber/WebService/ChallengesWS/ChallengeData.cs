@@ -16,6 +16,6 @@ namespace GoAber.WebService.ChallengesWS
 
         public string name { get; set; }
 
-        public int communityId { get; set; }
+        public string authtoken { get; set; }
     }
 }

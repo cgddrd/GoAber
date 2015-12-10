@@ -12,17 +12,17 @@ namespace GoAber.Models
     public class ApplicationUser : IdentityUser
     {
 
-        [Display(Name = "Nickname")]
+        [Display(Name = "identityModel_nickname", ResourceType = typeof(Resources.Resources))]
         public string Nickname { get; set; }
 
-        [Display(Name = "Date of Birth")]
+        [Display(Name = "identityModel_dob", ResourceType = typeof(Resources.Resources))]
         [DataType(DataType.Date)]
         // CG - In order for browser-rendered HTML5 date selectors to work properly, we need to use a date format that conforms with RFC-3339.
         // See: http://stackoverflow.com/a/12634470 for more information.
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
-        [Display(Name = "Team")]
+        [Display(Name = "identityModel_Team", ResourceType = typeof(Resources.Resources))]
         public int? TeamId { get; set; }
         public virtual Team Team { get; set; }
 

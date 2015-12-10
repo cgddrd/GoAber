@@ -16,7 +16,13 @@
             @Html.DisplayNameFor(model => model.name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.endpointUrl)
+            @Html.DisplayNameFor(model => model.domain)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.challengesEndpoint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.home)
         </th>
         <th></th>
     </tr>
@@ -27,7 +33,13 @@
             @Html.DisplayFor(modelItem => item.name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.endpointUrl)
+            @Html.DisplayFor(modelItem => item.domain)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.challengesEndpoint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.home)
         </td>
         <td>
             @Html.ActionLink(Resources.Resources.Edit, "Edit", new { id=item.Id }) |

@@ -20,8 +20,8 @@ public class FitBitJob extends AbstractJob {
     }
 
     @Override
-    public Integer getJobType() {
-       return 0;
+    public String getJobType() {
+       return "Fitbit";
     }
 
     @Override

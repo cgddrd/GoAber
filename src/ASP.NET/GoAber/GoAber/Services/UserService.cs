@@ -36,7 +36,7 @@ namespace GoAber.Services
             return transformedUsers.OrderByDescending(m => m.Total);
         }
 
-        public IEnumerable<GroupLeaderViewModel> GetSortedGroupsForUnit(int unit)
+        public IEnumerable<LeaderViewModel> GetSortedGroupsForUnit(int unit)
         {
             ActivityDataService dataService = new ActivityDataService();
 
@@ -50,7 +50,7 @@ namespace GoAber.Services
                             .Where(a => a.User.TeamId != null) // ignore people who are not in a team
                             .GroupBy(a => a.User.TeamId)
                             .ToList()
-                            .Select(g => new GroupLeaderViewModel
+                            .Select(g => new LeaderViewModel
                             {
                                 Name = db.Teams.Find(g.Key).name,
                                 NumMembers = g.Count(),
@@ -58,6 +58,20 @@ namespace GoAber.Services
                             });
 
             return transformedGroups.OrderByDescending(m => m.Total);
+        }
+
+        public IEnumerable<ParticipantLeaderViewModel> GetUsersForGroup(int id)
+        {
+            ApplicationUserService service = new ApplicationUserService();
+            var users = service.GetAllApplicationUsers()
+                                .Where(u => u.Team.Id == id)
+                                .Select(u => new ParticipantLeaderViewModel
+                                {
+                                    User = u,
+                                    Total = 0
+                                });
+
+            return users.OrderBy(x => x.User.Nickname);
         }
     }
 }

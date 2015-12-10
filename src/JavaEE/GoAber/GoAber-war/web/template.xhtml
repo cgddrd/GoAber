@@ -30,19 +30,19 @@
                 <div id="navbar" class="navbar-collapse collapse">
 
                     <ul class="nav navbar-nav">
-                        <li><h:link outcome="/index" value="Home"/></li>
+                        <li><h:link outcome="/index" value="#{bundle.TemplatePage_Home}"/></li>
                         
                       
                         <c:choose>
 
                             <c:when test="#{authService.loggedIn}">
                                 <li><h:link outcome="/activityData/WeeklySummary" value="#{bundle.TemplatePage_ActivityData}"/></li>
-                                
+                                <li><h:link outcome="/leaderBoards/Index" value="#{bundle.TemplatePage_LeaderBoards}"/></li>
                                 <li><h:link outcome="/Devices/index.xhtml" value="#{bundle.TemplatePage_Devices}"/></li>
                                 <li><h:link outcome="/challenge/Index" value="#{bundle.TemplatePage_Challenges}"/></li>
-                                <li><h:link outcome="/webServiceAuth/index" value="#{bundle.TemplatePage_WebServiceTokens}"/></li>
+                                <li><h:link outcome="/webServiceAuth/List" value="#{bundle.TemplatePage_WebServiceTokens}"/></li>
                             </c:when>
-						 </c:choose>
+			</c:choose>
 
                         <c:choose>
 

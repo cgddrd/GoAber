@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListResultTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <p:dataTable id="resultTable" class="table" value="#{resultController.items}" 
+                             emptyMessage="#{bundle.ListChallengeEmpty}"
+                             filteredValue="#{resultController.items}" widgetVar="resultTable" var="item"
+                             rows="100" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10, 100, 200">
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListResultTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListResultTitle_value}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.value}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListChallengeTitle_categoryUnit}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.categoryUnitId.categoryId.name}"/>
+                            &nbsp;
+                            <h:outputText value="#{item.categoryUnitId.unitId.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListResultTitle_challengeId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.challengeId.name}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListResultTitle_communityId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.communityId.name}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListResultIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
