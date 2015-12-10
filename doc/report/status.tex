@@ -1,22 +1,22 @@
 \chapter{Project Status}
 
-During the project, meetings with the client took place to discuss which features would be given a low priority on the backlog. This section will discuss features that remain on the backlog, and the reasons for this.
+During the project, meetings with the client took place to discuss which features would be given a low priority in the backlog. This section will discuss features that remain on the backlog, and the reasons for this.
 
 \section{Incomplete Features}
 
 \subsection{Administrator setup of Categories (D-FR2)}
-The functional requirement D-FR2 states ``The system will provide a mechanism, for an an administrator to setup which categories of data can be stored for a community". This functionality has not been provided. Users can store any category of data, and community league tables are available for all categories.
+The functional requirement D-FR2 states that ``The system will provide a mechanism, for an administrator to setup the categories of data that can be stored for a community". This functionality has not been provided. Users can store any category of data, and community league tables are available for all categories.
 
 \subsection{Fitbit (D-FR3)}
-Due to technical difficulties the JavaEE system is unable to obtain data from Fitbit. For authorization to devices we use a library called scribe(//TODO cite). Unfortunately, this library is unable to retrieve the access tokens from Fitbit. After manual attempts to put together the authorization header, an agreement with the client was reached, that this feature would be put at the bottom of the backlog. Jawbone communication, manual entry and SOAP have been implemented to allow activity data to be entered into the JavaEE system.
+Due to technical difficulties the JavaEE system is unable to obtain data from Fitbit. For authorisation to devices we use a library called scribe \cite{scribe}. Unfortunately, this library is unable to retrieve the access tokens from Fitbit. After manual attempts to put together the authorisation header, an agreement with the client was reached, that this feature would be put at the bottom of the backlog. Jawbone communication, manual entry and SOAP have been implemented to allow activity data to be entered into the JavaEE system.
 
 \subsection{Email notifications (E-FR3, E-FR4 and C-FR4)}
 
-As agreed with the client email notifications were given a lower priority on the backlog. Due to time constrains this feature was unable to be implemented. The means that users do not get notified when a challenge has been completed, and do not receive reminds when they are inactive. 
+As agreed with the client, email notifications were given a lower priority on the backlog. Due to time constrains this feature was unable to be implemented. The means that users do not get notified when a challenge has been completed, and do not receive reminds when they are inactive. 
 
 \subsection{Authentication and authorisation (D-FR11)}
-The requirements state that Single Sign On (SSO) will be used. Our initial plan was to start with having our own vanilla login systems and add SSO at a later stage. However, SSO has remained unimplemented. 
+The requirements state that Single Sign On (SSO) will be used. Our initial plan was to start with having our own vanilla login systems and add SSO at a later stage. However, SSO has remained unimplemented due to time constraints. 
 
 \subsection{Individual Progress (E-FR4)}
-It was requested that a total distance in miles/kilometres would be provided. This has not been implemented.
+It was requested that a total distance in miles/kilometres would be provided. This has not been included in the final product, again due to time pressure to deliver the project, but is a feature that could easily be added in future development.
 
