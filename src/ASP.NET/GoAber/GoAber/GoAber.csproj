@@ -653,6 +653,7 @@
     <Content Include="Views\Challenge\CompletedCommunity.cshtml" />
     <Content Include="Views\Challenge\CompletedGroup.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\ActivityDatas\Group.cshtml" />
     <Content Include="Views\LeaderBoards\Index.cshtml" />
     <Content Include="Views\LeaderBoards\GroupLeaderBoard.cshtml" />
     <Content Include="Views\LeaderBoards\ParticipantLeaderBoard.cshtml" />

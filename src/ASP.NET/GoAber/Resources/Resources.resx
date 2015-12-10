@@ -922,6 +922,12 @@
   <data name="Device_NumberOfSteps" xml:space="preserve">
     <value>Number of steps :</value>
   </data>
+  <data name="Group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="YourGroup" xml:space="preserve">
+    <value>Your Group</value>
+  </data>
   <data name="Results" xml:space="preserve">
     <value>Results</value>
   </data>

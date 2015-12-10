@@ -1592,6 +1592,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group.
+        /// </summary>
+        public static string Group {
+            get {
+                return ResourceManager.GetString("Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string HomeController_About_About {
@@ -2479,6 +2488,15 @@ namespace Resources {
         public static string WeeklySummaryTitle_TotalSteps {
             get {
                 return ResourceManager.GetString("WeeklySummaryTitle_TotalSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Group.
+        /// </summary>
+        public static string YourGroup {
+            get {
+                return ResourceManager.GetString("YourGroup", resourceCulture);
             }
         }
     }
