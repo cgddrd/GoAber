@@ -19,13 +19,14 @@
                 </h:panelGroup>
 
                 <div class="btn-group" role="group" >
-                    <h:commandLink class="btn btn-default" action="#{userController.prepareCreate}" value="#{admin.ListActivityDataCreateLink}"/>
-                    <h:commandLink class="btn btn-default" action="#{userController.prepareList}" value="#{admin.FilterActivityDataClearLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{userController.prepareCreate}" value="#{bundle.ListActivityDataCreateLink}"/>
+                    <h:commandLink class="btn btn-default" action="#{userController.prepareList}" value="#{bundle.FilterActivityDataClearLink}"/>
                     <!--<h:commandLink class="btn btn-default" action="{userController.prepareBatchDestroy}" value="{admin.ListActivityDataBatchDeleteLink}"/>-->
                 </div>
 
                 <p:dataTable id="usersTable" class="table" value="#{userController.items}" 
-                             emptyMessage="#{admin.ActivityDataNoItems}"
+                             emptyMessage="#{bundle.UserDataTableNoItems}"
+
                              filteredValue="#{userController.filteredItems}" widgetVar="usersTable" var="item"
                              rows="100" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -55,7 +56,7 @@
                     <p:column filterBy="#{item.groupId.communityId.name}" headerText="#{bundle.CreateUserTitle_community}" filterMatchMode="exact">
                         <f:facet name="filter">
                             <p:selectOneMenu onchange="PF('usersTable').filter()" >
-                                <f:selectItem itemLabel="#{admin.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="#{bundle.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItems value="#{adminCommunityController.communitySelectList}"/>
                             </p:selectOneMenu>
                         </f:facet>
@@ -65,7 +66,7 @@
                     <p:column filterBy="#{item.groupId.name}" headerText="#{bundle.CreateUserTitle_groupId}" filterMatchMode="exact">
                         <f:facet name="filter">
                             <p:selectOneMenu onchange="PF('usersTable').filter()" >
-                                <f:selectItem itemLabel="#{admin.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="#{bundle.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItems value="#{adminTeamController.groupedTeamFilterList}"/>
                             </p:selectOneMenu>
                         </f:facet>
@@ -75,7 +76,7 @@
                     <p:column filterBy="#{item.userRoleId.roleId.idRole}" headerText="#{bundle.CreateUserTitle_userRoleId}" filterMatchMode="exact">
                         <f:facet name="filter">
                             <p:selectOneMenu onchange="PF('usersTable').filter()" >
-                                <f:selectItem itemLabel="#{admin.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="#{bundle.FilterActivityData_defaultOption}" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItems value="#{roleController.roleSelectList}"/>
                             </p:selectOneMenu>
                         </f:facet>
@@ -87,11 +88,11 @@
                             <h:outputText value="&nbsp;"/>
                         </f:facet>
                         
-                        <h:commandLink action="#{userController.prepareView(item)}" value="#{admin.ListActivityDataViewLink}" />
+                        <h:commandLink action="#{userController.prepareView(item)}" value="#{bundle.ListActivityDataViewLink}" />
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{userController.prepareEdit(item)}" value="#{admin.ListActivityDataEditLink}" />
+                        <h:commandLink action="#{userController.prepareEdit(item)}" value="#{bundle.ListActivityDataEditLink}" />
                         <h:outputText value=" "/>
-                        <h:commandLink action="#{userController.destroy(item)}" value="#{admin.ListActivityDataDestroyLink}" />
+                        <h:commandLink action="#{userController.destroy(item)}" value="#{bundle.ListActivityDataDestroyLink}" />
                     </p:column>
                     
                 </p:dataTable>

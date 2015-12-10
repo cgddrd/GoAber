@@ -49,4 +49,40 @@ public class ActivityDataFacade extends AbstractFacade<ActivityData> {
                     .setParameter("unit", unit)
                     .getResultList();
     }
+    
+    public List<ActivityData> getAllForGroup(int id, String unit) {
+        return em.createNamedQuery("ActivityData.findActivityDataForGroup")
+                    .setParameter("id", id)
+                    .setParameter("unit", unit)
+                    .getResultList();
+    }
+    
+    public List<ActivityData> getAllInDateRange(int unit, Date startDate, Date endDate) {
+        return em.createNamedQuery("ActivityData.getAllInDateRange")
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .setParameter("unit", unit)
+                .getResultList();
+    }
+    
+        public List<ActivityData> getAllForGroupInDateRange(int id, int userId, String unit, Date startDate, Date endDate) {
+        return em.createNamedQuery("ActivityData.findActivityDataForGroupInDateRange")
+            .setParameter("id", id)
+            .setParameter("userId", userId)
+            .setParameter("unit", unit)
+            .setParameter("startDate", startDate)
+            .setParameter("endDate", endDate)
+            .getResultList();
+    }
+    
+    
+    public List<ActivityData> getAllForCommunityInDateRange(int id, int userId, String unit, Date startDate, Date endDate) {
+        return em.createNamedQuery("ActivityData.findActivityDataForCommunityInDateRange")
+            .setParameter("id", id)
+            .setParameter("userId", userId)
+            .setParameter("unit", unit)
+            .setParameter("startDate", startDate)
+            .setParameter("endDate", endDate)
+            .getResultList();
+    }
 }

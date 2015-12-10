@@ -62,6 +62,14 @@ public class SandBoxUI {
         header(lo_port, as_token);
         return lo_port.addActivityData(createData());
     }
+    
+    public boolean sendActivityData(String token, List<ActivityDataSOAP> activityData){
+        GoAberWS_Service service = new GoAberWS_Service();
+        GoAberWS goAberPort = service.getGoAberWSPort();
+
+        header(goAberPort, token);
+        return goAberPort.addActivityData(activityData);
+    }
 
     public void start() {
         boolean lb_stop = false;

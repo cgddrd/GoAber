@@ -16,12 +16,10 @@ public class JobFactory {
     
     public static AbstractJob CreateJob(IJobDetail ao_jobdetail) {
         switch (ao_jobdetail.getTasktype()) {
-            case 0:
-                return new FitBitJob(ao_jobdetail);
-        //
-            case 1:
-                break;
-        //
+            case "Fitbit":
+                return new FitBitJob(ao_jobdetail);    
+            case "Challenge":
+                return new ChallengeJob(ao_jobdetail);
             default:
                 break;
         }

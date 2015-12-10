@@ -7,7 +7,7 @@ namespace GoAber.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "account_Email", ResourceType = typeof(Resources.Resources))]
         public string Email { get; set; }
     }
 
@@ -30,11 +30,11 @@ namespace GoAber.Models
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = "Code")]
+        [Display(Name = "account_Code", ResourceType = typeof(Resources.Resources))]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "account_RememberBroswer", ResourceType = typeof(Resources.Resources))]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -43,23 +43,23 @@ namespace GoAber.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "account_Email", ResourceType = typeof(Resources.Resources))]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "account_Email", ResourceType = typeof(Resources.Resources))]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "account_password", ResourceType = typeof(Resources.Resources))]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "account_RemeberMe", ResourceType = typeof(Resources.Resources))]
         public bool RememberMe { get; set; }
     }
 
@@ -67,45 +67,49 @@ namespace GoAber.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "account_Email", ResourceType = typeof(Resources.Resources))]
         public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "account_password", ResourceType = typeof(Resources.Resources))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "account_ConfirmPassword", ResourceType = typeof(Resources.Resources))]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Name { get; set; }
 
-        [Display(Name = "Nickname")]
+        [Display(Name = "account_Nickname", ResourceType = typeof(Resources.Resources))]
         public string Nickname { get; set; }
 
-        [Display(Name = "DoB")]
+        [Display(Name = "account_DoB", ResourceType = typeof(Resources.Resources))]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        [Display(Name = "account_Team", ResourceType = typeof(Resources.Resources))]
+        public int TeamId { get; set; }
     }
 
     public class ResetPasswordViewModel
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "account_Email", ResourceType = typeof(Resources.Resources))]
         public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "account_password", ResourceType = typeof(Resources.Resources))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "account_ConfirmPassword", ResourceType = typeof(Resources.Resources))]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
@@ -116,7 +120,7 @@ namespace GoAber.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "account_Email", ResourceType = typeof(Resources.Resources))]
         public string Email { get; set; }
     }
 }

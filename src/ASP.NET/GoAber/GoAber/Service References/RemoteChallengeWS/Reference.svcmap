@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="aed0200f-3d2e-40c7-bbeb-d8b3dde69fd4" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e0a8fdb7-7e45-4e7a-b88d-f62f2c8981e5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,11 +19,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:50120/WebService/ChallengesWS/GoAberChallengesWS.asmx" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:50122/WebService/ChallengesWS/GoAberChallengesWS.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="GoAberChallengesWS.disco" MetadataType="Disco" ID="25cd1744-c5db-48ac-9b0e-ee939b6f5bed" SourceId="1" SourceUrl="http://localhost:50120/WebService/ChallengesWS/GoAberChallengesWS.asmx?disco" />
-    <MetadataFile FileName="GoAberChallengesWS.wsdl" MetadataType="Wsdl" ID="260b233a-6a61-46d2-a832-aa7464d2c070" SourceId="1" SourceUrl="http://localhost:50120/WebService/ChallengesWS/GoAberChallengesWS.asmx?wsdl" />
+    <MetadataFile FileName="GoAberChallengesWS.wsdl" MetadataType="Wsdl" ID="308d2d8c-41e9-44d4-9a2e-61bd4f7bc2f0" SourceId="1" SourceUrl="http://localhost:50122/WebService/ChallengesWS/GoAberChallengesWS.asmx?wsdl" />
+    <MetadataFile FileName="GoAberChallengesWS.disco" MetadataType="Disco" ID="8022ae85-7416-4954-bb1f-5c375c94544a" SourceId="1" SourceUrl="http://localhost:50122/WebService/ChallengesWS/GoAberChallengesWS.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

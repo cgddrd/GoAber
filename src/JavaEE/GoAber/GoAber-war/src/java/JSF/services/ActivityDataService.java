@@ -6,6 +6,9 @@
 package JSF.services;
 
 import GoAberDatabase.ActivityData;
+import GoAberDatabase.Community;
+import GoAberDatabase.Team;
+import GoAberDatabase.Unit;
 import GoAberDatabase.User;
 import JSF.util.DateUtils;
 import SessionBean.ActivityDataFacade;
@@ -15,6 +18,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import JSF.ViewModels.StatisticsSummary;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**Activity Data Service Class.
  *
@@ -74,7 +80,79 @@ public class ActivityDataService {
      * @return list of activity data items
      */
     public List<ActivityData> findAllForUserInDateRange(User user, String unit, Date startDate, Date endDate) {
-        return getFacade().getAllForUserInDateRange(user.getIdUser(), unit, startDate, endDate);
+        List<ActivityData> data = getFacade().getAllForUserInDateRange(user.getIdUser(), unit, startDate, endDate);
+        HashMap<Date, List<ActivityData>> groups = groupActivityDataByDate(data);
+        return combineGroupsByDate(groups);
+    }
+    
+    /** Group activity data by date.
+     * 
+     * It is possible to have multiple activity data for a single day. This
+     * groups data items on the same day into a HashMap with the date as the 
+     * key.
+     * 
+     * @param data the list of data to group
+     * @return HashMap containing lists of activity data for a day.
+     */
+    private HashMap<Date, List<ActivityData>> groupActivityDataByDate(List<ActivityData> data) {
+        HashMap<Date, List<ActivityData>> dateGroups = new HashMap<>();
+        for (ActivityData item : data) {
+            if (!dateGroups.containsKey(item.getDate())) {
+                // add a new date to the hashmap
+                List<ActivityData> sublist = new ArrayList<>();
+                sublist.add(item);
+                dateGroups.put(item.getDate(), sublist);
+            } else {
+                // we have mutliple records matching this date
+                dateGroups.get(item.getDate()).add(item);
+            }
+        }
+        return dateGroups;
+    }
+    
+    /** Combine grouped items into a single record for the day.
+     * 
+     * Convert a HashMap of grouped items for a single date into a single 
+     * activity data record.
+     * 
+     * @param groups the HashMap groups for each day
+     * @return List with one activity data item for each day.
+     */ 
+    private List<ActivityData> combineGroupsByDate(HashMap<Date, List<ActivityData>> groups) {
+        List<ActivityData> combinedData = new ArrayList<>();
+        
+        for (Map.Entry pair : groups.entrySet()) {
+            List<ActivityData> sublist = (List<ActivityData>) pair.getValue();
+            
+            // sum each item with the same date
+            int total = 0;
+            for (ActivityData item : sublist) {
+                total += item.getValue();
+            }
+            
+            // Use one item to represent meta-data and set value to total
+            ActivityData tmp = sublist.get(0);
+            ActivityData squashedItem = new ActivityData(
+                    total, 
+                    tmp.getLastUpdated(), 
+                    tmp.getDate(), 
+                    tmp.getUserId(), 
+                    tmp.getCategoryUnitId()
+            );
+            combinedData.add(squashedItem);
+        }
+        
+        return combinedData;
+    }
+    
+    /** Get all activity data matching a specific group.
+     * 
+     * @param group the team to find activity data for
+     * @param unit the unit to find activity data for
+     * @return list of activity data items
+     */
+    public List<ActivityData> findAllForGroup(Team group, String unit) {
+        return getFacade().getAllForGroup(group.getIdGroup(), unit);
     }
     
     /** Get all activity data items for a user matching the specified unit
@@ -214,5 +292,13 @@ public class ActivityDataService {
     
     private ActivityDataFacade getFacade() {
         return ejbFacade;
+    }
+
+    public List<ActivityData> findAllForGroupInDateRange(Team team, User user, Unit unit, Date startDate, Date endDate) {
+        return getFacade().getAllForGroupInDateRange(team.getIdGroup(), user.getIdUser(), unit.getName(), startDate, endDate);
+    }
+
+    public List<ActivityData> findAllForCommunityInDateRange(Community community, User user, Unit unit, Date startDate, Date endDate) {
+        return getFacade().getAllForCommunityInDateRange(community.getIdCommunity(), user.getIdUser(), unit.getName(), startDate, endDate);
     }
 }

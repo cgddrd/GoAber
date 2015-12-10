@@ -1,13 +1,13 @@
 ﻿@model GoAber.Models.DataRemovalAudit
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Resources.DataRemovalAudit_Details;
 }
 
-<h2>Details</h2>
+<h2>@Resources.DataRemovalAudit_Details</h2>
 
 <div>
-    <h4>DataRemovalAudit</h4>
+    <h4>@Resources.DataRemovalAudit</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -45,5 +45,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(Resources.Audit_BackToList, "Index")
 </p>

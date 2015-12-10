@@ -6,12 +6,18 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GoAber.Areas.Admin.Models.ViewModels;
+using GoAber.Auth;
 using GoAber.Models;
 using GoAber.Services;
 using PagedList;
 
 namespace GoAber.Areas.Admin.Controllers
 {
+    /// <summary>
+    /// Provides CRUD-related operations associated with a administrative management of system users.
+    /// </summary>
+    [GAAuthorize(Roles = "Administrator")]
     public class ApplicationUsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -22,14 +28,12 @@ namespace GoAber.Areas.Admin.Controllers
         private const int pageSize = 100;
 
         // GET: Admin/ApplicationUsers
+        [Audit]
         public ActionResult Index(int? page)
         {
             var applicationUsers = applicationUserService.GetAllApplicationUsers();
 
             int pageNumber = (page ?? 1);
-
-           // var teams = categoryUnitService.CreateCategoryUnitList();
-           // ViewBag.categoryUnits = new SelectList(categories, "idCategoryUnit", "unit", "category", 0);
 
             var teamList = teamsService.CreateTeamList();
             ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
@@ -46,12 +50,12 @@ namespace GoAber.Areas.Admin.Controllers
                 
             }
            
-
             return View(applicationUsers.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Index(string email, string nickname, int? teamId)
         {
             var applicationUsers = applicationUserService.GetAllApplicationUsers();
@@ -60,8 +64,6 @@ namespace GoAber.Areas.Admin.Controllers
 
             var teamList = teamsService.CreateTeamList();
             ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", 0);
-
-            ViewBag.ConnorMessage = "The Same test Type might have been already created,, go back to the Visit page to see the avilalbe Lab Tests";
 
             return View(applicationUsers.ToPagedList(1, pageSize));
         }
@@ -87,6 +89,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ApplicationUsers/Details/5
+        [Audit]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -102,6 +105,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ApplicationUsers/Create
+        [Audit]
         public ActionResult Create()
         {
             ViewBag.TeamId = new SelectList(db.Teams, "Id", "name");
@@ -113,6 +117,7 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult Create([Bind(Include = "Id,Nickname,DateOfBirth,TeamId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
@@ -127,6 +132,7 @@ namespace GoAber.Areas.Admin.Controllers
         }
 
         // GET: Admin/ApplicationUsers/Edit/5
+        [Audit]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -134,15 +140,25 @@ namespace GoAber.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ApplicationUser applicationUser = db.Users.Find(id);
+
             if (applicationUser == null)
             {
                 return HttpNotFound();
             }
 
-            var teamList = teamsService.CreateTeamList();
-            ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+            EditApplicationUserViewModel model = new EditApplicationUserViewModel();
 
-            return View(applicationUser);
+            var roleList = applicationUserService.GenerateApplicationUserRoleList();
+            ViewBag.RoleName = new SelectList(roleList, "RoleName", "RoleName", ApplicationUserService.GetAssignedRoleForApplicationUser(applicationUser.Id));
+
+            var teamList = teamsService.CreateTeamList();
+            //ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+
+            model.TeamItems = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+
+            model.User = applicationUser;
+
+            return View(model);
         }
 
         // POST: Admin/ApplicationUsers/Edit/5
@@ -150,9 +166,10 @@ namespace GoAber.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nickname,DateOfBirth,TeamId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        [Audit]
+        public ActionResult Edit([Bind(Include = "User,RoleId,RoleName,Id,Nickname,DateOfBirth,TeamId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] EditApplicationUserViewModel editApplicationUserViewModel)
         {
-            var currentUser = db.Users.Find(applicationUser.Id);
+            var currentUser = db.Users.Find(editApplicationUserViewModel.User.Id);
 
             if (ModelState.IsValid)
             {
@@ -164,29 +181,34 @@ namespace GoAber.Areas.Admin.Controllers
                 // Note: As we are not updating all values of the ApplicationUser, we should really use a custom view model to hold the returned form values, rather than using the ApplicationUser model.
                 if (currentUser != null)
                 {
-                    currentUser.DateOfBirth = applicationUser.DateOfBirth;
-                    currentUser.Nickname = applicationUser.Nickname;
-                    currentUser.Email = applicationUser.Email;
-                    currentUser.TeamId = applicationUser.TeamId;
-                    currentUser.UserName = applicationUser.UserName;
-
+                    currentUser.DateOfBirth = editApplicationUserViewModel.User.DateOfBirth;
+                    currentUser.Nickname = editApplicationUserViewModel.User.Nickname;
+                    currentUser.Email = editApplicationUserViewModel.User.Email;
+                    currentUser.TeamId = editApplicationUserViewModel.User.TeamId;
+                    currentUser.UserName = editApplicationUserViewModel.User.UserName;
 
                     db.SaveChanges();
                 }
 
+                ApplicationUserService.SetRoleToApplicationUser(editApplicationUserViewModel.User.Id, editApplicationUserViewModel.RoleName);
+
                 return RedirectToAction("Index");
             }
 
-            
+
+            var roleList = applicationUserService.GenerateApplicationUserRoleList();
+            ViewBag.RoleName = new SelectList(roleList, "RoleName", "RoleName", editApplicationUserViewModel.RoleName);
+
             var teamList = teamsService.CreateTeamList();
+           // ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", editApplicationUserViewModel.User.TeamId);
 
-            ViewBag.TeamId = new SelectList(teamList, "TeamId", "Name", "CommunityName", applicationUser.TeamId);
+            editApplicationUserViewModel.TeamItems = new SelectList(teamList, "TeamId", "Name", "CommunityName", editApplicationUserViewModel.User.TeamId);
 
-            // ViewBag.TeamId = new SelectList(db.Teams, "Id", "name", applicationUser.TeamId);
-            return View(applicationUser);
+            return View(editApplicationUserViewModel);
         }
 
         // GET: Admin/ApplicationUsers/Delete/5
+        [Audit]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -204,36 +226,19 @@ namespace GoAber.Areas.Admin.Controllers
         // POST: Admin/ApplicationUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Audit]
         public ActionResult DeleteConfirmed(string id)
         {
 
             // CG - Prevent an administrator user from deleting their own account whilst still logged in.
-            if (ApplicationUserService.GetCurrentApplicationUser().Id.Equals(id))
+            if (ApplicationUserService.IsApplicationUserIdLoggedIn(id) && ApplicationUserService.IsCurrentApplicationUserInRole("Administrator"))
             {
-                TempData["Error"] = "You are currently attempting to delete your own account whilst still logged in. If you wish to delete this account, please sign out and log in using another administrator account.";
+                TempData["Error"] = Resources.Resources.Admin_Delete_Warning;
 
             }
             else
             {
-                ApplicationUser applicationUser = db.Users.Find(id);
-
-                // CG - If we want to delete an ApplicationUser, we need to make sure that we remove all of the FK relationships.
-                if (applicationUser != null)
-                {
-                    db.ActivityDatas.RemoveRange(db.ActivityDatas.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
-
-                    db.Audit.RemoveRange(db.Audit.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
-
-                    db.DataRemovalAudits.RemoveRange(db.DataRemovalAudits.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
-
-                    db.WebServiceAuths.RemoveRange(db.WebServiceAuths.Where(u => u.ApplicationUserId.Equals(applicationUser.Id)));
-
-                    db.Users.Remove(applicationUser);
-
-                    db.SaveChanges();
-                }
-                
-
+                applicationUserService.DeleteApplicationUser(id);
             }
 
             

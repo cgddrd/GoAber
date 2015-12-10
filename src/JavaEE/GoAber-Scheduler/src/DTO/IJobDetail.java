@@ -12,15 +12,10 @@ package DTO;
 public interface IJobDetail {
     
    public String getJobid();
-
-
-   public int getTasktype();
-   public int getSchedtype();
-
-
+   public String getTasktype();
+   public String getSchedtype();
    public int getShcedtimemins();
-
-
    public Boolean getStartnow();
+   public String[] scheduler_args();
 
 }

@@ -6,23 +6,21 @@
 
 <ui:composition template="/template.xhtml">
     <ui:define name="title">
-        <h:outputText value="Administrator Control Panel"></h:outputText>
+        <h:outputText value="#{bundle.Admin_IndexTitle}"></h:outputText>
     </ui:define>
     <ui:define name="body">
         <h:panelGroup id="messagePanel" layout="block">
             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
         </h:panelGroup>
-        <h:link outcome="/admin/activityData/List" value="Manage Activity Data"/>
+        <h:link outcome="/admin/activityData/List" value="#{bundle.Admin_ListActivityData}"/>
         <br />
-        <h:link outcome="/admin/team/List" value="Manage Teams"/>
+        <h:link outcome="/admin/team/List" value="#{bundle.Admin_ListTeams}"/>
         <br />
-	<h:link outcome="/admin/community/List" value="Manage Communities"/>
+	<h:link outcome="/admin/community/List" value="#{bundle.Admin_ListCommunities}"/>
 	<br />
-	<h:link outcome="/admin/user/List" value="Manage User Data"/>
+	<h:link outcome="/admin/user/List" value="#{bundle.Admin_ListUserData}"/>
         <br />
-        <h:link outcome="/admin/role/List" value="Manage Roles"/>
-        <br />
-        <h:link outcome="/admin/jobDetail/List" value="Manage Scheduled Jobs"/>
+        <h:link outcome="/admin/jobDetail/List" value="#{bundle.Admin_ListScheduledJobs}"/>
         <br />
     </ui:define>
 </ui:composition>

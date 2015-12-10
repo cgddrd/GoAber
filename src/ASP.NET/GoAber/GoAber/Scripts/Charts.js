@@ -130,13 +130,13 @@ function createBarChartSummary(data, params) {
 */
 function formatResponseData(data) {
     // Parse the date / time
-    var parseDate = d3.time.format("%d/%m/%Y %H:%M:%S").parse;
+    var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S").parse;
 
     data.forEach(function (d) {
         d.date = parseDate(d.activityDate);
         d.value = +d.value;
     });
-
+    console.log(data);
     return data;
 }
 
