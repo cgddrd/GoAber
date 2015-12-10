@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,58 +16,55 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListJobDetailEmpty}" rendered="#{jobDetailController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{jobDetailController.items.rowCount > 0}">
-                    <h:outputText value="#{jobDetailController.pagination.pageFirstItem + 1}..#{jobDetailController.pagination.pageLastItem + 1}/#{jobDetailController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{jobDetailController.previous}" value="#{bundle.Previous} #{jobDetailController.pagination.pageSize}" rendered="#{jobDetailController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{jobDetailController.next}" value="#{bundle.Next} #{jobDetailController.pagination.pageSize}" rendered="#{jobDetailController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{jobDetailController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+                <div>
+                   <h:commandLink action="#{jobDetailController.prepareCreate}" value="#{bundle.ListJobDetailCreateLink}"/>
+                </div>
+                    <p:dataTable id="jobDetailTable" class="table" value="#{jobDetailController.items}" 
+                             emptyMessage="#{bundle.ListJobDetailEmpty}"
+                             filteredValue="#{jobDetailController.filteredItems}" widgetVar="jobDetailTable" var="item"
+                             rows="100" paginator="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10, 100, 200">
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListJobDetailTitle_jobid}"/>
                             </f:facet>
                             <h:outputText value="#{item.jobid}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListJobDetailTitle_tasktype}"/>
                             </f:facet>
                             <h:outputText value="#{item.tasktype}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListJobDetailTitle_schedtype}"/>
                             </f:facet>
                             <h:outputText value="#{item.schedtype}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListJobDetailTitle_shcedtimemins}"/>
                             </f:facet>
                             <h:outputText value="#{item.shcedtimemins}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListJobDetailTitle_startnow}"/>
                             </f:facet>
                             <h:outputText value="#{item.startnow}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{jobDetailController.prepareView}" value="#{bundle.ListJobDetailViewLink}"/>
+                            <h:commandLink action="#{jobDetailController.prepareView(item)}" value="#{bundle.ListJobDetailViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{jobDetailController.prepareEdit}" value="#{bundle.ListJobDetailEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{jobDetailController.destroy}" value="#{bundle.ListJobDetailDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{jobDetailController.prepareCreate}" value="#{bundle.ListJobDetailCreateLink}"/>
-                <br />
-                <br />
+                            <h:commandLink action="#{jobDetailController.prepareDestroy(item)}" value="#{bundle.ListJobDetailDestroyLink}"/>
+                        </p:column>
+                    </p:dataTable>
+
                 <h:link outcome="/index" value="#{bundle.ListJobDetailIndexLink}"/>
             </h:form>
         </ui:define>

@@ -139,7 +139,7 @@ public class ActivityDataController implements Serializable {
     public String prepareDestroy(ActivityData data) {
         audit.createAudit("activityData/Delete", "Viewed delete : IdActivityData="+data.getIdActivityData());
         current = data;
-        return "Delete";
+        return "List";
     }
         
     public String destroy() {

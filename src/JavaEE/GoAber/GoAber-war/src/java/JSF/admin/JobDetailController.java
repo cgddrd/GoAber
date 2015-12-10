@@ -1,16 +1,23 @@
-package JSF;
+package JSF.admin;
 
+import GoAberDatabase.Community;
 import GoAberDatabase.JobDetail;
+import JSF.AuditController;
+import JSF.AuditController;
 import JSF.util.JsfUtil;
 import JSF.util.PaginationHelper;
 import SessionBean.JobDetailFacade;
 import SessionBean.SchedulerSessionBeanRemote;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -27,14 +34,20 @@ public class JobDetailController implements Serializable {
     private SchedulerSessionBeanRemote io_SchedSessBean;
 
     private JobDetail current;
-    private DataModel items = null;
+    private List<JobDetail> items = null;
+    private List<JobDetail> filteredItems = null;
     @EJB
     private SessionBean.JobDetailFacade ejbFacade;
-    private PaginationHelper pagination;
-    private int selectedItemIndex;
+    
 
     public JobDetailController() {
     }
+    
+    @PostConstruct
+    public void init() {
+        recreateItems();
+    }
+
     
     
     public SchedulerSessionBeanRemote getScheduler() {
@@ -44,7 +57,6 @@ public class JobDetailController implements Serializable {
     public JobDetail getSelected() {
         if (current == null) {
             current = new JobDetail();
-            selectedItemIndex = -1;
         }
         return current;
     }
@@ -52,39 +64,29 @@ public class JobDetailController implements Serializable {
     private JobDetailFacade getFacade() {
         return ejbFacade;
     }
-
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                }
-            };
+    
+    public List<SelectItem> getJobDetailSelectList() {
+        List<SelectItem> jobdetailList = new ArrayList<>();
+        
+        for (JobDetail jobdetail : getFacade().findAll()) {
+            jobdetailList.add(new SelectItem(jobdetail.getJobid()));
         }
-        return pagination;
+        return jobdetailList;
     }
 
+
     public String prepareList() {
-        recreateModel();
+        recreateItems();
         return "List";
     }
 
-    public String prepareView() {
-        current = (JobDetail) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareView(JobDetail item) {
+        current = item;
         return "View";
     }
 
     public String prepareCreate() {
         current = new JobDetail();
-        selectedItemIndex = -1;
         return "Create";
     }
 
@@ -101,9 +103,8 @@ public class JobDetailController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
-        current = (JobDetail) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+    public String prepareEdit(JobDetail data) {
+        current = data;
         return "Edit";
     }
 
@@ -118,28 +119,20 @@ public class JobDetailController implements Serializable {
             return null;
         }
     }
-
-    public String destroy() {
-        current = (JobDetail) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreatePagination();
-        recreateModel();
+    
+   public String prepareDestroy(JobDetail item) {
+        current = item;
+        destroy();
         return "List";
     }
 
-    public String destroyAndView() {
+    public String destroy() {
         performDestroy();
-        recreateModel();
-        updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
-        }
+        // must recreate as something has been removed!
+        recreateItems();
+        return "List";
     }
+
 
     private void performDestroy() {
         try {
@@ -151,47 +144,36 @@ public class JobDetailController implements Serializable {
         }
     }
 
-    private void updateCurrentItem() {
-        int count = getFacade().count();
-        if (selectedItemIndex >= count) {
-            // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
-            // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
-            }
-        }
-        if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
-        }
+    
+    private void recreateItems() {
+        items = getFacade().findAll();
+        filteredItems = null;
     }
 
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
+    public List<JobDetail> getItems() {
+        recreateItems();
         return items;
     }
 
     private void recreateModel() {
         items = null;
     }
+    
 
-    private void recreatePagination() {
-        pagination = null;
+    /**
+     * @return the filteredItems
+     */
+    public List<JobDetail> getFilteredItems() {
+        return filteredItems;
     }
 
-    public String next() {
-        getPagination().nextPage();
-        recreateModel();
-        return "List";
+    /**
+     * @param filteredItems the filteredItems to set
+     */
+    public void setFilteredItems(List<JobDetail> filteredItems) {
+        this.filteredItems = filteredItems;
     }
-
-    public String previous() {
-        getPagination().previousPage();
-        recreateModel();
-        return "List";
-    }
+    
 
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
@@ -203,6 +185,10 @@ public class JobDetailController implements Serializable {
 
     public JobDetail getJobDetail(java.lang.String id) {
         return ejbFacade.find(id);
+    }
+    
+    public JobDetail getCurrent() {
+        return current;
     }
 
     @FacesConverter(forClass = JobDetail.class)
