@@ -35,6 +35,7 @@ namespace GoAber.Scheduling
                 {
                     lo_job = new EmailJob();
                 }
+
                 IScheduler lo_scheduler = SchedulerFactory.Instance().GetScheduler();
                 if (ao_jobdetail.schedtype.Equals(ScheduleType.Repeating))
                 {

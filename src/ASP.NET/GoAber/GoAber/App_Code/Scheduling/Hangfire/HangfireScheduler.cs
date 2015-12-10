@@ -1,5 +1,6 @@
 ﻿using GoAber.Scheduling.Interfaces;
 using Hangfire;
+using Hangfire.SqlServer;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -25,17 +26,15 @@ namespace GoAber.Scheduling.Hangfire
 
         public void CreateRecurringJob(string as_id, Expression<Action> am_methodcall, int ai_minutes)
         {
-            TimeSpan time = new TimeSpan(0, 0, ai_minutes, 0, 0);
+            TimeSpan time = new TimeSpan(1, 1, ai_minutes, 1, 1);
             int days = time.Days % 12;
             int month = time.Days / 12;
+            if (days < 1) days = 1;
+            if (month < 1) month = 1;
             string ls_cronexp = String.Format(
-                "*/{0} */{1} */{2} */{3} */{4}",
-                time.Minutes.ToString(),
-                time.Hours.ToString(),
-                days.ToString(),
-                month.ToString(),
-                "1");
-            RecurringJob.AddOrUpdate(as_id, am_methodcall, Cron.Minutely);
+                "*/{0} * * * *",
+                ai_minutes);
+            RecurringJob.AddOrUpdate(as_id, am_methodcall, ls_cronexp);
         }
 
 

@@ -46,5 +46,6 @@ namespace GoAber.Models
 
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser User { get; set; }
+
     }
 }

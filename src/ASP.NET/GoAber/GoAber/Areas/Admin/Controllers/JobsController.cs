@@ -9,8 +9,9 @@ using System.Web.Mvc;
 using GoAber.Auth;
 using GoAber.Models;
 using GoAber.Scheduling;
+using GoAber.Controllers;
 
-namespace GoAber.Controllers
+namespace GoAber.Areas.Admin.Controllers
 {
     [GAAuthorize(Roles = "Administrator")]
     public class JobsController : BaseController
@@ -59,7 +60,10 @@ namespace GoAber.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!ScheduleJobs.AddJob(job))
+                job.lastUpdated = DateTime.Now;
+                string[] args = new string[1];
+                args[0] = job.id;
+                if (!ScheduleJobs.AddJob(job, args))
                 {
                     return View(job);
                 }
