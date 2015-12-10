@@ -18,8 +18,10 @@ namespace GoAber.Models
         [Display(Name = "result_categoryUnit", ResourceType = typeof(Resources.Resources))]
         public virtual CategoryUnit categoryUnit { get; set; }
         public Nullable<int> value { get; set; }
+        [Display(Name = "result_challengeId", ResourceType = typeof(Resources.Resources))]
         public string challengeId { get; set; }
         public virtual Challenge challenge { get; set; }
+        [Display(Name = "result_communityId", ResourceType = typeof(Resources.Resources))]
         public int communityId { get; set; }
         public virtual Community community { get; set; }
 

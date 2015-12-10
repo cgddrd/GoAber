@@ -4,9 +4,10 @@
              xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ul class="nav nav-tabs">
-        <li role="presentation" class="#{view.viewId eq '/activityData/WeeklySummary.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/WeeklySummary" value="Weekly Summary"/></li>
-        <li role="presentation" class="#{view.viewId eq '/activityData/MonthlySummary.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/MonthlySummary" value="Monthly Summary"/></li>
-        <li role="presentation" class="#{view.viewId eq '/activityData/AllTimeSummary.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/AllTimeSummary" value="All Time Summary"/></li>
-        <li role="presentation" class="#{view.viewId eq '/activityData/Manage.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/Manage" value="Manage"/></li>
+        <li role="presentation" class="#{view.viewId eq '/activityData/WeeklySummary.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/WeeklySummary" value="#{bundle.ActivityDataWeeklySummary}"/></li>
+        <li role="presentation" class="#{view.viewId eq '/activityData/MonthlySummary.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/MonthlySummary" value="#{bundle.ActivityDataMonthlySummary}"/></li>
+        <li role="presentation" class="#{view.viewId eq '/activityData/AllTimeSummary.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/AllTimeSummary" value="#{bundle.ActivityDataAllTimeSummary}"/></li>
+        <li role="presentation" class="#{view.viewId eq '/activityData/Group.xhtml' ? 'active' : ''}"><h:link outcome="#{activityDataController.prepareGroup()}" value="#{bundle.ActivityDataGroup}"/></li>
+        <li role="presentation" class="#{view.viewId eq '/activityData/Manage.xhtml' ? 'active' : ''}"><h:link outcome="/activityData/Manage" value="#{bundle.ActivityDataManage}"/></li>
     </ul>
 </ui:fragment>
