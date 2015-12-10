@@ -38,6 +38,13 @@ public class HandleResult {
     @EJB
     ActivityDataFacade activityFacade;
 
+    /**
+     * Handles received result.
+     * Saves result, generates own result and sends it back.
+     * @param ao_result
+     * @param ao_homecom
+     * @return 
+     */
     public ResultData RecieveResult(ResultData ao_result, Community ao_homecom) {
         CategoryUnit lo_catunit = catunitFacade.find(ao_result.getCategoryUnitId());
         Challenge lo_challenge = challengeFacade.find(ao_result.getChallengeId());

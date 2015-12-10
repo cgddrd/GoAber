@@ -25,11 +25,25 @@ public class ExecutorServiceWrapper implements IExecutorServiceWrapper {
         this.io_executor = ao_executor;
     }
 
+    /***
+     * Schedules a recurring job.
+     * @param command
+     * @param initialDelay
+     * @param delay
+     * @param unit
+     * @return 
+     */
     @Override
     public ScheduledFuture scheduleAtFixedRate(Runnable command, long initialDelay, long delay, TimeUnit unit) {
         return this.io_executor.scheduleAtFixedRate(command, initialDelay, delay, unit);
     }
-
+    /***
+     * Schedules a job to run once.
+     * @param command
+     * @param delay
+     * @param unit
+     * @return 
+     */
     @Override
     public ScheduledFuture scheduleOnce(Runnable command, long delay, TimeUnit unit) {
         return this.io_executor.schedule(command, delay, unit);

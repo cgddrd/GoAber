@@ -9,7 +9,13 @@ namespace GoAber.Services
 {
     public class ResultService
     {
-
+        /// <summary>
+        /// Creates a result object based on activity data and the challenge.
+        /// </summary>
+        /// <param name="as_challengeid"></param>
+        /// <param name="db"></param>
+        /// <param name="ao_challenge"></param>
+        /// <returns></returns>
         public static Result CreateResult(string as_challengeid, ApplicationDbContext db, Challenge ao_challenge = null)
         {
 

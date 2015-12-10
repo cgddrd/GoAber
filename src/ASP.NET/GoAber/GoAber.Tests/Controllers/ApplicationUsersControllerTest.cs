@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using GoAber.Areas.Admin.Controllers;
 using GoAber.Controllers;
@@ -32,26 +34,6 @@ namespace GoAber.Tests.Controllers
 
             Assert.IsNotNull(result);
 
-        }
-
-        [TestMethod]
-        public void test()
-        {
-            var mockSet = new Mock<DbSet<ApplicationUser>>();
-
-            mockSet.Object.Add(new ApplicationUser
-            {
-                Id = "1",
-                Email = "connor@test.com",
-                Nickname = "connor",
-                UserName = "connor"
-            });
-
-            var mockContext = new Mock<ApplicationDbContext>();
-
-            var service = new ApplicationUserService(mockContext.Object);
-
-           // ApplicationUserService.GetApplicationUserById("1", mockContext.Object);
         }
     }
 }

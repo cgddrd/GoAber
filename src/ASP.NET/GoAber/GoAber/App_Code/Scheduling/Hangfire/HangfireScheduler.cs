@@ -1,5 +1,6 @@
 ﻿using GoAber.Scheduling.Interfaces;
 using Hangfire;
+using Hangfire.SqlServer;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -22,20 +23,23 @@ namespace GoAber.Scheduling.Hangfire
             return BackgroundJob.Schedule(am_methodcall, adao_date);
         }
 
-
+        /// <summary>
+        /// Creates a job that fires after a certain amount of minutes have passed.
+        /// </summary>
+        /// <param name="as_id"></param>
+        /// <param name="am_methodcall"></param>
+        /// <param name="ai_minutes"></param>
         public void CreateRecurringJob(string as_id, Expression<Action> am_methodcall, int ai_minutes)
         {
-            TimeSpan time = new TimeSpan(0, 0, ai_minutes, 0, 0);
+            TimeSpan time = new TimeSpan(1, 1, ai_minutes, 1, 1);
             int days = time.Days % 12;
             int month = time.Days / 12;
+            if (days < 1) days = 1;
+            if (month < 1) month = 1;
             string ls_cronexp = String.Format(
-                "*/{0} */{1} */{2} */{3} */{4}",
-                time.Minutes.ToString(),
-                time.Hours.ToString(),
-                days.ToString(),
-                month.ToString(),
-                "1");
-            RecurringJob.AddOrUpdate(as_id, am_methodcall, Cron.Minutely);
+                "*/{0} * * * *",
+                ai_minutes);
+            RecurringJob.AddOrUpdate(as_id, am_methodcall, ls_cronexp);
         }
 
 
@@ -49,6 +53,11 @@ namespace GoAber.Scheduling.Hangfire
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Creates the hangfire database.
+        /// Forces it to be created by adding a dummy table.
+        /// </summary>
+        /// <param name="context"></param>
         public void CreateHangfireDB(HangfireContext context)
         {
             Dummy lo_dummy = new Dummy { DummyId = 0 };
@@ -57,6 +66,11 @@ namespace GoAber.Scheduling.Hangfire
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Initializes hangfire.
+        /// </summary>
+        /// <param name="ao_app"></param>
+        /// <param name="as_constring"></param>
         public void Init(IAppBuilder ao_app, string as_constring)
         {
             using (HangfireContext context = new HangfireContext())

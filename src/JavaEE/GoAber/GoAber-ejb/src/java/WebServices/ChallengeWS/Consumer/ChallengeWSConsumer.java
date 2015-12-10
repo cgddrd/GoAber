@@ -49,6 +49,14 @@ public class ChallengeWSConsumer {
 
     }
 
+    /**
+     * Sends challenge request to remote community.
+     * Handles result.
+     * @param ao_challenge
+     * @param ao_comCollection
+     * @param ai_userGroup
+     * @return 
+     */
     public boolean addChallenge(Challenge ao_challenge, Collection<CommunityChallenge> ao_comCollection, int ai_userGroup) {
         try {
 

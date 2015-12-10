@@ -207,7 +207,7 @@ public class ChallengeServiceTest {
     public void testAddCommunityChallengesWithMultipleCommunities(){
         Challenge challenge = new Challenge();
         Integer communityIds[] = {communities.get(0).getIdCommunity(), communities.get(1).getIdCommunity()};
-        Collection<CommunityChallenge> result = challengeService.addCommunityChallenges(u, challenge, communityIds, true);
+        Collection<CommunityChallenge> result = challengeService.addCommunityChallenges(u, challenge, communityIds, false);
         
         Assert.assertEquals(2, result.size());
         CommunityChallenge communityChallenge = (CommunityChallenge) result.toArray()[0];

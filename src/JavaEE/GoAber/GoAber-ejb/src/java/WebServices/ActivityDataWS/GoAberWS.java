@@ -48,7 +48,12 @@ public class GoAberWS {
     @Resource
     WebServiceContext io_webservicecontext;
     
-    
+    /**
+     * Receives activity data from a client.
+     * If it validates then save it to the database.
+     * @param data
+     * @return 
+     */
     @WebMethod(operationName = "addActivityData")
     public boolean addActivityData(@WebParam(name = "data") List<ActivityDataSOAP> data) 
     {
