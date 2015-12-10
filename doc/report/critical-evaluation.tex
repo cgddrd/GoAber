@@ -1,1 +1,106 @@
 \chapter{Critical Evaluation}
+
+We found that there are many differences between JavaEE and .NET. Throughout the project many things have gone well while developing the two applications, and there are many things we would have done differently. In this chapter we will evaluate these.
+
+\section{Platform Comparison}
+
+\subsection{Implementation}
+JavaEE splits the code into two projects : the WAR containing the web pages; and the EJB which should contain everything else. This allows the UI to be clearly separated from the rest of the code. Within .NET all code is contained within a single project, which can lead to parts of the view being intertwined with the controllers and models.
+
+Despite everyone having previous experience in using Java, and only a few having previous C\# experience, we felt that the learning curve for JavaEE was greater than that of .NET. The .NET MVC framework hides a lot of the complexities from the user. JavaEE is more flexible, which leads to more complications. Therefore a lot more time was spent on the JavaEE project than the .NET project.
+
+An example of this is the implementation for the user's activity data pages. The AJAX used to display these graphs requires a JSON representation of the activity data. In .NET this done through requesting the model as JSON object. In JavaEE a model can not be converted into JSON, this meant adding an extra class that convert the ActivityData object into a ActivityDataDTO object which could then be converted to JSON. 
+
+The JavaEE application kept caching data. After entering data via the forms, the data displayed in the view pages would not contain the update; until the page was refreshed. An annotation was added to the class to prevent it from being cached. This problem was not experienced when developing the .NET application.
+
+Implementing the Jawbone and Fitbit connection using OAuth was more successful in the .NET than in JavaEE. The library used for OAuth in .NET was a lot more stable and documented than the libraries used for JavaEE. The OAuth version for both devices has also been recently updated, which meant that was very few examples. 
+
+In JavaEE there are many options for the scheduling of jobs, whereas in .NET Hangfire appears to be the only option. Having multiple options allowed us to pick the scheduling method which suited our situation.
+
+Often after pulling changes into our local copy of the git repository the JavaEE project would not run. Even when no changes to the database had been performed, this would require the re-creation of the database. However, before recreating the database we needed to make sure no users are logged into the application, as those users would no longer exist in the database.
+
+\subsection{Internationalisation}
+
+Bundles were automatically generated in JavaEE to allow the internationalisation of the application. Other than adding these to a configuration file no extra work was required. 
+
+In comparison to JavaEE the .NET application's internationalisation was more difficult to setup. This involved creating a controller which grabbed the user's language from a cookie. All other controllers inherit from this controller.
+
+\subsection{Database}
+
+JavaEE's named queries versus .NET's LINQ library had mixed opinions within the group. Some like the abstracted view of SQL that LINQ provides. However, this leads to the SQL being found within views, models and controllers. The named queries allow the SQL to be kept separate from the code and are closer to standard SQL syntax. Some members of the group found this less intuitive than LINQ.
+
+When an updated to the database was required the .NET project's models were changed and the "add-migration" command was ran. We found it a lot more difficult to updated the JavaEE project's database. These changes were performed through editing the database and then updating the code. This often required manual modifications to the code. Using the code-first entity framework, in .NET, worked more smoothly. 
+
+\subsection{Configuration}
+
+A positive for using glassfish was that a script could be produced to automatically setup realms for user authentication. Configuring the project to allow authentication is done on the server which extracts the configurations from the code. In .NET the authentication is within the project itself. Though it was easier to configure the .NET authentication, we found the JavaEE way of separating this out is cleaner.
+
+
+.NET has a vast amount of libraries available that are installable by the NuGet package manager. This allows aspects like selecting which OAuth library to make use of a lot simpler. When looking for a JavaEE OAuth library many different developers had different recommendations, and it was unclear to which would be the best one to use. 
+
+
+\subsection{Testing}
+When testing the projects we made use of mocking libraries to mock the database interactions. In JavaEE this can be done through just mocking the facade the class under test is accessing. Only the functions that it is calling need to be mocked. 
+
+In .NET not only does the whole model class which the class under test is using have to be mocked, so do all models accessed via its foreign key constraints. This meant that even if we wanted to unit test a small section of the software the majority of the models would have to be mocked. The class under test also had to be modified so that the mock class could be passed to it.
+
+To allow 3rd party application to send our application data a web service which enabled communication via SOAP was created. To test this a separate application in each language was created and the service was imported into the application. In .NET this service could be updated through a right-click menu option. This was more awkward to update in JavaEE, where the web service had to be deleted and re-imported.
+
+\subsection{Conclusion}
+
+We found that JavaEE was far more flexible in what it allows us to do, but took longer to develop. With added flexibility came added complexity. Whereas .NET does everything it can for you and forces you stick to a common way of implementing. 
+
+
+\section{Development Methodology}
+
+At the start of the project we struggled to get going. None of us had any previous experience of how to perform the initial setup of a project. For example we had to work out how long the sprints should be, and which tasks to assign each sprint. We decided to allow two for the first sprint and one week for all other sprints. This turned out to work well. 
+
+During the first sprint, according to the burndown, we became about 30 hours behind schedule. This slowly improved as the project progressed. As we became use to the technologies our development started to speed up and our predictions for the length of time tasks will take became more accurate. We also planed for delays and had included a empty sprint. This sprint was used to test, document, tidy up the project and complete outstanding tasks.
+
+\subsection{Design}
+We all agreed that we should have done some design at the start of each sprint. At the start of the sprint we handed out the tasks, and implemented them individually with little group discussion. The design discussions would have allowed those with previous experience in the technology to give ideas and advise on the best practices. It would have also given everyone a clearer idea of what everyone else was doing.
+
+However, due to the lack of experience within the group this would not have been possible for all tasks. Many of the tasks involved researching about the technologies. In these cases it would have been useful to feedback into the group the design decisions that had been made.
+
+We also wanted to strike the balance between too much design and too little design. Having addition design meetings would have taken away from the time spent implementing the applications. 
+
+\subsection{Setup}
+
+At the start of the project we were not aware that Visual Studio Online would require our JavaEE project to be buildable using Maven. We should have looked into continuous integration testing at the start of the project. To change part way through the project would have required us to create a new Maven project and then copy across the source files.
+
+We kept on getting git conflicts due to configuration files, especially within the JavaEE project. These files are needed so that the correct dependencies and files can be loaded into the project, however these caused merge conflicts throughout the project. We also had merge conflicts in the .NET project's database migration files. These were added to the git ignore, but due to them still being referenced with the .csproj file caused the build to constantly fail.
+
+\subsection{Implementation}
+
+Three out of the five developers used Apple Macs to develop on, however Visual Studio will not run on OS X. This meant working from virtual machines.  Due to hardware capabilities these were given low amounts of RAM. When MS windows detects that it is low on memory it starts to close programs. This caused development to take longer that it should have.
+
+Through the majority of the project two developers were required to check through the work that had been performed before it could be pushed to the develop branch. This was a good way of working and many bugs were found through doing this. It also made sure that two other developers knew what features had been implemented.
+
+However, having two people test every feature slowed down the development process as it took awhile to get these approved. This delayed dependent features from getting started. For the last two weeks this was changed to one developer to speed up this process.
+
+Little commenting of the code was performed, and the coding standards were not discussed at the started of the project. We tried to stick to a commonly used coding standard for the languages. However, switching between methods starting with uppercase letters in .NET, and lowercase letters in JavaEE, often caused standards to merge.
+
+\subsection{Agile Practices}
+
+During the project some pair programming was performed. This was a good way of solving bugs and overcoming technical challenges. With more time it would have been good to fit in more pair programming. This would help standardise the coding style and allow multiple develops to learn about aspects of the system.
+
+We planed to perform code reviews and perform static code analysis. In the initial meeting about development methodology we planned to have a few group code reviews to check that everyone is following the same coding standards; then code reviews would be performed in smaller groups throughout the project. Unfortunately due to time constraints this did not happen.
+
+At the end of every sprint we performed retrospectives, giving us the opportunity to review the work done for a sprint. This also gave the group a specific date to complete tasks by. Rather than reviewing work this meeting was often used to complete pull requests and perform the merge to the master branch. 
+
+Unit testing was not started until a few weeks before the deadline. It would have been useful to having looked into unit testing at the start of the project, and setup the tools required to do this. Unit tests have been added to the JavaEE project, however the .NET project has very poor unit test coverage. 
+
+\subsection{Development Tools}
+
+Communication was primarily done via Facebook. This was a good way of arrange meetings and sharing setup instructions. However, we believe that the project would have ran more smoothly if we all worked in the same office and had the same working hours. This would have allowed questions about the code others have written to be answer straight away, and ideas to be shared more easily. 
+
+Making use of Visual Studio Online allowed us to easily track the progress of the project. Each week we reviewed the burndown graph to see how fair behind schedule we were. We could then plan the following weeks working taking into consideration what tasks were carrying over into the new sprint. 
+
+Due to the limited amount of users allowed to contribute to a Visual Studio Online we also made use of GitHub to allow our customer and project manger to view the code being produced. Are local versions of the repositories were then setup to push to both remote repositories. This was useful as when Visual Studio Online was down we could use GitHub and vis-versa. 
+
+Everyone made good use of version control allowing us to keep track of changes. New branches were created for every feature. This allowed the braking up of the development. When a develop was waiting for a feature to be reviewed they could get started on a new feature using a different branch. Though we had some git issues through lack of experience, overall this worked well.
+
+\subsection{Conclusion}
+
+Throughout the project all developers worked hard to get the two programs working. We stuck to the development methodology throughout the project, and by the end the process had become much smoother at following it. Though not all features were completed, we have been able to deliver a comprehensive product on time.
+
