@@ -1,0 +1,69 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: /Users/connorgoddard/Desktop/GoAber/doc/report/.texpadtmp/report.aux
+Case mismatch error between cite keys VSO and vso
+---line 73 of file /Users/connorgoddard/Desktop/GoAber/doc/report/.texpadtmp/report.aux
+ : \citation{VSO
+ :              }
+I'm skipping whatever remains of this command
+The style file: plain.bst
+Database file #1: ../bibliography.bib
+Warning--entry type for "git-flow" isn't style-file defined
+--line 34 of file ../bibliography.bib
+Warning--entry type for "vso" isn't style-file defined
+--line 46 of file ../bibliography.bib
+Warning--entry type for "martin-fowler" isn't style-file defined
+--line 59 of file ../bibliography.bib
+Warning--entry type for "bbc-it" isn't style-file defined
+--line 71 of file ../bibliography.bib
+I was expecting a `,' or a `}'---line 94 of file ../bibliography.bib
+ :  
+ :  @misc{Mockito,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 150 of file ../bibliography.bib
+ : @misc{ VSO
+ :           ,
+I'm skipping whatever remains of this entry
+You've used 20 entries,
+            2118 wiz_defined-function locations,
+            588 strings with 5805 characters,
+and the built_in function-call counts, 4324 in all, are:
+= -- 425
+> -- 146
+< -- 0
++ -- 62
+- -- 42
+* -- 135
+:= -- 743
+add.period$ -- 72
+call.type$ -- 20
+change.case$ -- 81
+chr.to.int$ -- 0
+cite$ -- 20
+duplicate$ -- 143
+empty$ -- 436
+format.name$ -- 42
+if$ -- 945
+int.to.chr$ -- 0
+int.to.str$ -- 20
+missing$ -- 1
+newline$ -- 115
+num.names$ -- 40
+pop$ -- 158
+preamble$ -- 1
+purify$ -- 61
+quote$ -- 0
+skip$ -- 129
+stack$ -- 0
+substring$ -- 100
+swap$ -- 20
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 80
+warning$ -- 0
+while$ -- 40
+width$ -- 22
+write$ -- 225
+(There were 3 error messages)

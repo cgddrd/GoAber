@@ -1,0 +1,28 @@
+\frametitle{Critique - ``Comment: Ethics of Artificial Intelligence"}
+
+   \small{
+
+      \textbf{Overview}: Draws particular attention towards both the direct and indirect implications of `green-lighting' autonomous weapons, highlighting present-day examples of plans to utilise such technology.
+
+      \begin{wrapfigure}{r}{0.25\textwidth}
+   \vspace{-15pt}
+  \begin{center}
+    \includegraphics[width=0.25\textwidth]{paper3.png}
+  \end{center}
+  \end{wrapfigure}
+
+  ^^IContent is also primarily opinion-led:
+
+^^I\begin{itemize}
+   ^^I\footnotesize {
+   ^^I\item[] Matches the `article'-style document.
+   ^^I\item[] Targeting a much broader range of readers.
+   ^^I\item[] Natural bias toward author's own opinions.
+   ^^I}
+   \end{itemize}
+
+
+   Upon further investigation, author's description of `CODE' project fails to clearly highlight that ultimate decision to engage targets remains in control of human commander.
+
+     }
+

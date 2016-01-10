@@ -1,0 +1,3 @@
+./asadmin create-auth-realm --classname com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm --property jaas-context=jdbcRealm:datasource-jndi=jdbc/GoAberDB:user-table=users:user-name-column=email:password-column=password:group-table=userrole:group-name-column=roleid:group-table-user-name-column=email:digest-algorithm=SHA-256:digestrealm-password-enc-algorithm=none NeilRealm
+
+./asadmin create-jdbc-connection-pool --user Root --password password --host localhost --port 3306 --restype javax.sql.DataSource --datasourceclassname com.mysql.jdbc.jdbc2.optional.MysqlDataSource 
