@@ -15,7 +15,7 @@
 \title{Go Aber - Fitness Tracking Application}
 \subtitle{\small{SEM5640 - Developing Advanced Internet-Based Applications}}
 %\date{\today}
-\author{\footnotesize{Connor Goddard (clg11), Samuel Jackson (slj11), Helen Harman (heh14), Daniel McGuckin (dam34), Craig Heptinstall (crh13)}}
+\author{\footnotesize{Connor Goddard (clg11), Samuel Jackson (slj11), Helen Harman (heh14), Daniel McGuckin (dam44), Craig Heptinstall (crh13)}}
 \institute{Aberystwyth University}
 
 \begin{document}
@@ -129,9 +129,9 @@
   	Key Points:
   
   	\begin{itemize}
-		\item Artefact from our first discussion a bout the database model
+		\item Artefact from our first discussion about the database model
 	   	\item Activity data: One table for all types, one row per entry
-	   	\item User can only have one row
+	   	\item User can only have one role
 	   	\item Our data model very closely mimicked this.
 	\end{itemize}
      
@@ -163,7 +163,7 @@
   			\footnotesize{
   			\item All members expected to hold development responsibilities.
   			\item Delegation of tasks manageable at the scale of an \textit{individual developer}. 
-  			\item Multiple allocation of roles required (between technical and organisational aspects).
+%  			\item Multiple allocation of roles required (between technical and organisational aspects).
   			}
   			
   			\end{itemize}
@@ -175,9 +175,9 @@
   			\footnotesize{
 %  			\item Non-trivial size \& complexity.
   			\item Lack of prior team knowledge and experience in primary technologies (ASP.NET \& JavaEE).
-  			\item Expectation to face technical challenges and need for design review.
+%  			\item Expectation to face technical challenges and need for design review.
   			\item Required flexibility with respect to work (re-)scheduling and design changes.
-  			\item Too much up-front design likely to be in vain.
+%  			\item Too much up-front design likely to be in vain.
   			\item Deployment of enhanced individual developer skill-sets to appropriate technical areas. 
   			}
   			\end{itemize}
@@ -230,7 +230,9 @@
 \begin{frame}[fragile]
   \frametitle{Development Approach}
   
-   \small{ 
+  \small {
+  
+  \vspace{-10pt}
    
    \textbf{Work Planning}
    
@@ -238,100 +240,127 @@
   			\footnotesize{
   			\item 6-day Sprint cycles (12-day for first sprint).
   			\item Weekly \textbf{sprint retrospective} and \textbf{sprint planning} meetings. - In collaboration with project manager (Nigel) 
-  			\item No daily-stand up meeting (\textit{flexbility to do this!})
+%  			\item No daily-stand up meeting (\textit{flexibility to do this!})
 %  			\item Product backlog managed by dedicated Product Owner - responsible for prioritising work left to accomplish across the remaining project duration.
 %  			\item Development team (which included the PO) decided on how much work could be accomplished per sprint, and how many sprints would be required.
 %  			\item Final sprint defined as ``spare" in preparation for overdue work.
   			}
   		\end{itemize}
-  		  		
   		
-  	\textbf{Progress Monitoring}
+   \textbf{Design}
    
    \begin{itemize}
   			\footnotesize{
-  			\item Developers required to estimate remaining work for allocated tasks.
-  			\item Estimates collated into a \textbf{burn-down chart} for the current sprint.  
-			\item Team velocity provided general indication as to the overall performance with respect to accomplishing committed tasks.
+%  			\item Attempted to adopt an \textbf{evolutionary design} approach.
+%  			\item Team had scope to address issues at a \textit{design level}, rather than been forced to make ``ad-hoc" changes/fixes at an implementation level.
+  			\item Weekly SCRUM meetings complemented evolutionary design, providing regular opportunities to re-visit the design \textit{all together as a team}.
   			}
   		\end{itemize}
+  		  		
+  		
+%  	\textbf{Progress Monitoring}
+%   
+%   \begin{itemize}
+%  			\footnotesize{
+%  			\item Developers required to estimate remaining work for allocated tasks.
+%  			\item Estimates collated into a \textbf{burn-down chart} for the current sprint.  
+%			\item Team velocity provided general indication as to the overall performance with respect to accomplishing committed tasks.
+%  			}
+%  		\end{itemize}
   		
   \textbf{Development}
    
    \begin{itemize}
   			\footnotesize{
-  			\item Continuous integration.
-  			\item Use of \textit{Git-flow} branching model.
+  			\item Continuous integration (Visual Studio Online).
   			\item All individual development work undertaken in both JavaEE \& ASP.NET. 
   			}
   			
   		\end{itemize}
-  			  
-   }
-   
-\end{frame}
-
-
-\begin{frame}[fragile]
-  \frametitle{Development Approach}
-  
-   \small{ 
-   
-       	 \textbf{Design}
-   
-   \begin{itemize}
-  			\footnotesize{
-  			\item Attempted to adopt an \textbf{evolutionary design} approach.
-  			\item Team had scope to address issues at a \textit{design level}, rather than been forced to make ``ad-hoc" changes/fixes at an implementation level.
-  			\item Weekly SCRUM meetings complemented this approach, providing regular opportunities to re-visit the design \textit{all together as a team}.
-  			}
-  		\end{itemize}
   		
-   \textbf{Testing}
-   
-   \begin{itemize}
+  	\textbf{Testing}
+  	
+  	   \begin{itemize}
   			\footnotesize{
   			\item No ``official" testing strategy was adopted, however aspects from both TDD and BDD were utilised (e.g. Acceptance testing and regular re-factoring).
-  			\item Two ``levels" of testing:
-  			
-  			\begin{enumerate}
-  			\footnotesize{
-  				\item \textbf{Unit \& Regression Testing} - Undertaken by  component author. \textbf{Included the use of mocked test doubles.}
-  				\item \textbf{Acceptance Testing} - Undertaken either: manually as part of integration process; or automatically via Cucumber framework.
-  				}
-  			\end{enumerate}
-  			
-  				}
+%  			\item Two ``levels" of testing:
+% 			
+%  			\begin{enumerate}
+%  			\footnotesize{
+%  				\item \textbf{Unit \& Regression Testing} - Undertaken by component author. \textbf{Included the use of mocked test doubles.}
+%  				\item \textbf{Acceptance Testing} - Undertaken either: manually as part of integration process; or automatically via Cucumber framework.
+%  				}
+%  			\end{enumerate}
+%  			
+ 			}
   		\end{itemize}
+  	
+   
+   }
+   
+\end{frame}
+
+
+%\begin{frame}[fragile]
+%  \frametitle{Development Approach}
+%  
+%   \small{ 
+%   
+%       	 \textbf{Design}
+%   
+%   \begin{itemize}
+%  			\footnotesize{
+%%  			\item Attempted to adopt an \textbf{evolutionary design} approach.
+%  			\item Team had scope to address issues at a \textit{design level}, rather than been forced to make ``ad-hoc" changes/fixes at an implementation level.
+%  			\item Weekly SCRUM meetings complemented this approach, providing regular opportunities to re-visit the design \textit{all together as a team}.
+%  			}
+%  		\end{itemize}
+%  		
+%%   \textbf{Testing}
+%%   
+%%   \begin{itemize}
+%%  			\footnotesize{
+%%  			\item No ``official" testing strategy was adopted, however aspects from both TDD and BDD were utilised (e.g. Acceptance testing and regular re-factoring).
+%%  			\item Two ``levels" of testing:
+%%  			
+%%  			\begin{enumerate}
+%%  			\footnotesize{
+%%  				\item \textbf{Unit \& Regression Testing} - Undertaken by component author. \textbf{Included the use of mocked test doubles.}
+%%  				\item \textbf{Acceptance Testing} - Undertaken either: manually as part of integration process; or automatically via Cucumber framework.
+%%  				}
+%%  			\end{enumerate}
+%%  			
+%%  				}
+%%  		\end{itemize}
   		
 
-   }
+%   }
    
-\end{frame}
+%\end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Visual Studio Online}
-  
-   \small{ 
-   	
-   	Suite of web-based tools designed to support development teams wishing to deliver software using an agile approach.
-   	
-   	Free for teams with up to five developers.
-   	
-   	Included a comprehensive range of facilities, including:
-   	
-   	  \begin{itemize}
-  			\footnotesize{
-  			\item Interactive Kanban-style work planning boards
-  			\item Automatic tracking and presentation of project metrics (inc. velocity, burn-down and cumulative flow)
-  			\item Integrated Git-based version control system
-  			\item Integrated build server \& automated testing environment (Continuous Integration)
-  			}
-  		\end{itemize}
-   	
-   }
-   
-\end{frame}
+%\begin{frame}[fragile]
+%  \frametitle{Visual Studio Online}
+%  
+%   \small{ 
+%   	
+%   	Suite of web-based tools designed to support development teams wishing to deliver software using an agile approach.
+%   	
+%   	Free for teams with up to five developers.
+%   	
+%   	Included a comprehensive range of facilities, including:
+%   	
+%   	  \begin{itemize}
+%  			\footnotesize{
+%  			\item Interactive Kanban-style work planning boards
+%  			\item Automatic tracking and presentation of project metrics (inc. velocity, burn-down and cumulative flow)
+%  			\item Integrated Git-based version control system
+%  			\item Integrated build server \& automated testing environment (Continuous Integration)
+%  			}
+%  		\end{itemize}
+%   	
+%   }
+%   
+%\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Team Performance}
@@ -407,7 +436,7 @@
      \begin{itemize}
   			\footnotesize{
   			\item Lack of clear vendor documentation. 
-  			\item Resorted to following tutorials created by previous affected developers.
+%  			\item Resorted to following tutorials created by previous affected developers.
   			\item Glassfish configuration (\url{asadmin} tool for scripting) 
   			}
   	 \end{itemize}
@@ -416,9 +445,9 @@
   	 
      \begin{itemize}
   			\footnotesize{
-  			\item Originally chose to use MySQL - common between both platforms.
-  			\item Switched to using SQL Server for ASP.NET - default support by Identity Framework.
-  			\item Caused unintended delays due to the need to revise the database structure.
+%  			\item Originally chose to use MySQL - common between both platforms.
+  			\item Switched from MySQL to SQL Server for ASP.NET - default support by Identity Framework.
+%  			\item Caused unintended delays due to the need to revise the database structure.
   			}
   	 \end{itemize}
   	 
@@ -426,7 +455,7 @@
   	 
      \begin{itemize}
   			\footnotesize{
-  			\item Application design could have been improved to better support a multi-tier architecture.
+%  			\item Application design could have been improved to better support a multi-tier architecture.
   			\item Significant proportion of business logic residing in controller classes or service classes organised in WAR.
   			\item Partial support for Service Layer pattern (via dedicated service classes).
   			}
